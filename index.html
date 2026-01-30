@@ -10,118 +10,158 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
-    .glass-nav { background: rgba(255,255,255,.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
-    .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; cursor: pointer; transition: .2s; display:flex; align-items:center; height:100%; }
-    .nav-link:hover { color:#f43f5e; }
 
-    .menu-dropdown {
-      display:none;
-      position:absolute;
-      top:100%;
-      left:50%;
-      transform: translateX(-50%);
-      background:#fff;
-      border:1px solid #f1f5f9;
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
-      border-radius: 12px;
-      padding: 14px;
-      min-width: 220px;
-      z-index: 1000;
-      pointer-events:auto;
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #ffffff;
+      color: #0f172a;
+      overflow-x: hidden;
     }
-    .group:hover .menu-dropdown { display:block; }
-    .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition:.2s; background:#fff; }
-    .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
 
-    #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:2000; }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f1f5f9;
+    }
 
-    .hero-box { border: 2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; }
-    .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+    .nav-link {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #64748b;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      user-select: none;
+    }
+    .nav-link:hover { color: #f43f5e; }
 
-    .hidden-section { display:none; }
-    .white-faq { background:#ffffff !important; }
+    /* Dropdown (artık hover değil, click ile açılıyor) */
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      border: 1px solid #f1f5f9;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 240px;
+      z-index: 2000;
+      pointer-events: auto;
+    }
+
+    /* Dropdown açıkken header yazısı görünmesin (senin “yazı gitmiyor” sorunu) */
+    body.dropdown-open #page-header { visibility: hidden; }
+
+    .lang-btn {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+      background: #fff;
+    }
+    .lang-btn.active { background: #f43f5e; color: white; border-color: #f43f5e; }
+
+    .hero-box {
+      border: 2px dashed #e2e8f0;
+      border-radius: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      overflow: hidden;
+    }
+    .hero-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .ad-box { background: #fffbeb; border: 1px solid #fef3c7; border-radius: 1.5rem; }
+    .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+
+    .hidden-section { display: none; }
+
+    #notification { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 5000; }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
 
-  <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-black uppercase tracking-widest"></div>
+  <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
   <!-- Navbar -->
   <nav class="fixed top-0 w-full z-50 glass-nav h-20">
     <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-
       <div class="flex items-center gap-10 h-full">
-        <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" id="brand" onclick="showView('home')">
+        <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showView('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
 
         <div class="hidden lg:flex items-center space-x-8 h-full">
-          <span class="nav-link" id="nav-home" onclick="showView('home')">Anasayfa</span>
+          <span onclick="showView('home')" class="nav-link" id="nav-home">Anasayfa</span>
 
-          <div class="relative group h-full flex items-center">
-            <span class="nav-link" id="nav-apps" onclick="showView('apps')">Uygulamalar</span>
-            <div class="menu-dropdown">
+          <div class="relative h-full flex items-center">
+            <span class="nav-link" id="nav-apps-btn">Uygulamalar</span>
+            <div class="menu-dropdown" id="nav-apps-dd">
               <div class="flex justify-around items-center">
-                <i class="fab fa-youtube text-red-600 text-2xl hover:scale-110 transition cursor-pointer" title="YouTube"></i>
-                <i class="fab fa-instagram text-pink-600 text-2xl hover:scale-110 transition cursor-pointer" title="Instagram"></i>
-                <i class="fab fa-tiktok text-black text-2xl hover:scale-110 transition cursor-pointer" title="TikTok"></i>
-                <i class="fab fa-twitter text-blue-400 text-2xl hover:scale-110 transition cursor-pointer" title="X"></i>
+                <i class="fab fa-youtube text-red-600 text-2xl"></i>
+                <i class="fab fa-instagram text-pink-600 text-2xl"></i>
+                <i class="fab fa-tiktok text-black text-2xl"></i>
+                <i class="fab fa-twitter text-blue-400 text-2xl"></i>
               </div>
-              <div class="mt-3 text-[10px] font-bold text-slate-400 text-center uppercase tracking-widest">
+              <div class="mt-3 text-[10px] font-black text-slate-400 text-center uppercase tracking-widest">
                 iOS & Google Play – Yakında
               </div>
             </div>
           </div>
 
-          <div class="relative group h-full flex items-center">
-            <span class="nav-link" id="nav-platform" onclick="showView('platform')">Platform</span>
-            <div class="menu-dropdown text-center">
-              <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest italic" id="platform-pill">
+          <div class="relative h-full flex items-center">
+            <span class="nav-link" id="nav-platform-btn">Platform</span>
+            <div class="menu-dropdown text-center" id="nav-platform-dd">
+              <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest italic">
                 Gemini kullanılıyor
               </span>
             </div>
           </div>
 
-          <div class="relative group h-full flex items-center">
-            <span class="nav-link" id="nav-production" onclick="showView('production')">Üretim Yeri</span>
-            <div class="menu-dropdown grid grid-cols-1 gap-1">
-              <button onclick="setMode('youtube','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Başlık</button>
-              <button onclick="setMode('youtube','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Hashtag</button>
+          <div class="relative h-full flex items-center">
+            <span class="nav-link" id="nav-production-btn">Üretim Yeri</span>
+            <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
+              <button onclick="setMode('youtube', 'title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Başlık</button>
+              <button onclick="setMode('youtube', 'tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Hashtag</button>
 
-              <button onclick="setMode('instagram','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Başlık</button>
-              <button onclick="setMode('instagram','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Hashtag</button>
+              <button onclick="setMode('instagram', 'title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Başlık</button>
+              <button onclick="setMode('instagram', 'tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Hashtag</button>
 
-              <button onclick="setMode('tiktok','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Başlık</button>
-              <button onclick="setMode('tiktok','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Hashtag</button>
+              <button onclick="setMode('tiktok', 'title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Başlık</button>
+              <button onclick="setMode('tiktok', 'tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Hashtag</button>
 
-              <button onclick="setMode('x','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Başlık</button>
-              <button onclick="setMode('x','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Hashtag</button>
+              <button onclick="setMode('x', 'title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Başlık</button>
+              <button onclick="setMode('x', 'tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Hashtag</button>
             </div>
           </div>
 
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
-        <button id="loginBtn" onclick="login()" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
+      <div class="flex items-center gap-4">
+        <button onclick="login()" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
-          <span class="text-[10px] font-black uppercase text-slate-700" id="loginText">Google ile Giriş</span>
-        </button>
-        <button id="logoutBtn" onclick="logout()" class="hidden bg-slate-900 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition">
-          Çıkış
+          <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- Header / Language + Description (SADECE HOME’DA GÖRÜNÜR) -->
+  <!-- Dil + Açıklama (Sadece HOME'da görünür) -->
   <header id="page-header" class="pt-28 pb-10 px-4 bg-slate-50 border-b border-slate-100">
     <div class="max-w-7xl mx-auto">
-
-      <!-- dil solda -->
-      <div class="flex flex-wrap gap-3 justify-start mb-8">
+      <div class="flex flex-wrap gap-3 mb-8">
         <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">Türkçe</button>
         <button onclick="setLang('en')" id="l-en" class="lang-btn">English</button>
         <button onclick="setLang('fr')" id="l-fr" class="lang-btn">Français</button>
@@ -131,97 +171,76 @@
       </div>
 
       <p id="desc-text" class="text-slate-500 text-sm font-semibold max-w-3xl leading-relaxed opacity-80">
-        Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.
+        Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir.
+        İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.
       </p>
     </div>
   </header>
 
+  <!-- Ana içerik -->
   <main id="main-content" class="flex-grow max-w-7xl mx-auto w-full px-4 py-14">
 
     <!-- HOME -->
     <div id="view-home">
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
         <div class="hero-box">
-          <img class="hero-img" src="hero.jpeg" alt="Hero">
+          <img class="hero-img" src="hero.jpeg" alt="hero">
         </div>
 
-        <!-- Google sponsor alan (SABİT) -->
-        <div class="bg-amber-50 border border-amber-100 rounded-[1.5rem] p-8 text-center shadow-inner flex flex-col items-center justify-center">
-          <span class="text-[9px] font-black text-amber-600 uppercase tracking-widest mb-4 bg-amber-100/40 px-3 py-1 rounded">
-            Google Sponsorlu Alan
-          </span>
-          <div class="w-full h-40 border-2 border-amber-200 border-dashed rounded-xl flex items-center justify-center italic text-amber-400 text-xs font-bold">
+        <div class="ad-box flex flex-col items-center justify-center p-8 text-center shadow-inner">
+          <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-6 bg-amber-50 px-3 py-1 rounded">Google Sponsorlu Alan</span>
+          <div class="w-full h-full border-2 border-amber-100 border-dashed rounded-xl flex items-center justify-center italic text-amber-300 text-xs font-bold">
             REKLAM GÖSTERİMİ
           </div>
-          <div class="mt-4 text-[10px] font-bold text-amber-700/70 uppercase tracking-widest">
-            (Bu alan sabittir)
-          </div>
+          <div class="mt-4 text-[10px] font-black text-amber-600 uppercase tracking-widest">(Bu alan sabittir)</div>
         </div>
 
         <div class="hero-box">
-          <img class="hero-img" src="hero1.jpeg" alt="Hero1">
+          <img class="hero-img" src="hero1.jpeg" alt="hero1">
         </div>
       </section>
 
-      <!-- ÜRETİM (home içinde de görünecek) -->
-      <div id="view-production-home">
-        <section class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-2xl mb-14">
-          <div class="flex items-center justify-between mb-10 border-b border-slate-50 pb-6">
-            <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE BAŞLIK ÜRETİMİ</h3>
+      <!-- ÜRETİM ALANI -->
+      <section id="generator" class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[3rem] p-10 shadow-2xl mb-14">
+        <div class="flex items-center justify-between mb-10 border-b border-slate-50 pb-6">
+          <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE BAŞLIK ÜRETİMİ</h3>
+          <div class="text-[10px] font-black text-rose-500 bg-rose-50 px-4 py-1.5 rounded-full" id="credit-count">HAK: 2 / 2</div>
+        </div>
 
-            <!-- platform+type bazlı sayaç -->
-            <div class="text-[10px] font-black text-rose-500 bg-rose-50 px-4 py-1.5 rounded-full" id="credit-count">
-              HAK: -- / 2
-            </div>
+        <div class="space-y-8">
+          <div>
+            <label class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
+            <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
 
-          <div class="space-y-8">
-            <div>
-              <label class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
-              <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
-            </div>
+          <button onclick="generate()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">
+            ÜRETİMİ BAŞLAT
+          </button>
 
-            <button onclick="generate()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">
-              ÜRETİMİ BAŞLAT
-            </button>
-
-            <div id="result-box" class="hidden">
-              <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
-                <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
-                <button onclick="copyResult()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-125" aria-label="Kopyala">
-                  <i class="far fa-copy"></i>
-                </button>
-                <div id="validation-msg" class="mt-4 text-[10px] font-black text-rose-500 opacity-60 uppercase"></div>
-              </div>
-            </div>
-
-            <div class="text-center">
-              <button onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">
-                Limit bitti mi? Reklam izleyerek +1 üretim kazan
+          <div id="result-box" class="hidden">
+            <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
+              <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
+              <button onclick="copyResult()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-125" aria-label="kopyala">
+                <i class="far fa-copy"></i>
               </button>
+              <div id="validation-msg" class="mt-4 text-[10px] font-black text-rose-500 opacity-60 uppercase"></div>
             </div>
           </div>
-        </section>
-      </div>
+
+          <div class="text-center">
+            <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">
+              Limit bitti mi? Reklam izleyerek +1 üretim kazan
+            </span>
+          </div>
+        </div>
+      </section>
 
       <!-- HERO2 -->
       <section class="mb-14">
         <div class="hero-box w-full h-80">
-          <img class="hero-img" src="hero2.jpeg" alt="Hero2">
+          <img class="hero-img" src="hero2.jpeg" alt="hero2">
         </div>
       </section>
-
-      <!-- Olmazsa olmazlar -->
-      <section class="max-w-4xl mx-auto mb-16">
-        <h2 class="text-[11px] font-black uppercase text-slate-400 tracking-[0.35em] mb-6">Sitenin Olmazsa Olmazları</h2>
-        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-semibold text-slate-700">
-          <li class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">Politika uyumlu başlık ve hashtag önerileri</li>
-          <li class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">Başlıklar 40 karakter, hashtag setleri 59 karakter sınırında</li>
-          <li class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">Her platform için 2 başlık + 2 hashtag hakkı</li>
-          <li class="p-4 bg-slate-50 border border-slate-100 rounded-2xl">Limit dolunca reklam ile +1 üretim</li>
-        </ul>
-      </section>
-
     </div>
 
     <!-- APPS -->
@@ -236,81 +255,10 @@
     </div>
 
     <!-- PLATFORM -->
-    <div id="view-platform" class="hidden-section mb-20 text-center py-28 bg-slate-900 rounded-[3rem] text-white">
+    <div id="view-platform" class="hidden-section mb-20 text-center py-32 bg-slate-900 rounded-[3rem] text-white">
       <i class="fas fa-brain text-rose-500 text-5xl mb-6"></i>
       <h2 class="text-3xl font-black uppercase tracking-tighter">Gemini AI kullanılıyor</h2>
       <p class="text-slate-400 text-xs mt-4 font-bold uppercase tracking-widest">Politika uyumlu içerik üretimi</p>
-    </div>
-
-    <!-- PRODUCTION (tek başına görüntüleme için) -->
-    <div id="view-production" class="hidden-section">
-      <!-- aynı üretim kartını home içinden clone etmiyoruz; sadece home görünürken zaten var.
-           burada kullanıcı “Üretim Yeri”ne tıklayınca home içindeki üretim kartını gösteriyoruz. -->
-      <div class="text-center py-20 bg-slate-50 rounded-[3rem] border border-slate-100">
-        <p class="text-slate-500 font-bold">Üretim alanı Anasayfa içinde yer alır.</p>
-        <button onclick="showView('home'); scrollToGenerator();" class="mt-6 bg-slate-900 text-white px-6 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest hover:bg-slate-800 transition">
-          Üretim Alanına Git
-        </button>
-      </div>
-    </div>
-
-    <!-- Hakkımızda / Basın / Kariyer / SSS / Güvenlik -->
-    <div id="view-static" class="hidden-section">
-      <section class="max-w-4xl mx-auto py-16">
-        <h2 class="text-xl font-black text-slate-900 mb-6">Hakkımızda</h2>
-        <p class="text-slate-600 font-semibold leading-relaxed">
-          Yaratıcıların daha bilinçli içerikler üretmesine yardımcı olmak için geliştirildik.
-          Yapay zekâ destekli sistemimiz, sosyal medya platformlarına uygun başlık ve hashtag önerileri sunar.
-          Yanıltıcı içerik üretmez, garanti vaat etmez.
-        </p>
-
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <h3 class="text-sm font-black uppercase tracking-widest text-slate-700 mb-3">Basın Odası</h3>
-            <p class="text-slate-500 font-semibold">Yakında</p>
-          </div>
-
-          <div>
-            <h3 class="text-sm font-black uppercase tracking-widest text-slate-700 mb-3">Kariyer</h3>
-            <p class="text-slate-500 font-semibold">Yakında açılıyor</p>
-          </div>
-        </div>
-
-        <div class="mt-12 white-faq border border-slate-100 rounded-3xl p-8">
-          <h3 class="text-sm font-black uppercase tracking-widest text-slate-700 mb-5">Sıkça Sorulan Sorular</h3>
-
-          <div class="space-y-5 text-slate-700 font-semibold">
-            <div>
-              <div class="font-black">Bu site ne işe yarar?</div>
-              <div class="text-slate-600">YouTube, Instagram, TikTok ve X için politika uyumlu başlık ve hashtag önerileri üretir.</div>
-            </div>
-
-            <div>
-              <div class="font-black">Üretilen içerikler garanti verir mi?</div>
-              <div class="text-slate-600">Hayır. Öneriler yapay zekâ tarafından oluşturulur ve bilgilendirme amaçlıdır.</div>
-            </div>
-
-            <div>
-              <div class="font-black">Günlük kullanım sınırı var mı?</div>
-              <div class="text-slate-600">Evet. Her platform için günlük 2 başlık ve 2 hashtag üretim hakkı vardır.</div>
-            </div>
-
-            <div>
-              <div class="font-black">Limit dolunca ne olur?</div>
-              <div class="text-slate-600">Reklam izleyerek 1 ek üretim hakkı kazanılabilir.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-12">
-          <h3 class="text-sm font-black uppercase tracking-widest text-slate-700 mb-3">Güvenlik</h3>
-          <p class="text-slate-600 font-semibold leading-relaxed">
-            Bu platformda hiçbir şekilde veri kopyalaması yapılmaz.
-            Kullanıcı içerikleri kayıt altına alınmaz, kişisel veri toplanmaz, saklanmaz veya satılmaz.
-            Sistem yalnızca anlık üretim için çalışır.
-          </p>
-        </div>
-      </section>
     </div>
 
   </main>
@@ -328,65 +276,82 @@
 
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">KURUMSAL</span>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">Hakkımızda</a>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">Basın Odası</a>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">Kariyer</a>
+        <a href="./about.html" class="block hover:text-white transition opacity-70">Hakkımızda</a>
+        <a href="./press.html" class="block hover:text-white transition opacity-70">Basın Odası</a>
+        <a href="./career.html" class="block hover:text-white transition opacity-70">Kariyer</a>
       </div>
 
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">DESTEK</span>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">SSS</a>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">Güvenlik</a>
-        <a href="#" onclick="openStatic(); return false;" class="block hover:text-white transition opacity-70">İletişim</a>
+        <a href="./faq.html" class="block hover:text-white transition opacity-70">SSS</a>
+        <a href="./security.html" class="block hover:text-white transition opacity-70">Güvenlik</a>
+        <a href="./contact.html" class="block hover:text-white transition opacity-70">İletişim</a>
       </div>
     </div>
 
     <div class="max-w-7xl mx-auto mt-16 pt-10 border-t border-slate-800 text-center">
       <p class="text-[9px] opacity-30 normal-case max-w-3xl mx-auto leading-loose italic">
-        Öneriler yapay zekâ tarafından üretilir. Sonuçlar değişiklik gösterebilir. Bu platform YouTube, Instagram, TikTok, X veya Google ile resmî bağlantılı değildir.
+        Öneriler yapay zekâ tarafından üretilir. Sonuçlar değişiklik gösterebilir.
+        Bu platform YouTube, Instagram, TikTok, X veya Google ile resmî bağlantılı değildir.
       </p>
     </div>
   </footer>
 
-  <!-- Ad Modal (UI aynı, doğrulama backend) -->
-  <div id="ad-modal" class="fixed inset-0 z-[100] bg-black/60 hidden items-center justify-center p-4">
+  <!-- Ad Modal -->
+  <div id="ad-modal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] max-w-sm w-full text-center shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]">
       <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto mb-6">
         <i class="fas fa-play text-rose-500 text-2xl ml-1"></i>
       </div>
       <h3 class="text-xl font-black text-slate-900 mb-3" id="ad-title">EK ÜRETİM HAKKI</h3>
-      <p class="text-slate-500 text-xs font-bold leading-relaxed mb-8 uppercase opacity-60" id="ad-desc">
-        Reklam tamamlandıktan sonra +1 üretim tanımlanacaktır.
-      </p>
-
-      <button onclick="startAdFlow()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">
-        Reklamı Başlat
-      </button>
-
-      <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase hover:text-slate-900 tracking-widest">
-        İptal
-      </button>
+      <p class="text-slate-500 text-xs font-bold leading-relaxed mb-8 uppercase opacity-60" id="ad-desc">Reklam tamamlandıktan sonra +1 üretim tanımlanacaktır.</p>
+      <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">Reklamı Başlat</button>
+      <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase hover:text-slate-900 tracking-widest">İptal</button>
     </div>
   </div>
 
   <script>
-    // ---- CONFIG
-    const API = {
-      usage: "/api/usage/today",
-      genTitle: "/api/generate/title",
-      genTag: "/api/generate/tag",
-      adComplete: "/api/ads/complete"
-    };
-
-    // ---- i18n (dosyadan)
+    // ====== i18n loader (i18n/i18n.json) + fallback
     let I18N = null;
 
-    const state = {
+    const fallback = {
+      tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.",
+      en: "AI-powered platform; generates up-to-date title and hashtag suggestions for YouTube, Instagram, TikTok, and X. Designed to help content creators make more informed decisions.",
+      fr: "Plateforme alimentée par l'IA ; génère des suggestions de titres et de hashtags pour YouTube, Instagram, TikTok et X. Conçue pour aider les créateurs.",
+      de: "KI-gestützte Plattform; generiert Titel- und Hashtag-Vorschläge für YouTube, Instagram, TikTok und X. Entwickelt für Ersteller.",
+      es: "Plataforma impulsada por IA; genera sugerencias de títulos y hashtags para YouTube, Instagram, TikTok y X. Diseñada para creadores.",
+      pt: "Plataforma movida a IA; gera sugestões de títulos e hashtags para YouTube, Instagram, TikTok e X. Projetada para criadores."
+    };
+
+    async function loadI18n() {
+      try {
+        const res = await fetch("./i18n/i18n.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("i18n.json okunamadı");
+        I18N = await res.json();
+      } catch (e) {
+        I18N = null;
+      } finally {
+        if (!I18N) {
+          I18N = {
+            tr: { hero: { description: fallback.tr } },
+            en: { hero: { description: fallback.en } },
+            fr: { hero: { description: fallback.fr } },
+            de: { hero: { description: fallback.de } },
+            es: { hero: { description: fallback.es } },
+            pt: { hero: { description: fallback.pt } }
+          };
+        }
+        setLang("tr");
+      }
+    }
+
+    // ====== state
+    let state = {
       lang: "tr",
       platform: "youtube",
       type: "title",
-      usage: null, // backend'den gelecek
-      user: null
+      // demo credits: platform bazlı 2/2 (backend yoksa çalışsın diye)
+      credits: JSON.parse(localStorage.getItem("nsr_credits") || '{"youtube":{"title":2,"tag":2},"instagram":{"title":2,"tag":2},"tiktok":{"title":2,"tag":2},"x":{"title":2,"tag":2}}')
     };
 
     function notify(msg) {
@@ -396,160 +361,124 @@
       setTimeout(() => { el.style.display = "none"; }, 2500);
     }
 
-    // ---- Views: yazıların sabit kalma/üst üste binme sorunu buradan çözülür
-    function showView(name) {
+    // ====== Views
+    function showView(viewName) {
+      closeAllDropdowns();
+
+      const views = ["view-home", "view-apps", "view-platform"];
+      views.forEach(id => document.getElementById(id).style.display = "none");
+
       const header = document.getElementById("page-header");
-
-      const views = ["view-home","view-apps","view-platform","view-production","view-static"];
-      views.forEach(v => document.getElementById(v).style.display = "none");
-
-      if (name === "home") {
+      if (viewName === "home") {
         document.getElementById("view-home").style.display = "block";
         header.style.display = "block";
-      } else if (name === "production") {
-        // üretim alanı anasayfa içinde, buradan oraya yönlendiriyoruz
-        document.getElementById("view-home").style.display = "block";
-        header.style.display = "none";
-        setTimeout(scrollToGenerator, 50);
       } else {
-        document.getElementById("view-" + name).style.display = "block";
+        document.getElementById("view-" + viewName).style.display = "block";
         header.style.display = "none";
       }
+
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function scrollToGenerator() {
-      const el = document.getElementById("view-production-home");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function openStatic() {
-      document.getElementById("view-home").style.display = "none";
-      document.getElementById("view-apps").style.display = "none";
-      document.getElementById("view-platform").style.display = "none";
-      document.getElementById("view-production").style.display = "none";
-      document.getElementById("view-static").style.display = "block";
-      document.getElementById("page-header").style.display = "none";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // ---- Language
+    // ====== Language
     function setLang(l) {
       state.lang = l;
       document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
       const btn = document.getElementById("l-" + l);
       if (btn) btn.classList.add("active");
 
-      // desc
-      const desc = I18N?.[l]?.hero?.description;
-      if (desc) document.getElementById("desc-text").innerText = desc;
+      const desc = I18N?.[l]?.hero?.description || fallback[l] || fallback.tr;
+      document.getElementById("desc-text").innerText = desc;
     }
 
-    // ---- Mode
+    // ====== Mode
     function setMode(p, t) {
       state.platform = p;
       state.type = t;
-      const label = `${p} ${t === "title" ? "başlık" : "hashtag"} üretimi`.toUpperCase();
-      document.getElementById("current-mode-title").innerText = label;
-      refreshUsage();
-      showView("production");
+      document.getElementById("current-mode-title").innerText =
+        `${p} ${t === "title" ? "başlık" : "hashtag"} üretimi`.toUpperCase();
+
+      updateUI();
+      closeAllDropdowns();
+
+      // üretim alanına kaydır
+      document.getElementById("generator").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    // ---- Backend usage
-    async function refreshUsage() {
-      try {
-        const res = await fetch(API.usage, { method: "GET" });
-        if (!res.ok) throw new Error("Hak bilgisi alınamadı.");
-        state.usage = await res.json();
-        updateCreditUI();
-      } catch (e) {
-        // backend yoksa en azından ekranda göster
-        document.getElementById("credit-count").innerText = "HAK: -- / 2";
-      }
+    function updateUI() {
+      const remaining = state.credits[state.platform][state.type];
+      document.getElementById("credit-count").innerText = `HAK: ${remaining} / 2`;
     }
 
-    function getRemainingForCurrent() {
-      // Beklenen backend response örneği:
-      // {
-      //  "youtube": {"title_remaining":2,"tag_remaining":2},
-      //  "instagram": {...}, "tiktok": {...}, "x": {...}
-      // }
-      const u = state.usage;
-      if (!u) return null;
-
-      const plat = u[state.platform];
-      if (!plat) return null;
-
-      return state.type === "title" ? plat.title_remaining : plat.tag_remaining;
+    // ====== Ads
+    function openAdModal() {
+      document.getElementById("ad-modal").classList.remove("hidden");
+      document.getElementById("ad-modal").classList.add("flex");
+    }
+    function closeAdModal() {
+      document.getElementById("ad-modal").classList.add("hidden");
+      document.getElementById("ad-modal").classList.remove("flex");
     }
 
-    function updateCreditUI() {
-      const rem = getRemainingForCurrent();
-      if (rem === null || rem === undefined) {
-        document.getElementById("credit-count").innerText = "HAK: -- / 2";
-        return;
-      }
-      document.getElementById("credit-count").innerText = `HAK: ${rem} / 2`;
+    // Demo: reklam simülasyon (backend bağlanınca değiştir)
+    function simulateAd() {
+      const btn = document.getElementById("ad-start-btn");
+      btn.disabled = true;
+      btn.innerText = "YÜKLENİYOR...";
+
+      setTimeout(() => {
+        state.credits[state.platform][state.type] += 1;
+        localStorage.setItem("nsr_credits", JSON.stringify(state.credits));
+        updateUI();
+        closeAdModal();
+
+        btn.disabled = false;
+        btn.innerText = "Reklamı Başlat";
+        notify("+1 hak tanımlandı.");
+      }, 1200);
     }
 
-    // ---- Generate
+    // ====== Generate (demo - backend yoksa da çalışsın diye basit)
     async function generate() {
-      const topic = document.getElementById("topicInput").value.trim();
-      if (!topic) return notify("Lütfen konu giriniz.");
-
-      const remaining = getRemainingForCurrent();
-      if (remaining !== null && remaining <= 0) {
+      const remaining = state.credits[state.platform][state.type];
+      if (remaining <= 0) {
         notify("Limit bitti. 1 reklam izle, 1 üretim kazan.");
         openAdModal();
         return;
       }
 
+      const topic = document.getElementById("topicInput").value.trim();
+      if (!topic) return notify("Lütfen konu giriniz.");
+
       const btn = document.getElementById("genBtn");
       btn.disabled = true;
-      btn.innerText = "YAPAY ZEKA ÇALIŞIYOR...";
+      btn.innerText = "ÜRETİLİYOR...";
 
       try {
-        const endpoint = state.type === "title" ? API.genTitle : API.genTag;
+        // Backend bağlanınca burayı fetch ile değiştirirsiniz.
+        // Şimdilik demo sonuç:
+        let demoResult = "";
 
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            topic,
-            platform: state.platform,
-            lang: state.lang
-          })
-        });
-
-        const data = await res.json().catch(() => ({}));
-
-        if (!res.ok) {
-          const msg = data?.error || "Üretim başarısız.";
-          // ad required durumunu backend böyle döndürsün: { error_code:"AD_REQUIRED" }
-          if (data?.error_code === "AD_REQUIRED") {
-            notify("Limit bitti. 1 reklam izle, 1 üretim kazan.");
-            openAdModal();
-            return;
-          }
-          throw new Error(msg);
+        if (state.type === "title") {
+          demoResult = (topic + " | Trend Başlık Önerisi").slice(0, 40).padEnd(40, ".");
+        } else {
+          demoResult = "#trend #social #content #creator".slice(0, 59);
         }
 
-        // sonuç
-        document.getElementById("result-text").innerText = data.result || "";
-        const len = (data.result || "").length;
+        // Kredi düş
+        state.credits[state.platform][state.type] -= 1;
+        localStorage.setItem("nsr_credits", JSON.stringify(state.credits));
+        updateUI();
 
+        document.getElementById("result-text").innerText = demoResult;
         document.getElementById("validation-msg").innerText =
           state.type === "title"
-            ? `UZUNLUK: ${len} KARAKTER (ZORUNLU 40)`
-            : `UZUNLUK: ${len} KARAKTER (MAX 59)`;
+            ? `UZUNLUK: ${demoResult.length} (ZORUNLU 40)`
+            : `UZUNLUK: ${demoResult.length} (MAX 59)`;
 
         document.getElementById("result-box").classList.remove("hidden");
-
-        // yeni hakları al
-        await refreshUsage();
-
       } catch (e) {
-        notify(e.message);
+        notify("Üretim başarısız.");
       } finally {
         btn.disabled = false;
         btn.innerText = "ÜRETİMİ BAŞLAT";
@@ -561,85 +490,61 @@
       notify("Sonuç kopyalandı.");
     }
 
-    // ---- Ads modal
-    function openAdModal() {
-      document.getElementById("ad-modal").classList.remove("hidden");
-      document.getElementById("ad-modal").classList.add("flex");
-
-      const title = state.type === "title" ? "1 Ek Başlık Üretimi Aç" : "1 Ek Hashtag Üretimi Aç";
-      document.getElementById("ad-title").innerText = title;
-      document.getElementById("ad-desc").innerText = "Reklam tamamlandıktan sonra +1 üretim tanımlanacaktır.";
-    }
-
-    function closeAdModal() {
-      document.getElementById("ad-modal").classList.add("hidden");
-      document.getElementById("ad-modal").classList.remove("flex");
-    }
-
-    // Bu fonksiyon gerçek reklam SDK'sına bağlanmalı.
-    // Şu an sadece backend'e "reklam tamamlandı" bildirimi için iskelet.
-    async function startAdFlow() {
-      const btn = document.getElementById("ad-start-btn");
-      btn.disabled = true;
-      btn.innerText = "REKLAM BEKLENİYOR...";
-
-      try {
-        // Burada gerçek reklam izleme akışı olacak.
-        // Demo amaçlı 2 saniye bekletiyoruz (prod’da kaldır).
-        await new Promise(r => setTimeout(r, 2000));
-
-        // Backend'e bildir
-        const res = await fetch(API.adComplete, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ type: state.type, platform: state.platform })
-        });
-
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data?.error || "Reklam doğrulanamadı.");
-
-        closeAdModal();
-        notify("+1 üretim hakkı tanımlandı.");
-        await refreshUsage();
-
-      } catch (e) {
-        notify(e.message || "Reklam doğrulanamadı.");
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "Reklamı Başlat";
-      }
-    }
-
-    // ---- Auth placeholders (supabase vs. burada yok, senin backend'e bağlanır)
     function login() {
-      notify("Google giriş backend ile bağlanacak.");
-    }
-    function logout() {
-      notify("Çıkış backend ile bağlanacak.");
+      notify("Google giriş daha sonra backend ile bağlanacak.");
     }
 
-    // ---- Load i18n from /i18n/i18n.json
-    async function loadI18n() {
-      try {
-        const res = await fetch("i18n/i18n.json", { cache: "no-store" });
-        if (!res.ok) throw new Error("i18n.json okunamadı.");
-        I18N = await res.json();
+    // ====== DROPDOWN: click-to-toggle + dışarı tıklayınca kapat
+    const dropdownMap = [
+      { btn: "nav-apps-btn", dd: "nav-apps-dd" },
+      { btn: "nav-platform-btn", dd: "nav-platform-dd" },
+      { btn: "nav-production-btn", dd: "nav-production-dd" }
+    ];
 
-        // İlk dil açıklamasını bas
-        const desc = I18N?.[state.lang]?.hero?.description;
-        if (desc) document.getElementById("desc-text").innerText = desc;
+    function closeAllDropdowns() {
+      dropdownMap.forEach(x => {
+        const dd = document.getElementById(x.dd);
+        if (dd) dd.style.display = "none";
+      });
+      document.body.classList.remove("dropdown-open");
+    }
 
-      } catch (e) {
-        // i18n dosyası yoksa sayfa yine çalışsın
+    function toggleDropdown(ddId) {
+      const dd = document.getElementById(ddId);
+      if (!dd) return;
+
+      const isOpen = dd.style.display === "block";
+      closeAllDropdowns();
+
+      if (!isOpen) {
+        dd.style.display = "block";
+        document.body.classList.add("dropdown-open");
       }
     }
 
-    // Init
+    dropdownMap.forEach(x => {
+      const btn = document.getElementById(x.btn);
+      const dd = document.getElementById(x.dd);
+      if (!btn || !dd) return;
+
+      dd.style.display = "none";
+
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleDropdown(x.dd);
+      });
+
+      dd.addEventListener("click", (e) => e.stopPropagation());
+    });
+
+    document.addEventListener("click", () => closeAllDropdowns());
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAllDropdowns(); });
+
+    // init
     (async function init() {
       await loadI18n();
       showView("home");
-      await refreshUsage();
-      updateCreditUI();
+      updateUI();
     })();
   </script>
 </body>
