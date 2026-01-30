@@ -20,21 +20,26 @@
         .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
         .menu-dropdown { display: none; position: absolute; top: 100%; background: white; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-radius: 8px; padding: 12px; min-width: 200px; z-index: 100; }
         .group:hover .menu-dropdown { display: block; }
+        .hidden-section { display: none; }
+        #notification { display: none; position: fixed; bottom: 20px; right: 20px; z-index: 200; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
+
+    <!-- Bildirim Kutusu (Alert yerine) -->
+    <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest animate-bounce"></div>
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-20">
         <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
             <div class="flex items-center gap-8">
-                <h1 class="text-xl font-black tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
+                <h1 class="text-xl font-black tracking-tighter cursor-pointer" onclick="showView('home')">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
                 
                 <div class="hidden lg:flex items-center space-x-6">
-                    <a href="/" class="nav-link text-rose-500">Anasayfa</a>
+                    <span onclick="showView('home')" class="nav-link">Anasayfa</span>
                     
                     <div class="relative group">
-                        <span class="nav-link">Uygulamalar</span>
+                        <span class="nav-link" onclick="showView('apps')">Uygulamalar</span>
                         <div class="menu-dropdown flex gap-4">
                             <i class="fab fa-youtube text-red-600 text-xl"></i>
                             <i class="fab fa-instagram text-pink-600 text-xl"></i>
@@ -44,12 +49,12 @@
                     </div>
 
                     <div class="relative group">
-                        <span class="nav-link">Platform</span>
+                        <span class="nav-link" onclick="showView('platform')">Platform</span>
                         <div class="menu-dropdown text-[10px] font-bold text-slate-500">Gemini kullanılıyor</div>
                     </div>
 
                     <div class="relative group">
-                        <span class="nav-link">Üretim Yeri</span>
+                        <span class="nav-link" onclick="showView('production')">Üretim Yeri</span>
                         <div class="menu-dropdown grid grid-cols-1 gap-2 text-[10px] font-black uppercase">
                             <button onclick="setMode('youtube', 'title')" class="text-left hover:text-rose-500">YouTube Başlık</button>
                             <button onclick="setMode('youtube', 'tag')" class="text-left hover:text-rose-500">YouTube Hashtag</button>
@@ -76,7 +81,7 @@
     </nav>
 
     <!-- Dil ve Açıklama -->
-    <header class="pt-28 pb-10 px-4 bg-slate-50 border-b border-slate-100">
+    <header id="page-header" class="pt-28 pb-10 px-4 bg-slate-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="flex flex-wrap justify-center gap-2 mb-8">
                 <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">Türkçe</button>
@@ -94,49 +99,71 @@
 
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-12">
         
-        <!-- Hero - Ad - Hero1 -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 h-80">
-            <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO GÖRSELİ</span></div>
-            <div class="ad-box flex flex-col items-center justify-center p-6 text-center">
-                <span class="text-[9px] font-bold text-amber-500 uppercase tracking-widest mb-4">Google Reklam Alanı</span>
-                <div class="w-full h-full border border-amber-100 border-dashed rounded flex items-center justify-center italic text-amber-200 text-xs">REKLAM</div>
-            </div>
-            <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO1 GÖRSELİ</span></div>
-        </section>
+        <!-- View: Anasayfa (Hero Bölümleri) -->
+        <div id="view-home">
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 h-80">
+                <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO GÖRSELİ</span></div>
+                <div class="ad-box flex flex-col items-center justify-center p-6 text-center">
+                    <span class="text-[9px] font-bold text-amber-500 uppercase tracking-widest mb-4">Google Reklam Alanı</span>
+                    <div class="w-full h-full border border-amber-100 border-dashed rounded flex items-center justify-center italic text-amber-200 text-xs">REKLAM</div>
+                </div>
+                <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO1 GÖRSELİ</span></div>
+            </section>
+        </div>
 
-        <!-- Üretim Alanı -->
-        <section class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[2rem] p-8 shadow-xl mb-16">
-            <div class="flex items-center justify-between mb-8 border-b border-slate-50 pb-4">
-                <h3 id="current-mode-title" class="text-xs font-black uppercase text-slate-800 tracking-wider">YOUTUBE BAŞLIK ÜRETİMİ</h3>
-                <div class="text-[10px] font-bold text-rose-500 bg-rose-50 px-3 py-1 rounded-full uppercase" id="credit-count">HAK: 2 / 2</div>
+        <!-- View: Uygulamalar -->
+        <div id="view-apps" class="hidden-section mb-16 text-center">
+            <h2 class="text-xs font-black uppercase text-slate-400 mb-8 tracking-[0.2em]">Desteklenen Uygulamalar</h2>
+            <div class="flex justify-center items-center gap-12">
+                <i class="fab fa-youtube text-red-600 text-6xl"></i>
+                <i class="fab fa-instagram text-pink-600 text-6xl"></i>
+                <i class="fab fa-tiktok text-black text-6xl"></i>
+                <i class="fab fa-twitter text-blue-400 text-6xl"></i>
             </div>
+        </div>
 
-            <div class="space-y-6">
-                <div>
-                    <label class="text-[10px] font-black uppercase text-slate-400 mb-2 block">İçerik Konusu</label>
-                    <input type="text" id="topicInput" class="w-full border border-slate-200 p-4 rounded-xl outline-none focus:border-rose-500 font-medium text-slate-900" placeholder="Örn: Sağlıklı beslenme rehberi">
+        <!-- View: Platform -->
+        <div id="view-platform" class="hidden-section mb-16 text-center py-20 bg-slate-50 rounded-3xl border border-slate-100">
+            <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter">Gemini kullanılıyor</h2>
+        </div>
+
+        <!-- View: Üretim Yeri (Generator Alanı) -->
+        <div id="view-production">
+            <section class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[2rem] p-8 shadow-xl mb-16">
+                <div class="flex items-center justify-between mb-8 border-b border-slate-50 pb-4">
+                    <h3 id="current-mode-title" class="text-xs font-black uppercase text-slate-800 tracking-wider">YOUTUBE BAŞLIK ÜRETİMİ</h3>
+                    <div class="text-[10px] font-bold text-rose-500 bg-rose-50 px-3 py-1 rounded-full uppercase" id="credit-count">HAK: 2 / 2</div>
                 </div>
 
-                <button onclick="generate()" id="genBtn" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-slate-800 transition transform active:scale-95 shadow-lg shadow-slate-200">
-                    ÜRETİM YAP
-                </button>
-
-                <div id="result-box" class="hidden">
-                    <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl relative group">
-                        <p id="result-text" class="text-sm font-bold text-slate-800 font-mono pr-8"></p>
-                        <button onclick="copyResult()" class="absolute top-4 right-4 text-slate-300 hover:text-rose-500 transition"><i class="far fa-copy"></i></button>
-                        <div id="validation-msg" class="mt-3 text-[10px] font-bold text-orange-500"></div>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[10px] font-black uppercase text-slate-400 mb-2 block">İçerik Konusu</label>
+                        <input type="text" id="topicInput" class="w-full border border-slate-200 p-4 rounded-xl outline-none focus:border-rose-500 font-medium text-slate-900" placeholder="Örn: Sağlıklı beslenme rehberi">
                     </div>
-                </div>
 
-                <p onclick="openAdModal()" class="text-center text-[10px] font-black text-rose-500 uppercase cursor-pointer hover:underline">Reklam izleyerek 1 ek üretim aç</p>
-            </div>
-        </section>
+                    <button onclick="generate()" id="genBtn" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-slate-800 transition transform active:scale-95 shadow-lg shadow-slate-200">
+                        ÜRETİM YAP
+                    </button>
+
+                    <div id="result-box" class="hidden">
+                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl relative group">
+                            <p id="result-text" class="text-sm font-bold text-slate-800 font-mono pr-8"></p>
+                            <button onclick="copyResult()" class="absolute top-4 right-4 text-slate-300 hover:text-rose-500 transition"><i class="far fa-copy"></i></button>
+                            <div id="validation-msg" class="mt-3 text-[10px] font-bold text-orange-500"></div>
+                        </div>
+                    </div>
+
+                    <p onclick="openAdModal()" class="text-center text-[10px] font-black text-rose-500 uppercase cursor-pointer hover:underline">Reklam izleyerek 1 ek üretim aç</p>
+                </div>
+            </section>
+        </div>
 
         <!-- Hero2 Geniş -->
-        <section class="mb-16">
-            <div class="hero-box w-full h-64"><span class="text-[10px] font-black text-slate-300 uppercase">HERO2 GÖRSELİ</span></div>
-        </section>
+        <div id="view-hero2">
+            <section class="mb-16">
+                <div class="hero-box w-full h-64"><span class="text-[10px] font-black text-slate-300 uppercase">HERO2 GÖRSELİ</span></div>
+            </section>
+        </div>
 
     </main>
 
@@ -204,6 +231,41 @@
             credits: JSON.parse(localStorage.getItem('nsr_credits') || '{"youtube":{"title":2,"tag":2},"instagram":{"title":2,"tag":2},"tiktok":{"title":2,"tag":2},"x":{"title":2,"tag":2}}')
         };
 
+        function notify(msg) {
+            const el = document.getElementById('notification');
+            el.innerText = msg;
+            el.style.display = 'block';
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
+
+        // Navigasyon Mantığı
+        function showView(viewName) {
+            const views = {
+                'home': ['view-home', 'view-production', 'view-hero2'],
+                'apps': ['view-apps'],
+                'platform': ['view-platform'],
+                'production': ['view-production']
+            };
+
+            document.getElementById('view-home').style.display = 'none';
+            document.getElementById('view-apps').style.display = 'none';
+            document.getElementById('view-platform').style.display = 'none';
+            document.getElementById('view-production').style.display = 'none';
+            document.getElementById('view-hero2').style.display = 'none';
+
+            if (views[viewName]) {
+                views[viewName].forEach(id => {
+                    document.getElementById(id).style.display = 'block';
+                });
+            }
+            
+            if(viewName === 'production') {
+                window.scrollTo({ top: document.getElementById('view-production').offsetTop - 120, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
         function setLang(l) {
             state.lang = l;
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -217,6 +279,7 @@
             const title = `${p} ${t === 'title' ? 'başlık' : 'hashtag'} üretimi`.toUpperCase();
             document.getElementById('current-mode-title').innerText = title;
             updateUI();
+            showView('production');
         }
 
         function updateUI() {
@@ -246,13 +309,13 @@
                 updateUI();
                 closeAdModal();
                 btn.disabled = false; btn.innerText = "Reklamı Başlat";
-                alert("1 ek üretim hakkı tanımlandı!");
+                notify("1 ek üretim hakkı tanımlandı!");
             }, 3000);
         }
 
         async function generate() {
             if(state.credits[state.platform][state.type] <= 0) {
-                alert(`Günlük ${state.type === 'title' ? 'başlık' : 'hashtag'} hakkın bitti. 1 ek üretim için reklam izle.`);
+                notify(`Günlük ${state.type === 'title' ? 'başlık' : 'hashtag'} hakkın bitti.`);
                 return openAdModal();
             }
 
@@ -292,7 +355,7 @@
 
                 resBox.classList.remove('hidden');
             } catch(e) {
-                alert(e.message || "Bir hata oluştu.");
+                notify(e.message || "Bir hata oluştu.");
             } finally {
                 btn.disabled = false; btn.innerText = "ÜRETİM YAP";
             }
@@ -301,9 +364,11 @@
         function copyResult() {
             const t = document.getElementById('result-text').innerText;
             navigator.clipboard.writeText(t);
-            alert("Kopyalandı!");
+            notify("Kopyalandı!");
         }
 
+        // Başlangıç
+        showView('home');
         updateUI();
     </script>
 </body>
