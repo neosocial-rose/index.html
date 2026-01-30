@@ -7,9 +7,6 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Supabase Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -35,6 +32,7 @@
       pointer-events:auto;
     }
 
+    /* Dropdown açıkken header yazısını gizle */
     body.dropdown-open #page-header { visibility: hidden; }
 
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
@@ -49,10 +47,6 @@
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
 
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-    
-    /* User Profile Dropdown */
-    .user-menu { display:none; position:absolute; top:100%; right:0; background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-radius: 12px; padding: 12px; min-width: 200px; z-index: 5000; margin-top: 8px; }
-    .user-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
   </style>
 </head>
 
@@ -101,49 +95,31 @@
             <span class="nav-link" id="nav-production-btn">Üretim Yeri</span>
             <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
               <button onclick="setMode('youtube','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Başlık</button>
-              <button onclick="setMode('youtube','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Hashtag</button>
+              <button onclick="setMode('youtube','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Hashtag</button>
+
               <button onclick="setMode('instagram','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Başlık</button>
-              <button onclick="setMode('instagram','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Hashtag</button>
+              <button onclick="setMode('instagram','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Hashtag</button>
+
               <button onclick="setMode('tiktok','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Başlık</button>
-              <button onclick="setMode('tiktok','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Hashtag</button>
+              <button onclick="setMode('tiktok','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Hashtag</button>
+
               <button onclick="setMode('x','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Başlık</button>
-              <button onclick="setMode('x','tag')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Hashtag</button>
+              <button onclick="setMode('x','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Hashtag</button>
             </div>
           </div>
 
         </div>
       </div>
 
-      <!-- Login/User Section -->
-      <div id="auth-section">
-        <!-- Login Button (when not logged in) -->
-        <button id="login-btn" onclick="signInWithGoogle()" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
-          <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
-        </button>
-
-        <!-- User Profile (when logged in) -->
-        <div id="user-profile" class="hidden relative">
-          <button onclick="toggleUserMenu()" class="flex items-center gap-3 bg-white border border-slate-200 px-4 py-2 rounded-xl hover:shadow-lg transition">
-            <img id="user-avatar" src="" alt="User" class="user-avatar">
-            <span id="user-name" class="text-[10px] font-black uppercase text-slate-700"></span>
-          </button>
-          
-          <div id="user-menu" class="user-menu">
-            <div class="text-center pb-3 border-b border-slate-100 mb-2">
-              <div id="user-email" class="text-[9px] text-slate-400 font-semibold"></div>
-            </div>
-            <button onclick="signOut()" class="w-full text-left text-[10px] font-black uppercase py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">
-              <i class="fas fa-sign-out-alt mr-2"></i>Çıkış Yap
-            </button>
-          </div>
-        </div>
-      </div>
+      <button onclick="notify('Google giriş backend ile bağlanacak.')" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
+        <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
+      </button>
 
     </div>
   </nav>
 
-  <!-- HEADER -->
+  <!-- HEADER (Dil + açıklama) -->
   <header id="page-header" class="pt-28 pb-10 px-4 bg-slate-50 border-b border-slate-100">
     <div class="max-w-7xl mx-auto">
       <div class="flex flex-wrap gap-3 mb-8">
@@ -193,7 +169,7 @@
         <div class="space-y-8">
           <div>
             <label class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
-            <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları" maxlength="200">
+            <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
 
           <button onclick="generateDemo()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">
@@ -300,136 +276,7 @@
   </div>
 
   <script>
-    // ===== SUPABASE CONFIG =====
-    const SUPABASE_URL = 'https://jhhswailzyigocdgxhtx.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_CTlRpPWxqC3zxYu4gMKa6g__729jYvp';
-    
-    // Supabase client oluştur
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
-    // Current user state
-    let currentUser = null;
-
-    // ===== AUTHENTICATION FUNCTIONS =====
-    
-    // Google ile giriş
-    async function signInWithGoogle() {
-      try {
-        const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            redirectTo: window.location.origin
-          }
-        });
-        
-        if (error) throw error;
-        notify('Google ile giriş yapılıyor...');
-      } catch (error) {
-        console.error('Login error:', error);
-        notify('Giriş hatası: ' + error.message);
-      }
-    }
-
-    // Çıkış yap
-    async function signOut() {
-      try {
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
-        
-        currentUser = null;
-        updateAuthUI();
-        closeUserMenu();
-        notify('Çıkış yapıldı.');
-      } catch (error) {
-        console.error('Logout error:', error);
-        notify('Çıkış hatası: ' + error.message);
-      }
-    }
-
-    // Auth state değişikliklerini dinle
-    supabase.auth.onAuthStateChange((event, session) => {
-      console.log('Auth event:', event);
-      
-      if (session && session.user) {
-        currentUser = session.user;
-        updateAuthUI();
-        
-        // İlk giriş ise veritabanına kaydet
-        if (event === 'SIGNED_IN') {
-          saveUserToDatabase(session.user);
-        }
-      } else {
-        currentUser = null;
-        updateAuthUI();
-      }
-    });
-
-    // Kullanıcıyı veritabanına kaydet
-    async function saveUserToDatabase(user) {
-      try {
-        const { data, error } = await supabase
-          .from('users')
-          .upsert({
-            id: user.id,
-            email: user.email,
-            full_name: user.user_metadata.full_name || user.email.split('@')[0],
-            avatar_url: user.user_metadata.avatar_url,
-            updated_at: new Date().toISOString()
-          }, {
-            onConflict: 'id'
-          });
-
-        if (error) throw error;
-        console.log('User saved to database');
-      } catch (error) {
-        console.error('Error saving user:', error);
-      }
-    }
-
-    // UI güncelle
-    function updateAuthUI() {
-      const loginBtn = document.getElementById('login-btn');
-      const userProfile = document.getElementById('user-profile');
-      
-      if (currentUser) {
-        // Kullanıcı giriş yapmış
-        loginBtn.classList.add('hidden');
-        userProfile.classList.remove('hidden');
-        
-        // Profil bilgilerini güncelle
-        const userName = currentUser.user_metadata.full_name || currentUser.email.split('@')[0];
-        const userAvatar = currentUser.user_metadata.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=f43f5e&color=fff`;
-        
-        document.getElementById('user-name').textContent = userName;
-        document.getElementById('user-email').textContent = currentUser.email;
-        document.getElementById('user-avatar').src = userAvatar;
-      } else {
-        // Kullanıcı giriş yapmamış
-        loginBtn.classList.remove('hidden');
-        userProfile.classList.add('hidden');
-      }
-    }
-
-    // User menu toggle
-    function toggleUserMenu() {
-      const menu = document.getElementById('user-menu');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function closeUserMenu() {
-      document.getElementById('user-menu').style.display = 'none';
-    }
-
-    // Sayfa yüklendiğinde mevcut session'ı kontrol et
-    async function checkSession() {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session && session.user) {
-        currentUser = session.user;
-        updateAuthUI();
-      }
-    }
-
-    // ===== i18n fallback =====
+    // ===== i18n fallback
     const FALLBACK_I18N = {
       tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.",
       en: "AI-powered platform; generates up-to-date title and hashtag suggestions for YouTube, Instagram, TikTok, and X. Designed to help content creators make more informed decisions.",
@@ -461,7 +308,7 @@
       setLang("tr");
     }
 
-    // ===== state =====
+    // ===== state
     const state = {
       lang: "tr",
       platform: "youtube",
@@ -476,17 +323,9 @@
       setTimeout(() => { el.style.display = "none"; }, 2500);
     }
 
-    // ===== Input Sanitization =====
-    function sanitizeInput(input) {
-      const div = document.createElement('div');
-      div.textContent = input;
-      return div.innerHTML.trim();
-    }
-
-    // ===== views =====
+    // ===== views
     function showView(name) {
       closeAllDropdowns();
-      closeUserMenu();
 
       const header = document.getElementById("page-header");
       document.getElementById("view-home").style.display = "none";
@@ -507,7 +346,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ===== language =====
+    // ===== language
     function setLang(l) {
       state.lang = l;
       document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
@@ -518,7 +357,7 @@
       document.getElementById("desc-text").innerText = text;
     }
 
-    // ===== mode switch =====
+    // ===== mode switch
     function setMode(p, t) {
       state.platform = p;
       state.type = t;
@@ -537,7 +376,7 @@
       document.getElementById("credit-count").innerText = `HAK: ${remaining} / 2`;
     }
 
-    // ===== ad modal =====
+    // ===== ad modal
     function openAdModal() {
       document.getElementById("ad-modal").classList.remove("hidden");
       document.getElementById("ad-modal").classList.add("flex");
@@ -563,14 +402,8 @@
       }, 1200);
     }
 
-    // ===== demo generate =====
+    // ===== demo generate
     function generateDemo() {
-      // Giriş kontrolü
-      if (!currentUser) {
-        notify("Üretim yapmak için giriş yapmalısınız.");
-        return;
-      }
-
       const remaining = state.credits[state.platform][state.type];
       if (remaining <= 0) {
         notify("Limit bitti. 1 reklam izle, 1 üretim kazan.");
@@ -579,17 +412,7 @@
       }
 
       const topic = document.getElementById("topicInput").value.trim();
-      if (!topic) {
-        notify("Lütfen konu giriniz.");
-        return;
-      }
-
-      // Input validation ve sanitization
-      const sanitizedTopic = sanitizeInput(topic);
-      if (sanitizedTopic.length < 3) {
-        notify("Konu en az 3 karakter olmalıdır.");
-        return;
-      }
+      if (!topic) return notify("Lütfen konu giriniz.");
 
       // kredi düş
       state.credits[state.platform][state.type] -= 1;
@@ -598,7 +421,7 @@
 
       let result = "";
       if (state.type === "title") {
-        const base = (sanitizedTopic + " | Trend Başlık").replace(/\s+/g, " ").trim();
+        const base = (topic + " | Trend Başlık").replace(/\s+/g, " ").trim();
         result = base.slice(0, 40);
         if (result.length < 40) result = result.padEnd(40, ".");
       } else {
@@ -612,45 +435,14 @@
           : `UZUNLUK: ${result.length} (MAX 59)`;
 
       document.getElementById("result-box").classList.remove("hidden");
-      
-      // Üretimi veritabanına kaydet
-      saveGeneration(sanitizedTopic, result);
-    }
-
-    // Üretimi veritabanına kaydet
-    async function saveGeneration(topic, result) {
-      if (!currentUser) return;
-      
-      try {
-        const { data, error } = await supabase
-          .from('generations')
-          .insert({
-            user_id: currentUser.id,
-            platform: state.platform,
-            type: state.type,
-            topic: topic,
-            result: result,
-            created_at: new Date().toISOString()
-          });
-
-        if (error) throw error;
-        console.log('Generation saved to database');
-      } catch (error) {
-        console.error('Error saving generation:', error);
-      }
     }
 
     function copyResult() {
-      const text = document.getElementById("result-text").innerText || "";
-      navigator.clipboard.writeText(text).then(() => {
-        notify("Sonuç kopyalandı.");
-      }).catch(err => {
-        console.error('Copy failed:', err);
-        notify("Kopyalama hatası.");
-      });
+      navigator.clipboard.writeText(document.getElementById("result-text").innerText || "");
+      notify("Sonuç kopyalandı.");
     }
 
-    // ===== dropdown =====
+    // ===== dropdown (DÜZELTİLMİŞ VERSİYON)
     const dropdownMap = [
       { btn: "nav-apps-btn", dd: "nav-apps-dd" },
       { btn: "nav-platform-btn", dd: "nav-platform-dd" },
@@ -690,25 +482,37 @@
         toggleDropdown(x.dd);
       });
 
-      dd.addEventListener("click", (e) => e.stopPropagation());
+      dd.addEventListener("click", (e) => {
+        // Dropdown içindeki butonlara tıklandığında dropdown kapansın
+        if (e.target.tagName === 'BUTTON') {
+          closeAllDropdowns();
+        } else {
+          e.stopPropagation();
+        }
+      });
     });
 
-    document.addEventListener("click", () => {
-      closeAllDropdowns();
-      closeUserMenu();
-    });
-    
-    document.addEventListener("keydown", (e) => { 
-      if (e.key === "Escape") {
+    // Sayfa herhangi bir yerine tıklandığında dropdown'ları kapat
+    document.addEventListener("click", (e) => {
+      // Eğer tıklanan yer dropdown veya buton değilse kapat
+      const isDropdown = e.target.closest('.menu-dropdown');
+      const isNavBtn = e.target.closest('.nav-link');
+      
+      if (!isDropdown && !isNavBtn) {
         closeAllDropdowns();
-        closeUserMenu();
       }
     });
 
-    // ===== init =====
+    // Escape tuşu ile kapat
+    document.addEventListener("keydown", (e) => { 
+      if (e.key === "Escape") {
+        closeAllDropdowns();
+      }
+    });
+
+    // ===== init
     (async function init() {
       await loadI18n();
-      await checkSession();
       showView("home");
       updateCreditsUI();
     })();
