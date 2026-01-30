@@ -14,7 +14,7 @@
         .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; cursor: pointer; transition: 0.2s; display: flex; align-items: center; height: 100%; }
         .nav-link:hover { color: #f43f5e; }
         
-        /* Dropdown Düzeltmeleri */
+        /* Dropdown Gelişmiş Düzenleme */
         .menu-dropdown { 
             display: none; 
             position: absolute; 
@@ -28,10 +28,11 @@
             padding: 16px; 
             min-width: 220px; 
             z-index: 100;
-            margin-top: 5px;
+            margin-top: 0; /* Boşluk kaldırıldı ki mouse kaçmasın */
+            pointer-events: auto;
         }
-        .group:hover .menu-dropdown { display: block; animation: fadeIn 0.2s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        .group:hover .menu-dropdown { display: block; animation: fadeIn 0.15s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-5px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
 
         .lang-btn { font-size: 10px; font-weight: 700; padding: 6px 12px; border-radius: 6px; cursor: pointer; border: 1px solid #e2e8f0; transition: all 0.2s; }
         .lang-btn.active { background: #f43f5e; color: white; border-color: #f43f5e; }
@@ -99,8 +100,8 @@
         </div>
     </nav>
 
-    <!-- Dil ve Açıklama -->
-    <header id="page-header" class="pt-32 pb-12 px-4 bg-slate-50 border-b border-slate-100">
+    <!-- Dil ve Açıklama (Bu alan navigasyona göre gizlenecek) -->
+    <header id="page-header" class="pt-32 pb-12 px-4 bg-slate-50 border-b border-slate-100 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex flex-col items-center">
             <div class="flex flex-wrap justify-center gap-3 mb-10">
                 <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">Türkçe</button>
@@ -116,7 +117,8 @@
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-16">
+    <!-- Ana İçerik Konteynırı -->
+    <main id="main-content" class="flex-grow max-w-7xl mx-auto w-full px-4 py-16 transition-all duration-300">
         
         <!-- View: Anasayfa -->
         <div id="view-home">
@@ -256,14 +258,22 @@
             setTimeout(() => { el.style.display = 'none'; }, 3000);
         }
 
+        // Navigasyon Mantığı (FIXED: Header'ı otomatik gizler)
         function showView(viewName) {
             const views = ['view-home', 'view-apps', 'view-platform', 'view-production', 'view-hero2'];
             views.forEach(id => document.getElementById(id).style.display = 'none');
 
+            const header = document.getElementById('page-header');
+            const main = document.getElementById('main-content');
+
             if(viewName === 'home') {
                 ['view-home', 'view-production', 'view-hero2'].forEach(id => document.getElementById(id).style.display = 'block');
+                header.style.display = 'block';
+                main.classList.replace('pt-10', 'py-16');
             } else {
                 document.getElementById('view-' + viewName).style.display = 'block';
+                header.style.display = 'none'; // Üretim, Uygulamalar vb. yerlerde header gizlenir
+                main.classList.add('pt-24'); // Header gidince boşluğu ayarla
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -278,7 +288,8 @@
         function setMode(p, t) {
             state.platform = p; state.type = t;
             document.getElementById('current-mode-title').innerText = `${p} ${t === 'title' ? 'başlık' : 'hashtag'} üretimi`.toUpperCase();
-            updateUI(); showView('production');
+            updateUI(); 
+            showView('production');
         }
 
         function updateUI() {
