@@ -9,69 +9,302 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #0f172a; }
-        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; transition: color 0.2s; cursor: pointer; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #0f172a; overflow-x: hidden; }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
+        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; cursor: pointer; transition: 0.2s; }
         .nav-link:hover { color: #f43f5e; }
-        .active-link { color: #f43f5e; border-bottom: 2px solid #f43f5e; }
-        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
+        .lang-btn { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 4px; cursor: pointer; border: 1px solid #e2e8f0; }
+        .lang-btn.active { background: #f43f5e; color: white; border-color: #f43f5e; }
+        .hero-box { border: 2px dashed #e2e8f0; border-radius: 1.5rem; display: flex; align-items: center; justify-content: center; background: #f8fafc; }
+        .ad-box { background: #fffbeb; border: 1px solid #fef3c7; border-radius: 1rem; }
+        .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
+        .menu-dropdown { display: none; position: absolute; top: 100%; background: white; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-radius: 8px; padding: 12px; min-width: 200px; z-index: 100; }
+        .group:hover .menu-dropdown { display: block; }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Üst Menü (Header) -->
+    <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 glass-nav h-20">
         <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-            
-            <!-- Logo Bölümü -->
-            <div class="flex items-center">
+            <div class="flex items-center gap-8">
                 <h1 class="text-xl font-black tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
-            </div>
+                
+                <div class="hidden lg:flex items-center space-x-6">
+                    <a href="/" class="nav-link text-rose-500">Anasayfa</a>
+                    
+                    <div class="relative group">
+                        <span class="nav-link">Uygulamalar</span>
+                        <div class="menu-dropdown flex gap-4">
+                            <i class="fab fa-youtube text-red-600 text-xl"></i>
+                            <i class="fab fa-instagram text-pink-600 text-xl"></i>
+                            <i class="fab fa-tiktok text-black text-xl"></i>
+                            <i class="fab fa-twitter text-blue-400 text-xl"></i>
+                        </div>
+                    </div>
 
-            <!-- Menü Linkleri -->
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="/" class="nav-link active-link">ANASAYFA</a>
-                <div class="flex items-center space-x-6 border-l border-slate-200 pl-6">
-                    <span class="text-[10px] text-slate-400 font-black uppercase">Uygulamalar:</span>
-                    <a href="#" class="nav-link">YOUTUBE</a>
-                    <a href="#" class="nav-link">INSTAGRAM</a>
-                    <a href="#" class="nav-link">TIKTOK</a>
-                    <a href="#" class="nav-link">X</a>
-                    <a href="#" class="nav-link">KANAL ANALİZİ</a>
+                    <div class="relative group">
+                        <span class="nav-link">Platform</span>
+                        <div class="menu-dropdown text-[10px] font-bold text-slate-500">Gemini kullanılıyor</div>
+                    </div>
+
+                    <div class="relative group">
+                        <span class="nav-link">Üretim Yeri</span>
+                        <div class="menu-dropdown grid grid-cols-1 gap-2 text-[10px] font-black uppercase">
+                            <button onclick="setMode('youtube', 'title')" class="text-left hover:text-rose-500">YouTube Başlık</button>
+                            <button onclick="setMode('youtube', 'tag')" class="text-left hover:text-rose-500">YouTube Hashtag</button>
+                            <button onclick="setMode('instagram', 'title')" class="text-left hover:text-rose-500">Instagram Başlık</button>
+                            <button onclick="setMode('instagram', 'tag')" class="text-left hover:text-rose-500">Instagram Hashtag</button>
+                            <button onclick="setMode('tiktok', 'title')" class="text-left hover:text-rose-500">TikTok Başlık</button>
+                            <button onclick="setMode('tiktok', 'tag')" class="text-left hover:text-rose-500">TikTok Hashtag</button>
+                            <button onclick="setMode('x', 'title')" class="text-left hover:text-rose-500">X Başlık</button>
+                            <button onclick="setMode('x', 'tag')" class="text-left hover:text-rose-500">X Hashtag</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Sağ Taraf: Bilgi ve Giriş -->
-            <div class="flex items-center space-x-6">
-                <span class="hidden md:block text-[10px] font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full uppercase tracking-tighter">
-                    Platform Gemini Kullanıyor
-                </span>
-                
-                <div id="auth-container">
-                    <button onclick="handleAuth()" class="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-lg hover:shadow-md transition group">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">
-                        <span class="text-xs font-bold text-slate-700 group-hover:text-rose-500">Giriş Yap</span>
+            <div class="flex items-center gap-4">
+                <div id="auth-section">
+                    <button onclick="login()" class="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-lg hover:shadow-md transition">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4">
+                        <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="pt-32 px-4 text-center">
-        <p class="text-slate-400 font-bold uppercase text-[10px] tracking-[0.2em]">İçerik Alanı Buradan Devam Edecek</p>
+    <!-- Dil ve Açıklama -->
+    <header class="pt-28 pb-10 px-4 bg-slate-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto flex flex-col items-center">
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">Türkçe</button>
+                <button onclick="setLang('en')" id="l-en" class="lang-btn">English</button>
+                <button onclick="setLang('fr')" id="l-fr" class="lang-btn">Français</button>
+                <button onclick="setLang('de')" id="l-de" class="lang-btn">Deutsch</button>
+                <button onclick="setLang('es')" id="l-es" class="lang-btn">Español</button>
+                <button onclick="setLang('pt')" id="l-pt" class="lang-btn">Português</button>
+            </div>
+            <p id="desc-text" class="text-center text-slate-500 text-sm font-medium max-w-2xl leading-relaxed">
+                Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.
+            </p>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-12">
+        
+        <!-- Hero - Ad - Hero1 -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16 h-80">
+            <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO GÖRSELİ</span></div>
+            <div class="ad-box flex flex-col items-center justify-center p-6 text-center">
+                <span class="text-[9px] font-bold text-amber-500 uppercase tracking-widest mb-4">Google Reklam Alanı</span>
+                <div class="w-full h-full border border-amber-100 border-dashed rounded flex items-center justify-center italic text-amber-200 text-xs">REKLAM</div>
+            </div>
+            <div class="hero-box"><span class="text-[10px] font-black text-slate-300 uppercase">HERO1 GÖRSELİ</span></div>
+        </section>
+
+        <!-- Üretim Alanı -->
+        <section class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[2rem] p-8 shadow-xl mb-16">
+            <div class="flex items-center justify-between mb-8 border-b border-slate-50 pb-4">
+                <h3 id="current-mode-title" class="text-xs font-black uppercase text-slate-800 tracking-wider">YOUTUBE BAŞLIK ÜRETİMİ</h3>
+                <div class="text-[10px] font-bold text-rose-500 bg-rose-50 px-3 py-1 rounded-full uppercase" id="credit-count">HAK: 2 / 2</div>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-black uppercase text-slate-400 mb-2 block">İçerik Konusu</label>
+                    <input type="text" id="topicInput" class="w-full border border-slate-200 p-4 rounded-xl outline-none focus:border-rose-500 font-medium text-slate-900" placeholder="Örn: Sağlıklı beslenme rehberi">
+                </div>
+
+                <button onclick="generate()" id="genBtn" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-slate-800 transition transform active:scale-95 shadow-lg shadow-slate-200">
+                    ÜRETİM YAP
+                </button>
+
+                <div id="result-box" class="hidden">
+                    <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl relative group">
+                        <p id="result-text" class="text-sm font-bold text-slate-800 font-mono pr-8"></p>
+                        <button onclick="copyResult()" class="absolute top-4 right-4 text-slate-300 hover:text-rose-500 transition"><i class="far fa-copy"></i></button>
+                        <div id="validation-msg" class="mt-3 text-[10px] font-bold text-orange-500"></div>
+                    </div>
+                </div>
+
+                <p onclick="openAdModal()" class="text-center text-[10px] font-black text-rose-500 uppercase cursor-pointer hover:underline">Reklam izleyerek 1 ek üretim aç</p>
+            </div>
+        </section>
+
+        <!-- Hero2 Geniş -->
+        <section class="mb-16">
+            <div class="hero-box w-full h-64"><span class="text-[10px] font-black text-slate-300 uppercase">HERO2 GÖRSELİ</span></div>
+        </section>
+
     </main>
 
-    <script>
-        const SUPABASE_URL = "https://cdzxzgwvebmvccfkvfll.supabase.co"; 
-        const SUPABASE_KEY = "sb_publishable_QDz16Zn2HeoOw7Sf25PENA_FgZL0P-F"; 
-        const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-500 py-16 px-4 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-[10px] font-black uppercase tracking-widest">
+            <div class="col-span-1 md:col-span-2">
+                <h4 class="text-white text-base mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
+                <p class="normal-case font-medium opacity-60 leading-relaxed max-w-sm mb-6">
+                    Yaratıcıların daha bilinçli içerikler üretmesine yardımcı olmak için geliştirildik. Yanıltıcı içerik üretmez, garanti vaat etmez.
+                </p>
+                <p class="text-[9px] opacity-40 normal-case">© 2026 NeoSocial_Rose. All rights reserved.</p>
+            </div>
+            <div class="space-y-4">
+                <span class="text-slate-200 block mb-2">KURUMSAL</span>
+                <a href="#" class="block hover:text-white transition">Hakkımızda</a>
+                <a href="#" class="block hover:text-white transition">Basın Odası</a>
+                <a href="#" class="block hover:text-white transition">Kariyer</a>
+            </div>
+            <div class="space-y-4">
+                <span class="text-slate-200 block mb-2">DESTEK</span>
+                <a href="#" class="block hover:text-white transition">SSS</a>
+                <a href="#" class="block hover:text-white transition">Yardım</a>
+                <a href="#" class="block hover:text-white transition">İletişim</a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center space-y-4">
+            <div class="flex justify-center gap-6">
+                <a href="#" class="hover:text-white transition">GÜVENLİK</a>
+                <a href="#" class="hover:text-white transition">GİZLİLİK POLİTİKASI</a>
+                <a href="#" class="hover:text-white transition">KULLANIM ŞARTLARI</a>
+            </div>
+            <p class="text-[9px] opacity-40 normal-case max-w-2xl mx-auto leading-relaxed">
+                Öneriler yapay zekâ tarafından üretilir. Sonuçlar değişiklik gösterebilir. Bu platform YouTube, Instagram, TikTok, X veya Google ile resmî bağlantılı değildir.
+            </p>
+        </div>
+    </footer>
 
-        async function handleAuth() {
-            if(!supabaseClient) return;
-            const { data, error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin }
-            });
+    <!-- Ad Modal -->
+    <div id="ad-modal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl">
+            <i class="fas fa-play-circle text-rose-500 text-4xl mb-4"></i>
+            <h3 class="text-xl font-black text-slate-900 mb-2" id="ad-title">1 EK ÜRETİM AÇ</h3>
+            <p class="text-slate-500 text-sm mb-6" id="ad-desc">Reklam tamamlandıktan sonra 1 ek üretim açılır.</p>
+            <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition">Reklamı Başlat</button>
+            <button onclick="closeAdModal()" class="mt-4 text-xs text-slate-400 font-bold uppercase hover:text-rose-500">Vazgeç</button>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.",
+            en: "AI-powered platform; generates up-to-date title and hashtag suggestions for YouTube, Instagram, TikTok, and X. Designed to help content creators make more informed decisions.",
+            fr: "Plateforme alimentée par l'IA ; génère des suggestions de titres et de hashtags pour YouTube, Instagram, TikTok et X. Conçue pour aider les créateurs.",
+            de: "KI-gestützte Plattform; generiert Titel- und Hashtag-Vorschläge für YouTube, Instagram, TikTok und X. Entwickelt für Ersteller.",
+            es: "Plataforma impulsada por IA; genera sugerencias de títulos y hashtags para YouTube, Instagram, TikTok y X. Diseñada para creadores.",
+            pt: "Plataforma movida a IA; gera sugestões de títulos e hashtags para YouTube, Instagram, TikTok e X. Projetada para criadores."
+        };
+
+        let state = {
+            lang: 'tr',
+            platform: 'youtube',
+            type: 'title',
+            user: null,
+            credits: JSON.parse(localStorage.getItem('nsr_credits') || '{"youtube":{"title":2,"tag":2},"instagram":{"title":2,"tag":2},"tiktok":{"title":2,"tag":2},"x":{"title":2,"tag":2}}')
+        };
+
+        function setLang(l) {
+            state.lang = l;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('l-'+l).classList.add('active');
+            document.getElementById('desc-text').innerText = i18n[l];
         }
+
+        function setMode(p, t) {
+            state.platform = p;
+            state.type = t;
+            const title = `${p} ${t === 'title' ? 'başlık' : 'hashtag'} üretimi`.toUpperCase();
+            document.getElementById('current-mode-title').innerText = title;
+            updateUI();
+        }
+
+        function updateUI() {
+            const count = state.credits[state.platform][state.type];
+            document.getElementById('credit-count').innerText = `HAK: ${count} / 2`;
+        }
+
+        function openAdModal() {
+            const isTitle = state.type === 'title';
+            document.getElementById('ad-title').innerText = isTitle ? "1 EK BAŞLIK ÜRETİMİ AÇ" : "1 EK HASHTAG ÜRETİMİ AÇ";
+            document.getElementById('ad-desc').innerText = `Reklam tamamlandıktan sonra 1 ek ${isTitle ? 'başlık' : 'hashtag'} üretimi açılır.`;
+            document.getElementById('ad-modal').classList.remove('hidden');
+            document.getElementById('ad-modal').classList.add('flex');
+        }
+
+        function closeAdModal() {
+            document.getElementById('ad-modal').classList.add('hidden');
+            document.getElementById('ad-modal').classList.remove('flex');
+        }
+
+        function simulateAd() {
+            const btn = document.getElementById('ad-start-btn');
+            btn.disabled = true; btn.innerText = "İzleniyor...";
+            setTimeout(() => {
+                state.credits[state.platform][state.type]++;
+                localStorage.setItem('nsr_credits', JSON.stringify(state.credits));
+                updateUI();
+                closeAdModal();
+                btn.disabled = false; btn.innerText = "Reklamı Başlat";
+                alert("1 ek üretim hakkı tanımlandı!");
+            }, 3000);
+        }
+
+        async function generate() {
+            if(state.credits[state.platform][state.type] <= 0) {
+                alert(`Günlük ${state.type === 'title' ? 'başlık' : 'hashtag'} hakkın bitti. 1 ek üretim için reklam izle.`);
+                return openAdModal();
+            }
+
+            const topic = document.getElementById('topicInput').value.trim();
+            if(!topic) return;
+
+            const btn = document.getElementById('genBtn');
+            btn.disabled = true; btn.innerText = "YAPAY ZEKA ÜRETİYOR...";
+
+            try {
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        topic, 
+                        platform: state.platform, 
+                        type: state.type, 
+                        lang: state.lang 
+                    })
+                });
+
+                const data = await res.json();
+                if(!res.ok) throw new Error(data.error);
+
+                state.credits[state.platform][state.type]--;
+                localStorage.setItem('nsr_credits', JSON.stringify(state.credits));
+                updateUI();
+
+                const resBox = document.getElementById('result-box');
+                const resText = document.getElementById('result-text');
+                const valMsg = document.getElementById('validation-msg');
+
+                resText.innerText = data.result;
+                valMsg.innerText = state.type === 'title' ? 
+                    `Karakter: ${data.result.length} / 40` : 
+                    `Karakter: ${data.result.length} / 59`;
+
+                resBox.classList.remove('hidden');
+            } catch(e) {
+                alert(e.message || "Bir hata oluştu.");
+            } finally {
+                btn.disabled = false; btn.innerText = "ÜRETİM YAP";
+            }
+        }
+
+        function copyResult() {
+            const t = document.getElementById('result-text').innerText;
+            navigator.clipboard.writeText(t);
+            alert("Kopyalandı!");
+        }
+
+        updateUI();
     </script>
 </body>
 </html>
