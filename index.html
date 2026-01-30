@@ -1,90 +1,55 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeoSocial_Rose</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; margin:0; }
-    .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; position: fixed; top:0; width:100%; height:80px; z-index:100; }
-    .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; }
-    #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9999; background:#0f172a; color:#fff; padding:12px 24px; rounded-xl: 12px; border-radius:12px; font-size:12px; font-weight:bold; }
-  </style>
+    <meta charset="UTF-8">
+    <title>NeoSocial Rose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
-<body>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen">
 
-  <div id="notification"></div>
+    <div class="bg-white p-10 rounded-[3rem] shadow-2xl text-center max-w-sm w-full border border-slate-200">
+        <h1 class="text-2xl font-black mb-2 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
+        <p id="status-text" class="text-slate-500 font-bold mb-8 text-sm uppercase">Giriş Bekleniyor</p>
+        
+        <button onclick="login()" id="login-btn" class="w-full flex items-center justify-center gap-3 bg-white border-2 border-slate-200 py-4 rounded-2xl hover:bg-slate-50 transition-all active:scale-95">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5">
+            <span class="font-black text-xs uppercase tracking-widest">Google Girişi</span>
+        </button>
 
-  <nav class="glass-nav">
-    <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-      <h1 class="text-xl font-black tracking-tighter uppercase">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
-      <button onclick="loginWithGoogle()" id="login-btn" class="flex items-center gap-2 border border-slate-200 px-5 py-2.5 rounded-xl hover:bg-slate-50 transition">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4">
-        <span id="user-name" class="text-[10px] font-black uppercase">Google ile Giriş</span>
-      </button>
+        <div id="user-info" class="hidden mt-6 p-4 bg-rose-50 rounded-2xl border border-rose-100">
+            <p id="display-name" class="font-black text-rose-600 uppercase text-xs"></p>
+        </div>
     </div>
-  </nav>
 
-  <main class="pt-32 p-4 max-w-7xl mx-auto text-center">
-    <h2 id="welcome-msg" class="text-2xl font-black mb-4 uppercase">Hoş Geldiniz</h2>
-    <p class="text-slate-500 mb-8 font-semibold">Sistem hazır, giriş yapıp üretime başlayabilirsiniz.</p>
-    
-    <div class="max-w-md mx-auto bg-slate-50 p-8 rounded-[2rem] border-2 border-dashed border-slate-200">
-       <input type="text" id="topicInput" class="w-full p-4 rounded-xl border-2 border-slate-200 mb-4 outline-none focus:border-rose-500 font-bold" placeholder="Konu girin...">
-       <button class="w-full bg-slate-900 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-rose-600 transition">ÜRETİMİ BAŞLAT</button>
-    </div>
-  </main>
+    <script>
+        // PANELDEKİ BİLGİLERİN
+        const firebaseConfig = {
+            apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
+            authDomain: "neosocial-rose.firebaseapp.com",
+            projectId: "neosocial-rose",
+            storageBucket: "neosocial-rose.firebasestorage.app",
+            messagingSenderId: "909069196756",
+            appId: "1:909069196756:web:db488838badee276f0ca41"
+        };
 
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+        // Başlat
+        firebase.initializeApp(firebaseConfig);
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
-      authDomain: "neosocial-rose.firebaseapp.com",
-      projectId: "neosocial-rose",
-      storageBucket: "neosocial-rose.firebasestorage.app",
-      messagingSenderId: "909069196756",
-      appId: "1:909069196756:web:db488838badee276f0ca41"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    function notify(msg) {
-      const el = document.getElementById("notification");
-      el.innerText = msg; el.style.display = "block";
-      setTimeout(() => { el.style.display = "none"; }, 3000);
-    }
-
-    // GİRİŞ FONKSİYONU - YÖNLENDİRMELİ
-    function loginWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithRedirect(provider);
-    }
-
-    // SAYFA AÇILDIĞINDA GİRİŞ YAPILMIŞ MI KONTROL ET
-    auth.getRedirectResult().then((result) => {
-      if (result && result.user) {
-        handleUser(result.user);
-      }
-    }).catch((error) => {
-      console.error("Giriş hatası:", error);
-      if(error.code !== "auth/network-request-failed") notify("Giriş başarısız!");
-    });
-
-    auth.onAuthStateChanged((user) => {
-      if (user) handleUser(user);
-    });
-
-    function handleUser(user) {
-      document.getElementById("user-name").innerText = user.displayName.toUpperCase();
-      document.getElementById("welcome-msg").innerText = "Selam, " + user.displayName;
-      notify("Giriş Başarılı!");
-    }
-  </script>
+        function login() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            // Popup engellenmesin diye doğrudan çağırıyoruz
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                const user = result.user;
+                document.getElementById('status-text').innerText = "Giriş Başarılı";
+                document.getElementById('display-name').innerText = "HOŞ GELDİN: " + user.displayName;
+                document.getElementById('user-info').classList.remove('hidden');
+                document.getElementById('login-btn').style.display = 'none';
+            }).catch((error) => {
+                alert("Hata: " + error.message);
+            });
+        }
+    </script>
 </body>
 </html>
