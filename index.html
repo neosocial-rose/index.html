@@ -6,6 +6,9 @@
   <title>NeoSocial_Rose</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- ✅ EKLENDİ: Supabase JS -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -111,7 +114,8 @@
         </div>
       </div>
 
-      <button onclick="notify('Google giriş backend ile bağlanacak.')" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
+      <!-- ✅ DEĞİŞTİ: notify(...) yerine googleLogin() -->
+      <button onclick="googleLogin()" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
         <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
       </button>
@@ -276,6 +280,28 @@
   </div>
 
   <script>
+    /* ===========================
+       ✅ EKLENDİ: SUPABASE AUTH
+       =========================== */
+    const SUPABASE_URL = "https://jhhswailzyigocdgxhtx.supabase.co";
+    const SUPABASE_ANON_KEY = "BURAYA_SUPABASE_ANON_PUBLIC_KEY";
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function googleLogin() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin }
+      });
+      if (error) notify("Giriş hatası: " + error.message);
+    }
+
+    // (opsiyonel) giriş var mı kontrol
+    (async function () {
+      const { data } = await supabase.auth.getSession();
+      if (data?.session?.user) notify("Giriş başarılı");
+    })();
+
     // ===== i18n fallback
     const FALLBACK_I18N = {
       tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.",
@@ -497,14 +523,14 @@
       // Eğer tıklanan yer dropdown veya buton değilse kapat
       const isDropdown = e.target.closest('.menu-dropdown');
       const isNavBtn = e.target.closest('.nav-link');
-      
+
       if (!isDropdown && !isNavBtn) {
         closeAllDropdowns();
       }
     });
 
     // Escape tuşu ile kapat
-    document.addEventListener("keydown", (e) => { 
+    document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         closeAllDropdowns();
       }
