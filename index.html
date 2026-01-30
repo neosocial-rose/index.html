@@ -6,7 +6,7 @@
   <title>NeoSocial_Rose</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- ✅ EKLENDİ: Supabase JS -->
+  <!-- ✅ EKLENDİ: Supabase JS (CDN) -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -114,7 +114,7 @@
         </div>
       </div>
 
-      <!-- ✅ DEĞİŞTİ: notify(...) yerine googleLogin() -->
+      <!-- ✅ DEĞİŞTİ: Google login -->
       <button onclick="googleLogin()" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
         <span class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
@@ -148,6 +148,7 @@
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
         <div class="hero-box">
           <img class="hero-img" src="hero.jpeg" alt="hero" onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]&quot;>HERO</span>';">
+
         </div>
 
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center shadow-inner">
@@ -160,6 +161,7 @@
 
         <div class="hero-box">
           <img class="hero-img" src="hero1.jpeg" alt="hero1" onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]&quot;>HERO1</span>';">
+
         </div>
       </section>
 
@@ -202,6 +204,7 @@
       <section class="mb-14">
         <div class="hero-box w-full h-80">
           <img class="hero-img" src="hero2.jpeg" alt="hero2" onerror="this.remove(); this.parentElement.innerHTML='<span class=&quot;text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]&quot;>HERO2</span>';">
+
         </div>
       </section>
 
@@ -280,28 +283,6 @@
   </div>
 
   <script>
-    /* ===========================
-       ✅ EKLENDİ: SUPABASE AUTH
-       =========================== */
-    const SUPABASE_URL = "https://jhhswailzyigocdgxhtx.supabase.co";
-    const SUPABASE_ANON_KEY = "BURAYA_SUPABASE_ANON_PUBLIC_KEY";
-
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    async function googleLogin() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: { redirectTo: window.location.origin }
-      });
-      if (error) notify("Giriş hatası: " + error.message);
-    }
-
-    // (opsiyonel) giriş var mı kontrol
-    (async function () {
-      const { data } = await supabase.auth.getSession();
-      if (data?.session?.user) notify("Giriş başarılı");
-    })();
-
     // ===== i18n fallback
     const FALLBACK_I18N = {
       tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. İçerik üreticilerin daha bilinçli kararlar almasına yardımcı olmak için tasarlanmıştır.",
@@ -348,6 +329,35 @@
       el.style.display = "block";
       setTimeout(() => { el.style.display = "none"; }, 2500);
     }
+
+    /* =========================================================
+       ✅ FIX: Supabase init ARTIK ASLA SCRIPT'İ KIRMAYACAK
+       ========================================================= */
+    const SUPABASE_URL = "https://jhhswailzyigocdgxhtx.supabase.co";
+    const SUPABASE_ANON_KEY = "BURAYA_SUPABASE_ANON_PUBLIC_KEY";
+
+    let supabase = null;
+
+    function initSupabase() {
+      if (!window.supabase || typeof window.supabase.createClient !== "function") {
+        console.error("supabase-js yuklenmedi. <head> icinde unpkg supabase-js var mi?");
+        return null;
+      }
+      return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }
+
+    async function googleLogin() {
+      if (!supabase) supabase = initSupabase();
+      if (!supabase) return notify("Supabase yüklenmedi (CDN).");
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: { redirectTo: window.location.origin }
+      });
+
+      if (error) notify("Giriş hatası: " + error.message);
+    }
+    /* ===================== END FIX ===================== */
 
     // ===== views
     function showView(name) {
