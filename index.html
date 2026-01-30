@@ -15,11 +15,11 @@ const supabase = window.supabase.createClient(
   "sb_publishable_CTlRpPWxqC3zxYu4gMKa6g__729jYvp"
 );
 
-document.getElementById("login").onclick = () => {
-  supabase.auth.signInWithOAuth({
+document.getElementById("login").onclick = async () => {
+  await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: window.location.origin
+      redirectTo: "https://index-html-l2nt.vercel.app"
     }
   });
 };
@@ -27,3 +27,4 @@ document.getElementById("login").onclick = () => {
 
 </body>
 </html>
+
