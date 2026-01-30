@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoSocial_Rose | Viral İçerik Motoru</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        :root {
+            --rose-primary: #f43f5e;
+            --bg-deep: #ffffff;
+            --text-main: #0f172a;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            scroll-behavior: smooth;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-glow {
+            background: radial-gradient(circle at top, #f8fafc 0%, transparent 60%);
+        }
+
+        .platform-tab {
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            color: #64748b;
+            background: #f1f5f9;
+        }
+        .platform-tab:hover { opacity: 0.8; }
+        .platform-tab.active {
+            background: #fff1f2;
+            border-color: var(--rose-primary);
+            color: var(--rose-primary);
+            box-shadow: 0 4px 6px -1px rgba(244, 63, 94, 0.1);
+        }
+
+        .type-tab {
+            background: #e2e8f0;
+            color: #475569;
+            transition: all 0.2s;
+        }
+        .type-tab.active {
+            background: var(--rose-primary);
+            color: white;
+        }
+
+        .faq-section {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        input, select {
+            background-color: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        input:focus, select:focus {
+            border-color: var(--rose-primary) !important;
+            ring: 2px var(--rose-primary) !important;
+        }
+    </style>
+</head>
+<body class="hero-glow min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <nav class="fixed top-0 w-full z-50 glass h-16">
+        <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-white text-xs font-bold text-slate-700 border border-slate-300 rounded px-2 py-1 outline-none focus:border-rose-500">
+                    <option value="tr">🇹🇷 TR</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="de">🇩🇪 DE</option>
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="pt">🇵🇹 PT</option>
+                </select>
+            </div>
+
+            <div class="hidden md:flex space-x-6 text-xs font-bold uppercase tracking-widest text-slate-500">
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="header.home">Anasayfa</a>
+                <span class="text-slate-400 cursor-not-allowed" title="Yakında" data-i18n="header.apps">Uygulamalar</span>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <span class="hidden lg:block text-[10px] text-slate-400 font-medium" data-i18n="header.poweredBy">Gemini AI ile çalışır</span>
+                <div id="auth-container">
+                    <!-- Dinamik Buton -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24 pb-10 w-full">
+        
+        <!-- Hero -->
+        <section class="max-w-7xl mx-auto px-4 mb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
+                
+                <div class="hidden lg:block lg:col-span-1">
+                    <div class="aspect-[3/4] bg-slate-100 rounded-2xl border border-slate-200 overflow-hidden relative group shadow-sm">
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs font-bold uppercase">Sol Hero Görsel</div>
+                    </div>
+                </div>
+
+                <div class="col-span-1 lg:col-span-2 text-center space-y-6">
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tighter uppercase text-slate-900">
+                        NEOSOCIAL<span class="text-rose-500">_ROSE</span>
+                    </h1>
+                    <p class="text-slate-600 text-lg font-medium leading-relaxed max-w-lg mx-auto" data-i18n="hero.description">
+                        Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir.
+                    </p>
+                    
+                    <div class="w-full max-w-sm mx-auto h-32 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-center mt-6 shadow-sm">
+                        <span class="text-slate-400 text-xs font-bold uppercase">Hero2 Görsel</span>
+                    </div>
+                </div>
+
+                <div class="hidden lg:block lg:col-span-1">
+                    <div class="aspect-[3/4] bg-slate-100 rounded-2xl border border-slate-200 overflow-hidden relative shadow-sm">
+                        <div class="absolute inset-0 flex items-center justify-center text-slate-400 text-xs font-bold uppercase">Sağ Hero1 Görsel</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generator -->
+        <section class="max-w-3xl mx-auto px-4 mb-12" id="core-engine">
+            <div class="bg-white border border-slate-200 rounded-[2rem] p-1 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 opacity-80"></div>
+                
+                <!-- Platform Sekmeleri -->
+                <div class="grid grid-cols-4 gap-1 p-2 mb-4 bg-slate-50 rounded-t-[1.8rem] border-b border-slate-100">
+                    <button onclick="setPlatform('youtube')" class="platform-tab active p-3 rounded-xl flex flex-col items-center justify-center" id="tab-youtube">
+                        <i class="fab fa-youtube text-2xl mb-1"></i>
+                        <span class="text-[9px] font-black uppercase">YouTube</span>
+                    </button>
+                    <button onclick="setPlatform('instagram')" class="platform-tab p-3 rounded-xl flex flex-col items-center justify-center" id="tab-instagram">
+                        <i class="fab fa-instagram text-2xl mb-1"></i>
+                        <span class="text-[9px] font-black uppercase">Instagram</span>
+                    </button>
+                    <button onclick="setPlatform('tiktok')" class="platform-tab p-3 rounded-xl flex flex-col items-center justify-center" id="tab-tiktok">
+                        <i class="fab fa-tiktok text-2xl mb-1"></i>
+                        <span class="text-[9px] font-black uppercase">TikTok</span>
+                    </button>
+                    <button onclick="setPlatform('x')" class="platform-tab p-3 rounded-xl flex flex-col items-center justify-center" id="tab-x">
+                        <i class="fab fa-twitter text-2xl mb-1"></i>
+                        <span class="text-[9px] font-black uppercase">X</span>
+                    </button>
+                </div>
+
+                <div class="px-6 pb-8 space-y-6">
+                    <!-- Tip Seçimi -->
+                    <div class="flex p-1 bg-slate-100 rounded-lg border border-slate-200">
+                        <button onclick="setType('title')" class="type-tab active flex-1 py-2 rounded-md text-xs font-bold uppercase transition" id="type-title">BAŞLIK</button>
+                        <button onclick="setType('tag')" class="type-tab flex-1 py-2 rounded-md text-xs font-bold uppercase transition" id="type-tag">HASHTAG</button>
+                    </div>
+
+                    <!-- Kalan Hak -->
+                    <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <span id="credit-display">...</span>
+                        <span class="text-rose-600 cursor-pointer hover:underline" onclick="openAdModal()" data-i18n="usage.watchAd">Reklam izleyerek 1 ek üretim aç</span>
+                    </div>
+
+                    <!-- Inputlar -->
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1" data-i18n="generator.topic">Konu / Anahtar Kelime</label>
+                            <input type="text" id="topicInput" class="w-full bg-white border border-slate-300 p-4 rounded-xl outline-none focus:border-rose-500 text-slate-900 placeholder-slate-400 transition font-medium shadow-sm" placeholder="...">
+                        </div>
+                        
+                        <button onclick="generate()" id="generateBtn" class="w-full bg-rose-600 hover:bg-rose-500 py-4 rounded-xl text-white font-black uppercase tracking-wider transition-all transform active:scale-95 shadow-lg shadow-rose-200" data-i18n="generator.generate">
+                            ÜRETİM YAP
+                        </button>
+                    </div>
+
+                    <!-- Sonuç Alanı -->
+                    <div id="resultArea" class="hidden animate-pulse">
+                        <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl relative group shadow-inner">
+                            <p id="resultText" class="text-sm font-bold text-slate-800 leading-relaxed pr-8 font-mono"></p>
+                            <button onclick="copyResult()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition"><i class="far fa-copy"></i></button>
+                            <div id="validationMsg" class="mt-3 text-[10px] font-bold text-orange-600 hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Google Ads -->
+        <div class="max-w-3xl mx-auto px-4 mb-16">
+            <div class="w-full h-24 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-center relative overflow-hidden shadow-sm">
+                <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest z-10">Google Ads Space (Fixed)</span>
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNjYmQ1ZTEiLz48L3N2Zz4=')] opacity-20"></div>
+            </div>
+        </div>
+
+        <!-- Özellikler & Güvenlik -->
+        <section class="max-w-4xl mx-auto px-4 mb-16 grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-rose-500 font-bold mb-3 uppercase text-xs tracking-widest" data-i18n="mustHave.title">Özellikler</h3>
+                <ul class="space-y-2 text-sm text-slate-600 font-medium list-disc list-inside" id="features-list">
+                    <!-- JS ile doldurulacak -->
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-rose-500 font-bold mb-3 uppercase text-xs tracking-widest" data-i18n="footer.security">Güvenlik</h3>
+                <p class="text-sm text-slate-600 leading-relaxed" data-i18n="mustHave.items.5">
+                    Veri toplanmaz, yanıltıcı içerik üretilmez.
+                </p>
+            </div>
+        </section>
+
+        <!-- SSS -->
+        <section class="faq-section py-16 px-4 border-t border-slate-100">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-black mb-8 text-center uppercase tracking-tighter text-slate-900" data-i18n="footer.faq">Sıkça Sorulan Sorular</h2>
+                <div class="space-y-4">
+                    <div class="border-b border-slate-100 pb-4">
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Bu hizmet ücretli mi?</h4>
+                        <p class="text-slate-600 text-sm">Günlük belirli bir limite kadar ücretsizdir. Limit aşımında reklam izleyerek hak kazanabilirsiniz.</p>
+                    </div>
+                    <div class="border-b border-slate-100 pb-4">
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Verilerim saklanıyor mu?</h4>
+                        <p class="text-slate-600 text-sm">Hayır, hiçbir kullanıcı verisi veya içerik geçmişi sunucularımızda saklanmaz.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Garantili viral mi?</h4>
+                        <p class="text-slate-600 text-sm">Hayır. Yapay zeka trendlere uygun öneriler sunar, ancak "kesin viral" garantisi vermez.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Yasal Uyarı -->
+        <section class="max-w-4xl mx-auto px-4 py-12 text-center">
+            <p class="text-slate-400 text-xs leading-relaxed max-w-2xl mx-auto" data-i18n="footer.disclaimer">
+                Yasal Uyarı Metni
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 py-12 px-6 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+            <div class="col-span-2">
+                <span class="text-slate-900 text-sm block mb-4">NEOSOCIAL<span class="text-rose-500">_ROSE</span></span>
+                <p class="normal-case opacity-80">© 2026. All rights reserved.</p>
+            </div>
+            <div class="flex flex-col space-y-3">
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="footer.about">Hakkımızda</a>
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="footer.press">Basın</a>
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="footer.faq">SSS</a>
+            </div>
+            <div class="flex flex-col space-y-3">
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="footer.security">Güvenlik</a>
+                <a href="mailto:contact@neosocialrose.com" class="hover:text-rose-500 transition" data-i18n="footer.contact">İletişim</a>
+                <a href="#" class="hover:text-rose-500 transition" data-i18n="footer.help">Yardım</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reklam Modalı -->
+    <div id="adModal" class="fixed inset-0 z-[100] modal-overlay hidden items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 p-8 rounded-2xl max-w-sm w-full text-center shadow-2xl">
+            <i class="fas fa-play-circle text-rose-500 text-4xl mb-4"></i>
+            <h3 class="text-xl font-black text-slate-900 mb-2" id="adModalTitle">Ek Üretim Aç</h3>
+            <p class="text-slate-500 text-sm mb-6" id="adModalText" data-i18n="adModal.description">Reklam tamamlandıktan sonra 1 ek üretim açılır.</p>
+            <button onclick="watchAd()" id="watchAdBtn" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition" data-i18n="adModal.start">Reklamı Başlat</button>
+            <button onclick="closeAdModal()" class="mt-4 text-xs text-slate-400 font-bold uppercase hover:text-rose-500">Kapat</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- SENİN VERDİĞİN I18N VERİSİ ---
+        const translations = {
+          "tr": {
+            "header": { "home": "Anasayfa", "apps": "Uygulamalar (iOS & Google Play – Yakında)", "poweredBy": "Gemini AI ile çalışır", "login": "Google ile Giriş", "logout": "Çıkış" },
+            "hero": { "title": "Trendleri keşfet, içeriğini daha akıllı üret.", "description": "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir.", "cta": "Başlık ve Hashtag Üret" },
+            "generator": { "sectionTitle": "İçerik Üretim Alanı", "topic": "Konu / Anahtar Kelime", "generate": "Üret", "youtubeTitle": "YouTube Başlık Üret", "youtubeTag": "YouTube Hashtag Üret", "instagramTitle": "Instagram Başlık Üret", "instagramTag": "Instagram Hashtag Üret", "tiktokTitle": "TikTok Başlık Üret", "tiktokTag": "TikTok Hashtag Üret", "xTitle": "X Başlık Üret", "xTag": "X Hashtag Üret" },
+            "usage": { "titleRemaining": "Başlık hakkı", "tagRemaining": "Hashtag hakkı", "watchAd": "Reklam izleyerek 1 ek üretim aç" },
+            "warnings": { "titleLimit": "Günlük başlık hakkın bitti. Reklam izle.", "tagLimit": "Günlük hashtag hakkın bitti. Reklam izle.", "titleFormat": "Başlık 40 karakter olmalıdır.", "tagFormat": "Hashtag seti 59 karakteri geçemez.", "policy": "Politika ihlali.", "adRequired": "Reklam zorunlu.", "adFailed": "Reklam hatası." },
+            "adModal": { "titleTitle": "1 Ek Başlık Aç", "tagTitle": "1 Ek Hashtag Aç", "description": "Reklam sonrası 1 hak tanımlanır.", "start": "Reklamı Başlat" },
+            "mustHave": { "title": "Sitenin Olmazsa Olmazları", "items": [ "Politika uyumlu", "40 karakter başlık", "Günlük 2+2 hak", "Reklamla ek hak", "6 dil desteği", "Veri toplanmaz" ] },
+            "footer": { "about": "Hakkımızda", "press": "Basın Bülteni", "faq": "Sıkça Sorulan Sorular", "security": "Güvenlik", "contact": "İletişim", "help": "Yardım", "disclaimer": "Öneriler yapay zekâ tarafından üretilir. Sonuçlar değişiklik gösterebilir." }
+          },
+          "en": {
+            "header": { "home": "Home", "apps": "Apps (Soon)", "poweredBy": "Powered by Gemini AI", "login": "Sign in with Google", "logout": "Logout" },
+            "hero": { "title": "Discover trends.", "description": "AI-powered platform generating trending titles and hashtags.", "cta": "Generate" },
+            "generator": { "sectionTitle": "Generator", "topic": "Topic", "generate": "Generate" },
+            "usage": { "titleRemaining": "Titles left", "tagRemaining": "Hashtags left", "watchAd": "Watch ad for +1" },
+            "warnings": { "titleLimit": "Limit reached.", "tagLimit": "Limit reached.", "titleFormat": "Max 40 chars.", "tagFormat": "Max 59 chars.", "policy": "Policy violation.", "adRequired": "Ad required.", "adFailed": "Failed." },
+            "adModal": { "titleTitle": "Unlock Title", "tagTitle": "Unlock Hashtag", "description": "Watch ad to unlock.", "start": "Start Ad" },
+            "mustHave": { "title": "Features", "items": [ "Policy compliant", "40 chars limit", "Daily 2+2", "Ad support", "6 languages", "No data collection" ] },
+            "footer": { "about": "About", "press": "Press", "faq": "FAQ", "security": "Security", "contact": "Contact", "help": "Help", "disclaimer": "AI generated suggestions." }
+          },
+          "de": { "header": { "home": "Startseite", "apps": "Apps (Bald)", "login": "Anmelden", "logout": "Abmelden" }, "hero": { "description": "KI-Plattform für Titel und Hashtags." }, "generator": { "topic": "Thema", "generate": "Erstellen" }, "usage": { "watchAd": "Werbung ansehen" }, "footer": { "about": "Über uns", "contact": "Kontakt" } },
+          "fr": { "header": { "home": "Accueil", "apps": "Apps (Bientôt)", "login": "Connexion", "logout": "Déconnexion" }, "hero": { "description": "Plateforme IA." }, "generator": { "topic": "Sujet", "generate": "Générer" }, "usage": { "watchAd": "Regarder pub" }, "footer": { "about": "À propos", "contact": "Contact" } },
+          "es": { "header": { "home": "Inicio", "apps": "Apps (Pronto)", "login": "Entrar", "logout": "Salir" }, "hero": { "description": "Plataforma de IA." }, "generator": { "topic": "Tema", "generate": "Generar" }, "usage": { "watchAd": "Ver anuncio" }, "footer": { "about": "Sobre nosotros", "contact": "Contacto" } },
+          "pt": { "header": { "home": "Início", "apps": "Apps (Em breve)", "login": "Entrar", "logout": "Sair" }, "hero": { "description": "Plataforma de IA." }, "generator": { "topic": "Tópico", "generate": "Gerar" }, "usage": { "watchAd": "Ver anúncio" }, "footer": { "about": "Sobre nós", "contact": "Contato" } }
+        };
+
+        // --- 1. GLOBAL STATE ---
+        let state = {
+            lang: 'tr',
+            platform: 'youtube',
+            type: 'title', // 'title' | 'tag'
+            credits: { title: 2, tag: 2 }, // Backend'den gelecek
+            user: null
+        };
+
+        const SUPABASE_URL = "https://cdzxzgwvebmvccfkvfll.supabase.co"; 
+        const SUPABASE_KEY = "sb_publishable_QDz16Zn2HeoOw7Sf25PENA_FgZL0P-F"; 
+        const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        // --- 2. AUTHENTICATION ---
+        async function handleAuth() {
+            if(state.user) { await supabaseClient.auth.signOut(); location.reload(); }
+            else { await supabaseClient.auth.signInWithOAuth({ provider: 'google' }); }
+        }
+
+        function updateAuthUI() {
+            const container = document.getElementById('auth-container');
+            const dict = translations[state.lang] || translations['tr'];
+            if (state.user) {
+                container.innerHTML = `<button onclick="handleAuth()" class="text-xs font-bold text-slate-400 hover:text-rose-500 transition">${dict.header.logout}</button>`;
+            } else {
+                container.innerHTML = `<button onclick="handleAuth()" class="bg-rose-600 text-white px-4 py-2 rounded-full text-[10px] font-black hover:bg-rose-500 transition flex items-center gap-2"><i class="fab fa-google"></i> ${dict.header.login}</button>`;
+            }
+        }
+
+        if(supabaseClient) {
+            supabaseClient.auth.getSession().then(({data}) => {
+                if(data.session) { state.user = data.session.user; updateAuthUI(); fetchUsage(); }
+                else { updateAuthUI(); }
+            });
+        }
+
+        // --- 3. UI LOGIC ---
+        function changeLanguage(lang) {
+            state.lang = lang;
+            const dict = translations[lang] || translations['tr'];
+            
+            // Text güncelleme
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let val = dict;
+                keys.forEach(k => { val = val ? val[k] : null });
+                if(val) el.innerText = val;
+            });
+
+            // Özellikler listesini güncelle
+            const list = document.getElementById('features-list');
+            list.innerHTML = "";
+            dict.mustHave.items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerText = item;
+                list.appendChild(li);
+            });
+
+            updateCreditDisplay();
+            updateAuthUI();
+        }
+
+        function setPlatform(p) {
+            state.platform = p;
+            document.querySelectorAll('.platform-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-'+p).classList.add('active');
+        }
+
+        function setType(t) {
+            state.type = t;
+            document.querySelectorAll('.type-tab').forEach(b => b.classList.remove('active'));
+            document.getElementById('type-'+t).classList.add('active');
+            updateCreditDisplay();
+        }
+
+        function updateCreditDisplay() {
+            const count = state.credits[state.type];
+            const dict = translations[state.lang] || translations['tr'];
+            const label = state.type === 'title' ? dict.usage.titleRemaining : dict.usage.tagRemaining;
+            document.getElementById('credit-display').innerText = `${label}: ${count}`;
+        }
+
+        // --- 4. GENERATION & ADS ---
+        async function fetchUsage() {
+            const today = new Date().toISOString().split('T')[0];
+            const saved = JSON.parse(localStorage.getItem('nsr_usage') || '{}');
+            if(saved.date !== today) {
+                state.credits = { title: 2, tag: 2 };
+                localStorage.setItem('nsr_usage', JSON.stringify({ date: today, credits: state.credits }));
+            } else {
+                state.credits = saved.credits;
+            }
+            updateCreditDisplay();
+        }
+
+        function openAdModal() {
+            document.getElementById('adModal').classList.remove('hidden');
+            document.getElementById('adModal').classList.add('flex');
+        }
+        function closeAdModal() {
+            document.getElementById('adModal').classList.add('hidden');
+            document.getElementById('adModal').classList.remove('flex');
+        }
+
+        function watchAd() {
+            const btn = document.getElementById('watchAdBtn');
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+            
+            setTimeout(() => {
+                state.credits[state.type] += 1;
+                const today = new Date().toISOString().split('T')[0];
+                localStorage.setItem('nsr_usage', JSON.stringify({ date: today, credits: state.credits }));
+                
+                btn.disabled = false;
+                btn.innerText = "Start Ad";
+                closeAdModal();
+                updateCreditDisplay();
+                alert("1 Hak Eklendi!");
+            }, 3000);
+        }
+
+        async function generate() {
+            const dict = translations[state.lang] || translations['tr'];
+            
+            if (state.credits[state.type] <= 0) {
+                alert(state.type === 'title' ? dict.warnings.titleLimit : dict.warnings.tagLimit);
+                openAdModal();
+                return;
+            }
+
+            const topic = document.getElementById('topicInput').value.trim();
+            if(!topic) return;
+
+            const btn = document.getElementById('generateBtn');
+            const resArea = document.getElementById('resultArea');
+            const resText = document.getElementById('resultText');
+            const valMsg = document.getElementById('validationMsg');
+
+            btn.disabled = true;
+            btn.innerText = "AI...";
+            resArea.classList.add('hidden');
+            valMsg.classList.add('hidden');
+
+            try {
+                // Backend Entegrasyonu (API çağrısı)
+                // Gerçek kullanımda burası fetch('/api/generate') olacak.
+                // const { data: { session } } = await supabaseClient.auth.getSession();
+                
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }, // Auth header eklenecek
+                    body: JSON.stringify({ topic, type: state.type, platform: state.platform, lang: state.lang })
+                });
+
+                let result = "";
+                if(res.ok) {
+                    const data = await res.json();
+                    result = data.result;
+                } else {
+                    // Fallback (API yoksa simülasyon)
+                    await new Promise(r => setTimeout(r, 1000));
+                    if (state.type === 'title') {
+                        result = (topic + " " + (state.lang === 'tr' ? 'ile Viral Ol!' : 'Go Viral!')).padEnd(40, ' ').substring(0, 40);
+                    } else {
+                        result = `#${topic.replace(/\s/g,'')} #viral #fyp #trend`;
+                        if(result.length > 59) result = result.substring(0, 59);
+                    }
+                }
+
+                state.credits[state.type]--;
+                const today = new Date().toISOString().split('T')[0];
+                localStorage.setItem('nsr_usage', JSON.stringify({ date: today, credits: state.credits }));
+                updateCreditDisplay();
+
+                resText.innerText = result;
+                
+                if(state.type === 'title' && result.length !== 40) {
+                    valMsg.innerText = `${dict.warnings.titleFormat} (${result.length})`;
+                    valMsg.classList.remove('hidden');
+                } else if (state.type === 'tag' && result.length > 59) {
+                    valMsg.innerText = `${dict.warnings.tagFormat} (${result.length})`;
+                    valMsg.classList.remove('hidden');
+                }
+
+                resArea.classList.remove('hidden');
+
+            } catch (e) {
+                alert("Error: " + e.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = dict.generator.generate;
+            }
+        }
+
+        function copyResult() {
+            const text = document.getElementById('resultText').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Kopyalandı!");
+        }
+
+        // Init
+        changeLanguage('tr');
+        fetchUsage();
+    </script>
+</body>
+</html>
