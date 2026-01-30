@@ -1,52 +1,29 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Supabase Google Login Test</title>
-
-  <!-- Supabase JS -->
+  <meta charset="UTF-8">
+  <title>Google Login Test</title>
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 </head>
-<body style="font-family:Arial;padding:40px">
+<body>
 
-  <h2>Supabase Google Login – TEST</h2>
+<button id="login">Google ile Giriş</button>
 
-  <button id="login">Google ile Giriş</button>
+<script>
+const supabase = window.supabase.createClient(
+  "https://jhhswailzyigocdgxhtx.supabase.co",
+  "sb_publishable_CTlRpPWxqC3zxYu4gMKa6g__729jYvp"
+);
 
-  <pre id="out"></pre>
-
-  <script>
-    // === AYARLAR (SADECE BUNLAR ÖNEMLİ)
-    const SUPABASE_URL = "https://jhhswailzyigocdgxhtx.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_CTlRpPWxqC3zxYu4gMKa6g__729jYvp";
-
-    // === CLIENT
-    const supabase = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-    // === LOGIN
-    document.getElementById("login").onclick = async () => {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: window.location.origin
-        }
-      });
-      if (error) alert(error.message);
-    };
-
-    // === LOGIN SONRASI KONTROL
-    (async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (data?.session?.user) {
-        document.getElementById("out").innerText =
-          "GİRİŞ OK:\n" + JSON.stringify(data.session.user, null, 2);
-      }
-    })();
-  </script>
+document.getElementById("login").onclick = () => {
+  supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin
+    }
+  });
+};
+</script>
 
 </body>
 </html>
