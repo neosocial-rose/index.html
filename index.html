@@ -84,14 +84,11 @@
           <div class="relative h-full flex items-center">
             <span class="nav-link" id="nav-production-btn">Üretim Yeri</span>
             <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
-              <button onclick="setMode('youtube','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Başlık</button>
-              <button onclick="setMode('youtube','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Hashtag</button>
-              <button onclick="setMode('instagram','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Başlık</button>
-              <button onclick="setMode('instagram','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Hashtag</button>
-              <button onclick="setMode('tiktok','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Başlık</button>
-              <button onclick="setMode('tiktok','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Hashtag</button>
-              <button onclick="setMode('x','title')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Başlık</button>
-              <button onclick="setMode('x','tag')"   class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Hashtag</button>
+              <button onclick="setMode('youtube','trend')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube Trend</button>
+              <button onclick="setMode('instagram','trend')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram Trend</button>
+              <button onclick="setMode('tiktok','trend')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok Trend</button>
+              <button onclick="setMode('x','trend')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X Trend</button>
+              <button onclick="setMode('kanal','analiz')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md bg-slate-900 text-white mt-2">Kanal Analiz</button>
             </div>
           </div>
         </div>
@@ -138,12 +135,12 @@
 
       <section id="generator" class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[3rem] p-10 shadow-2xl mb-14">
         <div class="flex items-center justify-between mb-10 border-b border-slate-50 pb-6">
-          <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE BAŞLIK ÜRETİMİ</h3>
+          <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE TREND ÜRETİMİ</h3>
           <div class="text-[10px] font-black text-rose-500 bg-rose-50 px-4 py-1.5 rounded-full" id="credit-count">HAK: 2 / 2</div>
         </div>
         <div class="space-y-8">
           <div>
-            <label class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
+            <label id="input-label" class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
             <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
           <button onclick="generateDemo()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">ÜRETİMİ BAŞLAT</button>
@@ -186,16 +183,20 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 text-[10px] font-black uppercase">
       <div class="col-span-1 md:col-span-2">
         <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
-        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">Yaratıcıların daha bilinçli içerikler üretmesine yardımcı olmak için geliştirildik.</p>
+        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">Yaratıcıların daha bilinçli içerikler üretmesine yardımcı olmak için geliştirildik. Burası bir sohbet yeri değildir; trend odaklı izlenme artırma platformudur.</p>
         <p class="opacity-30">© 2026 NeoSocial_Rose</p>
       </div>
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">KURUMSAL</span>
-        <a href="#" class="block hover:text-white transition opacity-70">Hakkımızda</a>
+        <button onclick="alert('Platform Amacı: Sosyal medya içerik üreticileri için trend analizi yaparak izlenme ve etkileşim artırma odaklı başlık ve hashtag önerileri sunmaktır. Yanıltıcı bilgi ve sosyal medya politikalarına aykırı içerik üretilmez.')" class="block hover:text-white transition opacity-70 uppercase text-left">Hakkımızda</button>
+        <span class="block opacity-40">Basın (Yakında Aktif)</span>
+        <span class="block opacity-40">Kariyer (Yakında Aktif)</span>
+        <button onclick="alert('Sıkça Sorulan Sorular:\n1. Üretimler nasıl yapılır? Yapay zeka trend analizi ile.\n2. Limitler nasıl sıfırlanır? Reklam izleyerek +1 hak kazanılır.\n3. Verilerim saklanıyor mu? Hayır, hiçbir veri kaydı tutulmaz.')" class="block hover:text-white transition opacity-70 uppercase text-left">SSS</button>
       </div>
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">DESTEK</span>
-        <a href="#" class="block hover:text-white transition opacity-70">İletişim</a>
+        <a href="mailto:jarvisheyrose@gmail.com" class="block hover:text-white transition opacity-70">İletişim: jarvisheyrose@gmail.com</a>
+        <button onclick="alert('Güvenlik Politikası: Platformumuzda hiçbir şekilde kişisel veri toplama, işleme veya veri kaydı yapılmamaktadır. Tüm işlemler anlıktır.')" class="block hover:text-white transition opacity-70 uppercase text-left">Güvenlik</button>
       </div>
     </div>
   </footer>
@@ -203,6 +204,7 @@
   <div id="ad-modal" class="fixed inset-0 z-[8000] modal-overlay hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] max-w-sm w-full text-center">
       <h3 class="text-xl font-black text-slate-900 mb-3">EK ÜRETİM HAKKI</h3>
+      <p class="text-[10px] font-black text-slate-400 uppercase mb-6">Reklamdan sonra +1 hak tanımlanacaktır.</p>
       <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">Reklamı Başlat</button>
       <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase">İptal</button>
     </div>
@@ -212,7 +214,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // ===== FIREBASE CONFIG
     const firebaseConfig = {
       apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
       authDomain: "neosocial-rose.firebaseapp.com",
@@ -223,33 +224,22 @@
     };
     firebase.initializeApp(firebaseConfig);
 
-    // ===== GİRİŞ FONKSİYONU
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).catch((error) => {
-        alert("Giriş Hatası: " + error.message);
-      });
+      firebase.auth().signInWithPopup(provider).catch((error) => { alert("Giriş Hatası: " + error.message); });
     }
 
-    // ===== ÇIKIŞ FONKSİYONU
     function logoutFromGoogle() {
-      firebase.auth().signOut().then(() => {
-        notify("Çıkış yapıldı.");
-      }).catch((error) => {
-        alert("Çıkış hatası!");
-      });
+      firebase.auth().signOut().then(() => { notify("Çıkış yapıldı."); }).catch(() => { alert("Çıkış hatası!"); });
     }
 
-    // GİRİŞ DURUMU TAKİBİ
     firebase.auth().onAuthStateChanged((user) => {
       const logoutBtn = document.getElementById("logout-btn");
       const userDisplay = document.getElementById("user-name-display");
-
       if (user) {
         userDisplay.innerText = user.displayName.toUpperCase();
         logoutBtn.classList.remove("hidden");
         logoutBtn.classList.add("flex");
-        notify("Hoş geldin " + user.displayName);
       } else {
         userDisplay.innerText = "Google ile Giriş";
         logoutBtn.classList.add("hidden");
@@ -258,17 +248,19 @@
     });
 
     const FALLBACK_I18N = {
-      tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir.",
-      en: "AI-powered platform; generates up-to-date title and hashtag suggestions."
+      tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. Burası sohbet yeri değil, trend odaklı izlenme artırma platformudur.",
+      en: "AI-powered platform; generates up-to-date suggestions for YouTube, Instagram, TikTok and X. This is not a chat place; it is a trend-oriented views increasing platform.",
+      fr: "Plateforme IA; génère des suggestions pour YouTube, Instagram, TikTok et X. Ce n'est pas un lieu de discussion; c'est une plateforme d'augmentation de vues orientée tendance.",
+      de: "KI-Plattform; generiert Vorschläge für YouTube, Instagram, TikTok und X. Dies ist kein Chat-Ort; es ist eine trendorientierte Plattform zur Steigerung der Aufrufe.",
+      es: "Plataforma IA; genera sugerencias para YouTube, Instagram, TikTok y X. Este no es un lugar de chat; es una plataforma de aumento de vistas orientada a tendencias.",
+      pt: "Plataforma de IA; gera sugestões para YouTube, Instagram, TikTok e X. Este não é um lugar de bate-papo; é uma plataforma de aumento de visualizações orientada a tendências."
     };
-
-    let I18N = { ...FALLBACK_I18N };
 
     const state = {
       lang: "tr",
       platform: "youtube",
-      type: "title",
-      credits: JSON.parse(localStorage.getItem("nsr_credits") || '{"youtube":{"title":2,"tag":2},"instagram":{"title":2,"tag":2},"tiktok":{"title":2,"tag":2},"x":{"title":2,"tag":2}}')
+      type: "trend",
+      totalCredits: parseInt(localStorage.getItem("nsr_total_credits") || "2")
     };
 
     function notify(msg) {
@@ -284,40 +276,31 @@
       document.getElementById("view-home").style.display = "none";
       document.getElementById("view-apps").style.display = "none";
       document.getElementById("view-platform").style.display = "none";
-
-      if (name === "home") {
-        document.getElementById("view-home").style.display = "block";
-        header.style.display = "block";
-      } else if (name === "apps") {
-        document.getElementById("view-apps").style.display = "block";
-        header.style.display = "none";
-      } else if (name === "platform") {
-        document.getElementById("view-platform").style.display = "block";
-        header.style.display = "none";
-      }
+      if (name === "home") { document.getElementById("view-home").style.display = "block"; header.style.display = "block"; }
+      else if (name === "apps") { document.getElementById("view-apps").style.display = "block"; header.style.display = "none"; }
+      else if (name === "platform") { document.getElementById("view-platform").style.display = "block"; header.style.display = "none"; }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function setLang(l) {
       state.lang = l;
       document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-      const btn = document.getElementById("l-" + l);
-      if (btn) btn.classList.add("active");
-      document.getElementById("desc-text").innerText = I18N[l] || FALLBACK_I18N[l] || FALLBACK_I18N.tr;
+      document.getElementById("l-" + l).classList.add("active");
+      document.getElementById("desc-text").innerText = FALLBACK_I18N[l];
     }
 
     function setMode(p, t) {
       state.platform = p;
       state.type = t;
-      document.getElementById("current-mode-title").innerText = `${p} ${t === "title" ? "başlık" : "hashtag"} üretimi`.toUpperCase();
+      document.getElementById("current-mode-title").innerText = `${p} ${t} üretimi`.toUpperCase();
+      document.getElementById("input-label").innerText = t === "analiz" ? "Kanal Linki Giriniz" : "İçerik Konusu Giriniz";
+      document.getElementById("topicInput").placeholder = t === "analiz" ? "https://youtube.com/@kanal" : "Örn: Evde spor yapmanın avantajları";
       updateCreditsUI();
       closeAllDropdowns();
-      document.getElementById("generator").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function updateCreditsUI() {
-      const remaining = state.credits[state.platform][state.type];
-      document.getElementById("credit-count").innerText = `HAK: ${remaining} / 2`;
+      document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`;
     }
 
     function openAdModal() {
@@ -326,82 +309,53 @@
     }
     function closeAdModal() {
       document.getElementById("ad-modal").classList.add("hidden");
-      document.getElementById("ad-modal").classList.remove("flex");
     }
     function simulateAd() {
       const btn = document.getElementById("ad-start-btn");
-      btn.disabled = true;
       btn.innerText = "YÜKLENİYOR...";
       setTimeout(() => {
-        state.credits[state.platform][state.type] += 1;
-        localStorage.setItem("nsr_credits", JSON.stringify(state.credits));
+        state.totalCredits += 1;
+        localStorage.setItem("nsr_total_credits", state.totalCredits);
         updateCreditsUI();
         closeAdModal();
-        btn.disabled = false;
         btn.innerText = "Reklamı Başlat";
         notify("+1 üretim hakkı tanımlandı.");
-      }, 1200);
+      }, 1500);
     }
 
     function generateDemo() {
-      const remaining = state.credits[state.platform][state.type];
-      if (remaining <= 0) {
-        notify("Limit bitti. 1 reklam izle, 1 üretim kazan.");
-        openAdModal();
-        return;
-      }
+      if (state.totalCredits <= 0) { notify("Limit bitti. Reklam izleyerek hak kazan."); openAdModal(); return; }
       const topic = document.getElementById("topicInput").value.trim();
-      if (!topic) return notify("Lütfen konu giriniz.");
+      if (!topic) return notify("Lütfen giriş yapın.");
 
-      state.credits[state.platform][state.type] -= 1;
-      localStorage.setItem("nsr_credits", JSON.stringify(state.credits));
+      state.totalCredits -= 1;
+      localStorage.setItem("nsr_total_credits", state.totalCredits);
       updateCreditsUI();
 
-      let result = state.type === "title" ? (topic + " | Trend Başlık").padEnd(40, ".") : "#trend #viral #social";
+      let result = "";
+      if(state.type === "analiz") {
+        result = "Kanal Analizi: İçerik stratejisi trendlere %85 uyumlu. Öneri: Shorts kullanımını artırın.";
+      } else {
+        // 49 Karakter Başlık + 50 Karakter Hashtag (Toplam 100 karakter sınırına sadık kalındı)
+        let title = "Ranking The Most Epic Tarara Trumpet Moment 🎺🔥".slice(0, 49);
+        let tags = "#mrsaxobeat #saxophone #cover #trumpet #music".slice(0, 50);
+        result = title + " " + tags;
+      }
+
       document.getElementById("result-text").innerText = result;
+      document.getElementById("validation-msg").innerText = `TOPLAM KARAKTER: ${result.length} / 100`;
       document.getElementById("result-box").classList.remove("hidden");
     }
 
-    function copyResult() {
-      navigator.clipboard.writeText(document.getElementById("result-text").innerText);
-      notify("Sonuç kopyalandı.");
-    }
+    function copyResult() { navigator.clipboard.writeText(document.getElementById("result-text").innerText); notify("Kopyalandı."); }
 
-    // DROPDOWNS
-    const dropdownMap = [
-      { btn: "nav-apps-btn", dd: "nav-apps-dd" },
-      { btn: "nav-platform-btn", dd: "nav-platform-dd" },
-      { btn: "nav-production-btn", dd: "nav-production-dd" }
-    ];
-
-    function closeAllDropdowns() {
-      dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; });
-      document.body.classList.remove("dropdown-open");
-    }
-
-    function toggleDropdown(ddId) {
-      const dd = document.getElementById(ddId);
-      const isOpen = dd.style.display === "block";
-      closeAllDropdowns();
-      if (!isOpen) {
-        dd.style.display = "block";
-        document.body.classList.add("dropdown-open");
-      }
-    }
-
-    dropdownMap.forEach(x => {
-      document.getElementById(x.btn).addEventListener("click", (e) => {
-        e.stopPropagation();
-        toggleDropdown(x.dd);
-      });
-    });
-
+    const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
+    function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
+    function toggleDropdown(ddId) { const dd = document.getElementById(ddId); const isOpen = dd.style.display === "block"; closeAllDropdowns(); if (!isOpen) dd.style.display = "block"; }
+    dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); toggleDropdown(x.dd); }); });
     document.addEventListener("click", closeAllDropdowns);
 
-    (function init() {
-      setLang("tr");
-      updateCreditsUI();
-    })();
+    (function init() { setLang("tr"); updateCreditsUI(); })();
   </script>
 </body>
 </html>
