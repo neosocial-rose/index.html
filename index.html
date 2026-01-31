@@ -45,9 +45,6 @@
 
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
-    
-    /* Yeni Pro Modal Stili */
-    #info-modal .modal-content { max-height: 80vh; overflow-y: auto; }
   </style>
 </head>
 
@@ -166,27 +163,27 @@
     </div>
 
     <div id="view-apps" class="hidden-section mb-20 text-center py-20 bg-slate-50 rounded-[3rem] border border-slate-100">
-        <h2 class="text-xs font-black uppercase text-slate-400 mb-12 tracking-[0.4em]">Desteklenen Platformlar</h2>
-        <div class="flex flex-wrap justify-center items-center gap-16">
-          <div class="flex flex-col items-center gap-4"><i class="fab fa-youtube text-red-600 text-7xl"></i><span class="text-[10px] font-black">YOUTUBE</span></div>
-          <div class="flex flex-col items-center gap-4"><i class="fab fa-instagram text-pink-600 text-7xl"></i><span class="text-[10px] font-black">INSTAGRAM</span></div>
-          <div class="flex flex-col items-center gap-4"><i class="fab fa-tiktok text-black text-7xl"></i><span class="text-[10px] font-black">TIKTOK</span></div>
-          <div class="flex flex-col items-center gap-4"><i class="fab fa-twitter text-blue-400 text-7xl"></i><span class="text-[10px] font-black">X</span></div>
-        </div>
+      <h2 class="text-xs font-black uppercase text-slate-400 mb-12 tracking-[0.4em]">Desteklenen Platformlar</h2>
+      <div class="flex flex-wrap justify-center items-center gap-16">
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-youtube text-red-600 text-7xl"></i><span class="text-[10px] font-black">YOUTUBE</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-instagram text-pink-600 text-7xl"></i><span class="text-[10px] font-black">INSTAGRAM</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-tiktok text-black text-7xl"></i><span class="text-[10px] font-black">TIKTOK</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-twitter text-blue-400 text-7xl"></i><span class="text-[10px] font-black">X</span></div>
       </div>
-  
-      <div id="view-platform" class="hidden-section mb-20 text-center py-32 bg-slate-900 rounded-[3rem] text-white">
-        <i class="fas fa-brain text-rose-500 text-5xl mb-6"></i>
-        <h2 class="text-3xl font-black uppercase tracking-tighter">Gemini AI kullanılıyor</h2>
-        <p class="text-slate-400 text-xs mt-4 font-bold uppercase tracking-widest">Politika uyumlu içerik üretimi</p>
-      </div>
+    </div>
+
+    <div id="view-platform" class="hidden-section mb-20 text-center py-32 bg-slate-900 rounded-[3rem] text-white">
+      <i class="fas fa-brain text-rose-500 text-5xl mb-6"></i>
+      <h2 class="text-3xl font-black uppercase tracking-tighter">Gemini AI kullanılıyor</h2>
+      <p class="text-slate-400 text-xs mt-4 font-bold uppercase tracking-widest">Politika uyumlu içerik üretimi</p>
+    </div>
   </main>
 
   <footer class="bg-slate-900 text-slate-500 py-20 px-4 mt-auto">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 text-[10px] font-black uppercase">
       <div class="col-span-1 md:col-span-2">
         <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
-        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">İçerik üretiminde profesyonel rehberiniz. Burası sohbet yeri değil, yüksek erişim odaklı izlenme artırma platformudur.</p>
+        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">Yüksek erişim odaklı içerik rehberiniz. Burası sohbet yeri değil, stratejik izlenme artırma platformudur.</p>
         <p class="opacity-30">© 2026 NeoSocial_Rose</p>
       </div>
       <div class="space-y-5">
@@ -208,20 +205,17 @@
 
   <div id="ad-modal" class="fixed inset-0 z-[8000] modal-overlay hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] max-w-sm w-full text-center">
-      <h3 class="text-xl font-black text-slate-900 mb-3">EK ÜRETİM HAKKI</h3>
+      <h3 class="text-xl font-black text-slate-900 mb-3 uppercase">EK ÜRETİM HAKKI</h3>
       <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">Reklamı Başlat</button>
       <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase">İptal</button>
     </div>
   </div>
 
   <div id="info-modal" class="fixed inset-0 z-[8500] modal-overlay hidden items-center justify-center p-4">
-    <div class="bg-white border border-slate-200 p-8 rounded-[2rem] max-w-2xl w-full relative modal-content shadow-2xl">
-      <button onclick="closeInfoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-150">
-        <i class="fas fa-times"></i>
-      </button>
-      <h3 id="info-modal-title" class="text-2xl font-black text-slate-900 mb-6 uppercase tracking-tighter">BAŞLIK</h3>
-      <div id="info-modal-body" class="text-slate-600 text-sm font-semibold leading-relaxed space-y-4">
-        </div>
+    <div class="bg-white border border-slate-200 p-8 rounded-[2rem] max-w-2xl w-full relative shadow-2xl">
+      <button onclick="closeInfoModal()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-150"><i class="fas fa-times"></i></button>
+      <h3 id="info-modal-title" class="text-2xl font-black text-slate-900 mb-6 uppercase tracking-tighter"></h3>
+      <div id="info-modal-body" class="text-slate-600 text-sm font-semibold leading-relaxed space-y-4 max-h-[60vh] overflow-y-auto"></div>
     </div>
   </div>
 
@@ -229,7 +223,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // ===== FIREBASE CONFIG
     const firebaseConfig = {
       apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
       authDomain: "neosocial-rose.firebaseapp.com",
@@ -246,7 +239,7 @@
     }
 
     function logoutFromGoogle() {
-      firebase.auth().signOut().then(() => { notify("Çıkış yapıldı."); }).catch(() => { alert("Çıkış hatası!"); });
+      firebase.auth().signOut().then(() => { notify("Çıkış yapıldı."); });
     }
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -265,7 +258,21 @@
 
     const FALLBACK_I18N = {
       tr: "Yapay zekâ destekli platform; YouTube, Instagram, TikTok ve X için güncel başlık ve hashtag önerileri üretir. Burası sohbet yeri değil, yüksek erişim odaklı izlenme artırma platformudur.",
-      en: "AI-powered platform; generates up-to-date suggestions. This is not a chat place; it is a high-reach views increasing platform."
+      en: "AI-powered platform; generates up-to-date suggestions. This is not a chat place; it is a high-reach views increasing platform.",
+      fr: "Plateforme IA; génère des suggestions pour YouTube, Instagram, TikTok et X. Ce n'est pas un lieu de discussion; c'est une plateforme d'augmentation de vues à haute portée.",
+      de: "KI-Plattform; generiert Vorschläge für YouTube, Instagram, TikTok und X. Dies ist kein Chat-Ort; es ist eine hochreichweitenorientierte Plattform zur Steigerung der Aufrufe.",
+      es: "Plataforma IA; genera sugerencias para YouTube, Instagram, TikTok y X. Este no es un lugar de chat; es una plataforma de aumento de vistas orientada a alto alcance.",
+      pt: "Plataforma de IA; gera sugestões para YouTube, Instagram, TikTok e X. Este não é um lugar de bate-papo; é uma plataforma de aumento de visualizações de alto alcance."
+    };
+
+    const INFO_CONTENT = {
+      about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerinin dijital dünyadaki görünürlüğünü stratejik verilere dayanarak artırmayı hedefler. Platformumuz bir sohbet yeri değil, tamamen izlenme optimizasyon merkezidir." },
+      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI ile trend analizi yapılır.<br><b>Haklar?</b> Günlük 2 üretim hakkı verilir, reklamla artırılabilir." },
+      privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." },
+      terms: { title: "Kullanım Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
+      community: { title: "Topluluk Kuralları", body: "Etik dışı, yanıltıcı veya manipülatif içerik üretimi desteklenmez." },
+      press: { title: "Basın", body: "Basın materyalleri yakında eklenecektir." },
+      career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
 
     const state = {
@@ -275,52 +282,25 @@
       totalCredits: parseInt(localStorage.getItem("nsr_total_credits") || "2")
     };
 
-    // PROFESYONEL MODAL İÇERİKLERİ
-    const INFO_CONTENT = {
-      about: {
-        title: "Hakkımızda",
-        body: "NeoSocial_Rose, içerik üreticilerinin dijital dünyadaki görünürlüğünü bilimsel ve stratejik verilere dayanarak artırmayı hedefler. Platformumuz bir mesajlaşma veya sosyal medya aracı değil, tamamen veri odaklı bir başlık ve hashtag optimizasyon merkezidir."
-      },
-      faq: {
-        title: "Sıkça Sorulan Sorular",
-        body: "<b>Sistem nasıl çalışır?</b> Girilen anahtar kelimeler Gemini AI tarafından analiz edilerek en yüksek etkileşim potansiyeline sahip formatlara dönüştürülür.<br><br><b>Kredi sistemi nedir?</b> Her kullanıcıya günlük 2 hak tanımlanır. Ek haklar reklam izleme opsiyonu ile elde edilebilir."
-      },
-      privacy: {
-        title: "KVKK ve Gizlilik",
-        body: "<b>Kesin Taahhüt:</b> NeoSocial_Rose üzerinde yaptığınız hiçbir arama, girdiğiniz metin veya analiz edilen kanal linki sunucularımızda saklanmaz. Hiçbir veri toplama veya kullanıcı takibi yapılmamaktadır. Güvenliğiniz en üst önceliğimizdir."
-      },
-      terms: {
-        title: "Kullanım Şartları",
-        body: "Platform tarafından üretilen içeriklerin kullanımı tamamen kullanıcının sorumluluğundadır. Üretilen başlık ve hashtagler tavsiye niteliği taşır. Sosyal medya platformlarının kendi politikalarına aykırı kullanımlardan NeoSocial_Rose sorumlu tutulamaz."
-      },
-      community: {
-        title: "Topluluk Kuralları",
-        body: "NeoSocial_Rose topluluğu içinde yanıltıcı içerik, spam veya etik dışı manipülasyon önerileri üretilmez. Sistemimiz her zaman yapıcı ve büyüme odaklı bir strateji izler."
-      },
-      press: { title: "Basın Odası", body: "Basın bültenlerimiz ve marka kitimiz yakında bu bölümde aktif olacaktır." },
-      career: { title: "Kariyer", body: "Ekibimize katılmak için ilanlarımız yakında burada listelenecektir." }
-    };
+    function setLang(l) {
+      state.lang = l;
+      document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+      const btn = document.getElementById("l-" + l);
+      if (btn) btn.classList.add("active");
+      document.getElementById("desc-text").innerText = FALLBACK_I18N[l] || FALLBACK_I18N.tr;
+    }
 
     function openInfoModal(key) {
-      const modal = document.getElementById("info-modal");
-      const title = document.getElementById("info-modal-title");
-      const body = document.getElementById("info-modal-body");
-      
-      title.innerText = INFO_CONTENT[key].title;
-      body.innerHTML = INFO_CONTENT[key].body;
-      
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
+      document.getElementById("info-modal-title").innerText = INFO_CONTENT[key].title;
+      document.getElementById("info-modal-body").innerHTML = INFO_CONTENT[key].body;
+      document.getElementById("info-modal").classList.remove("hidden");
+      document.getElementById("info-modal").classList.add("flex");
     }
-
-    function closeInfoModal() {
-      document.getElementById("info-modal").classList.add("hidden");
-    }
+    function closeInfoModal() { document.getElementById("info-modal").classList.add("hidden"); }
 
     function notify(msg) {
       const el = document.getElementById("notification");
-      el.innerText = msg;
-      el.style.display = "block";
+      el.innerText = msg; el.style.display = "block";
       setTimeout(() => { el.style.display = "none"; }, 2500);
     }
 
@@ -336,78 +316,39 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function setLang(l) {
-      state.lang = l;
-      document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-      document.getElementById("l-" + l).classList.add("active");
-      document.getElementById("desc-text").innerText = FALLBACK_I18N[l] || FALLBACK_I18N.tr;
-    }
-
     function setMode(p, t) {
-      state.platform = p;
-      state.type = t;
+      state.platform = p; state.type = t;
       document.getElementById("current-mode-title").innerText = `${p} ${t}`.toUpperCase();
       document.getElementById("input-label").innerText = t === "analiz" ? "Kanal Linki Giriniz" : "İçerik Konusu Giriniz";
-      document.getElementById("topicInput").placeholder = t === "analiz" ? "https://youtube.com/@kanal" : "Örn: Evde spor yapmanın avantajları";
-      updateCreditsUI();
-      closeAllDropdowns();
+      updateCreditsUI(); closeAllDropdowns();
     }
 
-    function updateCreditsUI() {
-      document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`;
-    }
-
-    function openAdModal() {
-      document.getElementById("ad-modal").classList.remove("hidden");
-      document.getElementById("ad-modal").classList.add("flex");
-    }
-    function closeAdModal() {
-      document.getElementById("ad-modal").classList.add("hidden");
-    }
+    function updateCreditsUI() { document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; }
+    function openAdModal() { document.getElementById("ad-modal").classList.remove("hidden"); document.getElementById("ad-modal").classList.add("flex"); }
+    function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
     function simulateAd() {
-      const btn = document.getElementById("ad-start-btn");
-      btn.innerText = "YÜKLENİYOR...";
       setTimeout(() => {
-        state.totalCredits += 1;
-        localStorage.setItem("nsr_total_credits", state.totalCredits);
-        updateCreditsUI();
-        closeAdModal();
-        btn.innerText = "Reklamı Başlat";
-        notify("+1 üretim hakkı tanımlandı.");
+        state.totalCredits += 1; localStorage.setItem("nsr_total_credits", state.totalCredits);
+        updateCreditsUI(); closeAdModal(); notify("+1 üretim hakkı tanımlandı.");
       }, 1500);
     }
 
     function generateDemo() {
-      if (state.totalCredits <= 0) { notify("Limit bitti. Reklam izleyerek hak kazan."); openAdModal(); return; }
-      const topic = document.getElementById("topicInput").value.trim();
-      if (!topic) return notify("Lütfen giriş yapın.");
-
-      state.totalCredits -= 1;
-      localStorage.setItem("nsr_total_credits", state.totalCredits);
+      if (state.totalCredits <= 0) { openAdModal(); return; }
+      if (!document.getElementById("topicInput").value.trim()) { notify("Lütfen giriş yapın."); return; }
+      state.totalCredits -= 1; localStorage.setItem("nsr_total_credits", state.totalCredits);
       updateCreditsUI();
-
-      let result = "";
-      if(state.type === "analiz") {
-        result = "Kanal Stratejisi: Mevcut içerikleriniz erişim potansiyeline %85 uyumlu. Öneri: Görsel kancaları (hook) güçlendirin.";
-      } else {
-        let title = "Ranking The Most Epic Tarara Trumpet Moment 🎺🔥".slice(0, 49);
-        let tags = "#mrsaxobeat #saxophone #cover #trumpet #music".slice(0, 50);
-        result = title + " " + tags;
-      }
-
-      document.getElementById("result-text").innerText = result;
-      document.getElementById("validation-msg").innerText = `TOPLAM KARAKTER: ${result.length} / 100`;
+      let res = state.type === "analiz" ? "Analiz: Strateji %85 uyumlu." : "Ranking The Most Epic Tarara Trumpet Moment 🎺🔥 #mrsaxobeat #saxophone #cover #trumpet #music".slice(0, 100);
+      document.getElementById("result-text").innerText = res;
       document.getElementById("result-box").classList.remove("hidden");
     }
 
     function copyResult() { navigator.clipboard.writeText(document.getElementById("result-text").innerText); notify("Kopyalandı."); }
-
     const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
     function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
     function toggleDropdown(ddId) { const dd = document.getElementById(ddId); const isOpen = dd.style.display === "block"; closeAllDropdowns(); if (!isOpen) dd.style.display = "block"; }
     dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); toggleDropdown(x.dd); }); });
     document.addEventListener("click", closeAllDropdowns);
-
     (function init() { setLang("tr"); updateCreditsUI(); })();
   </script>
 </body>
