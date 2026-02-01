@@ -39,7 +39,7 @@ ${JSON.stringify(channelData)}`;
       return res.status(200).json({ text: out });
     }
 
-    // -------------------- ÜRETİM (49 başlık + 50 hashtag) --------------------
+    // -------------------- ÜRETİM (<=49 başlık + <=50 hashtag) --------------------
     const lang = String(body.lang || "tr");
     const platform = String(body.platform || "youtube");
     const type = String(body.type || "üretim");
@@ -49,8 +49,10 @@ ${JSON.stringify(channelData)}`;
     const prompt =
 `Sohbet etme. Açıklama yapma. SADECE 2 SATIR ÇIKTI VER.
 
-1. satır: TAM 49 karakterlik başlık (emoji dahil).
-2. satır: TAM 50 karakterlik hashtag satırı (boşluk dahil). Sadece # ile başlasın.
+1) Başlık: EN FAZLA 49 karakter (emoji dahil). 49'u GEÇME.
+2) Hashtag satırı: EN FAZLA 50 karakter (boşluk dahil). 50'yi GEÇME.
+- Kelime bölme, yarım kelime bırakma.
+- Hashtag satırı sadece # ile başlayan etiketlerden oluşsun.
 
 Dil: ${lang}
 Platform: ${platform}
@@ -58,11 +60,12 @@ Tür: ${type}
 Konu: ${topic}
 
 ÇIKTI FORMAT:
-<49 karakter başlık>
-<50 karakter hashtag>`;
+<<=49 karakter başlık>
+<<=50 karakter hashtag satırı>`;
 
     const rawText = await callGemini({ GEMINI_KEY, MODEL, prompt });
-    const fixed = enforceTwoLines(rawText);
+    const fixed = enforceTwoLinesMax(rawText);
+
     return res.status(200).json({ text: fixed });
 
   } catch (e) {
@@ -87,8 +90,8 @@ async function callGemini({ GEMINI_KEY, MODEL, prompt }) {
   return text;
 }
 
-// 49/50 kesin kilit (emoji/boşluk sayımı doğru)
-function enforceTwoLines(text) {
+// ---- ÜRETİM ÇIKTISI: 2 satır + maksimum uzunluk + kelime bölmeden kısaltma ----
+function enforceTwoLinesMax(text) {
   const lines = String(text || "")
     .replace(/\r/g, "")
     .split("\n")
@@ -98,24 +101,54 @@ function enforceTwoLines(text) {
   let title = lines[0] || "";
   let tags = lines[1] || "";
 
-  // tek satır geldiyse ayır
+  // Tek satır geldiyse başlık + hashtag ayır
   if (!tags && title.includes("#")) {
     const idx = title.indexOf("#");
-    tags = title.slice(idx);
+    tags = title.slice(idx).trim();
     title = title.slice(0, idx).trim();
   }
 
-  title = fixLen(title, 49);
-  tags = fixLen(tags.startsWith("#") ? tags : ("#" + tags), 50);
+  title = smartTrim(title, 49);
+  tags = normalizeTags(tags);
+  tags = smartTrim(tags, 50);
+
+  // tags boş geldiyse en azından boş döndürme: tek kısa etiket
+  if (!tags) tags = "#tag";
 
   return `${title}\n${tags}`;
 }
 
-function fixLen(str, len) {
-  const s = Array.from(String(str || "")); // emoji dahil sayım
-  if (s.length > len) return s.slice(0, len).join("");
-  if (s.length < len) return s.concat(Array(len - s.length).fill(" ")).join("");
-  return s.join("");
+function normalizeTags(s) {
+  let t = String(s || "").trim();
+  if (!t) return "";
+
+  // Başında # yoksa düzelt
+  if (!t.startsWith("#")) t = "#" + t;
+
+  // Fazla boşlukları toparla
+  t = t.replace(/\s+/g, " ").trim();
+
+  // Virgül vb. ayraçları boşluğa çevir (daha temiz)
+  t = t.replace(/[，,;]+/g, " ").replace(/\s+/g, " ").trim();
+
+  // Hashtag başları arasında boşluk yoksa (örn #a#b) → araya boşluk koymaya çalışma (riskli)
+  return t;
+}
+
+// Emoji dahil doğru sayım + kelime bölmeden kısaltma
+function smartTrim(str, maxLen) {
+  const arr = Array.from(String(str || ""));
+  if (arr.length <= maxLen) return arr.join("").trim();
+
+  // maxLen içinde kalacak şekilde kelime sınırından kes
+  const cut = arr.slice(0, maxLen).join("");
+
+  // Son boşluğa geri sar (kelime bölme yok)
+  const lastSpace = cut.lastIndexOf(" ");
+  if (lastSpace > 0) return cut.slice(0, lastSpace).trim();
+
+  // Boşluk yoksa mecbur düz kes (çok nadir)
+  return cut.trim();
 }
 
 // /channel/UC.. veya /@handle veya @handle
