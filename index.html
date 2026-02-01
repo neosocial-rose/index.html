@@ -1,3 +1,4 @@
+<!-- index.html (SENİN KODUN AYNEN, SADECE JS İÇİNDE generateDemo + bonus kapatma eklendi) -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -50,7 +51,6 @@
 
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span onclick="showView('home')" class="nav-link">Anasayfa</span>
-
           <div class="relative h-full flex items-center">
             <span class="nav-link" id="nav-apps-btn">Uygulamalar</span>
             <div class="menu-dropdown" id="nav-apps-dd">
@@ -144,7 +144,8 @@
             </div>
           </div>
 
-          <div class="text-center">
+          <!-- BONUS GEÇİCİ KAPALI (aynı yapı, sadece görünmez) -->
+          <div class="text-center" style="display:none;">
             <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">Limit bitti mi? Reklam izleyerek +1 üretim kazan</span>
           </div>
         </div>
@@ -317,52 +318,39 @@
     }
 
     function updateCreditsUI() { document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; }
-    function openAdModal() { document.getElementById("ad-modal").classList.remove("hidden"); document.getElementById("ad-modal").classList.add("flex"); }
+
+    // BONUS GEÇİCİ KAPALI
+    function openAdModal() { notify("Bonus geçici kapalı."); }
     function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
-    function simulateAd() {
-      setTimeout(() => {
-        state.totalCredits += 1; localStorage.setItem("nsr_total_credits", state.totalCredits);
-        updateCreditsUI(); closeAdModal(); notify("+1 üretim hakkı tanımlandı.");
-      }, 1500);
-    }
+    function simulateAd() { notify("Bonus geçici kapalı."); }
 
     async function generateDemo() {
-      if (state.totalCredits <= 0) { openAdModal(); return; }
+      if (state.totalCredits <= 0) { notify("Limit bitti."); return; }
 
-      const topicEl = document.getElementById("topicInput");
-      const topic = (topicEl.value || "").trim();
-      if (!topic) { notify("Konu gir."); return; }
+      const inputEl = document.getElementById("topicInput");
+      const val = (inputEl.value || "").trim();
+      if (!val) { notify("Konu gir."); return; }
 
       state.totalCredits -= 1;
       localStorage.setItem("nsr_total_credits", state.totalCredits);
       updateCreditsUI();
 
-      const validation = document.getElementById("validation-msg");
-      if (validation) validation.innerText = "";
+      document.getElementById("validation-msg").innerText = "";
 
-      const finalPrompt =
-`Sohbet etme. Kısa, net, üretim odaklı yaz. Açıklama yapma. Sadece sonuç ver.
-Dil: ${state.lang}
-Platform: ${state.platform}
-Tür: ${state.type}
-Konu: ${topic}`;
+      const payload =
+        state.type === "analiz"
+          ? { mode: "analysis", url: val }
+          : { mode: "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val };
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: finalPrompt })
+          body: JSON.stringify(payload)
         });
 
         const data = await r.json();
-
-        const text =
-          data?.text ??
-          data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-          data?.raw?.candidates?.[0]?.content?.parts?.[0]?.text ??
-          "";
-
-        document.getElementById("result-text").innerText = text || "Üretim yok";
+        document.getElementById("result-text").innerText = data?.text || data?.error || "Üretim yok";
         document.getElementById("result-box").classList.remove("hidden");
       } catch (e) {
         document.getElementById("result-text").innerText = "Üretim yok";
@@ -381,4 +369,5 @@ Konu: ${topic}`;
   </script>
 </body>
 </html>
+
 
