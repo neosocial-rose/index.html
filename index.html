@@ -1,18 +1,21 @@
-<!-- index.html (SENİN KODUN AYNEN, SADECE JS İÇİNDE generateDemo + bonus kapatma eklendi) -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NeoSocial_Rose</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
     .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; display:flex; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
+
     .menu-dropdown {
       display:none;
       position:absolute;
@@ -28,18 +31,25 @@
       z-index: 5000;
       pointer-events:auto;
     }
+
     body.dropdown-open #page-header { visibility: hidden; }
+
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
+
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+
     .ad-box { background:#fffbeb; border:1px solid #fef3c7; border-radius: 1.5rem; }
     .hidden-section { display:none; }
+
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col">
+
   <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
   <nav class="fixed top-0 w-full z-50 glass-nav h-20">
@@ -94,6 +104,7 @@
           <i class="fas fa-sign-out-alt text-xs"></i>
         </button>
       </div>
+
     </div>
   </nav>
 
@@ -127,15 +138,12 @@
           <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE ÜRETİMİ</h3>
           <div class="text-[10px] font-black text-rose-500 bg-rose-50 px-4 py-1.5 rounded-full" id="credit-count">HAK: 2 / 2</div>
         </div>
-
         <div class="space-y-8">
           <div>
             <label id="input-label" class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
             <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
-
           <button onclick="generateDemo()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">ÜRETİMİ BAŞLAT</button>
-
           <div id="result-box" class="hidden">
             <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
               <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
@@ -144,13 +152,13 @@
             </div>
           </div>
 
-          <!-- BONUS GEÇİCİ KAPALI (aynı yapı, sadece görünmez) -->
+          <!-- BONUS GEÇİCİ KAPALI -->
           <div class="text-center" style="display:none;">
             <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">Limit bitti mi? Reklam izleyerek +1 üretim kazan</span>
           </div>
         </div>
       </section>
-
+      
       <section class="mb-14">
         <div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" onerror="this.remove(); this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]\'>HERO2</span>';"></div>
       </section>
@@ -273,7 +281,11 @@
       lang: "tr",
       platform: "youtube",
       type: "üretim",
-      totalCredits: parseInt(localStorage.getItem("nsr_total_credits") || "2")
+      // 0 / NaN olursa 2'ye reset (hak bitti hatasını çözer)
+      totalCredits: (() => {
+        const v = parseInt(localStorage.getItem("nsr_total_credits") || "2", 10);
+        return (isNaN(v) || v <= 0) ? 2 : v;
+      })()
     };
 
     function setLang(l) {
@@ -319,23 +331,20 @@
 
     function updateCreditsUI() { document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; }
 
-    // BONUS GEÇİCİ KAPALI
+    // Bonus geçici kapalı (UI zaten gizli)
     function openAdModal() { notify("Bonus geçici kapalı."); }
     function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
     function simulateAd() { notify("Bonus geçici kapalı."); }
 
     async function generateDemo() {
-      if (state.totalCredits <= 0) { notify("Limit bitti."); return; }
+      if (state.totalCredits <= 0) { notify("Hak bitti."); return; }
 
-      const inputEl = document.getElementById("topicInput");
-      const val = (inputEl.value || "").trim();
-      if (!val) { notify("Konu gir."); return; }
+      const val = (document.getElementById("topicInput").value || "").trim();
+      if (!val) { notify(state.type === "analiz" ? "Link gir." : "Konu gir."); return; }
 
       state.totalCredits -= 1;
-      localStorage.setItem("nsr_total_credits", state.totalCredits);
+      localStorage.setItem("nsr_total_credits", String(state.totalCredits));
       updateCreditsUI();
-
-      document.getElementById("validation-msg").innerText = "";
 
       const payload =
         state.type === "analiz"
@@ -369,5 +378,3 @@
   </script>
 </body>
 </html>
-
-
