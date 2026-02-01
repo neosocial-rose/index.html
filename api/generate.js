@@ -1,18 +1,17 @@
-// api/generate.js
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
-  const YT_KEY = process.env.YOUTUBE_API_KEY; // Kanal analizi için
+  const YT_KEY = process.env.YOUTUBE_API_KEY;
   const MODEL = "gemini-2.5-flash";
 
   if (!GEMINI_KEY) return res.status(500).json({ error: "GEMINI_API_KEY yok" });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
-    const mode = (body.mode || "produce").toString();
+    const mode = String(body.mode || "produce");
 
-    // ---------- KANAL ANALİZ (GERÇEK VERİ) ----------
+    // -------------------- KANAL ANALİZ (GERÇEK VERİ) --------------------
     if (mode === "analysis") {
       if (!YT_KEY) return res.status(500).json({ error: "YOUTUBE_API_KEY yok" });
 
@@ -24,14 +23,14 @@ export default async function handler(req, res) {
 
       const channelData = await fetchChannelData({ YT_KEY, ...parsed });
 
-      // Gemini'ye yalnızca GERÇEK çektiğimiz veriyi veriyoruz (uydurma yok)
       const prompt =
 `AŞAĞIDAKİ VERİLER DIŞINA ÇIKMA. UYDURMA YOK. Emin değilsen "veri yok" de.
-YouTube kanal analizi yap. Kısa ve net yaz.
-1) Genel durum (iyi/kötü değil; veriyle konuş)
-2) Güçlü yanlar (veriye dayanarak)
-3) Eksikler / riskler (veriye dayanarak)
-4) 5 maddelik net aksiyon listesi
+Kısa ve net kanal analizi yaz:
+
+1) Genel durum (veriyle)
+2) Güçlü yanlar (veriyle)
+3) Eksikler/riskler (veriyle)
+4) 5 maddelik net aksiyon
 
 KANAL VERİSİ (JSON):
 ${JSON.stringify(channelData)}`;
@@ -40,7 +39,7 @@ ${JSON.stringify(channelData)}`;
       return res.status(200).json({ text: out });
     }
 
-    // ---------- ÜRETİM (49 başlık + 50 hashtag) ----------
+    // -------------------- ÜRETİM (49 başlık + 50 hashtag) --------------------
     const lang = String(body.lang || "tr");
     const platform = String(body.platform || "youtube");
     const type = String(body.type || "üretim");
@@ -49,14 +48,14 @@ ${JSON.stringify(channelData)}`;
 
     const prompt =
 `Sohbet etme. Açıklama yapma. SADECE 2 SATIR ÇIKTI VER.
-1. satır: TAM 49 karakterlik başlık (emoji dahil). Ne eksik ne fazla.
+
+1. satır: TAM 49 karakterlik başlık (emoji dahil).
 2. satır: TAM 50 karakterlik hashtag satırı (boşluk dahil). Sadece # ile başlasın.
 
-Kurallar:
-- Dil: ${lang}
-- Platform: ${platform}
-- Tür: ${type}
-- Konu: ${topic}
+Dil: ${lang}
+Platform: ${platform}
+Tür: ${type}
+Konu: ${topic}
 
 ÇIKTI FORMAT:
 <49 karakter başlık>
@@ -64,8 +63,8 @@ Kurallar:
 
     const rawText = await callGemini({ GEMINI_KEY, MODEL, prompt });
     const fixed = enforceTwoLines(rawText);
-
     return res.status(200).json({ text: fixed });
+
   } catch (e) {
     return res.status(500).json({ error: "server error", detail: String(e) });
   }
@@ -82,12 +81,13 @@ async function callGemini({ GEMINI_KEY, MODEL, prompt }) {
       })
     }
   );
+
   const data = await r.json();
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
   return text;
 }
 
-// 49/50 kesin kilit
+// 49/50 kesin kilit (emoji/boşluk sayımı doğru)
 function enforceTwoLines(text) {
   const lines = String(text || "")
     .replace(/\r/g, "")
@@ -98,7 +98,7 @@ function enforceTwoLines(text) {
   let title = lines[0] || "";
   let tags = lines[1] || "";
 
-  // fallback: tek satır geldiyse ayır
+  // tek satır geldiyse ayır
   if (!tags && title.includes("#")) {
     const idx = title.indexOf("#");
     tags = title.slice(idx);
@@ -112,13 +112,13 @@ function enforceTwoLines(text) {
 }
 
 function fixLen(str, len) {
-  const s = Array.from(String(str || "")); // emoji dahil doğru sayım
+  const s = Array.from(String(str || "")); // emoji dahil sayım
   if (s.length > len) return s.slice(0, len).join("");
   if (s.length < len) return s.concat(Array(len - s.length).fill(" ")).join("");
   return s.join("");
 }
 
-// Yalın parse: /channel/UC... veya @handle
+// /channel/UC.. veya /@handle veya @handle
 function parseYouTubeChannel(url) {
   const u = url.trim();
 
@@ -128,7 +128,6 @@ function parseYouTubeChannel(url) {
   const mHandle = u.match(/\/@([a-zA-Z0-9._-]+)/);
   if (mHandle) return { ok: true, kind: "handle", handle: mHandle[1] };
 
-  // direk @handle yazdıysa
   const mHandle2 = u.match(/^@([a-zA-Z0-9._-]+)$/);
   if (mHandle2) return { ok: true, kind: "handle", handle: mHandle2[1] };
 
@@ -136,12 +135,10 @@ function parseYouTubeChannel(url) {
 }
 
 async function fetchChannelData({ YT_KEY, kind, id, handle }) {
-  // channels endpoint
   let chUrl = "";
   if (kind === "id") {
     chUrl = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&id=${encodeURIComponent(id)}&key=${encodeURIComponent(YT_KEY)}`;
   } else {
-    // forHandle destekli (handle -> kanal)
     chUrl = `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&forHandle=${encodeURIComponent(handle)}&key=${encodeURIComponent(YT_KEY)}`;
   }
 
@@ -152,7 +149,6 @@ async function fetchChannelData({ YT_KEY, kind, id, handle }) {
 
   const uploadsId = item?.contentDetails?.relatedPlaylists?.uploads;
 
-  // son 10 video
   let videos = [];
   if (uploadsId) {
     const plUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=10&playlistId=${encodeURIComponent(uploadsId)}&key=${encodeURIComponent(YT_KEY)}`;
