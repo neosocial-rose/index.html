@@ -226,7 +226,7 @@
       </div>
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">DESTEK</span>
-        <a href="mailto:jarvisheyrose@gmail.com" class="block hover:text-white transition opacity-70 lowercase">jarvisheyrose@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#b7ddd6c5c1dec4dfd2cec5d8c4d2f7d0dad6dedb99d4d8da" class="block hover:text-white transition opacity-70 lowercase"><span class="__cf_email__" data-cfemail="a6ccc7d4d0cfd5cec3dfd4c9d5c3e6c1cbc7cfca88c5c9cb">[email&#160;protected]</span></a>
         <button onclick="openInfoModal('privacy')" class="block hover:text-white transition opacity-70 uppercase text-left">KVKK / GİZLİLİK</button>
         <button onclick="openInfoModal('terms')" class="block hover:text-white transition opacity-70 uppercase text-left">KULLANIM ŞARTLARI</button>
         <button onclick="openInfoModal('community')" class="block hover:text-white transition opacity-70 uppercase text-left">TOPLULUK KURALLARI</button>
@@ -250,7 +250,7 @@
     </div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
@@ -317,20 +317,28 @@
       const lastDate = localStorage.getItem("nsr_last_date");
       
       if (lastDate !== today) {
-        localStorage.setItem("nsr_total_credits", "2");
+        // Yeni gün, tüm platformları sıfırla
+        const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
+        platforms.forEach(p => {
+          localStorage.setItem(`nsr_credits_${p}`, "2");
+        });
         localStorage.setItem("nsr_last_date", today);
-        return 2;
-      } else {
-        const saved = parseInt(localStorage.getItem("nsr_total_credits") || "2", 10);
-        return (isNaN(saved) || saved < 0) ? 0 : saved;
       }
+      
+      // Her platform için ayrı hak kontrolü yok, state'de tutulacak
+      return {
+        youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2", 10),
+        instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2", 10),
+        tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2", 10),
+        x: parseInt(localStorage.getItem("nsr_credits_x") || "2", 10)
+      };
     }
 
     const state = {
       lang: "tr",
       platform: "youtube",
       type: "üretim",
-      totalCredits: initCredits()
+      credits: initCredits() // Her platform için ayrı haklar
     };
 
     function setLang(l) {
@@ -375,7 +383,8 @@
     }
 
     function updateCreditsUI() { 
-      document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; 
+      const currentCredit = state.credits[state.platform] || 0;
+      document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
     }
 
     function openAdModal() { notify("Bonus sistem geçici olarak devre dışı."); }
@@ -383,8 +392,11 @@
     function simulateAd() { notify("Bonus sistem geçici olarak devre dışı."); }
 
     async function generateDemo() {
-      if (state.totalCredits <= 0) { 
-        notify("Günlük üretim limitinize ulaştınız. Limitiniz yarın yenilenecektir.");
+      const currentPlatform = state.platform;
+      const currentCredit = state.credits[currentPlatform] || 0;
+      
+      if (currentCredit <= 0) { 
+        notify(`${currentPlatform.toUpperCase()} için günlük üretim limitinize ulaştınız. Limitiniz yarın yenilenecektir.`);
         return; 
       }
 
@@ -394,8 +406,9 @@
         return; 
       }
 
-      state.totalCredits -= 1;
-      localStorage.setItem("nsr_total_credits", String(state.totalCredits));
+      // Platform için hak düş
+      state.credits[currentPlatform] -= 1;
+      localStorage.setItem(`nsr_credits_${currentPlatform}`, String(state.credits[currentPlatform]));
       updateCreditsUI();
 
       const payload = state.type === "analiz"
@@ -456,18 +469,4 @@
     }
     
     dropdownMap.forEach(x => { 
-      document.getElementById(x.btn).addEventListener("click", (e) => { 
-        e.stopPropagation(); 
-        toggleDropdown(x.dd); 
-      }); 
-    });
-    
-    document.addEventListener("click", closeAllDropdowns);
-    
-    (function init() { 
-      setLang("tr"); 
-      updateCreditsUI(); 
-    })();
-  </script>
-</body>
-</html>
+      document.getElementById(x.btn).addEventListener("click", (e) => {
