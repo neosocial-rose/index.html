@@ -20,7 +20,7 @@
       <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="location.reload()">
         NEOSOCIAL<span class="text-rose-500">_ROSE</span>
       </h1>
-      <div class="text-[10px] font-black uppercase text-slate-700">PRO SÜRÜM</div>
+      <div class="text-[10px] font-black uppercase text-slate-700">FLASH SÜRÜM</div>
     </div>
   </nav>
 
@@ -32,7 +32,7 @@
       </div>
       
       <div class="space-y-8">
-        <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900" placeholder="Konu yazın...">
+        <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900" placeholder="Konu yazın (Örn: Kahve çeşitleri)">
         <button onclick="generateDemo()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-rose-500 transition-all shadow-xl">ÜRETİMİ BAŞLAT</button>
         
         <div id="result-box" class="hidden mt-8">
@@ -60,17 +60,19 @@
       const _k = "AIzaSyCxgBXFJER8LuHiYNosqD5Kho2wUjKItsg";
 
       try {
-        // BURASI DEĞİŞTİ: "gemini-pro" yapıldı. Bu model her hesapta çalışır.
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${_k}`, {
+        // EN SPESİFİK MODEL İSMİ: gemini-1.5-flash-001
+        // Bu isim doğrudan sürüm numaralıdır, alias hatası vermez.
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent?key=${_k}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: inputVal + " hakkında sosyal medya için viral olacak 100 karakterlik tek bir cümle yaz." }] }] })
+          body: JSON.stringify({ contents: [{ parts: [{ text: inputVal + " hakkında 100 karakterlik kısa viral bir sosyal medya başlığı yaz." }] }] })
         });
 
         const data = await response.json();
 
         if (data.error) {
-          alert("GOOGLE HATASI: " + data.error.message);
+          // Hata mesajını özelleştirdik
+          alert("GOOGLE HATASI: " + data.error.message + "\n\nÇÖZÜM: Google Cloud Console'a git ve 'Generative Language API' servisini ETKİNLEŞTİR.");
         } else if (data.candidates && data.candidates[0]) {
           let aiRes = data.candidates[0].content.parts[0].text.trim().slice(0, 100);
           state.totalCredits -= 1;
