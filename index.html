@@ -22,7 +22,7 @@
     <input
       id="topicInput"
       type="text"
-      placeholder="Örn: futbol"
+      placeholder="Örn: müzik"
       class="w-full border p-4 rounded-xl mb-4 font-bold"
     />
 
@@ -38,7 +38,6 @@
     </div>
   </main>
 
-  <!-- SADECE BURASI DEĞİŞTİRİLDİ -->
   <script>
     async function generateDemo() {
       const val = document.getElementById("topicInput").value.trim();
@@ -53,7 +52,7 @@
       const data = await r.json();
 
       document.getElementById("result-text").innerText =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ?? JSON.stringify(data);
 
       document.getElementById("result-box").classList.remove("hidden");
     }
