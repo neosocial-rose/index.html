@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeoSocial Rose - Yapay Zeka Sosyal Medya Asistanı</title>
-    
-    <meta name="description" content="Yapay zeka destekli platform; YouTube, Instagram, TikTok ve X için trend başlık ve hashtag önerileri üretir.">
-    <meta name="keywords" content="YouTube başlık oluşturucu, Instagram hashtag önerileri, TikTok trend başlıklar, AI sosyal medya, NeoSocial Rose, izlenme artırma">
-    <meta name="author" content="NeoSocial_Rose">
-
+    <title>NeoSocial Rose</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        body { background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; }
         .cyber-card { background: rgba(10, 10, 15, 0.9); border: 1px solid #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.3); }
         .neon-text { text-shadow: 0 0 10px #ff007f; color: #ff007f; font-family: 'Orbitron', sans-serif; }
         .neon-btn { background: transparent; border: 1px solid #ff007f; transition: 0.3s; color: #ff007f; font-family: 'Orbitron', sans-serif; }
@@ -34,57 +29,35 @@
 
     <div id="loginSection" class="cyber-card p-8 rounded-2xl text-center max-w-md w-full">
         <h1 class="neon-text text-3xl mb-6">NEOSOCIAL ROSE</h1>
-        <p class="text-gray-400 mb-8 uppercase tracking-widest text-sm">Geleceğin Sosyal Medya Stratejisi</p>
         <button onclick="login()" class="neon-btn px-8 py-3 rounded-full w-full flex items-center justify-center gap-3">
             <i class="fab fa-google"></i> GOOGLE İLE BAĞLAN
         </button>
     </div>
 
     <div id="mainPanel" class="cyber-card p-6 rounded-2xl w-full max-w-2xl hidden">
-        <div class="flex justify-between items-center mb-6 border-b border-pink-900/50 pb-4">
+        <div class="flex justify-between items-center mb-6">
             <h2 class="neon-text text-xl">PRO PANEL</h2>
             <div class="flex items-center gap-2">
-                <span class="text-xs text-gray-400">KALAN KREDİ:</span>
+                <span class="text-xs text-gray-400">KREDİ:</span>
                 <span id="creditDisplay" class="text-pink-500 font-bold border border-pink-500 px-3 rounded">--</span>
             </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4 mb-6">
-            <div>
-                <label class="block text-xs text-pink-500 mb-1">PLATFORM</label>
-                <select id="platformSelect" class="w-full p-2 rounded">
-                    <option value="YouTube">YOUTUBE</option>
-                    <option value="Instagram">INSTAGRAM</option>
-                    <option value="TikTok">TIKTOK</option>
-                    <option value="X">X (Twitter)</option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-xs text-pink-500 mb-1">İŞLEM TİPİ</label>
-                <select id="typeSelect" class="w-full p-2 rounded">
-                    <option value="baslik">BAŞLIK & HASHTAG</option>
-                    <option value="analiz">KANAL ANALİZİ</option>
-                </select>
-            </div>
+            <select id="platformSelect" class="p-2 rounded"><option>YouTube</option><option>Instagram</option><option>TikTok</option></select>
+            <select id="typeSelect" class="p-2 rounded"><option value="baslik">Başlık</option><option value="analiz">Analiz</option></select>
         </div>
 
-        <div class="mb-6">
-            <label class="block text-xs text-pink-500 mb-1">İÇERİK KONUSU VEYA LİNK</label>
-            <input id="topicInput" type="text" placeholder="Örn: Kedi videoları için trend başlık..." class="w-full p-3 rounded text-sm">
-        </div>
-
-        <button id="genBtn" onclick="generateDemo()" class="neon-btn w-full py-4 rounded-xl font-bold tracking-widest">
-            ÜRETİMİ BAŞLAT
-        </button>
+        <input id="topicInput" type="text" placeholder="Konu yazın..." class="w-full p-3 rounded mb-6">
+        <button id="genBtn" onclick="generateDemo()" class="neon-btn w-full py-4 rounded-xl font-bold">ÜRETİMİ BAŞLAT</button>
 
         <div id="result-box" class="mt-8 p-4 border border-dashed border-pink-500 rounded-lg hidden">
-            <p id="result-text" class="text-lg text-center leading-relaxed"></p>
-            <p id="validation-msg" class="text-center text-[10px] mt-4 text-pink-400 tracking-tighter"></p>
+            <p id="result-text" class="text-lg text-center"></p>
+            <p id="validation-msg" class="text-center text-[10px] mt-4 text-pink-400"></p>
         </div>
     </div>
 
     <script>
-        // FIREBASE AYARLARI
         const firebaseConfig = {
             apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
             authDomain: "neosocial-rose.firebaseapp.com",
@@ -95,87 +68,55 @@
         };
         firebase.initializeApp(firebaseConfig);
 
-        let state = {
-            user: null,
-            totalCredits: parseInt(localStorage.getItem("nsr_total_credits")) || 5,
-            platform: "YouTube",
-            type: "baslik"
-        };
+        let state = { user: null, totalCredits: parseInt(localStorage.getItem("nsr_total_credits")) || 5 };
 
-        // GOOGLE GİRİŞ
         function login() {
             const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider).then(res => {
-                state.user = res.user;
-                showPanel();
-            });
+            firebase.auth().signInWithPopup(provider).then(res => { state.user = res.user; showPanel(); });
         }
 
-        function logout() {
-            firebase.auth().signOut().then(() => location.reload());
-        }
+        function logout() { firebase.auth().signOut().then(() => location.reload()); }
 
         function showPanel() {
             document.getElementById("loginSection").classList.add("hidden");
             document.getElementById("mainPanel").classList.remove("hidden");
             document.getElementById("userProfile").classList.remove("hidden");
-            document.getElementById("userName").innerText = state.user.displayName.toUpperCase();
+            document.getElementById("userName").innerText = state.user.displayName;
             document.getElementById("userImg").src = state.user.photoURL;
             updateCreditsUI();
         }
 
-        function updateCreditsUI() {
-            document.getElementById("creditDisplay").innerText = state.totalCredits;
-        }
-
+        function updateCreditsUI() { document.getElementById("creditDisplay").innerText = state.totalCredits; }
         function notify(msg) { alert(msg); }
 
-        // GEMINI ÜRETİM FONKSİYONU
         async function generateDemo() {
-            if (state.totalCredits <= 0) { notify("Limit bitti. Reklam izle, hak kazan."); return; }
-            
+            if (state.totalCredits <= 0) { notify("Limit bitti."); return; }
             const topic = document.getElementById("topicInput").value.trim();
-            if (!topic) { notify("Lütfen bir konu veya link giriniz."); return; }
+            if (!topic) return;
 
             const genBtn = document.getElementById("genBtn");
             genBtn.disabled = true;
-            genBtn.innerText = "YAPAY ZEKA ÜRETİYOR...";
+            genBtn.innerText = "ÜRETİLİYOR...";
 
-            // API Anahtarın Parçalanmış Hali
-            const _p1 = "AIzaSyCxgBX";
-            const _p2 = "FJER8LuHiYNo";
-            const _p3 = "sqD5Kho2wUjK";
-            const _p4 = "Itsg";
-            const _k = _p1 + _p2 + _p3 + _p4;
+            const _k = "AIzaSyCxgBX" + "FJER8LuHiYNo" + "sqD5Kho2wUjK" + "Itsg";
 
             try {
-                const type = document.getElementById("typeSelect").value;
-                const platform = document.getElementById("platformSelect").value;
-                
-                let promptText = type === "analiz" 
-                    ? `Kanal analizi yap: ${topic}. 100 karakteri geçme.`
-                    : `Platform: ${platform}. Konu: ${topic}. 49 karakter başlık + 50 karakter hashtag yaz. Toplam 100 karakter olsun. Format: [Başlık] [Hashtagler]`;
-
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${_k}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: topic + " için 100 karakterlik sosyal medya başlığı ve hashtag üret." }] }] })
                 });
 
                 const data = await response.json();
-                let res = data.candidates[0].content.parts[0].text.trim().replace(/\n/g, " ").slice(0, 100);
+                const res = data.candidates[0].content.parts[0].text.trim().slice(0, 100);
 
                 state.totalCredits -= 1;
                 localStorage.setItem("nsr_total_credits", state.totalCredits);
                 updateCreditsUI();
 
                 document.getElementById("result-text").innerText = res;
-                document.getElementById("validation-msg").innerText = `TOPLAM KARAKTER: ${res.length} / 100`;
                 document.getElementById("result-box").classList.remove("hidden");
-
-            } catch (e) {
-                notify("Bağlantı hatası oluştu!");
-            } finally {
+            } catch (e) { notify("Hata!"); } finally {
                 genBtn.disabled = false;
                 genBtn.innerText = "ÜRETİMİ BAŞLAT";
             }
