@@ -1,41 +1,60 @@
-<script>
-async function generateDemo() {
-  if (typeof state !== "undefined" && state.totalCredits <= 0) {
-    openAdModal();
-    return;
-  }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoSocial_Rose</title>
 
-  const input = document.getElementById("topicInput");
-  if (!input || !input.value.trim()) {
-    notify("Konu gir.");
-    return;
-  }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  const prompt = input.value.trim();
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
+  </style>
+</head>
 
-  if (typeof state !== "undefined") {
-    state.totalCredits -= 1;
-    localStorage.setItem("nsr_total_credits", state.totalCredits);
-    updateCreditsUI();
-  }
+<body class="min-h-screen flex flex-col">
 
-  try {
-    const r = await fetch("/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt })
-    });
+  <nav class="fixed top-0 w-full h-20 bg-white border-b flex items-center px-6 z-50">
+    <h1 class="text-xl font-black tracking-tighter">
+      NEOSOCIAL<span class="text-rose-500">_ROSE</span>
+    </h1>
+  </nav>
 
-    const data = await r.json();
+  <main class="pt-32 px-6 max-w-3xl mx-auto w-full">
+    <h2 class="text-2xl font-black mb-6">İçerik Üretim Demo</h2>
 
-    document.getElementById("result-text").innerText =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || "Üretim yok";
+    <input
+      id="topicInput"
+      type="text"
+      placeholder="Örn: Evde spor yapmanın avantajları"
+      class="w-full border p-4 rounded-xl mb-4 font-bold"
+    />
 
-    document.getElementById("result-box").classList.remove("hidden");
+    <button
+      onclick="generateDemo()"
+      class="w-full bg-black text-white py-4 rounded-xl font-black"
+    >
+      ÜRET
+    </button>
 
-  } catch (e) {
-    notify("Sunucu hatası");
-  }
-}
-</script>
+    <div id="result-box" class="hidden mt-6 p-4 border rounded-xl">
+      <p id="result-text" class="font-bold"></p>
+    </div>
+  </main>
 
+  <script>
+    function generateDemo() {
+      const val = document.getElementById("topicInput").value.trim();
+      if (!val) return alert("Konu gir");
+
+      document.getElementById("result-text").innerText =
+        "Ranking The Most Epic Tarara Trumpet Moment 🎺🔥 #mrsaxobeat #saxophone #cover #trumpet #music";
+
+      document.getElementById("result-box").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
