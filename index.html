@@ -16,19 +16,13 @@
 
 <body class="min-h-screen flex flex-col">
 
-  <nav class="fixed top-0 w-full h-20 bg-white border-b flex items-center px-6 z-50">
-    <h1 class="text-xl font-black tracking-tighter">
-      NEOSOCIAL<span class="text-rose-500">_ROSE</span>
-    </h1>
-  </nav>
-
-  <main class="pt-32 px-6 max-w-3xl mx-auto w-full">
+  <main class="pt-24 px-6 max-w-3xl mx-auto w-full">
     <h2 class="text-2xl font-black mb-6">İçerik Üretim Demo</h2>
 
     <input
       id="topicInput"
       type="text"
-      placeholder="Örn: Evde spor yapmanın avantajları"
+      placeholder="Örn: futbol"
       class="w-full border p-4 rounded-xl mb-4 font-bold"
     />
 
@@ -40,17 +34,26 @@
     </button>
 
     <div id="result-box" class="hidden mt-6 p-4 border rounded-xl">
-      <p id="result-text" class="font-bold"></p>
+      <p id="result-text" class="font-bold whitespace-pre-wrap"></p>
     </div>
   </main>
 
+  <!-- SADECE BURASI DEĞİŞTİRİLDİ -->
   <script>
-    function generateDemo() {
+    async function generateDemo() {
       const val = document.getElementById("topicInput").value.trim();
-      if (!val) return alert("Konu gir");
+      if (!val) return;
+
+      const r = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: val })
+      });
+
+      const data = await r.json();
 
       document.getElementById("result-text").innerText =
-        "Ranking The Most Epic Tarara Trumpet Moment 🎺🔥 #mrsaxobeat #saxophone #cover #trumpet #music";
+        data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
       document.getElementById("result-box").classList.remove("hidden");
     }
