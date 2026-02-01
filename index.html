@@ -22,8 +22,7 @@
       border:1px solid #f1f5f9;
       box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
       border-radius: 12px;
-      padding: 166px; /* Kodda hata olmaması için orijinal padding'e dokunulmadı */
-      padding: 16px; 
+      padding: 16px;
       min-width: 240px;
       z-index: 5000;
       pointer-events:auto;
@@ -231,11 +230,11 @@
       fr: "Plateforme IA; génère des suggestions pour YouTube, Instagram, TikTok et X. Ce n'est pas un lieu de discussion; c'est une plateforme d'augmentation de vues à haute portée.",
       de: "KI-Plattform; generiert Vorschläge für YouTube, Instagram, TikTok und X. Dies ist kein Chat-Ort; es ist eine hochreichweitenorientierte Plattform zur Steigerung der Aufrufe.",
       es: "Plataforma IA; genera sugerencias para YouTube, Instagram, TikTok y X. Este no es un lugar de chat; es una plataforma de aumento de vistas orientada a alto alcance.",
-      pt: "Plataforma de IA; gera sugestões para YouTube, Instagram, TikTok e X. Este não é um lugar de bate-papo; é uma plataforma de aumento de visualizações de alto alcance."
+      pt: "Plataforma de IA; gera sugerões para YouTube, Instagram, TikTok e X. Este não é um lugar de bate-papo; é uma plataforma de aumento de visualizações de alto alcance."
     };
     const INFO_CONTENT = {
       about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerinin dijital dünyadaki görünürlüğünü stratejik verilere dayanarak artırmayı hedefler. Platformumuz bir sohbet yeri değil, tamamen izlenme optimizasyon merkezidir." },
-      faq: { title: "Sıkça Sorulan Sosular", body: "<b>Nasıl çalışır?</b> Gemini AI ile trend analizi yapılır.<br><b>Haklar?</b> Günlük 2 üretim hakkı verilir, reklamla artırılabilir." },
+      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI ile trend analizi yapılır.<br><b>Haklar?</b> Günlük 2 üretim hakkı verilir, reklamla artırılabilir." },
       privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." },
       terms: { title: "Kullanım Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
       community: { title: "Topluluk Kuralları", body: "Etik dışı, yanıltıcı veya manipülatif içerik üretimi desteklenmez." },
@@ -293,8 +292,7 @@
         updateCreditsUI(); closeAdModal(); notify("+1 üretim hakkı tanımlandı.");
       }, 1500);
     }
-    
-    // GERÇEK GEMINI API BAĞLANTISI - YAPI BOZULMADAN GÜNCELLENDİ
+
     async function generateDemo() {
       if (state.totalCredits <= 0) { openAdModal(); return; }
       const inputVal = document.getElementById("topicInput").value.trim();
@@ -304,16 +302,13 @@
       genBtn.disabled = true;
       genBtn.innerText = "ÜRETİLİYOR...";
 
-      const _p1 = "AIzaSyCxgBX";
-      const _p2 = "FJER8LuHiYNo";
-      const _p3 = "sqD5Kho2wUjK";
-      const _p4 = "Itsg";
-      const _k = _p1 + _p2 + _p3 + _p4;
+      // API ANAHTARI HATASIZ VE TEK PARÇA
+      const _k = "AIzaSyCxgBXFJER8LuHiYNosqD5Kho2wUjKItsg";
 
       try {
         let promptText = state.type === "analiz" 
           ? `Kanal analizi yap: ${inputVal}. 100 karakteri geçme.`
-          : `Platform: ${state.platform}. Konu: ${inputVal}. 49 karakter başlık + 50 karakter hashtag yaz. Toplam 100 karakter olsun.`;
+          : `Platform: ${state.platform}. Konu: ${inputVal}. Sosyal medya için 100 karakterlik başlık ve hashtag üret.`;
 
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${_k}`, {
           method: 'POST',
@@ -322,15 +317,18 @@
         });
 
         const data = await response.json();
-        let aiRes = data.candidates[0].content.parts[0].text.trim().replace(/\n/g, " ").slice(0, 100);
-
-        state.totalCredits -= 1; 
-        localStorage.setItem("nsr_total_credits", state.totalCredits);
-        updateCreditsUI();
-
-        document.getElementById("result-text").innerText = aiRes;
-        document.getElementById("result-box").classList.remove("hidden");
-        document.getElementById("validation-msg").innerText = `KARAKTER: ${aiRes.length} / 100`;
+        
+        if (data.candidates && data.candidates[0]) {
+          let res = data.candidates[0].content.parts[0].text.trim().replace(/\n/g, " ").slice(0, 100);
+          state.totalCredits -= 1; 
+          localStorage.setItem("nsr_total_credits", state.totalCredits);
+          updateCreditsUI();
+          document.getElementById("result-text").innerText = res;
+          document.getElementById("result-box").classList.remove("hidden");
+          document.getElementById("validation-msg").innerText = `KARAKTER: ${res.length} / 100`;
+        } else {
+          notify("Üretim sırasında bir sorun oluştu.");
+        }
 
       } catch (e) {
         notify("Bağlantı hatası!");
