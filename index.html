@@ -1,45 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeoSocial_Rose</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>İçerik Üretim Demo</title>
 </head>
 
-<body class="min-h-screen flex flex-col">
+<body>
+  <h2>İçerik Üretim Demo</h2>
 
-  <main class="pt-24 px-6 max-w-3xl mx-auto w-full">
-    <h2 class="text-2xl font-black mb-6">İçerik Üretim Demo</h2>
+  <input id="topicInput" placeholder="örn: müzik" />
+  <button onclick="generate()">ÜRET</button>
 
-    <input
-      id="topicInput"
-      type="text"
-      placeholder="Örn: müzik"
-      class="w-full border p-4 rounded-xl mb-4 font-bold"
-    />
-
-    <button
-      onclick="generateDemo()"
-      class="w-full bg-black text-white py-4 rounded-xl font-black"
-    >
-      ÜRET
-    </button>
-
-    <div id="result-box" class="hidden mt-6 p-4 border rounded-xl">
-      <p id="result-text" class="font-bold whitespace-pre-wrap"></p>
-    </div>
-  </main>
+  <pre id="out"></pre>
 
   <script>
-    async function generateDemo() {
+    async function generate() {
       const val = document.getElementById("topicInput").value.trim();
       if (!val) return;
 
@@ -50,13 +26,9 @@
       });
 
       const data = await r.json();
-
-      document.getElementById("result-text").innerText =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ?? JSON.stringify(data);
-
-      document.getElementById("result-box").classList.remove("hidden");
+      document.getElementById("out").innerText = data.text || "üretim yok";
     }
   </script>
-
 </body>
 </html>
+
