@@ -148,7 +148,7 @@
             <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
               <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
               <button onclick="copyResult()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-125"><i class="far fa-copy"></i></button>
-              <div id="validation-msg" class="mt-4 text-[10px] font-black text-rose-500 opacity-60 uppercase"></div>
+              <div id="validation-msg" class="mt-4 text-[10px] font-black uppercase"></div>
             </div>
           </div>
 
@@ -271,21 +271,39 @@
       about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerinin dijital dünyadaki görünürlüğünü stratejik verilere dayanarak artırmayı hedefler. Platformumuz bir sohbet yeri değil, tamamen izlenme optimizasyon merkezidir." },
       faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI ile trend analizi yapılır.<br><b>Haklar?</b> Günlük 2 üretim hakkı verilir, reklamla artırılabilir." },
       privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." },
-      terms: { title: "Kullanım Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
+      terms: { title: "Kullanim Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
       community: { title: "Topluluk Kuralları", body: "Etik dışı, yanıltıcı veya manipülatif içerik üretimi desteklenmez." },
       press: { title: "Basın", body: "Basın materyalleri yakında eklenecektir." },
       career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
 
+    // ✅ YENİ: Günlük sıfırlama sistemi
+    function getTodayKey() {
+      const d = new Date();
+      return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    }
+
+    function initCredits() {
+      const today = getTodayKey();
+      const lastDate = localStorage.getItem("nsr_last_date");
+      
+      if (lastDate !== today) {
+        // Yeni gün başladı, hakları sıfırla
+        localStorage.setItem("nsr_total_credits", "2");
+        localStorage.setItem("nsr_last_date", today);
+        return 2;
+      } else {
+        // Aynı gün, mevcut hakları kullan
+        const saved = parseInt(localStorage.getItem("nsr_total_credits") || "2", 10);
+        return (isNaN(saved) || saved < 0) ? 0 : saved;
+      }
+    }
+
     const state = {
       lang: "tr",
       platform: "youtube",
       type: "üretim",
-      // 0 / NaN olursa 2'ye reset (hak bitti hatasını çözer)
-      totalCredits: (() => {
-        const v = parseInt(localStorage.getItem("nsr_total_credits") || "2", 10);
-        return (isNaN(v) || v <= 0) ? 2 : v;
-      })()
+      totalCredits: initCredits()
     };
 
     function setLang(l) {
@@ -307,7 +325,7 @@
     function notify(msg) {
       const el = document.getElementById("notification");
       el.innerText = msg; el.style.display = "block";
-      setTimeout(() => { el.style.display = "none"; }, 2500);
+      setTimeout(() => { el.style.display = "none"; }, 3500);
     }
 
     function showView(name) {
@@ -329,27 +347,36 @@
       updateCreditsUI(); closeAllDropdowns();
     }
 
-    function updateCreditsUI() { document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; }
+    function updateCreditsUI() { 
+      document.getElementById("credit-count").innerText = `HAK: ${state.totalCredits} / 2`; 
+    }
 
     // Bonus geçici kapalı (UI zaten gizli)
-    function openAdModal() { notify("Bonus geçici kapalı."); }
+    function openAdModal() { notify("Bonus sistem geçici olarak devre dışı."); }
     function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
-    function simulateAd() { notify("Bonus geçici kapalı."); }
+    function simulateAd() { notify("Bonus sistem geçici olarak devre dışı."); }
 
     async function generateDemo() {
-      if (state.totalCredits <= 0) { notify("Hak bitti."); return; }
+      // ✅ YENİ: Hak kontrolü ve profesyonel mesaj
+      if (state.totalCredits <= 0) { 
+        notify("Günlük üretim limitinize ulaştınız. Limitiniz yarın yenilenecektir.");
+        return; 
+      }
 
       const val = (document.getElementById("topicInput").value || "").trim();
-      if (!val) { notify(state.type === "analiz" ? "Link gir." : "Konu gir."); return; }
+      if (!val) { 
+        notify(state.type === "analiz" ? "Kanal linki giriniz." : "İçerik konusu giriniz."); 
+        return; 
+      }
 
+      // ✅ Hak düş
       state.totalCredits -= 1;
       localStorage.setItem("nsr_total_credits", String(state.totalCredits));
       updateCreditsUI();
 
-      const payload =
-        state.type === "analiz"
-          ? { mode: "analysis", url: val }
-          : { mode: "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val };
+      const payload = state.type === "analiz"
+        ? { mode: "analysis", url: val }
+        : { mode: "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val };
 
       try {
         const r = await fetch("/api/generate", {
@@ -359,22 +386,65 @@
         });
 
         const data = await r.json();
-        document.getElementById("result-text").innerText = data?.text || data?.error || "Üretim yok";
+        const resultText = data?.text || data?.error || "Üretim gerçekleştirilemedi.";
+        
+        document.getElementById("result-text").innerText = resultText;
         document.getElementById("result-box").classList.remove("hidden");
+
+        // ✅ YENİ: Karakter kontrolü ve profesyonel mesaj
+        const totalChars = resultText.length;
+        const validationEl = document.getElementById("validation-msg");
+        
+        if (totalChars > 100) {
+          validationEl.innerText = `⚠️ Toplam ${totalChars} karakter. Platform limiti 100 karakterdir.`;
+          validationEl.style.color = "#f43f5e";
+        } else {
+          validationEl.innerText = `✓ ${totalChars} / 100 karakter — Platform uyumlu.`;
+          validationEl.style.color = "#10b981";
+        }
+
       } catch (e) {
-        document.getElementById("result-text").innerText = "Üretim yok";
+        document.getElementById("result-text").innerText = "Sunucu hatası oluştu.";
         document.getElementById("result-box").classList.remove("hidden");
+        document.getElementById("validation-msg").innerText = "";
       }
     }
 
-    function copyResult() { navigator.clipboard.writeText(document.getElementById("result-text").innerText); notify("Kopyalandı."); }
+    function copyResult() { 
+      navigator.clipboard.writeText(document.getElementById("result-text").innerText); 
+      notify("İçerik panoya kopyalandı."); 
+    }
 
-    const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
-    function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
-    function toggleDropdown(ddId) { const dd = document.getElementById(ddId); const isOpen = dd.style.display === "block"; closeAllDropdowns(); if (!isOpen) dd.style.display = "block"; }
-    dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); toggleDropdown(x.dd); }); });
+    const dropdownMap = [
+      { btn: "nav-apps-btn", dd: "nav-apps-dd" }, 
+      { btn: "nav-platform-btn", dd: "nav-platform-dd" }, 
+      { btn: "nav-production-btn", dd: "nav-production-dd" }
+    ];
+    
+    function closeAllDropdowns() { 
+      dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); 
+    }
+    
+    function toggleDropdown(ddId) { 
+      const dd = document.getElementById(ddId); 
+      const isOpen = dd.style.display === "block"; 
+      closeAllDropdowns(); 
+      if (!isOpen) dd.style.display = "block"; 
+    }
+    
+    dropdownMap.forEach(x => { 
+      document.getElementById(x.btn).addEventListener("click", (e) => { 
+        e.stopPropagation(); 
+        toggleDropdown(x.dd); 
+      }); 
+    });
+    
     document.addEventListener("click", closeAllDropdowns);
-    (function init() { setLang("tr"); updateCreditsUI(); })();
+    
+    (function init() { 
+      setLang("tr"); 
+      updateCreditsUI(); 
+    })();
   </script>
 </body>
 </html>
