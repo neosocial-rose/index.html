@@ -37,17 +37,39 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
     .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; display:flex; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
-    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
+
+    .menu-dropdown {
+      display:none;
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform: translateX(-50%);
+      background:#fff;
+      border:1px solid #f1f5f9;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 240px;
+      z-index: 5000;
+      pointer-events:auto;
+    }
+
+    body.dropdown-open #page-header { visibility: hidden; }
+
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
+
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+
     .ad-box { background:#fffbeb; border:1px solid #fef3c7; border-radius: 1.5rem; }
     .hidden-section { display:none; }
+
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
   </style>
@@ -241,14 +263,11 @@
       const userDisplay = document.getElementById("user-name-display");
       if (user) {
         userDisplay.innerText = user.displayName.toUpperCase();
-        logoutBtn.classList.remove("hidden");
-        logoutBtn.classList.add("flex");
+        logoutBtn.classList.replace("hidden", "flex");
       } else {
         userDisplay.innerText = "Google ile Giriş";
-        logoutBtn.classList.add("hidden");
-        logoutBtn.classList.remove("flex");
+        logoutBtn.classList.replace("flex", "hidden");
       }
-      updateCreditsUI();
     });
 
     const FALLBACK_I18N = {
@@ -257,15 +276,15 @@
       fr: "Obtenez des suggestions de titres et de hashtags pour les plateformes populaires. Par honnêteté, nous devons préciser : cet outil vous guide mais ne garantit pas un succès définitif ou la viralité en raison des algorithmes. Bien que le système offre les meilleures suggestions basées sur des données, il ne promet pas de résultats à 100 %. S'il vous plaît, n'attendez pas de miracle ; utilisez cet outil pour renforcer votre stratégie.",
       de: "Erhalten Sie Titel- und Hashtag-Vorschläge für beliebte Plattformen. Aus Ehrlichkeit müssen wir darauf hinweisen: Dieses Tool leitet Sie an, garantiert jedoch aufgrund von Algorithmen keinen sicheren Erfolg oder Viralität. Auch wenn das System die besten datenbasierten Vorschläge liefert, verspricht es keine 100%igen Ergebnisse. Bitte erwarten Sie keine Wunder; nutzen Sie dieses Tool, um Ihre Strategie zu stärken.",
       es: "Obtenga sugerencias de títulos y hashtags para plataformas populares. Por honestidad, debemos indicar: Esta herramienta le guía, pero no garantiza el éxito definitivo o la viralidad debido a los algoritmos. Aunque el sistema ofrece las mejores sugerencias basadas en datos, no promete resultados del 100%. Por favor, no espere milagros; utilice esta herramienta para fortalecer su estrategia.",
-      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, debemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas en dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
+      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, debemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo veya viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas en dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
     };
 
     const INFO_CONTENT = {
-      about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerine dijital yolculuklarında veri odaklı fikirler sunarak stratejilerini güçlendirmeyi hedefler. Platformumuz bir sohbet aracı değil, içerik planlamanıza yardımcı olan analitik bir rehberdir; ancak algoritmik başarı veya yüksek izlenme garantisi sunmaz." },
-      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI teknolojisi ile güncel trend analizleri yapılarak başlık ve etiket önerileri sunulur.<br><br><b>Ücretli mi?</b> Temel kullanım tamamen ücretsizdir.<br><br><b>Haklar?</b> Her platform için günlük 2 üretim hakkı verilir, gece 00:00'da yenilenir.<br><br><b>Garanti var mı?</b> Sistem veri odaklı öneri sunar ancak sosyal medya algoritmaları değişken olduğundan kesin başarı vaat edilmez.<br><br><b>Verilerim güvende mi?</b> Aramalarınız veya kanal verileriniz sunucularımızda saklanmaz." },
-      privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." },
-      terms: { title: "Kullanim Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
-      community: { title: "Topluluk Kuralları", body: "Etik dışı, yanıltıcı veya manipülatif içerik üretimi desteklenmez." },
+      about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerinin dijital dünyadaki görünürlüğünü stratejik verilere dayanarak artırmayı hedefler. Platformumuz bir sohbet yeri değil, tamamen izlenme optimizasyon merkezidir." },
+      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI teknolojisi kullanılarak en güncel trendler analiz edilir.<br><br><b>Haklar?</b> Her platform için günlük 2 üretim hakkı verilir." },
+      privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır." },
+      terms: { title: "Kullanım Şartları", body: "Üretilen içeriklerin sorumluluğu kullanıcıya aittir." },
+      community: { title: "Topluluk Kuralları", body: "Etik dışı içerik üretimi desteklenmez." },
       press: { title: "Basın", body: "Basın materyalleri yakında eklenecektir." },
       career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
@@ -274,14 +293,19 @@
 
     function initCredits() {
       const today = getTodayKey();
-      const lastDate = localStorage.getItem("nsr_last_date");
-      if (lastDate !== today || !localStorage.getItem("nsr_credits_youtube")) {
+      if (localStorage.getItem("nsr_last_date") !== today) {
         ['youtube', 'instagram', 'tiktok', 'x'].forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
         localStorage.setItem("nsr_last_date", today);
       }
+      return {
+        youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2", 10),
+        instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2", 10),
+        tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2", 10),
+        x: parseInt(localStorage.getItem("nsr_credits_x") || "2", 10)
+      };
     }
 
-    const state = { lang: "tr", platform: "youtube", type: "üretim" };
+    const state = { lang: "tr", platform: "youtube", type: "üretim", credits: initCredits() };
 
     function setLang(l) {
       state.lang = l;
@@ -316,35 +340,35 @@
     function setMode(p, t) {
       state.platform = p; state.type = t;
       document.getElementById("current-mode-title").innerText = `${p} ${t}`.toUpperCase();
-      document.getElementById("input-label").innerText = t === "analiz" ? "Kanal Linki Giriniz" : "İçerik Konusu Giriniz";
-      updateCreditsUI(); closeAllDropdowns();
+      updateCreditsUI();
     }
 
     function updateCreditsUI() { 
-      initCredits();
-      const currentCredit = localStorage.getItem(`nsr_credits_${state.platform}`) || "2";
+      const currentCredit = state.credits[state.platform] || 0;
       document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
     }
 
     async function generateDemo() {
-      initCredits();
-      let c = parseInt(localStorage.getItem(`nsr_credits_${state.platform}`) || "2");
-      const val = (document.getElementById("topicInput").value || "").trim();
-      if (c <= 0) { notify("Günlük üretim limitine ulaştınız."); return; }
+      const p = state.platform;
+      if (state.credits[p] <= 0) { notify("Limit doldu."); return; }
+      const val = document.getElementById("topicInput").value.trim();
       if (!val) { notify("Konu giriniz."); return; }
 
-      c--;
-      localStorage.setItem(`nsr_credits_${state.platform}`, String(c));
+      state.credits[p] -= 1;
+      localStorage.setItem(`nsr_credits_${p}`, String(state.credits[p]));
       updateCreditsUI();
 
-      // CİDDİ VE STRATEJİK PROMPT GÜNCELLEMESİ
-      const instruction = `Dijital strateji uzmanı gibi davran. '${val}' konusu için; Şok, Flaş, Kimse Bilmiyor gibi ucuz kelimeleri kullanmadan, algoritma ve kanca (hook) odaklı, 100 karakteri geçmeyen profesyonel bir başlık ve 3 hashtag üret.`;
+      // PROFESYONEL VE HİBRİT ÜRETİM TALİMATI
+      const hybridInstruction = `Sen bir viral içerik stratejistisin. '${val}' konusu için; Şok, Flaş, 7 Hata gibi ucuz kelimeleri ASLA kullanma. 
+      Önce konuyu derinlemesine analiz et, sonra 'You weren't ready for this' veya 'Wait for it' gibi global merak uyandıran bir İngilizce cümle kur ve yanına parantez içinde vurucu bir Türkçe kanca ekle. 
+      Örn: 'Wait for the saxophone drop... 🎷💨 (Saksafonun gücü!)'. 
+      Hashtag olarak #saxophone #trumpet #gaoyifei #shorts ve konuyla ilgili 2 trend hashtag daha ekle.`;
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: instruction, topic: val, lang: state.lang, platform: state.platform })
+          body: JSON.stringify({ prompt: hybridInstruction, topic: val, lang: state.lang, platform: state.platform })
         });
         const data = await r.json();
         document.getElementById("result-text").innerText = data?.text || "Sunucu hatası.";
@@ -355,7 +379,7 @@
       }
     }
 
-    function copyResult() { 
+    function copyResult() {
       const t = document.getElementById("result-text").innerText;
       const el = document.createElement("textarea"); el.value = t;
       document.body.appendChild(el); el.select(); document.execCommand('copy');
