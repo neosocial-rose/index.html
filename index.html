@@ -173,11 +173,47 @@
     function loginWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider); }
     function logoutFromGoogle() { firebase.auth().signOut(); }
 
+    // CREDIT SYSTEM LINKED TO UID
+    function getCredits(uid = "guest") {
+      const today = new Date().toDateString();
+      const dateKey = `nsr_last_date_${uid}`;
+      const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
+      
+      if (localStorage.getItem(dateKey) !== today) {
+        platforms.forEach(p => localStorage.setItem(`nsr_credits_${uid}_${p}`, "2"));
+        localStorage.setItem(dateKey, today);
+      }
+      
+      const credits = {};
+      platforms.forEach(p => {
+        credits[p] = parseInt(localStorage.getItem(`nsr_credits_${uid}_${p}`) || "2");
+      });
+      return credits;
+    }
+
+    const state = { 
+      lang: "tr", 
+      platform: "youtube", 
+      type: "üretim", 
+      credits: getCredits("guest"),
+      userId: "guest"
+    };
+
     firebase.auth().onAuthStateChanged((user) => {
       const logoutBtn = document.getElementById("logout-btn");
       const userDisplay = document.getElementById("user-name-display");
-      if (user) { userDisplay.innerText = user.displayName.split(' ')[0].toUpperCase(); logoutBtn.classList.remove("hidden"); }
-      else { userDisplay.innerText = "GİRİŞ"; logoutBtn.classList.add("hidden"); }
+      
+      state.userId = user ? user.uid : "guest";
+      state.credits = getCredits(state.userId);
+      
+      if (user) { 
+        userDisplay.innerText = user.displayName.split(' ')[0].toUpperCase(); 
+        logoutBtn.classList.remove("hidden"); 
+      } else { 
+        userDisplay.innerText = "GİRİŞ"; 
+        logoutBtn.classList.add("hidden"); 
+      }
+      updateCreditsUI();
     });
 
     const FALLBACK_I18N = {
@@ -195,17 +231,6 @@
       privacy: { title: "Gizlilik", body: "Verileriniz saklanmaz, sistem anonim çalışır." }
     };
 
-    function initCredits() {
-      const today = new Date().toDateString();
-      if (localStorage.getItem("nsr_last_date") !== today) {
-        ['youtube', 'instagram', 'tiktok', 'x'].forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
-        localStorage.setItem("nsr_last_date", today);
-      }
-      return { youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2"), instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2"), tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2"), x: parseInt(localStorage.getItem("nsr_credits_x") || "2") };
-    }
-
-    const state = { lang: "tr", platform: "youtube", type: "üretim", credits: initCredits() };
-
     function setLang(l) { state.lang = l; document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active")); document.getElementById("l-" + l).classList.add("active"); document.getElementById("desc-text").innerText = FALLBACK_I18N[l] || FALLBACK_I18N.tr; }
     function openInfoModal(key) { document.getElementById("info-modal-title").innerText = INFO_CONTENT[key].title; document.getElementById("info-modal-body").innerHTML = INFO_CONTENT[key].body; document.getElementById("info-modal").classList.remove("hidden"); document.getElementById("info-modal").classList.add("flex"); }
     function closeInfoModal() { document.getElementById("info-modal").classList.add("hidden"); }
@@ -215,31 +240,25 @@
 
     async function generateDemo() {
       const p = state.platform;
+      const uid = state.userId;
+      
       if ((state.credits[p] || 0) <= 0) { notify("Elite limit doldu."); return; }
       const val = document.getElementById("topicInput").value.trim();
       if (!val) { notify("Lütfen konu giriniz."); return; }
 
-      // ULTIMATE ELITE PROMPT - POV STRATEGY
       const proPrompt = `
         GÖREV: Aşağıdaki konu hakkında GLOBAL ELITE Shorts/Reels başlığı üret.
         KONU: "${val}"
-        
-        KESİN YASAKLAR: 
-        - Sayılar (3, 5, 7 vb.), listeler, "X detayı", "X hatası", "Kimse bilmiyor", "Gözden kaçan", "Hazır değildin" kelimelerini ASLA kullanma.
-        - Klasik clickbait kalıplarını kullanma.
-        
-        İSTENEN ELITE TARZ: 
-        - "POV: You just witnessed [Topic] masterclass 💎"
-        - "POV: [Topic] hits different in 2026 ✨"
-        - "The pure aesthetic of [Topic] 🚀"
-        - "Elite [Topic] vibes only 💎"
-        - "Mastering the art of [Topic] ✨"
-        
+        KESİN YASAKLAR: Sayılar, listeler, clickbait kalıpları (ŞOK, GİZLİ, HATA).
+        İSTENEN ELITE TARZ: POV, Masterclass, Aesthetic hooks.
         FORMAT: "POV: [Profesyonel Başlık] [Emoji] #hashtag1 #hashtag2 #hashtag3 #masterclass"
         DİL: ${state.lang}
       `;
 
-      state.credits[p] -= 1; localStorage.setItem(`nsr_credits_${p}`, state.credits[p]); updateCreditsUI();
+      // Save credits per UID
+      state.credits[p] -= 1; 
+      localStorage.setItem(`nsr_credits_${uid}_${p}`, state.credits[p]); 
+      updateCreditsUI();
 
       try {
         const r = await fetch("/api/generate", {
@@ -250,7 +269,6 @@
         const data = await r.json();
         let result = (data?.text || "").trim();
         
-        // CODE-LEVEL ELITE FILTER
         const cleaner = [/ŞOK/gi, /KİMSE/gi, /BİLMİYOR/gi, /HATA/gi, /SIR/gi, /GİZLİ/gi, /DETAY/gi, /HAZIR DEĞİLDİN/gi, /GÖZDEN KAÇAN/gi, /\d+/g];
         cleaner.forEach(reg => { result = result.replace(reg, ""); });
         
@@ -278,7 +296,12 @@
     document.getElementById("nav-platform-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-platform-dd"); };
     document.getElementById("nav-production-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-production-dd"); };
     document.addEventListener("click", closeAllDropdowns);
-    (function init() { setLang("tr"); updateCreditsUI(); })();
+    function showView(name) {
+      if (name === 'home') {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    (function init() { setLang("tr"); })();
   </script>
 </body>
 </html>
