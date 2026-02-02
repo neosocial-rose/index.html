@@ -6,7 +6,15 @@
   <title>Ücretsiz AI Hashtag & Başlık Üretici 2026: YouTube, Instagram, TikTok | NeoSocial_Rose</title>
   
   <meta name="description" content="Free AI social media generator (TR/EN/FR/DE/ES/PT). Create viral titles & hashtags for YouTube, Instagram, TikTok. Ücretsiz yapay zeka başlık ve etiket üretici.">
-  <meta name="keywords" content="TR: ücretsiz hashtag üretici, youtube başlık önerileri, ai içerik asistanı, EN: free ai hashtag generator, viral title maker, youtube seo tool, best instagram tags, Global: neo social rose, ai content creator 2026, tiktok viral trends">
+  <meta name="keywords" content="
+    TR: ücretsiz hashtag üretici, youtube başlık önerileri, ai içerik asistanı,
+    EN: free ai hashtag generator, viral title maker, youtube seo tool, best instagram tags,
+    FR: générateur de hashtags gratuit, titres viraux ia, outils youtube ia,
+    DE: kostenloser hashtag generator, virale titel ki, youtube seo optimierung,
+    ES: generador de hashtags gratis, títulos virales ia, herramientas para youtubers,
+    PT: gerador de hashtags gratuito, títulos virais ia, otimização de mídia social,
+    Global: neo social rose, ai content creator 2026, tiktok viral trends
+  ">
   <meta name="robots" content="index, follow">
   <meta name="author" content="NeoSocial_Rose">
 
@@ -29,22 +37,46 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
     .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; display:flex; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
-    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
+
+    .menu-dropdown {
+      display:none;
+      position:absolute;
+      top:100%;
+      left:50%;
+      transform: translateX(-50%);
+      background:#fff;
+      border:1px solid #f1f5f9;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 240px;
+      z-index: 5000;
+      pointer-events:auto;
+    }
+
+    body.dropdown-open #page-header { visibility: hidden; }
+
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
+
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+
     .ad-box { background:#fffbeb; border:1px solid #fef3c7; border-radius: 1.5rem; }
+    .hidden-section { display:none; }
+
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
+
   <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
   <nav class="fixed top-0 w-full z-50 glass-nav h-20">
@@ -53,6 +85,7 @@
         <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showView('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
+
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span onclick="showView('home')" class="nav-link">Anasayfa</span>
           <div class="relative h-full flex items-center">
@@ -64,28 +97,41 @@
                 <i class="fab fa-tiktok text-black text-2xl"></i>
                 <i class="fab fa-twitter text-blue-400 text-2xl"></i>
               </div>
+              <div class="mt-3 text-[10px] font-black text-slate-400 text-center uppercase tracking-widest">iOS & Google Play – Yakında</div>
             </div>
           </div>
+
+          <div class="relative h-full flex items-center">
+            <span class="nav-link" id="nav-platform-btn">Platform</span>
+            <div class="menu-dropdown text-center" id="nav-platform-dd">
+              <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest italic">Gemini kullanılıyor</span>
+            </div>
+          </div>
+
           <div class="relative h-full flex items-center">
             <span class="nav-link" id="nav-production-btn">Üretim Yeri</span>
             <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
-              <button onclick="setMode('youtube','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">YouTube</button>
-              <button onclick="setMode('instagram','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">Instagram</button>
-              <button onclick="setMode('tiktok','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">TikTok</button>
-              <button onclick="setMode('x','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">X</button>
+              <button onclick="setMode('youtube','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">YouTube</button>
+              <button onclick="setMode('instagram','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">Instagram</button>
+              <button onclick="setMode('tiktok','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">TikTok</button>
+              <button onclick="setMode('x','üretim')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 hover:text-rose-500 transition">X</button>
+              <button onclick="setMode('kanal','analiz')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md bg-slate-900 text-white mt-2">Kanal Analizi</button>
             </div>
           </div>
         </div>
       </div>
+
       <div class="flex items-center gap-3">
-        <button onclick="loginWithGoogle()" id="login-btn" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition">
+        <button onclick="loginWithGoogle()" id="login-btn" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
           <span id="user-name-display" class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
         </button>
-        <button onclick="logoutFromGoogle()" id="logout-btn" class="hidden items-center justify-center bg-rose-50 text-rose-500 border border-rose-100 px-4 py-2.5 rounded-xl transition">
+
+        <button onclick="logoutFromGoogle()" id="logout-btn" class="hidden items-center justify-center bg-rose-50 text-rose-500 border border-rose-100 px-4 py-2.5 rounded-xl hover:bg-rose-500 hover:text-white transition transform active:scale-95">
           <i class="fas fa-sign-out-alt text-xs"></i>
         </button>
       </div>
+
     </div>
   </nav>
 
@@ -106,25 +152,25 @@
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 py-14">
     <div id="view-home">
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
-        <div class="hero-box"><img class="hero-img" src="hero.jpeg" onerror="this.parentElement.innerHTML='HERO';"></div>
+        <div class="hero-box"><img class="hero-img" src="hero.jpeg" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]\'>HERO</span>';"></div>
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center shadow-inner">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-6 bg-amber-50 px-3 py-1 rounded">Google Sponsorlu Alan</span>
           <div class="w-full h-full border-2 border-amber-100 border-dashed rounded-xl flex items-center justify-center italic text-amber-300 text-xs font-bold">REKLAM GÖSTERİMİ</div>
         </div>
-        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" onerror="this.parentElement.innerHTML='HERO1';"></div>
+        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]\'>HERO1</span>';"></div>
       </section>
 
       <section id="generator" class="max-w-2xl mx-auto bg-white border border-slate-200 rounded-[3rem] p-10 shadow-2xl mb-14">
-        <div class="flex items-center justify-between mb-10 border-b pb-6">
+        <div class="flex items-center justify-between mb-10 border-b border-slate-50 pb-6">
           <h3 id="current-mode-title" class="text-sm font-black uppercase text-slate-800 tracking-tighter">YOUTUBE ÜRETİMİ</h3>
           <div class="text-[10px] font-black text-rose-500 bg-rose-50 px-4 py-1.5 rounded-full" id="credit-count">HAK: 2 / 2</div>
         </div>
         <div class="space-y-8">
           <div>
             <label id="input-label" class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
-            <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold" placeholder="Örn: Saxophone or Football tactics">
+            <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
-          <button onclick="generateViral()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] transition">ÜRETİMİ BAŞLAT</button>
+          <button onclick="generateViral()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">ÜRETİMİ BAŞLAT</button>
           <div id="result-box" class="hidden">
             <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
               <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
@@ -133,9 +179,26 @@
           </div>
         </div>
       </section>
+      
       <section class="mb-14">
-        <div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" onerror="this.parentElement.innerHTML='HERO2';"></div>
+        <div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]\'>HERO2</span>';"></div>
       </section>
+    </div>
+
+    <div id="view-apps" class="hidden-section mb-20 text-center py-20 bg-slate-50 rounded-[3rem] border border-slate-100">
+      <h2 class="text-xs font-black uppercase text-slate-400 mb-12 tracking-[0.4em]">Desteklenen Platformlar</h2>
+      <div class="flex flex-wrap justify-center items-center gap-16">
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-youtube text-red-600 text-7xl"></i><span class="text-[10px] font-black">YOUTUBE</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-instagram text-pink-600 text-7xl"></i><span class="text-[10px] font-black">INSTAGRAM</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-tiktok text-black text-7xl"></i><span class="text-[10px] font-black">TIKTOK</span></div>
+        <div class="flex flex-col items-center gap-4"><i class="fab fa-twitter text-blue-400 text-7xl"></i><span class="text-[10px] font-black">X</span></div>
+      </div>
+    </div>
+
+    <div id="view-platform" class="hidden-section mb-20 text-center py-32 bg-slate-900 rounded-[3rem] text-white">
+      <i class="fas fa-brain text-rose-500 text-5xl mb-6"></i>
+      <h2 class="text-3xl font-black uppercase tracking-tighter">Gemini AI kullanılıyor</h2>
+      <p class="text-slate-400 text-xs mt-4 font-bold uppercase tracking-widest">Politika uyumlu içerik üretimi</p>
     </div>
   </main>
 
@@ -149,6 +212,8 @@
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">KURUMSAL</span>
         <button onclick="openInfoModal('about')" class="block hover:text-white transition opacity-70 uppercase text-left">Hakkımızda</button>
+        <button onclick="openInfoModal('press')" class="block hover:text-white transition opacity-70 uppercase text-left">Basın (Yakında)</button>
+        <button onclick="openInfoModal('career')" class="block hover:text-white transition opacity-70 uppercase text-left">Kariyer (Yakında)</button>
         <button onclick="openInfoModal('faq')" class="block hover:text-white transition opacity-70 uppercase text-left">SSS</button>
       </div>
       <div class="space-y-5">
@@ -212,7 +277,7 @@
       fr: "Obtenez des suggestions de titres et de hashtags pour les plateformes populaires. Par honnêteté, nous devons préciser : cet outil vous guide mais ne garantit pas un succès définitif ou la viralité en raison des algorithmes. Bien que le système offre les meilleures suggestions basées sur des données, il ne promet pas de résultats à 100 %. S'il vous plaît, n'attendez pas de miracle ; utilisez cet outil pour renforcer votre stratégie.",
       de: "Erhalten Sie Titel- und Hashtag-Vorschläge für beliebte Plattformen. Aus Ehrlichkeit müssen wir darauf hinweisen: Dieses Tool leitet Sie an, garantiert jedoch aufgrund von Algorithmen keinen sicheren Erfolg oder Viralität. Auch wenn das System die besten datenbasierten Vorschläge liefert, verspricht es keine 100%igen Ergebnisse. Bitte erwarten Sie keine Wunder; nutzen Sie dieses Tool, um Ihre Strategie zu stärken.",
       es: "Obtenga sugerencias de títulos y hashtags para plataformas populares. Por honestidad, debemos indicar: Esta herramienta le guía, pero no garantiza el éxito definitivo o la viralidad debido a los algoritmos. Aunque el sistema ofrece las mejores sugerencias basadas en datos, no promete resultados del 100%. Por favor, no espere milagros; utilice esta herramienta para fortalecer su estrategia.",
-      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honnêteté, debemos declarar: Esta ferramenta guia você, mas não garante successo definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas em dados, não promete resultados de 100%. Por favor, no espere milagres; use esta ferramenta para fortalecer sua estratégia."
+      pt: "Obtenha sugestões de títulos et hashtags para plataformas populares. Por honnêteté, debemos declarar: Esta ferramenta guia você, mas não garante successo definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas em dados, não promete resultados de 100%. Por favor, no espere milagres; use esta ferramenta para fortalecer sua estratégia."
     };
 
     const INFO_CONTENT = {
@@ -225,8 +290,10 @@
       career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
 
+    function getTodayKey() { return new Date().toISOString().slice(0, 10); }
+
     function initCredits() {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = getTodayKey();
       if (localStorage.getItem("nsr_last_date") !== today) {
         ['youtube', 'instagram', 'tiktok', 'x'].forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
         localStorage.setItem("nsr_last_date", today);
@@ -265,6 +332,8 @@
       closeAllDropdowns();
       const header = document.getElementById("page-header");
       document.getElementById("view-home").style.display = name === "home" ? "block" : "none";
+      document.getElementById("view-apps").style.display = name === "apps" ? "block" : "none";
+      document.getElementById("view-platform").style.display = name === "platform" ? "block" : "none";
       header.style.display = name === "home" ? "block" : "none";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -291,7 +360,7 @@
       updateCreditsUI();
 
       const finalPrompt = `
-        KATI KURAL: "ŞOK, FLAŞ, KİMSE BİLMİYOR, İNANILMAZ" gibi ucuz kelimeleri ASLA kullanma.
+        KATI KURAL: "ŞOK, FLAŞ, KİMSE BİLMİYOR, İNANILMAZ" gibi basit kelimeleri ASLA kullanma.
         GÖREV: '${val}' konusu için profesyonel bir viral "Hook" üret.
         FORMAT: [English Viral Catchphrase] + [Emoji] + (Turkish Analytical Note).
         TARZ: "You weren't ready for this...", "The secret behind..." veya "Wait for the drop..." tarzı.
