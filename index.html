@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NeoSocial_Rose | AI Viral Content Generator</title>
   
-  <meta name="description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram ve TikTok için viral içerikler oluşturun.">
+  <meta name="description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
   <meta name="robots" content="index, follow">
   
   <!-- Google AdSense -->
@@ -28,6 +28,20 @@
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .pro-input { background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 1.5rem; width: 100%; font-weight: 700; color: #0f172a; outline: none; transition: 0.3s; }
     .pro-input:focus { border-color: #f43f5e; background: #fff; box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.1); }
+    .platform-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; cursor: pointer; transition: all 0.3s; background: #fff; }
+    .platform-card:hover { border-color: #f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
+    .platform-card.disabled { opacity: 0.4; cursor: not-allowed; }
+    .platform-card.disabled:hover { transform: none; border-color: #f1f5f9; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: #fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .seo-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .seo-excellent { background: #dcfce7; color: #166534; }
+    .seo-good { background: #dbeafe; color: #1e40af; }
+    .seo-average { background: #fef3c7; color: #92400e; }
+    .seo-poor { background: #fee2e2; color: #991b1b; }
+    .page-content { display: none; }
+    .page-content.active { display: block; }
   </style>
 </head>
 
@@ -37,79 +51,136 @@
   <nav class="fixed top-0 w-full z-50 glass-nav h-20">
     <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
       <div class="flex items-center gap-10 h-full">
-        <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showPage('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
         <div class="hidden lg:flex items-center space-x-8 h-full">
-          <span class="nav-link flex" onclick="window.scrollTo({top:0, behavior:'smooth'})">Anasayfa</span>
+          <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
           <div class="relative h-full flex items-center">
-            <span class="nav-link flex" id="nav-apps-btn">Uygulamalar</span>
+            <span class="nav-link flex" id="nav-apps-btn" data-translate="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown" id="nav-apps-dd">
-              <div class="flex justify-around items-center">
-                <i class="fab fa-youtube text-red-600 text-2xl"></i>
-                <i class="fab fa-instagram text-pink-600 text-2xl"></i>
-                <i class="fab fa-tiktok text-black text-2xl"></i>
-                <i class="fab fa-twitter text-blue-400 text-2xl"></i>
+              <p class="text-[10px] font-black text-center mb-3 text-rose-500" data-translate="coming_soon">YAKINDA</p>
+              <div class="flex justify-around items-center gap-4">
+                <div class="text-center">
+                  <i class="fab fa-apple text-slate-800 text-3xl"></i>
+                  <p class="text-[8px] font-bold mt-1">App Store</p>
+                </div>
+                <div class="text-center">
+                  <i class="fab fa-google-play text-slate-800 text-3xl"></i>
+                  <p class="text-[8px] font-bold mt-1">Google Play</p>
+                </div>
               </div>
             </div>
           </div>
           <div class="relative h-full flex items-center">
-            <span class="nav-link flex" id="nav-production-btn">Üretim Yeri</span>
-            <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
-              <button onclick="setMode('youtube')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">YouTube</button>
-              <button onclick="setMode('instagram')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">Instagram</button>
-              <button onclick="setMode('tiktok')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">TikTok</button>
-              <button onclick="setMode('x')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">X (Twitter)</button>
+            <span class="nav-link flex" id="nav-platform-btn" data-translate="nav_platform">Platform</span>
+            <div class="menu-dropdown text-center" id="nav-platform-dd">
+              <div class="bg-gradient-to-r from-rose-50 to-purple-50 p-3 rounded-lg">
+                <p class="text-[10px] font-black text-slate-700 mb-1">🤖 POWERED BY</p>
+                <p class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">GEMINI AI</p>
+              </div>
             </div>
           </div>
+          <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
+          <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
         </div>
       </div>
       <div class="flex items-center gap-3">
         <div class="flex gap-2">
-          <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">TR</button>
-          <button onclick="setLang('en')" id="l-en" class="lang-btn">EN</button>
+          <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">🇹🇷</button>
+          <button onclick="setLang('en')" id="l-en" class="lang-btn">🇬🇧</button>
+          <button onclick="setLang('fr')" id="l-fr" class="lang-btn">🇫🇷</button>
+          <button onclick="setLang('de')" id="l-de" class="lang-btn">🇩🇪</button>
+          <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
+          <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
         </div>
         <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
-          <span id="user-display">GİRİŞ</span>
+          <span id="user-display" data-translate="login">GİRİŞ</span>
         </button>
       </div>
     </div>
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
-    <!-- Hero Görsel Bölümü -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
-      <div class="hero-box">
-        <img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 1</span>';">
-      </div>
-      <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
-        <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-        <div class="w-full h-full border-2 border-dashed border-amber-100 rounded-xl flex items-center justify-center italic text-amber-200 text-xs">Reklam Alanı</div>
-      </div>
-      <div class="hero-box">
-        <img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 2</span>';">
-      </div>
-    </section>
-
-    <div class="max-w-3xl mx-auto">
-      <section id="generator" class="bg-white border border-slate-100 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-slate-200/50 mb-14">
-        <div class="flex justify-between items-center mb-10">
-          <h2 id="current-platform" class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">YOUTUBE ÜRETİMİ</h2>
-          <div id="credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">Hak: 2 / 2</div>
+    
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page-content active">
+      <!-- Hero Görsel Bölümü -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
+        <div class="hero-box">
+          <img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 1</span>';">
         </div>
+        <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
+          <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
+          <div class="w-full h-full border-2 border-dashed border-amber-100 rounded-xl flex items-center justify-center italic text-amber-200 text-xs">Reklam Alanı</div>
+        </div>
+        <div class="hero-box">
+          <img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 2</span>';">
+        </div>
+      </section>
 
-        <div class="space-y-8">
-          <div>
-            <input type="text" id="topicInput" class="pro-input" placeholder="İçerik konusu girin (Örn: Futbol taktikleri)">
-          </div>
-          <button onclick="generateContent()" id="genBtn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl shadow-rose-500/10 active:scale-[0.98]">ÜRETİMİ BAŞLAT</button>
+      <!-- Platform Kartları -->
+      <section class="mb-14">
+        <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          <div id="result-box" class="hidden">
-            <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-8 relative group">
-              <p id="result-text" class="text-base font-bold text-slate-800 leading-relaxed"></p>
-              <button onclick="copyToClipboard()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-125">
-                <i class="far fa-copy"></i>
-              </button>
+          <!-- YouTube -->
+          <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-youtube text-red-600 text-4xl"></i>
+              <span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
+            <h3 class="text-lg font-black mb-2">YouTube</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları ve hashtag'ler</p>
+          </div>
+
+          <!-- Instagram -->
+          <div class="platform-card" id="card-instagram" onclick="openGenerator('instagram')">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-instagram text-pink-600 text-4xl"></i>
+              <span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
+            <h3 class="text-lg font-black mb-2">Instagram</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Gönderi başlıkları ve hashtag'ler</p>
+          </div>
+
+          <!-- TikTok -->
+          <div class="platform-card" id="card-tiktok" onclick="openGenerator('tiktok')">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-tiktok text-slate-900 text-4xl"></i>
+              <span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
+            <h3 class="text-lg font-black mb-2">TikTok</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Video başlıkları ve trend hashtag'ler</p>
+          </div>
+
+          <!-- X (Twitter) -->
+          <div class="platform-card" id="card-x" onclick="openGenerator('x')">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-twitter text-blue-400 text-4xl"></i>
+              <span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
+            <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Açıklama Bölümü -->
+      <section class="max-w-3xl mx-auto mb-14">
+        <div class="bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-100 rounded-[2rem] p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <i class="fas fa-info-circle text-rose-500 text-2xl mt-1"></i>
+            <div>
+              <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-translate="important_info">Önemli Bilgiler</h3>
+              <div class="space-y-3 text-sm font-bold text-slate-700">
+                <p data-translate="info_1">🎯 Bu platform <span class="text-rose-500">sadece içerik önerisi</span> sunar.</p>
+                <p data-translate="info_2">⚠️ Hiçbir garanti veya başarı vaadi <span class="text-rose-500">sunulmamaktadır</span>.</p>
+                <p data-translate="info_3">🤖 Tüm içerikler <span class="text-rose-500">Gemini AI</span> tarafından üretilmektedir.</p>
+                <p data-translate="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
+                <p data-translate="info_5">🔄 Her platform için günlük <span class="text-rose-500">2 üretim hakkınız</span> vardır.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -122,24 +193,186 @@
         </div>
       </section>
     </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="page-about" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
+        
+        <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
+          <p data-translate="about_p1">NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.</p>
+          
+          <p data-translate="about_p2">Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.</p>
+          
+          <div class="bg-rose-50 border-2 border-rose-100 rounded-2xl p-6 my-8">
+            <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="about_mission">Misyonumuz</h3>
+            <p data-translate="about_mission_text">İçerik üreticilerinin yaratıcılıklarına odaklanabilmeleri için teknik detayları bizim halletmemiz.</p>
+          </div>
+
+          <h3 class="text-xl font-black mt-8 mb-4" data-translate="about_features">Özelliklerimiz</h3>
+          <ul class="space-y-3 ml-6">
+            <li data-translate="about_feat_1">✨ 6 dil desteği (Türkçe, İngilizce, Fransızca, Almanca, İspanyolca, Portekizce)</li>
+            <li data-translate="about_feat_2">🎯 4 farklı sosyal medya platformu için optimize edilmiş içerik</li>
+            <li data-translate="about_feat_3">📊 SEO skoru analizi</li>
+            <li data-translate="about_feat_4">🔄 Günlük yenilenen üretim hakları</li>
+            <li data-translate="about_feat_5">🤖 Gemini AI ile güçlendirilmiş içerik üretimi</li>
+          </ul>
+
+          <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 my-8">
+            <h3 class="text-xl font-black mb-4 text-amber-700" data-translate="about_disclaimer">Sorumluluk Reddi</h3>
+            <p class="text-sm" data-translate="about_disclaimer_text">NeoSocial_Rose sadece içerik önerileri sunar. Üretilen içeriklerin başarısı, viral olması veya herhangi bir metrikle ilgili garanti vermemekteyiz. Tüm içerikler Gemini AI tarafından üretilir ve kullanıcıların kendi sorumluluğundadır.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ PAGE -->
+    <div id="page-faq" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
+        
+        <div class="space-y-6">
+          
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit nasıl çalışır?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günde 2 üretim hakkınız vardır. Toplam 4 platform x 2 hak = 8 üretim yapabilirsiniz. Haklar her gün saat 00:00'da yenilenir.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q2">SEO skoru nedir?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a2">SEO skoru, başlığınızın arama motorlarında ne kadar iyi performans gösterebileceğini tahmin eden bir metriktir. 80+ mükemmel, 60-79 iyi, 40-59 orta, 40'ın altı zayıf kabul edilir.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q3">Platform ücretsiz mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a3">Evet, NeoSocial_Rose şu anda tamamen ücretsizdir. Gelecekte premium özellikler eklenebilir.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q4">Verilerim saklanıyor mu?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a4">Hayır, hiçbir kullanıcı verisi sunucularımızda saklanmaz. Tüm veriler tarayıcınızın yerel depolama alanında (localStorage) tutulur.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q5">Hangi dilleri destekliyorsunuz?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a5">Türkçe, İngilizce, Fransızca, Almanca, İspanyolca ve Portekizce dillerinde içerik üretimi yapabilirsiniz.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q6">Üretilen içeriklerin başarısı garanti mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a6">Hayır. NeoSocial_Rose sadece öneri sunar. Viral olma, izlenme sayısı veya etkileşim garantisi vermemekteyiz.</p>
+          </div>
+
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q7">Mobil uygulama var mı?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a7">Şu anda sadece web platformu aktiftir. Yakında App Store ve Google Play'de olacağız! 🚀</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SECURITY PAGE -->
+    <div id="page-security" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="security_title">Güvenlik & Gizlilik</h1>
+        
+        <div class="space-y-8 text-slate-700 font-bold leading-relaxed">
+          
+          <div>
+            <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="security_data_title">Veri Güvenliği</h3>
+            <p data-translate="security_data_text">NeoSocial_Rose, kullanıcı gizliliğine önem verir. Hiçbir kişisel veri sunucularımızda saklanmaz. Tüm verileriniz tarayıcınızın yerel depolama alanında (localStorage) güvenle tutulur.</p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="security_google_title">Google Giriş</h3>
+            <p data-translate="security_google_text">Google ile giriş yaparken, sadece kimlik doğrulama için temel bilgileriniz (isim, e-posta) kullanılır. Bu bilgiler hiçbir üçüncü tarafla paylaşılmaz.</p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="security_content_title">İçerik Güvenliği</h3>
+            <p data-translate="security_content_text">Üretilen tüm içerikler Gemini AI tarafından oluşturulur. İçeriklerin uygunluğu ve etik kullanımı kullanıcının sorumluluğundadır.</p>
+          </div>
+
+          <div class="bg-blue-50 border-2 border-blue-100 rounded-2xl p-6">
+            <h3 class="text-xl font-black mb-4 text-blue-600" data-translate="security_contact_title">İletişim</h3>
+            <p class="mb-2" data-translate="security_contact_text">Güvenlik veya gizlilikle ilgili sorularınız için:</p>
+            <a href="mailto:jarvisheyrose@gmail.com" class="text-blue-600 underline lowercase">jarvisheyrose@gmail.com</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <!-- Generator Modal -->
+  <div id="generator-modal" class="modal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
+          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
+        </div>
+        <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span>
+          <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
+          <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol taktikleri, Makyaj ipuçları, Yemek tarifleri">
+        </div>
+
+        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
+          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
+        </button>
+
+        <div id="modal-result-box" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span>
+            <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
+          </div>
+          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
+            <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12"></p>
+            <p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3">0/100 karakter</p>
+            <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl">
+              <i class="far fa-copy"></i>
+            </button>
+          </div>
+          <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition">
+            <span data-translate="regenerate_btn">🔄 Yeniden Üret</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="bg-slate-900 text-slate-500 py-16 px-4 mt-auto">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-[10px] font-black uppercase">
       <div>
         <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
-        <p class="normal-case font-bold opacity-50 text-xs">Viral içerik ve strateji merkezi.</p>
+        <p class="normal-case font-bold opacity-50 text-xs" data-translate="footer_desc">Viral içerik ve strateji merkezi.</p>
         <p class="opacity-30 mt-4">© 2026 NeoSocial_Rose</p>
       </div>
       <div class="space-y-4">
-        <span class="text-slate-200 block text-xs tracking-widest">Kurumsal</span>
-        <button onclick="showInfo('privacy')" class="block opacity-70 hover:text-white uppercase">Hakkımızda</button>
-        <button onclick="showInfo('faq')" class="block opacity-70 hover:text-white uppercase">SSS</button>
+        <span class="text-slate-200 block text-xs tracking-widest" data-translate="footer_corporate">Kurumsal</span>
+        <button onclick="showPage('about')" class="block opacity-70 hover:text-white uppercase" data-translate="footer_about">Hakkımızda</button>
+        <button onclick="showPage('faq')" class="block opacity-70 hover:text-white uppercase" data-translate="footer_faq">SSS</button>
+        <button onclick="showPage('security')" class="block opacity-70 hover:text-white uppercase" data-translate="footer_security">Güvenlik</button>
       </div>
       <div class="space-y-4">
-        <span class="text-slate-200 block text-xs tracking-widest">Destek</span>
+        <span class="text-slate-200 block text-xs tracking-widest" data-translate="footer_support">Destek</span>
         <a href="mailto:jarvisheyrose@gmail.com" class="block opacity-70 lowercase">jarvisheyrose@gmail.com</a>
-        <button onclick="showInfo('privacy')" class="block opacity-70 hover:text-white uppercase">Gizlilik</button>
+        <button onclick="showPage('security')" class="block opacity-70 hover:text-white uppercase" data-translate="footer_privacy">Gizlilik</button>
       </div>
     </div>
   </footer>
@@ -148,31 +381,139 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
+    // Firebase Config
+    const firebaseConfig = { 
+      apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", 
+      authDomain: "neosocial-rose.firebaseapp.com", 
+      projectId: "neosocial-rose", 
+      storageBucket: "neosocial-rose.firebasestorage.app", 
+      messagingSenderId: "909069196756", 
+      appId: "1:909069196756:web:db488838badee276f0ca41" 
+    };
     firebase.initializeApp(firebaseConfig);
 
+    // ========== GEMINI API KEY ==========
+    // BURAYA KENDİ GEMINI API ANAHTARINIZI YAZIN
+    const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY_HERE";
+    // =====================================
+
+    // Translations
+    const translations = {
+      tr: {
+        nav_home: "Anasayfa", nav_apps: "Uygulamalar", nav_platform: "Platform", nav_about: "Hakkımızda", nav_faq: "SSS", login: "GİRİŞ", coming_soon: "YAKINDA",
+        select_platform: "Platform Seçin",
+        platform_youtube_desc: "Video başlıkları ve hashtag'ler", platform_instagram_desc: "Gönderi başlıkları ve hashtag'ler",
+        platform_tiktok_desc: "Video başlıkları ve trend hashtag'ler", platform_x_desc: "Tweet başlıkları ve hashtag'ler",
+        important_info: "Önemli Bilgiler",
+        info_1: "🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",
+        info_2: "⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",
+        info_3: "🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",
+        info_4: "📊 SEO skorları tahminidir ve garanti edilmez.",
+        info_5: "🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",
+        about_title: "Hakkımızda",
+        about_p1: "NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",
+        about_p2: "Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",
+        about_mission: "Misyonumuz", about_mission_text: "İçerik üreticilerinin yaratıcılıklarına odaklanabilmeleri için teknik detayları bizim halletmemiz.",
+        about_features: "Özelliklerimiz",
+        about_feat_1: "✨ 6 dil desteği (Türkçe, İngilizce, Fransızca, Almanca, İspanyolca, Portekizce)",
+        about_feat_2: "🎯 4 farklı sosyal medya platformu için optimize edilmiş içerik",
+        about_feat_3: "📊 SEO skoru analizi", about_feat_4: "🔄 Günlük yenilenen üretim hakları", about_feat_5: "🤖 Gemini AI ile güçlendirilmiş içerik üretimi",
+        about_disclaimer: "Sorumluluk Reddi",
+        about_disclaimer_text: "NeoSocial_Rose sadece içerik önerileri sunar. Üretilen içeriklerin başarısı, viral olması veya herhangi bir metrikle ilgili garanti vermemekteyiz.",
+        faq_title: "Sıkça Sorulan Sorular",
+        faq_q1: "Günlük limit nasıl çalışır?", faq_a1: "Her platform için günde 2 üretim hakkınız vardır. Toplam 4 platform x 2 hak = 8 üretim yapabilirsiniz.",
+        faq_q2: "SEO skoru nedir?", faq_a2: "SEO skoru, başlığınızın arama motorlarında ne kadar iyi performans gösterebileceğini tahmin eden bir metriktir.",
+        faq_q3: "Platform ücretsiz mi?", faq_a3: "Evet, NeoSocial_Rose şu anda tamamen ücretsizdir.",
+        faq_q4: "Verilerim saklanıyor mu?", faq_a4: "Hayır, hiçbir kullanıcı verisi sunucularımızda saklanmaz.",
+        faq_q5: "Hangi dilleri destekliyorsunuz?", faq_a5: "Türkçe, İngilizce, Fransızca, Almanca, İspanyolca ve Portekizce.",
+        faq_q6: "Üretilen içeriklerin başarısı garanti mi?", faq_a6: "Hayır. NeoSocial_Rose sadece öneri sunar.",
+        faq_q7: "Mobil uygulama var mı?", faq_a7: "Şu anda sadece web platformu aktiftir. Yakında App Store ve Google Play'de olacağız! 🚀",
+        security_title: "Güvenlik & Gizlilik", security_data_title: "Veri Güvenliği",
+        security_data_text: "NeoSocial_Rose, kullanıcı gizliliğine önem verir. Hiçbir kişisel veri sunucularımızda saklanmaz.",
+        security_google_title: "Google Giriş", security_google_text: "Google ile giriş yaparken, sadece kimlik doğrulama için temel bilgileriniz kullanılır.",
+        security_content_title: "İçerik Güvenliği", security_content_text: "Üretilen tüm içerikler Gemini AI tarafından oluşturulur.",
+        security_contact_title: "İletişim", security_contact_text: "Güvenlik veya gizlilikle ilgili sorularınız için:",
+        modal_subtitle: "Viral içerik üretin", remaining_rights: "Kalan Hak", topic_label: "İçerik Konusu",
+        topic_placeholder: "Örn: Futbol taktikleri, Makyaj ipuçları, Yemek tarifleri",
+        generate_btn: "ÜRETİMİ BAŞLAT", seo_score: "SEO Skoru", regenerate_btn: "🔄 Yeniden Üret",
+        footer_desc: "Viral içerik ve strateji merkezi.", footer_corporate: "Kurumsal", footer_about: "Hakkımızda",
+        footer_faq: "SSS", footer_security: "Güvenlik", footer_support: "Destek", footer_privacy: "Gizlilik",
+        notify_limit: "Günlük limit doldu. Yarın tekrar görüşmek üzere! 🚀", notify_topic: "Lütfen konu girin.",
+        notify_success: "Üretim Başarılı ✨", notify_error: "Hata oluştu, tekrar deneyin.", notify_copied: "Kopyalandı ✨",
+        notify_login_fail: "Giriş başarısız."
+      },
+      en: {
+        nav_home: "Home", nav_apps: "Apps", nav_platform: "Platform", nav_about: "About", nav_faq: "FAQ", login: "LOGIN", coming_soon: "COMING SOON",
+        select_platform: "Select Platform",
+        platform_youtube_desc: "Video titles and hashtags", platform_instagram_desc: "Post titles and hashtags",
+        platform_tiktok_desc: "Video titles and trending hashtags", platform_x_desc: "Tweet titles and hashtags",
+        important_info: "Important Information",
+        info_1: "🎯 This platform <span class='text-rose-500'>only provides content suggestions</span>.",
+        info_2: "⚠️ No guarantees or success promises <span class='text-rose-500'>are made</span>.",
+        info_3: "🤖 All content is generated by <span class='text-rose-500'>Gemini AI</span>.",
+        info_4: "📊 SEO scores are estimates and not guaranteed.",
+        info_5: "🔄 You have <span class='text-rose-500'>2 daily generation rights</span> per platform.",
+        about_title: "About Us", about_p1: "NeoSocial_Rose is an AI-powered platform designed to make content creation easier.",
+        about_p2: "Using Gemini AI technology, we generate high-quality, SEO-friendly titles and hashtags.",
+        about_mission: "Our Mission", about_mission_text: "To handle the technical details so creators can focus on creativity.",
+        about_features: "Features",
+        about_feat_1: "✨ 6 language support", about_feat_2: "🎯 Optimized content for 4 platforms",
+        about_feat_3: "📊 SEO score analysis", about_feat_4: "🔄 Daily renewed rights", about_feat_5: "🤖 Powered by Gemini AI",
+        about_disclaimer: "Disclaimer", about_disclaimer_text: "NeoSocial_Rose only provides suggestions. We guarantee no success metrics.",
+        faq_title: "Frequently Asked Questions",
+        faq_q1: "How does daily limit work?", faq_a1: "You have 2 rights per platform daily. Total: 8 generations.",
+        faq_q2: "What is SEO score?", faq_a2: "SEO score estimates how well your title might perform in search engines.",
+        faq_q3: "Is the platform free?", faq_a3: "Yes, NeoSocial_Rose is currently completely free.",
+        faq_q4: "Is my data stored?", faq_a4: "No, no user data is stored on our servers.",
+        faq_q5: "Which languages?", faq_a5: "Turkish, English, French, German, Spanish, and Portuguese.",
+        faq_q6: "Is content success guaranteed?", faq_a6: "No. NeoSocial_Rose only provides suggestions.",
+        faq_q7: "Is there a mobile app?", faq_a7: "Currently only web platform is active. Coming soon to App Store and Google Play! 🚀",
+        security_title: "Security & Privacy", security_data_title: "Data Security",
+        security_data_text: "NeoSocial_Rose values user privacy. No personal data is stored on our servers.",
+        security_google_title: "Google Login", security_google_text: "When logging in with Google, only basic info is used.",
+        security_content_title: "Content Security", security_content_text: "All content is created by Gemini AI.",
+        security_contact_title: "Contact", security_contact_text: "For security or privacy questions:",
+        modal_subtitle: "Generate viral content", remaining_rights: "Remaining Rights", topic_label: "Content Topic",
+        topic_placeholder: "E.g., Football tactics, Makeup tips, Cooking recipes",
+        generate_btn: "START GENERATION", seo_score: "SEO Score", regenerate_btn: "🔄 Regenerate",
+        footer_desc: "Viral content and strategy hub.", footer_corporate: "Corporate", footer_about: "About",
+        footer_faq: "FAQ", footer_security: "Security", footer_support: "Support", footer_privacy: "Privacy",
+        notify_limit: "Daily limit reached. See you tomorrow! 🚀", notify_topic: "Please enter a topic.",
+        notify_success: "Generation Successful ✨", notify_error: "Error occurred, please try again.", notify_copied: "Copied ✨",
+        notify_login_fail: "Login failed."
+      },
+      fr: { nav_home: "Accueil", nav_apps: "Applications", nav_platform: "Plateforme", nav_about: "À propos", nav_faq: "FAQ", login: "CONNEXION", coming_soon: "BIENTÔT", select_platform: "Sélectionner la plateforme", platform_youtube_desc: "Titres et hashtags vidéo", platform_instagram_desc: "Titres et hashtags de publication", platform_tiktok_desc: "Titres vidéo et hashtags tendance", platform_x_desc: "Titres et hashtags de tweet", important_info: "Informations importantes", info_1: "🎯 Cette plateforme <span class='text-rose-500'>fournit uniquement des suggestions</span>.", info_2: "⚠️ Aucune garantie <span class='text-rose-500'>n'est faite</span>.", info_3: "🤖 Tout le contenu est généré par <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Les scores SEO sont des estimations.", info_5: "🔄 Vous avez <span class='text-rose-500'>2 droits quotidiens</span> par plateforme.", about_title: "À propos", about_p1: "NeoSocial_Rose est une plateforme alimentée par l'IA.", about_p2: "En utilisant Gemini AI, nous générons des titres de haute qualité.", about_mission: "Notre mission", about_mission_text: "Gérer les détails techniques.", about_features: "Caractéristiques", about_feat_1: "✨ Support de 6 langues", about_feat_2: "🎯 Contenu optimisé", about_feat_3: "📊 Analyse SEO", about_feat_4: "🔄 Droits renouvelés", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Clause", about_disclaimer_text: "NeoSocial_Rose fournit uniquement des suggestions.", faq_title: "Questions fréquentes", faq_q1: "Comment fonctionne la limite?", faq_a1: "Vous avez 2 droits par plateforme.", faq_q2: "Qu'est-ce que le score SEO?", faq_a2: "Le score SEO estime les performances.", faq_q3: "Est-ce gratuit?", faq_a3: "Oui, actuellement gratuit.", faq_q4: "Mes données sont stockées?", faq_a4: "Non, aucune donnée stockée.", faq_q5: "Quelles langues?", faq_a5: "Turc, anglais, français, allemand, espagnol, portugais.", faq_q6: "Succès garanti?", faq_a6: "Non. Uniquement des suggestions.", faq_q7: "Application mobile?", faq_a7: "Bientôt sur App Store et Google Play! 🚀", security_title: "Sécurité", security_data_title: "Sécurité des données", security_data_text: "Aucune donnée personnelle stockée.", security_google_title: "Connexion Google", security_google_text: "Seules les informations de base sont utilisées.", security_content_title: "Sécurité du contenu", security_content_text: "Tout le contenu est créé par Gemini AI.", security_contact_title: "Contact", security_contact_text: "Pour questions:", modal_subtitle: "Générer du contenu", remaining_rights: "Droits restants", topic_label: "Sujet", topic_placeholder: "Ex: Tactiques de football", generate_btn: "COMMENCER", seo_score: "Score SEO", regenerate_btn: "🔄 Régénérer", footer_desc: "Centre de contenu viral.", footer_corporate: "Entreprise", footer_about: "À propos", footer_faq: "FAQ", footer_security: "Sécurité", footer_support: "Soutien", footer_privacy: "Confidentialité", notify_limit: "Limite atteinte. À demain! 🚀", notify_topic: "Veuillez entrer un sujet.", notify_success: "Génération réussie ✨", notify_error: "Erreur. Réessayez.", notify_copied: "Copié ✨", notify_login_fail: "Échec de connexion." },
+      de: { nav_home: "Startseite", nav_apps: "Apps", nav_platform: "Plattform", nav_about: "Über uns", nav_faq: "FAQ", login: "ANMELDEN", coming_soon: "DEMNÄCHST", select_platform: "Plattform wählen", platform_youtube_desc: "Videotitel und Hashtags", platform_instagram_desc: "Beitragstitel und Hashtags", platform_tiktok_desc: "Videotitel und Trend-Hashtags", platform_x_desc: "Tweet-Titel und Hashtags", important_info: "Wichtige Informationen", info_1: "🎯 Diese Plattform <span class='text-rose-500'>bietet nur Vorschläge</span>.", info_2: "⚠️ Keine Garantien <span class='text-rose-500'>werden gemacht</span>.", info_3: "🤖 Alle Inhalte werden von <span class='text-rose-500'>Gemini AI</span> generiert.", info_4: "📊 SEO-Scores sind Schätzungen.", info_5: "🔄 Sie haben <span class='text-rose-500'>2 tägliche Rechte</span> pro Plattform.", about_title: "Über uns", about_p1: "NeoSocial_Rose ist eine KI-gestützte Plattform.", about_p2: "Mit Gemini AI generieren wir hochwertige Titel.", about_mission: "Unsere Mission", about_mission_text: "Technische Details erledigen.", about_features: "Funktionen", about_feat_1: "✨ 6 Sprachunterstützung", about_feat_2: "🎯 Optimierte Inhalte", about_feat_3: "📊 SEO-Analyse", about_feat_4: "🔄 Täglich erneuert", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Haftungsausschluss", about_disclaimer_text: "NeoSocial_Rose bietet nur Vorschläge.", faq_title: "Häufig gestellte Fragen", faq_q1: "Wie funktioniert das Limit?", faq_a1: "Sie haben 2 Rechte pro Plattform.", faq_q2: "Was ist ein SEO-Score?", faq_a2: "Der SEO-Score schätzt die Leistung.", faq_q3: "Ist es kostenlos?", faq_a3: "Ja, derzeit völlig kostenlos.", faq_q4: "Werden Daten gespeichert?", faq_a4: "Nein, keine Daten gespeichert.", faq_q5: "Welche Sprachen?", faq_a5: "Türkisch, Englisch, Französisch, Deutsch, Spanisch, Portugiesisch.", faq_q6: "Erfolg garantiert?", faq_a6: "Nein. Nur Vorschläge.", faq_q7: "Mobile App?", faq_a7: "Bald im App Store und Google Play! 🚀", security_title: "Sicherheit", security_data_title: "Datensicherheit", security_data_text: "Keine personenbezogenen Daten gespeichert.", security_google_title: "Google-Anmeldung", security_google_text: "Nur grundlegende Informationen verwendet.", security_content_title: "Inhaltssicherheit", security_content_text: "Alle Inhalte von Gemini AI erstellt.", security_contact_title: "Kontakt", security_contact_text: "Für Fragen:", modal_subtitle: "Virale Inhalte generieren", remaining_rights: "Verbleibende Rechte", topic_label: "Thema", topic_placeholder: "Z.B. Fußballtaktiken", generate_btn: "GENERIERUNG STARTEN", seo_score: "SEO-Score", regenerate_btn: "🔄 Neu generieren", footer_desc: "Virale Inhalts-Hub.", footer_corporate: "Unternehmen", footer_about: "Über uns", footer_faq: "FAQ", footer_security: "Sicherheit", footer_support: "Unterstützung", footer_privacy: "Datenschutz", notify_limit: "Limit erreicht. Bis morgen! 🚀", notify_topic: "Bitte Thema eingeben.", notify_success: "Generierung erfolgreich ✨", notify_error: "Fehler. Bitte erneut versuchen.", notify_copied: "Kopiert ✨", notify_login_fail: "Anmeldung fehlgeschlagen." },
+      es: { nav_home: "Inicio", nav_apps: "Aplicaciones", nav_platform: "Plataforma", nav_about: "Acerca de", nav_faq: "Preguntas frecuentes", login: "INICIAR SESIÓN", coming_soon: "PRÓXIMAMENTE", select_platform: "Seleccionar plataforma", platform_youtube_desc: "Títulos de video y hashtags", platform_instagram_desc: "Títulos de publicación y hashtags", platform_tiktok_desc: "Títulos de video y hashtags de tendencia", platform_x_desc: "Títulos de tweet y hashtags", important_info: "Información importante", info_1: "🎯 Esta plataforma <span class='text-rose-500'>solo proporciona sugerencias</span>.", info_2: "⚠️ No se hacen garantías <span class='text-rose-500'>son hechas</span>.", info_3: "🤖 Todo el contenido es generado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Las puntuaciones SEO son estimaciones.", info_5: "🔄 Tienes <span class='text-rose-500'>2 derechos diarios</span> por plataforma.", about_title: "Acerca de nosotros", about_p1: "NeoSocial_Rose es una plataforma impulsada por IA.", about_p2: "Usando Gemini AI, generamos títulos de alta calidad.", about_mission: "Nuestra misión", about_mission_text: "Manejar los detalles técnicos.", about_features: "Características", about_feat_1: "✨ Soporte de 6 idiomas", about_feat_2: "🎯 Contenido optimizado", about_feat_3: "📊 Análisis SEO", about_feat_4: "🔄 Derechos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Descargo", about_disclaimer_text: "NeoSocial_Rose solo proporciona sugerencias.", faq_title: "Preguntas frecuentes", faq_q1: "¿Cómo funciona el límite?", faq_a1: "Tienes 2 derechos por plataforma.", faq_q2: "¿Qué es la puntuación SEO?", faq_a2: "La puntuación SEO estima el rendimiento.", faq_q3: "¿Es gratis?", faq_a3: "Sí, actualmente completamente gratuito.", faq_q4: "¿Se almacenan mis datos?", faq_a4: "No, no se almacenan datos.", faq_q5: "¿Qué idiomas?", faq_a5: "Turco, inglés, francés, alemán, español, portugués.", faq_q6: "¿Éxito garantizado?", faq_a6: "No. Solo sugerencias.", faq_q7: "¿Aplicación móvil?", faq_a7: "¡Pronto en App Store y Google Play! 🚀", security_title: "Seguridad", security_data_title: "Seguridad de datos", security_data_text: "No se almacenan datos personales.", security_google_title: "Inicio de sesión de Google", security_google_text: "Solo se utiliza información básica.", security_content_title: "Seguridad del contenido", security_content_text: "Todo el contenido creado por Gemini AI.", security_contact_title: "Contacto", security_contact_text: "Para preguntas:", modal_subtitle: "Generar contenido viral", remaining_rights: "Derechos restantes", topic_label: "Tema", topic_placeholder: "Ej: Tácticas de fútbol", generate_btn: "INICIAR GENERACIÓN", seo_score: "Puntuación SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Centro de contenido viral.", footer_corporate: "Corporativo", footer_about: "Acerca de", footer_faq: "Preguntas frecuentes", footer_security: "Seguridad", footer_support: "Soporte", footer_privacy: "Privacidad", notify_limit: "Límite alcanzado. ¡Hasta mañana! 🚀", notify_topic: "Por favor ingrese un tema.", notify_success: "Generación exitosa ✨", notify_error: "Error. Intente nuevamente.", notify_copied: "Copiado ✨", notify_login_fail: "Error de inicio de sesión." },
+      pt: { nav_home: "Início", nav_apps: "Aplicativos", nav_platform: "Plataforma", nav_about: "Sobre", nav_faq: "Perguntas frequentes", login: "ENTRAR", coming_soon: "EM BREVE", select_platform: "Selecionar plataforma", platform_youtube_desc: "Títulos de vídeo e hashtags", platform_instagram_desc: "Títulos de postagem e hashtags", platform_tiktok_desc: "Títulos de vídeo e hashtags de tendência", platform_x_desc: "Títulos de tweet e hashtags", important_info: "Informações importantes", info_1: "🎯 Esta plataforma <span class='text-rose-500'>fornece apenas sugestões</span>.", info_2: "⚠️ Nenhuma garantia <span class='text-rose-500'>é feita</span>.", info_3: "🤖 Todo o conteúdo é gerado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 As pontuações de SEO são estimativas.", info_5: "🔄 Você tem <span class='text-rose-500'>2 direitos diários</span> por plataforma.", about_title: "Sobre nós", about_p1: "NeoSocial_Rose é uma plataforma alimentada por IA.", about_p2: "Usando Gemini AI, geramos títulos de alta qualidade.", about_mission: "Nossa missão", about_mission_text: "Lidar com os detalhes técnicos.", about_features: "Recursos", about_feat_1: "✨ Suporte a 6 idiomas", about_feat_2: "🎯 Conteúdo otimizado", about_feat_3: "📊 Análise de SEO", about_feat_4: "🔄 Direitos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Isenção", about_disclaimer_text: "NeoSocial_Rose fornece apenas sugestões.", faq_title: "Perguntas frequentes", faq_q1: "Como funciona o limite?", faq_a1: "Você tem 2 direitos por plataforma.", faq_q2: "O que é pontuação de SEO?", faq_a2: "A pontuação de SEO estima o desempenho.", faq_q3: "É gratuito?", faq_a3: "Sim, atualmente completamente gratuito.", faq_q4: "Meus dados são armazenados?", faq_a4: "Não, nenhum dado armazenado.", faq_q5: "Quais idiomas?", faq_a5: "Turco, inglês, francês, alemão, espanhol, português.", faq_q6: "Sucesso garantido?", faq_a6: "Não. Apenas sugestões.", faq_q7: "Aplicativo móvel?", faq_a7: "Em breve na App Store e Google Play! 🚀", security_title: "Segurança", security_data_title: "Segurança de dados", security_data_text: "Nenhum dado pessoal armazenado.", security_google_title: "Login do Google", security_google_text: "Apenas informações básicas são usadas.", security_content_title: "Segurança de conteúdo", security_content_text: "Todo o conteúdo criado pelo Gemini AI.", security_contact_title: "Contato", security_contact_text: "Para perguntas:", modal_subtitle: "Gerar conteúdo viral", remaining_rights: "Direitos restantes", topic_label: "Tópico", topic_placeholder: "Ex: Táticas de futebol", generate_btn: "INICIAR GERAÇÃO", seo_score: "Pontuação de SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Hub de conteúdo viral.", footer_corporate: "Corporativo", footer_about: "Sobre", footer_faq: "Perguntas frequentes", footer_security: "Segurança", footer_support: "Suporte", footer_privacy: "Privacidade", notify_limit: "Limite atingido. Até amanhã! 🚀", notify_topic: "Por favor, insira um tópico.", notify_success: "Geração bem-sucedida ✨", notify_error: "Erro. Tente novamente.", notify_copied: "Copiado ✨", notify_login_fail: "Falha no login." }
+    };
+
+    // State
     const state = { 
       lang: 'tr', 
-      platform: 'youtube', 
-      credits: 2, 
-      userId: 'guest'
+      currentPlatform: 'youtube',
+      userId: 'guest',
+      credits: { youtube: 2, instagram: 2, tiktok: 2, x: 2 }
     };
 
     function notify(msg) {
       const el = document.getElementById('notification');
       el.innerText = msg; el.style.display = 'block';
-      setTimeout(() => el.style.display = 'none', 3000);
+      setTimeout(() => el.style.display = 'none', 3500);
     }
 
     firebase.auth().onAuthStateChanged(user => {
       state.userId = user ? user.uid : 'guest';
-      document.getElementById('user-display').innerText = user ? user.displayName.split(' ')[0].toUpperCase() : 'GİRİŞ';
+      const displayName = user ? user.displayName.split(' ')[0].toUpperCase() : translate('login');
+      document.getElementById('user-display').innerText = displayName;
       loadCredits();
     });
 
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).catch(err => notify("Giriş başarısız."));
+      firebase.auth().signInWithPopup(provider).catch(err => {
+        console.error(err); notify(translate('notify_login_fail'));
+      });
     }
 
     function loadCredits() {
@@ -180,17 +521,29 @@
       const lastDate = localStorage.getItem(`nsr_date_${state.userId}`);
       if (lastDate !== today) {
         localStorage.setItem(`nsr_date_${state.userId}`, today);
-        localStorage.setItem(`nsr_cred_${state.userId}`, "2");
+        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
+        localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
+      } else {
+        const saved = localStorage.getItem(`nsr_credits_${state.userId}`);
+        if (saved) state.credits = JSON.parse(saved);
       }
-      state.credits = parseInt(localStorage.getItem(`nsr_cred_${state.userId}`) || "2");
-      document.getElementById('credit-badge').innerText = `Hak: ${state.credits} / 2`;
+      updateAllBadges();
     }
 
-    function setMode(p) {
-      state.platform = p;
-      document.getElementById('current-platform').innerText = `${p.toUpperCase()} ÜRETİMİ`;
-      const dd = document.getElementById('nav-production-dd');
-      if (dd) dd.style.display = 'none';
+    function saveCredits() {
+      localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
+    }
+
+    function updateAllBadges() {
+      Object.keys(state.credits).forEach(platform => {
+        const badge = document.getElementById(`badge-${platform}`);
+        if (badge) badge.innerText = `${state.credits[platform]}/2`;
+        const card = document.getElementById(`card-${platform}`);
+        if (card) {
+          if (state.credits[platform] <= 0) card.classList.add('disabled');
+          else card.classList.remove('disabled');
+        }
+      });
     }
 
     function setLang(l) {
@@ -198,94 +551,192 @@
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
       const btn = document.getElementById(`l-${l}`);
       if (btn) btn.classList.add('active');
+      translatePage();
+    }
+
+    function translate(key) {
+      return translations[state.lang][key] || translations['tr'][key] || key;
+    }
+
+    function translatePage() {
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        el.innerHTML = translate(key);
+      });
+      document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-translate-placeholder');
+        el.placeholder = translate(key);
+      });
+    }
+
+    function showPage(page) {
+      document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(`page-${page}`);
+      if (target) target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openGenerator(platform) {
+      if (state.credits[platform] <= 0) {
+        notify(translate('notify_limit')); return;
+      }
+      state.currentPlatform = platform;
+      const platformNames = { youtube: 'YouTube', instagram: 'Instagram', tiktok: 'TikTok', x: 'X (Twitter)' };
+      document.getElementById('modal-platform-title').innerText = platformNames[platform];
+      document.getElementById('modal-credit-badge').innerText = `${state.credits[platform]}/2`;
+      document.getElementById('modal-topic-input').value = '';
+      document.getElementById('modal-result-box').classList.add('hidden');
+      document.getElementById('generator-modal').classList.add('active');
+    }
+
+    function closeGenerator() {
+      document.getElementById('generator-modal').classList.remove('active');
+    }
+
+    function calculateSEO(text) {
+      let score = 50;
+      if (text.length >= 60 && text.length <= 100) score += 15;
+      else if (text.length > 100) score -= 10;
+      const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;
+      if (emojiRegex.test(text)) score += 10;
+      const hashtagCount = (text.match(/#/g) || []).length;
+      if (hashtagCount >= 2 && hashtagCount <= 5) score += 15;
+      else if (hashtagCount > 5) score -= 5;
+      if (/\d/.test(text)) score += 5;
+      const words = text.split(' ');
+      const capitalizedWords = words.filter(w => w[0] && w[0] === w[0].toUpperCase()).length;
+      if (capitalizedWords > words.length / 2) score += 5;
+      return Math.min(Math.max(score, 0), 100);
+    }
+
+    function getSEOClass(score) {
+      if (score >= 80) return 'seo-excellent';
+      if (score >= 60) return 'seo-good';
+      if (score >= 40) return 'seo-average';
+      return 'seo-poor';
     }
 
     async function generateContent() {
-      if (state.credits <= 0) return notify("Günlük limit doldu.");
-      const topic = document.getElementById('topicInput').value.trim();
-      if (!topic) return notify("Lütfen konu girin.");
+      const topic = document.getElementById('modal-topic-input').value.trim();
+      if (!topic) { notify(translate('notify_topic')); return; }
+      if (state.credits[state.currentPlatform] <= 0) { notify(translate('notify_limit')); return; }
 
-      const btn = document.getElementById('genBtn');
-      const resultBox = document.getElementById('result-box');
-      const resultText = document.getElementById('result-text');
+      const btn = document.getElementById('modal-gen-btn');
+      const resultBox = document.getElementById('modal-result-box');
+      const resultText = document.getElementById('modal-result-text');
       
-      btn.disabled = true; 
-      btn.innerText = "Analiz Ediliyor...";
-
-      const systemPrompt = `GÖREV: Viral sosyal medya içerik üreticisisin.
-      - YouTube, Instagram ve TikTok için yüksek enerjili başlıklar üret.
-      - Başlıklar merak uyandırıcı ve enerjik olmalı.
-      - Mutlaka emoji kullan.
-      - Dil: ${state.lang === 'tr' ? 'Türkçe' : 'English'}.
-      - Çıktı: Sadece 1 adet başlık ve 5 adet popüler hashtag.`;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ' + (state.lang === 'tr' ? 'ÜRETİLİYOR...' : 'GENERATING...');
 
       try {
-        const r = await fetch("/api/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            mode: "produce", 
-            lang: state.lang, 
-            platform: state.platform, 
-            topic: `Konu: ${topic}\n\nTalimat: ${systemPrompt}` 
+        const platformPrompts = {
+          youtube: {
+            tr: `YouTube video başlığı oluştur. Konu: ${topic}. Kurallar: 1) Maksimum 100 karakter, 2) Mutlaka emoji kullan, 3) 2-5 arasında hashtag ekle, 4) SEO uyumlu ve merak uyandırıcı olmalı. Sadece başlığı ver, açıklama ekleme.`,
+            en: `Create a YouTube video title. Topic: ${topic}. Rules: 1) Maximum 100 characters, 2) Must use emojis, 3) Add 2-5 hashtags, 4) Must be SEO-friendly and curiosity-inducing. Only give the title, no explanations.`,
+            fr: `Créez un titre de vidéo YouTube. Sujet: ${topic}. Règles: 1) Maximum 100 caractères, 2) Doit utiliser des emojis, 3) Ajoutez 2-5 hashtags, 4) Doit être optimisé. Donnez uniquement le titre.`,
+            de: `Erstellen Sie einen YouTube-Videotitel. Thema: ${topic}. Regeln: 1) Maximal 100 Zeichen, 2) Muss Emojis verwenden, 3) 2-5 Hashtags hinzufügen. Geben Sie nur den Titel.`,
+            es: `Cree un título de video de YouTube. Tema: ${topic}. Reglas: 1) Máximo 100 caracteres, 2) Debe usar emojis, 3) Agregue 2-5 hashtags. Solo dé el título.`,
+            pt: `Crie um título de vídeo do YouTube. Tópico: ${topic}. Regras: 1) Máximo 100 caracteres, 2) Deve usar emojis, 3) Adicione 2-5 hashtags. Dê apenas o título.`
+          },
+          instagram: {
+            tr: `Instagram gönderi başlığı oluştur. Konu: ${topic}. Kurallar: 1) Maksimum 100 karakter, 2) Mutlaka emoji kullan, 3) 2-5 arasında trend hashtag ekle, 4) Görsel ve etkileyici olmalı. Sadece başlığı ver.`,
+            en: `Create an Instagram post title. Topic: ${topic}. Rules: 1) Maximum 100 characters, 2) Must use emojis, 3) Add 2-5 trending hashtags. Only give the title.`,
+            fr: `Créez un titre de publication Instagram. Sujet: ${topic}. Règles: 1) Maximum 100 caractères, 2) Doit utiliser des emojis, 3) Ajoutez 2-5 hashtags tendance. Donnez uniquement le titre.`,
+            de: `Erstellen Sie einen Instagram-Post-Titel. Thema: ${topic}. Regeln: 1) Maximal 100 Zeichen, 2) Muss Emojis verwenden, 3) 2-5 Trend-Hashtags. Geben Sie nur den Titel.`,
+            es: `Cree un título de publicación de Instagram. Tema: ${topic}. Reglas: 1) Máximo 100 caracteres, 2) Debe usar emojis, 3) Agregue 2-5 hashtags de tendencia. Solo dé el título.`,
+            pt: `Crie um título de postagem do Instagram. Tópico: ${topic}. Regras: 1) Máximo 100 caracteres, 2) Deve usar emojis, 3) Adicione 2-5 hashtags de tendência. Dê apenas o título.`
+          },
+          tiktok: {
+            tr: `TikTok video başlığı oluştur. Konu: ${topic}. Kurallar: 1) Maksimum 100 karakter, 2) Mutlaka emoji kullan, 3) 2-5 arasında viral hashtag ekle, 4) Genç ve enerjik dil kullan. Sadece başlığı ver.`,
+            en: `Create a TikTok video title. Topic: ${topic}. Rules: 1) Maximum 100 characters, 2) Must use emojis, 3) Add 2-5 viral hashtags, 4) Use young and energetic language. Only give the title.`,
+            fr: `Créez un titre de vidéo TikTok. Sujet: ${topic}. Règles: 1) Maximum 100 caractères, 2) Doit utiliser des emojis, 3) Ajoutez 2-5 hashtags viraux. Donnez uniquement le titre.`,
+            de: `Erstellen Sie einen TikTok-Videotitel. Thema: ${topic}. Regeln: 1) Maximal 100 Zeichen, 2) Muss Emojis verwenden, 3) 2-5 virale Hashtags. Geben Sie nur den Titel.`,
+            es: `Cree un título de video de TikTok. Tema: ${topic}. Reglas: 1) Máximo 100 caracteres, 2) Debe usar emojis, 3) Agregue 2-5 hashtags virales. Solo dé el título.`,
+            pt: `Crie um título de vídeo do TikTok. Tópico: ${topic}. Regras: 1) Máximo 100 caracteres, 2) Deve usar emojis, 3) Adicione 2-5 hashtags virais. Dê apenas o título.`
+          },
+          x: {
+            tr: `X (Twitter) tweet başlığı oluştur. Konu: ${topic}. Kurallar: 1) Maksimum 100 karakter, 2) Emoji kullan, 3) 2-5 arasında hashtag ekle, 4) Kısa ve etkileyici olmalı. Sadece başlığı ver.`,
+            en: `Create an X (Twitter) tweet title. Topic: ${topic}. Rules: 1) Maximum 100 characters, 2) Use emojis, 3) Add 2-5 hashtags. Only give the title.`,
+            fr: `Créez un titre de tweet X (Twitter). Sujet: ${topic}. Règles: 1) Maximum 100 caractères, 2) Utilisez des emojis, 3) Ajoutez 2-5 hashtags. Donnez uniquement le titre.`,
+            de: `Erstellen Sie einen X (Twitter) Tweet-Titel. Thema: ${topic}. Regeln: 1) Maximal 100 Zeichen, 2) Emojis verwenden, 3) 2-5 Hashtags. Geben Sie nur den Titel.`,
+            es: `Cree un título de tweet de X (Twitter). Tema: ${topic}. Reglas: 1) Máximo 100 caracteres, 2) Use emojis, 3) Agregue 2-5 hashtags. Solo dé el título.`,
+            pt: `Crie um título de tweet do X (Twitter). Tópico: ${topic}. Regras: 1) Máximo 100 caracteres, 2) Use emojis, 3) Adicione 2-5 hashtags. Dê apenas o título.`
+          }
+        };
+
+        const prompt = platformPrompts[state.currentPlatform][state.lang];
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.9, maxOutputTokens: 150 }
           })
         });
-        
-        const data = await r.json();
-        const result = (data?.text || "").trim();
-        
+
+        if (!response.ok) throw new Error('API Error');
+
+        const data = await response.json();
+        let result = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        result = result.trim().replace(/^["']|["']$/g, '').replace(/\n/g, ' ').substring(0, 100);
+
         if (result) {
-          state.credits--;
-          localStorage.setItem(`nsr_cred_${state.userId}`, state.credits);
-          document.getElementById('credit-badge').innerText = `Hak: ${state.credits} / 2`;
-          
+          state.credits[state.currentPlatform]--;
+          saveCredits();
+          updateAllBadges();
+          document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           resultText.innerText = result;
-          resultBox.classList.remove("hidden");
-          notify("Üretim Başarılı ✨");
-        }
-      } catch(e) { 
-        notify("Hata oluştu, tekrar deneyin."); 
-      } finally { 
-        btn.disabled = false; 
-        btn.innerText = "ÜRETİMİ BAŞLAT"; 
+          document.getElementById('modal-char-count').innerText = `${result.length}/100 ${state.lang === 'tr' ? 'karakter' : 'characters'}`;
+          const seoScore = calculateSEO(result);
+          const scoreBadge = document.getElementById('seo-score-badge');
+          scoreBadge.innerText = `${seoScore}/100`;
+          scoreBadge.className = `seo-badge ${getSEOClass(seoScore)}`;
+          resultBox.classList.remove('hidden');
+          notify(translate('notify_success'));
+        } else throw new Error('Empty response');
+      } catch(e) {
+        console.error('Generation error:', e);
+        notify(translate('notify_error'));
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span data-translate="generate_btn">${translate('generate_btn')}</span>`;
       }
     }
 
-    function copyToClipboard() {
-      const text = document.getElementById('result-text').innerText;
+    function copyModalContent() {
+      const text = document.getElementById('modal-result-text').innerText;
       const el = document.createElement('textarea');
-      el.value = text; 
-      document.body.appendChild(el); 
-      el.select();
-      document.execCommand('copy'); 
-      document.body.removeChild(el);
-      notify("Kopyalandı ✨");
+      el.value = text; document.body.appendChild(el); el.select();
+      document.execCommand('copy'); document.body.removeChild(el);
+      notify(translate('notify_copied'));
     }
 
-    // Navigasyon Etkileşimleri
     const appsBtn = document.getElementById('nav-apps-btn');
-    if (appsBtn) {
-      appsBtn.onclick = (e) => { 
-        e.stopPropagation(); 
-        const dd = document.getElementById('nav-apps-dd');
-        if (dd) dd.style.display = (dd.style.display === 'block') ? 'none' : 'block';
-      };
+    const appsDd = document.getElementById('nav-apps-dd');
+    if (appsBtn && appsDd) {
+      appsBtn.addEventListener('mouseenter', () => appsDd.style.display = 'block');
+      appsBtn.parentElement.addEventListener('mouseleave', () => appsDd.style.display = 'none');
     }
 
-    const prodBtn = document.getElementById('nav-production-btn');
-    if (prodBtn) {
-      prodBtn.onclick = (e) => { 
-        e.stopPropagation(); 
-        const dd = document.getElementById('nav-production-dd');
-        if (dd) dd.style.display = (dd.style.display === 'block') ? 'none' : 'block';
-      };
+    const platformBtn = document.getElementById('nav-platform-btn');
+    const platformDd = document.getElementById('nav-platform-dd');
+    if (platformBtn && platformDd) {
+      platformBtn.addEventListener('mouseenter', () => platformDd.style.display = 'block');
+      platformBtn.parentElement.addEventListener('mouseleave', () => platformDd.style.display = 'none');
     }
 
-    window.onclick = () => { 
-      document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none'); 
-    };
+    document.getElementById('generator-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeGenerator();
+    });
 
-    function showInfo(type) { notify(`${type.toUpperCase()} yakında.`); }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeGenerator();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      translatePage(); loadCredits();
+    });
   </script>
 </body>
 </html>
