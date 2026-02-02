@@ -12,20 +12,20 @@
     FR: générateur de hashtags gratuit, titres viraux ia, outils youtube ia,
     DE: kostenloser hashtag generator, virale titel ki, youtube seo optimierung,
     ES: generador de hashtags gratis, títulos virales ia, herramientas para youtubers,
-    PT: gerador de hashtags gratuito, títulos virais ia, otimização de mídia social,
+    PT: generador de hashtags gratuito, títulos virais ia, otimização de mídia social,
     Global: neo social rose, ai content creator 2026, tiktok viral trends
   ">
   <meta name="robots" content="index, follow">
   <meta name="author" content="NeoSocial_Rose">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jarvisheyrose.com/">
+  <meta property="og:url" content="https://neosocial-rose.web.app/">
   <meta property="og:title" content="Viral İçerik Üreticisi | NeoSocial_Rose (Free AI Tool)">
   <meta property="og:description" content="6 Dilde Viral Başlık ve Hashtag Üretimi. Free AI Title & Hashtag Generator.">
   <meta property="og:image" content="hero.jpeg">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://jarvisheyrose.com/">
+  <meta property="twitter:url" content="https://neosocial-rose.web.app/">
   <meta property="twitter:title" content="Viral İçerik Üreticisi | NeoSocial_Rose">
   <meta property="twitter:description" content="Yapay zeka ile saniyeler içinde viral başlıklar ve hashtagler oluşturun.">
   <meta property="twitter:image" content="hero.jpeg">
@@ -178,6 +178,10 @@
               <div id="validation-msg" class="mt-4 text-[10px] font-black uppercase"></div>
             </div>
           </div>
+
+          <div class="text-center" style="display:none;">
+            <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">Limit bitti mi? Reklam izleyerek +1 üretim kazan</span>
+          </div>
         </div>
       </section>
       
@@ -259,14 +263,11 @@
 
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then(() => {
-        initCredits();
-        location.reload();
-      }).catch((error) => { alert("Giriş Hatası: " + error.message); });
+      firebase.auth().signInWithPopup(provider).catch((error) => { alert("Giriş Hatası: " + error.message); });
     }
 
     function logoutFromGoogle() {
-      firebase.auth().signOut().then(() => { location.reload(); });
+      firebase.auth().signOut().then(() => { notify("Çıkış yapıldı."); });
     }
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -281,7 +282,6 @@
         logoutBtn.classList.add("hidden");
         logoutBtn.classList.remove("flex");
       }
-      updateCreditsUI();
     });
 
     const FALLBACK_I18N = {
@@ -303,19 +303,37 @@
       career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
 
-    function getTodayKey() { return new Date().toISOString().slice(0, 10); }
+    function getTodayKey() {
+      const d = new Date();
+      return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+    }
 
     function initCredits() {
       const today = getTodayKey();
       const lastDate = localStorage.getItem("nsr_last_date");
-      const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
-      if (lastDate !== today || !localStorage.getItem("nsr_credits_youtube")) {
-        platforms.forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
+      
+      if (lastDate !== today) {
+        const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
+        platforms.forEach(p => {
+          localStorage.setItem(`nsr_credits_${p}`, "2");
+        });
         localStorage.setItem("nsr_last_date", today);
       }
+      
+      return {
+        youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2", 10),
+        instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2", 10),
+        tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2", 10),
+        x: parseInt(localStorage.getItem("nsr_credits_x") || "2", 10)
+      };
     }
 
-    const state = { lang: "tr", platform: "youtube", type: "üretim" };
+    const state = {
+      lang: "tr",
+      platform: "youtube",
+      type: "üretim",
+      credits: initCredits()
+    };
 
     function setLang(l) {
       state.lang = l;
@@ -342,10 +360,12 @@
     function showView(name) {
       closeAllDropdowns();
       const header = document.getElementById("page-header");
-      document.getElementById("view-home").style.display = name === "home" ? "block" : "none";
-      document.getElementById("view-apps").style.display = name === "apps" ? "block" : "none";
-      document.getElementById("view-platform").style.display = name === "platform" ? "block" : "none";
-      header.style.display = name === "home" ? "block" : "none";
+      document.getElementById("view-home").style.display = "none";
+      document.getElementById("view-apps").style.display = "none";
+      document.getElementById("view-platform").style.display = "none";
+      if (name === "home") { document.getElementById("view-home").style.display = "block"; header.style.display = "block"; }
+      else if (name === "apps") { document.getElementById("view-apps").style.display = "block"; header.style.display = "none"; }
+      else if (name === "platform") { document.getElementById("view-platform").style.display = "block"; header.style.display = "none"; }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -357,44 +377,123 @@
     }
 
     function updateCreditsUI() { 
-      initCredits();
-      const currentCredit = localStorage.getItem(`nsr_credits_${state.platform}`) || "2";
+      const currentCredit = state.credits[state.platform] || 0;
       document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
     }
 
-    async function generateDemo() {
-      initCredits();
-      let currentCredit = parseInt(localStorage.getItem(`nsr_credits_${state.platform}`) || "2");
-      const val = (document.getElementById("topicInput").value || "").trim();
-      if (currentCredit <= 0) { notify("Limit doldu."); return; }
-      if (!val) { notify("Konu giriniz."); return; }
+    function openAdModal() { notify("Bonus sistem geçici olarak devre dışı."); }
+    function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
+    function simulateAd() { notify("Bonus sistem geçici olarak devre dışı."); }
 
-      currentCredit--;
-      localStorage.setItem(`nsr_credits_${state.platform}`, currentCredit.toString());
+    async function generateDemo() {
+      const currentPlatform = state.platform;
+      const currentCredit = state.credits[currentPlatform] || 0;
+      
+      if (currentCredit <= 0) { 
+        notify(`${currentPlatform.toUpperCase()} için günlük üretim limitinize ulaştınız. Limitiniz yarın yenilenecektir.`);
+        return; 
+      }
+
+      const val = (document.getElementById("topicInput").value || "").trim();
+      if (!val) { 
+        notify(state.type === "analiz" ? "Kanal linki giriniz." : "İçerik konusu giriniz."); 
+        return; 
+      }
+
+      state.credits[currentPlatform] -= 1;
+      localStorage.setItem(`nsr_credits_${currentPlatform}`, String(state.credits[currentPlatform]));
       updateCreditsUI();
+
+      const payload = state.type === "analiz"
+        ? { mode: "analysis", url: val }
+        : { mode: "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val };
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mode: state.type === "analiz" ? "analysis" : "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val })
+          body: JSON.stringify(payload)
         });
+
         const data = await r.json();
-        document.getElementById("result-text").innerText = data?.text || data?.error || "Hata.";
+        const resultText = data?.text || data?.error || "Üretim gerçekleştirilemedi.";
+        
+        document.getElementById("result-text").innerText = resultText;
         document.getElementById("result-box").classList.remove("hidden");
+
+        const totalChars = resultText.length;
+        const validationEl = document.getElementById("validation-msg");
+        
+        if (totalChars > 100) {
+          validationEl.innerText = `⚠️ Toplam ${totalChars} karakter. Platform limiti 100 karakterdir.`;
+          validationEl.style.color = "#f43f5e";
+        } else {
+          validationEl.innerText = `✓ ${totalChars} / 100 karakter — Platform uyumlu.`;
+          validationEl.style.color = "#10b981";
+        }
+
       } catch (e) {
-        document.getElementById("result-text").innerText = "Hata oluştu.";
+        document.getElementById("result-text").innerText = "Sunucu hatası oluştu.";
         document.getElementById("result-box").classList.remove("hidden");
+        document.getElementById("validation-msg").innerText = "";
       }
     }
 
-    function copyResult() { navigator.clipboard.writeText(document.getElementById("result-text").innerText); notify("Kopyalandı."); }
-    const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
-    function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
-    function toggleDropdown(ddId) { const dd = document.getElementById(ddId); const isOpen = dd.style.display === "block"; closeAllDropdowns(); if (!isOpen) dd.style.display = "block"; }
-    dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); toggleDropdown(x.dd); }); });
+    function copyResult() { 
+      const text = document.getElementById("result-text").innerText;
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      textArea.style.top = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        notify("İçerik panoya kopyalandı.");
+      } catch (err) {
+        notify("Kopyalama başarısız.");
+      }
+      document.body.removeChild(textArea);
+    }
+
+    const dropdownMap = [
+      { btn: "nav-apps-btn", dd: "nav-apps-dd" }, 
+      { btn: "nav-platform-btn", dd: "nav-platform-dd" }, 
+      { btn: "nav-production-btn", dd: "nav-production-dd" }
+    ];
+    
+    function closeAllDropdowns() { 
+      dropdownMap.forEach(x => { 
+        const dd = document.getElementById(x.dd);
+        if(dd) dd.style.display = "none"; 
+      }); 
+    }
+    
+    function toggleDropdown(ddId) { 
+      const dd = document.getElementById(ddId); 
+      const isOpen = dd.style.display === "block"; 
+      closeAllDropdowns(); 
+      if (!isOpen) dd.style.display = "block"; 
+    }
+    
+    dropdownMap.forEach(x => { 
+      const btn = document.getElementById(x.btn);
+      if(btn) {
+        btn.addEventListener("click", (e) => { 
+          e.stopPropagation(); 
+          toggleDropdown(x.dd); 
+        }); 
+      }
+    });
+    
     document.addEventListener("click", closeAllDropdowns);
-    (function init() { setLang("tr"); updateCreditsUI(); })();
+    
+    (function init() { 
+      setLang("tr"); 
+      updateCreditsUI(); 
+    })();
   </script>
 </body>
 </html>
