@@ -7,15 +7,7 @@
   
   <!-- SEO & Meta Tags - MULTI-LANGUAGE UPDATE -->
   <meta name="description" content="Free AI social media generator (TR/EN/FR/DE/ES/PT). Create viral titles & hashtags for YouTube, Instagram, TikTok. Ücretsiz yapay zeka başlık ve etiket üretici.">
-  <meta name="keywords" content="
-    TR: ücretsiz hashtag üretici, youtube başlık önerileri, ai içerik asistanı,
-    EN: free ai hashtag generator, viral title maker, youtube seo tool, best instagram tags,
-    FR: générateur de hashtags gratuit, titres viraux ia, outils youtube ia,
-    DE: kostenloser hashtag generator, virale titel ki, youtube seo optimierung,
-    ES: generador de hashtags gratis, títulos virales ia, herramientas para youtubers,
-    PT: gerador de hashtags gratuito, títulos virais ia, otimização de mídia social,
-    Global: neo social rose, ai content creator 2026, tiktok viral trends
-  ">
+  <meta name="keywords" content="TR: ücretsiz hashtag üretici, youtube başlık önerileri, ai içerik asistanı, EN: free ai hashtag generator, viral title maker, youtube seo tool, best instagram tags, Global: neo social rose, ai content creator 2026, tiktok viral trends">
   <meta name="robots" content="index, follow">
   <meta name="author" content="NeoSocial_Rose">
 
@@ -41,46 +33,23 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
     .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
-
-    .menu-dropdown {
-      display:none;
-      position:absolute;
-      top:100%;
-      left:50%;
-      transform: translateX(-50%);
-      background:#fff;
-      border:1px solid #f1f5f9;
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-      border-radius: 12px;
-      padding: 16px;
-      min-width: 240px;
-      z-index: 5000;
-      pointer-events:auto;
-    }
-
-    body.dropdown-open #page-header { visibility: hidden; }
-
+    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
-
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
-
     .ad-box { background:#fffbeb; border:1px solid #fef3c7; border-radius: 1.5rem; }
     .hidden-section { display:none; }
-
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
   </style>
 </head>
 
 <body class="min-h-screen flex flex-col">
-
   <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
   <nav class="fixed top-0 w-full z-50 glass-nav h-20">
@@ -89,7 +58,6 @@
         <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showView('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
-
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span onclick="showView('home')" class="nav-link flex">Anasayfa</span>
           <div class="relative h-full flex items-center">
@@ -104,14 +72,12 @@
               <div class="mt-3 text-[10px] font-black text-slate-400 text-center uppercase tracking-widest">iOS & Google Play – Yakında</div>
             </div>
           </div>
-
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-platform-btn">Platform</span>
             <div class="menu-dropdown text-center" id="nav-platform-dd">
               <span class="text-[11px] font-black text-slate-500 uppercase tracking-widest italic">Gemini kullanılıyor</span>
             </div>
           </div>
-
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-production-btn">Üretim Yeri</span>
             <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-production-dd">
@@ -124,18 +90,15 @@
           </div>
         </div>
       </div>
-
       <div class="flex items-center gap-3">
         <button onclick="loginWithGoogle()" id="login-btn" class="flex items-center gap-2 bg-white border border-slate-200 px-5 py-2.5 rounded-xl hover:shadow-lg transition transform active:scale-95">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-4 h-4" alt="Google">
           <span id="user-name-display" class="text-[10px] font-black uppercase text-slate-700">Google ile Giriş</span>
         </button>
-
         <button onclick="logoutFromGoogle()" id="logout-btn" class="hidden items-center justify-center bg-rose-50 text-rose-500 border border-rose-100 px-4 py-2.5 rounded-xl hover:bg-rose-500 hover:text-white transition transform active:scale-95">
           <i class="fas fa-sign-out-alt text-xs"></i>
         </button>
       </div>
-
     </div>
   </nav>
 
@@ -182,32 +145,12 @@
               <div id="validation-msg" class="mt-4 text-[10px] font-black uppercase"></div>
             </div>
           </div>
-
-          <div class="text-center" style="display:none;">
-            <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">Limit bitti mi? Reklam izleyerek +1 üretim kazan</span>
-          </div>
         </div>
       </section>
       
       <section class="mb-14">
         <div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-[0.35em]\'>HERO2</span>';"></div>
       </section>
-    </div>
-
-    <div id="view-apps" class="hidden-section mb-20 text-center py-20 bg-slate-50 rounded-[3rem] border border-slate-100">
-      <h2 class="text-xs font-black uppercase text-slate-400 mb-12 tracking-[0.4em]">Desteklenen Platformlar</h2>
-      <div class="flex flex-wrap justify-center items-center gap-16">
-        <div class="flex flex-col items-center gap-4"><i class="fab fa-youtube text-red-600 text-7xl"></i><span class="text-[10px] font-black">YOUTUBE</span></div>
-        <div class="flex flex-col items-center gap-4"><i class="fab fa-instagram text-pink-600 text-7xl"></i><span class="text-[10px] font-black">INSTAGRAM</span></div>
-        <div class="flex flex-col items-center gap-4"><i class="fab fa-tiktok text-black text-7xl"></i><span class="text-[10px] font-black">TIKTOK</span></div>
-        <div class="flex flex-col items-center gap-4"><i class="fab fa-twitter text-blue-400 text-7xl"></i><span class="text-[10px] font-black">X</span></div>
-      </div>
-    </div>
-
-    <div id="view-platform" class="hidden-section mb-20 text-center py-32 bg-slate-900 rounded-[3rem] text-white">
-      <i class="fas fa-brain text-rose-500 text-5xl mb-6"></i>
-      <h2 class="text-3xl font-black uppercase tracking-tighter">Gemini AI kullanılıyor</h2>
-      <p class="text-slate-400 text-xs mt-4 font-bold uppercase tracking-widest">Politika uyumlu içerik üretimi</p>
     </div>
   </main>
 
@@ -221,27 +164,15 @@
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">KURUMSAL</span>
         <button onclick="openInfoModal('about')" class="block hover:text-white transition opacity-70 uppercase text-left">Hakkımızda</button>
-        <button onclick="openInfoModal('press')" class="block hover:text-white transition opacity-70 uppercase text-left">Basın (Yakında)</button>
-        <button onclick="openInfoModal('career')" class="block hover:text-white transition opacity-70 uppercase text-left">Kariyer (Yakında)</button>
         <button onclick="openInfoModal('faq')" class="block hover:text-white transition opacity-70 uppercase text-left">SSS</button>
       </div>
       <div class="space-y-5">
         <span class="text-slate-200 block text-xs tracking-widest">DESTEK</span>
         <a href="mailto:jarvisheyrose@gmail.com" class="block hover:text-white transition opacity-70 lowercase">jarvisheyrose@gmail.com</a>
         <button onclick="openInfoModal('privacy')" class="block hover:text-white transition opacity-70 uppercase text-left">KVKK / GİZLİLİK</button>
-        <button onclick="openInfoModal('terms')" class="block hover:text-white transition opacity-70 uppercase text-left">KULLANIM ŞARTLARI</button>
-        <button onclick="openInfoModal('community')" class="block hover:text-white transition opacity-70 uppercase text-left">TOPLULUK KURALLARI</button>
       </div>
     </div>
   </footer>
-
-  <div id="ad-modal" class="fixed inset-0 z-[8000] modal-overlay hidden items-center justify-center p-4">
-    <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] max-w-sm w-full text-center">
-      <h3 class="text-xl font-black text-slate-900 mb-3 uppercase">EK ÜRETİM HAKKI</h3>
-      <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">Reklamı Başlat</button>
-      <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase">İptal</button>
-    </div>
-  </div>
 
   <div id="info-modal" class="fixed inset-0 z-[8500] modal-overlay hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 p-8 rounded-[2rem] max-w-2xl w-full relative shadow-2xl">
@@ -255,37 +186,17 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
-      authDomain: "neosocial-rose.firebaseapp.com",
-      projectId: "neosocial-rose",
-      storageBucket: "neosocial-rose.firebasestorage.app",
-      messagingSenderId: "909069196756",
-      appId: "1:909069196756:web:db488838badee276f0ca41"
-    };
+    const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
     firebase.initializeApp(firebaseConfig);
 
-    function loginWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).catch((error) => { alert("Giriş Hatası: " + error.message); });
-    }
-
-    function logoutFromGoogle() {
-      firebase.auth().signOut().then(() => { notify("Çıkış yapıldı."); });
-    }
+    function loginWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider); }
+    function logoutFromGoogle() { firebase.auth().signOut(); }
 
     firebase.auth().onAuthStateChanged((user) => {
       const logoutBtn = document.getElementById("logout-btn");
       const userDisplay = document.getElementById("user-name-display");
-      if (user) {
-        userDisplay.innerText = user.displayName.toUpperCase();
-        logoutBtn.classList.remove("hidden");
-        logoutBtn.classList.add("flex");
-      } else {
-        userDisplay.innerText = "Google ile Giriş";
-        logoutBtn.classList.add("hidden");
-        logoutBtn.classList.remove("flex");
-      }
+      if (user) { userDisplay.innerText = user.displayName.toUpperCase(); logoutBtn.classList.remove("hidden"); logoutBtn.classList.add("flex"); }
+      else { userDisplay.innerText = "Google ile Giriş"; logoutBtn.classList.add("hidden"); logoutBtn.classList.remove("flex"); }
     });
 
     const FALLBACK_I18N = {
@@ -294,38 +205,22 @@
       fr: "Obtenez des suggestions de titres et de hashtags pour les plateformes populaires. Par honnêteté, nous devons préciser : cet outil vous guide mais ne garantit pas un succès définitif ou la viralité en raison des algorithmes. Bien que le système offre les meilleures suggestions basées sur des données, il ne promet pas de résultats à 100 %. S'il vous plaît, n'attendez pas de miracle ; utilisez cet outil pour renforcer votre stratégie.",
       de: "Erhalten Sie Titel- und Hashtag-Vorschläge für beliebte Plattformen. Aus Ehrlichkeit müssen wir darauf hinweisen: Dieses Tool leitet Sie an, garantiert jedoch aufgrund von Algorithmen keinen sicheren Erfolg oder Viralität. Auch wenn das System die besten datenbasierten Vorschläge liefert, verspricht es keine 100%igen Ergebnisse. Bitte erwarten Sie keine Wunder; nutzen Sie dieses Tool, um Ihre Strategie zu stärken.",
       es: "Obtenga sugerencias de títulos y hashtags para plataformas populares. Por honestidad, debemos indicar: Esta herramienta le guía, pero no garantiza el éxito definitivo o la viralidad debido a los algoritmos. Aunque el sistema ofrece las mejores sugerencias basadas en datos, no promete resultados del 100%. Por favor, no espere milagros; utilice esta herramienta para fortalecer su estrategia.",
-      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, devemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugeristas baseadas em dados, não promete resultados de 100%. Por favor, no espere milagres; use esta ferramenta para fortalecer sua estratégia."
+      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, devemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugestões baseadas em dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
     };
 
     const INFO_CONTENT = {
       about: { title: "Hakkımızda", body: "NeoSocial_Rose, içerik üreticilerine dijital yolculuklarında veri odaklı fikirler sunarak stratejilerini güçlendirmeyi hedefler. Platformumuz bir sohbet aracı değil, içerik planlamanıza yardımcı olan analitik bir rehberdir; ancak algoritmik başarı veya yüksek izlenme garantisi sunmaz." },
-      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI teknolojisi ile güncel trend analizleri yapılarak başlık ve etiket önerileri sunulur.<br><br><b>Ücretli mi?</b> Temel kullanım tamamen ücretsizdir.<br><br><b>Haklar?</b> Her platform için günlük 2 üretim hakkı verilir, gece 00:00'da yenilenir.<br><br><b>Garanti var mı?</b> Sistem veri odaklı öneri sunar ancak sosyal medya algoritmaları değişken olduğundan kesin başarı vaat edilmez.<br><br><b>Verilerim güvende mi?</b> Aramalarınız veya kanal verileriniz sunucularımızda saklanmaz." },
-      privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." },
-      terms: { title: "Kullanim Şartları", body: "Üretilen içeriklerin kullanım sorumluluğu kullanıcıya aittir. Sosyal medya politikalarına uyum önerilir." },
-      community: { title: "Topluluk Kuralları", body: "Etik dışı, yanıltıcı veya manipülatif içerik üretimi desteklenmez." },
-      press: { title: "Basın", body: "Basın materyalleri yakında eklenecektir." },
-      career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
+      faq: { title: "Sıkça Sorulan Sorular", body: "<b>Nasıl çalışır?</b> Gemini AI teknolojisi ile güncel trend analizleri yapılarak başlık ve etiket önerileri sunulur.<br><br><b>Ücretli mi?</b> Temel kullanım tamamen ücretsizdir.<br><br><b>Haklar?</b> Her platform için günlük 2 üretim hakkı verilir, gece 00:00'da yenilenir.<br><br><b>Garanti var mı?</b> Sistem veri odaklı öneri sunar ancak sosyal medya algoritmaları değişken olduğundan kesin başarı vaat edilmez." },
+      privacy: { title: "KVKK / Gizlilik", body: "NeoSocial_Rose üzerinde hiçbir veri toplama veya kayıt yapılmamaktadır. Girdiğiniz bilgiler sunucularımızda saklanmaz." }
     };
 
-    function getTodayKey() {
-      const d = new Date();
-      return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-    }
-
     function initCredits() {
-      const today = getTodayKey();
-      const lastDate = localStorage.getItem("nsr_last_date");
-      if (lastDate !== today) {
-        const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
-        platforms.forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
+      const today = new Date().toDateString();
+      if (localStorage.getItem("nsr_last_date") !== today) {
+        ['youtube', 'instagram', 'tiktok', 'x'].forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
         localStorage.setItem("nsr_last_date", today);
       }
-      return {
-        youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2", 10),
-        instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2", 10),
-        tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2", 10),
-        x: parseInt(localStorage.getItem("nsr_credits_x") || "2", 10)
-      };
+      return { youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2"), instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2"), tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2"), x: parseInt(localStorage.getItem("nsr_credits_x") || "2") };
     }
 
     const state = { lang: "tr", platform: "youtube", type: "üretim", credits: initCredits() };
@@ -333,162 +228,71 @@
     function setLang(l) {
       state.lang = l;
       document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-      const btn = document.getElementById("l-" + l);
-      if (btn) btn.classList.add("active");
+      document.getElementById("l-" + l).classList.add("active");
       document.getElementById("desc-text").innerText = FALLBACK_I18N[l] || FALLBACK_I18N.tr;
     }
 
-    function openInfoModal(key) {
-      document.getElementById("info-modal-title").innerText = INFO_CONTENT[key].title;
-      document.getElementById("info-modal-body").innerHTML = INFO_CONTENT[key].body;
-      document.getElementById("info-modal").classList.remove("hidden");
-      document.getElementById("info-modal").classList.add("flex");
-    }
+    function openInfoModal(key) { document.getElementById("info-modal-title").innerText = INFO_CONTENT[key].title; document.getElementById("info-modal-body").innerHTML = INFO_CONTENT[key].body; document.getElementById("info-modal").classList.remove("hidden"); document.getElementById("info-modal").classList.add("flex"); }
     function closeInfoModal() { document.getElementById("info-modal").classList.add("hidden"); }
 
-    function notify(msg) {
-      const el = document.getElementById("notification");
-      el.innerText = msg; el.style.display = "block";
-      setTimeout(() => { el.style.display = "none"; }, 3500);
-    }
+    function notify(msg) { const el = document.getElementById("notification"); el.innerText = msg; el.style.display = "block"; setTimeout(() => { el.style.display = "none"; }, 3500); }
 
-    function showView(name) {
-      closeAllDropdowns();
-      const header = document.getElementById("page-header");
-      document.getElementById("view-home").style.display = "none";
-      document.getElementById("view-apps").style.display = "none";
-      document.getElementById("view-platform").style.display = "none";
-      if (name === "home") { document.getElementById("view-home").style.display = "block"; header.style.display = "block"; }
-      else if (name === "apps") { document.getElementById("view-apps").style.display = "block"; header.style.display = "none"; }
-      else if (name === "platform") { document.getElementById("view-platform").style.display = "block"; header.style.display = "none"; }
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function setMode(p, t) {
-      state.platform = p; state.type = t;
-      document.getElementById("current-mode-title").innerText = `${p} ${t}`.toUpperCase();
-      document.getElementById("input-label").innerText = t === "analiz" ? "Kanal Linki Giriniz" : "İçerik Konusu Giriniz";
-      updateCreditsUI(); closeAllDropdowns();
-    }
-
-    function updateCreditsUI() { 
-      const currentCredit = state.credits[state.platform] || 0;
-      document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
-    }
+    function setMode(p, t) { state.platform = p; state.type = t; document.getElementById("current-mode-title").innerText = `${p} ${t}`.toUpperCase(); updateCreditsUI(); closeAllDropdowns(); }
+    function updateCreditsUI() { document.getElementById("credit-count").innerText = `HAK: ${state.credits[state.platform] || 0} / 2`; }
 
     async function generateDemo() {
-      const currentPlatform = state.platform;
-      const currentCredit = state.credits[currentPlatform] || 0;
-      if (currentCredit <= 0) { 
-        notify(`${currentPlatform.toUpperCase()} için günlük üretim limitinize ulaştınız.`);
-        return; 
-      }
+      const p = state.platform;
+      if ((state.credits[p] || 0) <= 0) { notify("Günlük limit doldu."); return; }
+      const val = document.getElementById("topicInput").value.trim();
+      if (!val) { notify("Lütfen konu giriniz."); return; }
 
-      const val = (document.getElementById("topicInput").value || "").trim();
-      if (!val) { 
-        notify(state.type === "analiz" ? "Kanal linki giriniz." : "İçerik konusu giriniz."); 
-        return; 
-      }
-
-      // PROFESSIONAL SYSTEM PROMPT ENFORCEMENT
-      // Bu kısım Gemini'ye nasıl davranması gerektiğini söyler (Sadece payload içinde gönderilir)
+      // CRITICAL: PROFESSIONAL SYSTEM PROMPT UPDATE
       const PRO_INSTRUCTION = `
-        Sen dünyanın en iyi sosyal medya büyüme stratejistisin. Görevin; sıradan, amatörce veya 'X tane hata' gibi basit başlıklar üretmek DEĞİLDİR.
-        Kullanıcının girdiği konu ne olursa olsun, 'You weren't ready for this...', 'The secret no one tells you...', 'Mastering the art of...' gibi 
-        havalı, merak uyandırıcı, viral potansiyeli yüksek ve profesyonel başlıklar üretmelisin. 
-        Çıktı formatın: "[Yüksek Kaliteli Viral Başlık] [Emoji] #hashtag #viral #trend #premium" şeklinde olmalı. 
-        Asla 'Demo' veya 'Örnek' hissi veren içerik üretme. Çıktı dilini kullanıcının seçtiği dile (${state.lang}) göre ayarla ama global vibe'ı koru.
+        GÖREV: Viral Shorts/Reels/TikTok içerik stratejisti gibi davran.
+        YASAK KELİMELER: "ŞOK", "KİMSE BİLMİYOR", "GİZLİ", "İNANAMAYACAKSINIZ", "HATA", "DETAY". Bu kelimeleri asla kullanma.
+        ÜRETİLECEK TARZ: 'You weren't ready for this...', 'POV: You just...', 'The elite way to...', 'Pure aesthetic...' gibi modern ve profesyonel "kanca" (hook) cümleleri üret.
+        FORMAT: "Hook Cümlesi [Emoji] #hashtag1 #hashtag2 #hashtag3".
+        DİL: Kullanıcının seçtiği dilde (${state.lang}) üret ama global "viral" tonu koru. Çıktı çok kısa ve etkileyici olsun.
+        ÖRNEK ÇIKTI: "The midfield masterclass you needed to see ⚽️🔥 #football #pro #tactics #viral"
       `;
 
-      state.credits[currentPlatform] -= 1;
-      localStorage.setItem(`nsr_credits_${currentPlatform}`, String(state.credits[currentPlatform]));
+      state.credits[p] -= 1;
+      localStorage.setItem(`nsr_credits_${p}`, state.credits[p]);
       updateCreditsUI();
-
-      const payload = {
-        mode: state.type === "analiz" ? "analysis" : "produce",
-        lang: state.lang,
-        platform: state.platform,
-        type: state.type,
-        topic: val,
-        systemInstruction: PRO_INSTRUCTION // Backend'e Pro talimatı gönderiyoruz
-      };
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ mode: "produce", lang: state.lang, platform: state.platform, topic: val, systemInstruction: PRO_INSTRUCTION })
         });
-
         const data = await r.json();
-        const resultText = data?.text || data?.error || "Üretim gerçekleştirilemedi.";
-        
-        document.getElementById("result-text").innerText = resultText;
+        document.getElementById("result-text").innerText = data?.text || "Hata oluştu.";
         document.getElementById("result-box").classList.remove("hidden");
-
-        const totalChars = resultText.length;
-        const validationEl = document.getElementById("validation-msg");
-        if (totalChars > 100) {
-          validationEl.innerText = `⚠️ Toplam ${totalChars} karakter.`;
-          validationEl.style.color = "#f43f5e";
-        } else {
-          validationEl.innerText = `✓ ${totalChars} / 100 karakter — Platform uyumlu.`;
-          validationEl.style.color = "#10b981";
-        }
-      } catch (e) {
-        document.getElementById("result-text").innerText = "Sunucu hatası oluştu.";
-        document.getElementById("result-box").classList.remove("hidden");
-      }
+        const len = (data?.text || "").length;
+        document.getElementById("validation-msg").innerText = len > 100 ? `⚠️ ${len} karakter.` : `✓ ${len} / 100 karakter.`;
+        document.getElementById("validation-msg").style.color = len > 100 ? "#f43f5e" : "#10b981";
+      } catch (e) { document.getElementById("result-text").innerText = "Hata oluştu."; }
     }
 
-    function copyResult() { 
-      const text = document.getElementById("result-text").innerText;
+    function copyResult() {
       const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-9999px";
+      textArea.value = document.getElementById("result-text").innerText;
       document.body.appendChild(textArea);
       textArea.select();
-      try {
-        document.execCommand('copy');
-        notify("İçerik panoya kopyalandı.");
-      } catch (err) {
-        notify("Kopyalama hatası.");
-      }
+      document.execCommand('copy');
       document.body.removeChild(textArea);
+      notify("Kopyalandı.");
     }
 
-    const dropdownMap = [
-      { btn: "nav-apps-btn", dd: "nav-apps-dd" }, 
-      { btn: "nav-platform-btn", dd: "nav-platform-dd" }, 
-      { btn: "nav-production-btn", dd: "nav-production-dd" }
-    ];
-    
-    function closeAllDropdowns() { 
-      dropdownMap.forEach(x => { 
-        const dd = document.getElementById(x.dd);
-        if(dd) dd.style.display = "none"; 
-      }); 
-    }
-    
-    function toggleDropdown(ddId) { 
-      const dd = document.getElementById(ddId); 
-      const isOpen = dd.style.display === "block"; 
-      closeAllDropdowns(); 
-      if (!isOpen) dd.style.display = "block"; 
-    }
-    
-    dropdownMap.forEach(x => { 
-      const btn = document.getElementById(x.btn);
-      if(btn) {
-        btn.addEventListener("click", (e) => { 
-          e.stopPropagation(); 
-          toggleDropdown(x.dd); 
-        }); 
-      }
-    });
-    
+    function closeAllDropdowns() { document.querySelectorAll(".menu-dropdown").forEach(d => d.style.display = "none"); }
+    function toggleDropdown(id) { const d = document.getElementById(id); const isOpen = d.style.display === "block"; closeAllDropdowns(); if (!isOpen) d.style.display = "block"; }
+
+    document.getElementById("nav-apps-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-apps-dd"); };
+    document.getElementById("nav-platform-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-platform-dd"); };
+    document.getElementById("nav-production-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-production-dd"); };
     document.addEventListener("click", closeAllDropdowns);
+
     (function init() { setLang("tr"); updateCreditsUI(); })();
   </script>
 </body>
