@@ -173,46 +173,28 @@
     function loginWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider).catch(e => notify("Giriş başarısız.")); }
     function logoutFromGoogle() { firebase.auth().signOut().then(() => { window.location.reload(); }); }
 
-    // CREDIT SYSTEM LINKED TO UID
     function getCredits(uid = "guest") {
       const today = new Date().toDateString();
       const dateKey = `nsr_last_date_${uid}`;
       const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
-      
       if (localStorage.getItem(dateKey) !== today) {
         platforms.forEach(p => localStorage.setItem(`nsr_credits_${uid}_${p}`, "2"));
         localStorage.setItem(dateKey, today);
       }
-      
       const credits = {};
-      platforms.forEach(p => {
-        credits[p] = parseInt(localStorage.getItem(`nsr_credits_${uid}_${p}`) || "2");
-      });
+      platforms.forEach(p => { credits[p] = parseInt(localStorage.getItem(`nsr_credits_${uid}_${p}`) || "2"); });
       return credits;
     }
 
-    const state = { 
-      lang: "tr", 
-      platform: "youtube", 
-      type: "üretim", 
-      credits: getCredits("guest"),
-      userId: "guest"
-    };
+    const state = { lang: "tr", platform: "youtube", type: "üretim", credits: getCredits("guest"), userId: "guest" };
 
     firebase.auth().onAuthStateChanged((user) => {
       const logoutBtn = document.getElementById("logout-btn");
       const userDisplay = document.getElementById("user-name-display");
-      
       state.userId = user ? user.uid : "guest";
       state.credits = getCredits(state.userId);
-      
-      if (user) { 
-        userDisplay.innerText = user.displayName.split(' ')[0].toUpperCase(); 
-        logoutBtn.classList.remove("hidden"); 
-      } else { 
-        userDisplay.innerText = "GİRİŞ"; 
-        logoutBtn.classList.add("hidden"); 
-      }
+      if (user) { userDisplay.innerText = user.displayName.split(' ')[0].toUpperCase(); logoutBtn.classList.remove("hidden"); }
+      else { userDisplay.innerText = "GİRİŞ"; logoutBtn.classList.add("hidden"); }
       updateCreditsUI();
     });
 
@@ -241,30 +223,29 @@
     async function generateDemo() {
       const p = state.platform;
       const uid = state.userId;
-      
       if ((state.credits[p] || 0) <= 0) { notify("Elite limit doldu."); return; }
       const val = document.getElementById("topicInput").value.trim();
       if (!val) { notify("Lütfen konu giriniz."); return; }
 
-      // ENHANCED PROMPT WITH USER EXAMPLES
+      // ENHANCED PROMPT WITH LATEST ELITE EXAMPLES
       const proPrompt = `
         GÖREV: Aşağıdaki konu hakkında GLOBAL ELITE Shorts/Reels başlığı üret.
         KONU: "${val}"
         
-        STİL REHBERİ (BU ÖRNEKLER GİBİ OLACAK):
+        STİL REHBERİ (BU KALİTEDE OLACAK):
+        - "POV: Elite Seviye Futbol Zekası 🧠"
+        - "POV: Sahadaki Entelektüel Dans 🧠"
         - "POV: Top Kontrolü Masterclass ✨"
         - "POV: Futbol Sahasının Kalbi ⚽️"
-        - "POV: Maç Okuma Ustası 📖"
-        - "POV: Sahada Ustalık Dersi ⚽"
 
         KESİN YASAKLAR: 
-        - "ŞOK", "KİMSE BİLMİYOR", "HATA", "GİZLİ", "SIR", "ANALİZ", "HAZIR DEĞİLDİN", "GÖZDEN KAÇAN" gibi ucuz clickbait kelimeleri ASLA kullanma.
-        - "7 Hata", "3 Taktik" gibi sayısal listeler yapma.
+        - "ŞOK", "KİMSE BİLMİYOR", "HATA", "GİZLİ", "SIR", "ANALİZ", "HAZIR DEĞİLDİN", "GÖZDEN KAÇAN" gibi kelimeleri ASLA kullanma.
+        - Sayısal listeler (7 Hata, 3 Taktik) yapma.
         
         İSTENEN FORMAT: 
         "POV: [Profesyonel ve Sanatsal Başlık] [Emoji] #hashtag1 #hashtag2 #hashtag3 #masterclass"
         
-        DİL: ${state.lang} (Vibe profesyonel ve global olmalı).
+        DİL: ${state.lang}
       `;
 
       state.credits[p] -= 1; 
@@ -279,10 +260,8 @@
         });
         const data = await r.json();
         let result = (data?.text || "").trim();
-        
-        const cleaner = [/ŞOK/gi, /KİMSE/gi, /BİLMİYOR/gi, /HATA/gi, /SIR/gi, /GİZLİ/gi, /DETAY/gi, /HAZIR DEĞİLDİN/gi, /GÖZDEN KAÇAN/gi, /\d+ Hata/gi, /\d+ Taktik/gi];
+        const cleaner = [/ŞOK/gi, /KİMSE/gi, /BİLMİYOR/gi, /HATA/gi, /SIR/gi, /GİZLİ/gi, /DETAY/gi, /HAZIR DEĞİLDİN/gi, /GÖZDEN KAÇAN/gi];
         cleaner.forEach(reg => { result = result.replace(reg, ""); });
-        
         document.getElementById("result-text").innerText = result.replace(/\s\s+/g, ' ');
         document.getElementById("result-box").classList.remove("hidden");
         const len = result.length;
@@ -302,7 +281,6 @@
 
     function closeAllDropdowns() { document.querySelectorAll(".menu-dropdown").forEach(d => d.style.display = "none"); }
     function toggleDropdown(id) { const d = document.getElementById(id); const isOpen = d.style.display === "block"; closeAllDropdowns(); if (!isOpen) d.style.display = "block"; }
-
     document.getElementById("nav-apps-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-apps-dd"); };
     document.getElementById("nav-platform-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-platform-dd"); };
     document.getElementById("nav-production-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-production-dd"); };
