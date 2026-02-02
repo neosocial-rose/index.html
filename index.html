@@ -8,7 +8,6 @@
   <meta name="description" content="Elite AI social media generator for high-end creators. Viral titles and masterclass hashtags.">
   <meta name="robots" content="index, follow">
   
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +22,6 @@
     .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; }
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
-    .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .pro-input { background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 1.5rem; width: 100%; font-weight: 700; color: #0f172a; outline: none; transition: 0.3s; }
     .pro-input:focus { border-color: #f43f5e; background: #fff; box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.1); }
@@ -69,7 +67,7 @@
           <button onclick="setLang('en')" id="l-en" class="lang-btn">EN</button>
         </div>
         <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
-          <span id="user-display">Login</span>
+          <span id="user-display">LOGIN</span>
         </button>
       </div>
     </div>
@@ -77,8 +75,6 @@
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-      
-      <!-- Left side: Ad area -->
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
           <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Advertisement</span>
@@ -86,11 +82,10 @@
         </div>
       </div>
 
-      <!-- Center: Main Generator -->
       <div class="lg:col-span-6">
         <div class="bg-white border border-slate-100 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-slate-200/50">
           <div class="flex justify-between items-center mb-10">
-            <h2 id="current-platform" class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">YouTube Production</h2>
+            <h2 id="current-platform" class="text-xs font-black uppercase tracking-[0.3em] text-slate-400">YOUTUBE Production</h2>
             <div id="credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black uppercase">Credits: 2 / 2</div>
           </div>
 
@@ -112,14 +107,12 @@
         </div>
       </div>
 
-      <!-- Right side: Ad area -->
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
           <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Sponsorship</span>
           <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Ad Space</div>
         </div>
       </div>
-
     </div>
   </main>
 
@@ -141,7 +134,7 @@
     const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
     firebase.initializeApp(firebaseConfig);
 
-    const apiKey = ""; // Runtime provides the key automatically
+    const apiKey = ""; 
     const state = { 
       lang: 'tr', 
       platform: 'youtube', 
@@ -190,17 +183,14 @@
     }
 
     async function callGemini(topic) {
-      const systemPrompt = `
-        GÖREV: Sen dünyanın en pahalı, en profesyonel sosyal medya stratejistisin. Görevin, sıradan bot başlıkları yerine, yüksek prodüksiyonlu ve viral potansiyeli olan 'Elite' içerik kancaları üretmektir.
-        
-        KESİN KURALLAR:
-        - Başlık mutlaka "POV: [Sanatsal/Profesyonel Kanca] [Emoji]" formatında olmalı.
-        - Örnek: "POV: Elite Seviye Futbol Zekası 🧠" veya "POV: Futbol Sanatının Zirvesi 🎨".
-        - YASAKLAR: '7 Hata', '3 Taktik' gibi sayısal listeler ve 'Şok', 'Kimse bilmiyor', 'Gizli', 'İnanılmaz' gibi ucuz clickbait kelimeleri ASLA kullanma.
-        - Ton: 'Elite Masterclass', 'Aesthetic', 'Pure Talent'.
-        - Dil: Yanıtı tamamen ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'} ver.
-        - Çıktı: Sadece 1 adet POV başlığı ve 4-5 adet Masterclass hashtag'i. Başka açıklama ekleme.
-      `;
+      const systemPrompt = `GÖREV: Sen dünyanın en pahalı sosyal medya stratejistisin. Görevin, sıradan bot başlıkları yerine, yüksek prodüksiyonlu ve viral kancalar üretmektir.
+      KURALLAR:
+      - Başlık mutlaka "POV: [Profesyonel Kanca] [Emoji]" formatında olmalı.
+      - Örnek: "POV: Elite Seviye Futbol Zekası 🧠" veya "POV: Futbol Sanatının Zirvesi 🎨".
+      - YASAKLAR: '7 Hata', '3 Taktik' gibi sayısal listeler ve 'Şok', 'Gizli', 'Sır' gibi ucuz clickbaitleri ASLA kullanma.
+      - Ton: Elite Masterclass, Entelektüel, Estetik.
+      - Dil: ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'}.
+      - Çıktı: Sadece 1 adet POV başlığı ve 4 hashtag.`;
 
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
       const payload = {
@@ -208,7 +198,7 @@
         systemInstruction: { parts: [{ text: systemPrompt }] }
       };
 
-      const delays = [1000, 2000, 4000, 8000, 16000];
+      const delays = [1000, 2000, 4000];
       for(let i = 0; i < delays.length; i++) {
         try {
           const r = await fetch(url, { 
@@ -217,13 +207,10 @@
             body: JSON.stringify(payload) 
           });
           
-          if (!r.ok) {
-            const errData = await r.json();
-            throw new Error(errData.error?.message || "HTTP Error");
-          }
+          if (!r.ok) throw new Error("API Error");
 
           const d = await r.json();
-          if (d.candidates && d.candidates[0] && d.candidates[0].content) {
+          if (d.candidates && d.candidates[0]?.content?.parts?.[0]?.text) {
             return d.candidates[0].content.parts[0].text;
           }
         } catch(e) { 
@@ -238,7 +225,7 @@
       if (state.credits <= 0) return notify("Daily limit reached.");
       const topicInput = document.getElementById('topicInput');
       const topic = topicInput.value.trim();
-      if (!topic) return notify("Enter a topic first.");
+      if (!topic) return notify("Enter a topic.");
 
       const btn = document.getElementById('genBtn');
       const resultBox = document.getElementById('result-box');
@@ -253,18 +240,13 @@
           state.credits--;
           localStorage.setItem(`nsr_cred_${state.userId}`, state.credits);
           document.getElementById('credit-badge').innerText = `Credits: ${state.credits} / 2`;
-          
           resultText.innerText = result.trim();
           resultBox.classList.remove("hidden");
           notify("Generation successful ✨");
-        } else {
-          notify("Service temporarily unavailable.");
         }
       } catch(e) { 
-        console.error("Gemini Error:", e);
-        notify("Production failed. Check your internet connection."); 
-      }
-      finally { 
+        notify("Elite production failed. Check connection."); 
+      } finally { 
         btn.disabled = false; 
         btn.innerText = "Start Elite Generation"; 
       }
@@ -278,18 +260,9 @@
       notify("Elite hook copied ✨");
     }
 
-    // UI Logic
-    document.getElementById('nav-apps-btn').onclick = (e) => { 
-      e.stopPropagation(); 
-      document.getElementById('nav-apps-dd').style.display = 'block'; 
-    };
-    document.getElementById('nav-prod-btn').onclick = (e) => { 
-      e.stopPropagation(); 
-      document.getElementById('nav-prod-dd').style.display = 'block'; 
-    };
-    window.onclick = () => { 
-      document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none'); 
-    };
+    document.getElementById('nav-apps-btn').onclick = (e) => { e.stopPropagation(); document.getElementById('nav-apps-dd').style.display = 'block'; };
+    document.getElementById('nav-prod-btn').onclick = (e) => { e.stopPropagation(); document.getElementById('nav-prod-dd').style.display = 'block'; };
+    window.onclick = () => { document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none'); };
 
     function showInfo(type) { notify(`${type.toUpperCase()} section is under maintenance.`); }
   </script>
