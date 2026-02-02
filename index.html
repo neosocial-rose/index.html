@@ -12,20 +12,20 @@
     FR: générateur de hashtags gratuit, titres viraux ia, outils youtube ia,
     DE: kostenloser hashtag generator, virale titel ki, youtube seo optimierung,
     ES: generador de hashtags gratis, títulos virales ia, herramientas para youtubers,
-    PT: generador de hashtags gratuito, títulos virais ia, otimização de mídia social,
+    PT: gerador de hashtags gratuito, títulos virais ia, otimização de mídia social,
     Global: neo social rose, ai content creator 2026, tiktok viral trends
   ">
   <meta name="robots" content="index, follow">
   <meta name="author" content="NeoSocial_Rose">
 
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://neosocial-rose.web.app/">
+  <meta property="og:url" content="https://jarvisheyrose.com/">
   <meta property="og:title" content="Viral İçerik Üreticisi | NeoSocial_Rose (Free AI Tool)">
   <meta property="og:description" content="6 Dilde Viral Başlık ve Hashtag Üretimi. Free AI Title & Hashtag Generator.">
   <meta property="og:image" content="hero.jpeg">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://neosocial-rose.web.app/">
+  <meta property="twitter:url" content="https://jarvisheyrose.com/">
   <meta property="twitter:title" content="Viral İçerik Üreticisi | NeoSocial_Rose">
   <meta property="twitter:description" content="Yapay zeka ile saniyeler içinde viral başlıklar ve hashtagler oluşturun.">
   <meta property="twitter:image" content="hero.jpeg">
@@ -37,39 +37,17 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
     body { font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; overflow-x:hidden; }
     .glass-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; display:flex; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
-
-    .menu-dropdown {
-      display:none;
-      position:absolute;
-      top:100%;
-      left:50%;
-      transform: translateX(-50%);
-      background:#fff;
-      border:1px solid #f1f5f9;
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-      border-radius: 12px;
-      padding: 16px;
-      min-width: 240px;
-      z-index: 5000;
-      pointer-events:auto;
-    }
-
-    body.dropdown-open #page-header { visibility: hidden; }
-
+    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
-
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
-
     .ad-box { background:#fffbeb; border:1px solid #fef3c7; border-radius: 1.5rem; }
     .hidden-section { display:none; }
-
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
     .modal-overlay { background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); }
   </style>
@@ -178,10 +156,6 @@
               <div id="validation-msg" class="mt-4 text-[10px] font-black uppercase"></div>
             </div>
           </div>
-
-          <div class="text-center" style="display:none;">
-            <span onclick="openAdModal()" class="text-[10px] font-black text-slate-400 uppercase cursor-pointer hover:text-rose-500 transition border-b border-slate-200 pb-1">Limit bitti mi? Reklam izleyerek +1 üretim kazan</span>
-          </div>
         </div>
       </section>
       
@@ -211,7 +185,7 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 text-[10px] font-black uppercase">
       <div class="col-span-1 md:col-span-2">
         <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
-        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">Yüksek erişim odaklı içerik rehberiniz. Burası sohbet yeri değil, stratejik izlenme artırma platformudur.</p>
+        <p class="normal-case font-bold opacity-50 leading-relaxed max-w-sm mb-8 text-xs">Yüksek erişim odaklı içerik rehberiniz. Burası stratejik izlenme artırma platformudur.</p>
         <p class="opacity-30">© 2026 NeoSocial_Rose</p>
       </div>
       <div class="space-y-5">
@@ -230,14 +204,6 @@
       </div>
     </div>
   </footer>
-
-  <div id="ad-modal" class="fixed inset-0 z-[8000] modal-overlay hidden items-center justify-center p-4">
-    <div class="bg-white border border-slate-200 p-10 rounded-[2.5rem] max-w-sm w-full text-center">
-      <h3 class="text-xl font-black text-slate-900 mb-3 uppercase">EK ÜRETİM HAKKI</h3>
-      <button onclick="simulateAd()" id="ad-start-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl">Reklamı Başlat</button>
-      <button onclick="closeAdModal()" class="mt-6 text-[10px] font-black text-slate-400 uppercase">İptal</button>
-    </div>
-  </div>
 
   <div id="info-modal" class="fixed inset-0 z-[8500] modal-overlay hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 p-8 rounded-[2rem] max-w-2xl w-full relative shadow-2xl">
@@ -282,6 +248,7 @@
         logoutBtn.classList.add("hidden");
         logoutBtn.classList.remove("flex");
       }
+      updateCreditsUI();
     });
 
     const FALLBACK_I18N = {
@@ -290,7 +257,7 @@
       fr: "Obtenez des suggestions de titres et de hashtags pour les plateformes populaires. Par honnêteté, nous devons préciser : cet outil vous guide mais ne garantit pas un succès définitif ou la viralité en raison des algorithmes. Bien que le système offre les meilleures suggestions basées sur des données, il ne promet pas de résultats à 100 %. S'il vous plaît, n'attendez pas de miracle ; utilisez cet outil pour renforcer votre stratégie.",
       de: "Erhalten Sie Titel- und Hashtag-Vorschläge für beliebte Plattformen. Aus Ehrlichkeit müssen wir darauf hinweisen: Dieses Tool leitet Sie an, garantiert jedoch aufgrund von Algorithmen keinen sicheren Erfolg oder Viralität. Auch wenn das System die besten datenbasierten Vorschläge liefert, verspricht es keine 100%igen Ergebnisse. Bitte erwarten Sie keine Wunder; nutzen Sie dieses Tool, um Ihre Strategie zu stärken.",
       es: "Obtenga sugerencias de títulos y hashtags para plataformas populares. Por honestidad, debemos indicar: Esta herramienta le guía, pero no garantiza el éxito definitivo o la viralidad debido a los algoritmos. Aunque el sistema ofrece las mejores sugerencias basadas en datos, no promete resultados del 100%. Por favor, no espere milagros; utilice esta herramienta para fortalecer su estrategia.",
-      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, devemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas em dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
+      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, debemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas en dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
     };
 
     const INFO_CONTENT = {
@@ -303,53 +270,32 @@
       career: { title: "Kariyer", body: "İş ilanlarımız yakında burada olacaktır." }
     };
 
-    function getTodayKey() {
-      const d = new Date();
-      return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
-    }
+    function getTodayKey() { return new Date().toISOString().slice(0, 10); }
 
     function initCredits() {
       const today = getTodayKey();
       const lastDate = localStorage.getItem("nsr_last_date");
-      
-      if (lastDate !== today) {
-        const platforms = ['youtube', 'instagram', 'tiktok', 'x'];
-        platforms.forEach(p => {
-          localStorage.setItem(`nsr_credits_${p}`, "2");
-        });
+      if (lastDate !== today || !localStorage.getItem("nsr_credits_youtube")) {
+        ['youtube', 'instagram', 'tiktok', 'x'].forEach(p => localStorage.setItem(`nsr_credits_${p}`, "2"));
         localStorage.setItem("nsr_last_date", today);
       }
-      
-      return {
-        youtube: parseInt(localStorage.getItem("nsr_credits_youtube") || "2", 10),
-        instagram: parseInt(localStorage.getItem("nsr_credits_instagram") || "2", 10),
-        tiktok: parseInt(localStorage.getItem("nsr_credits_tiktok") || "2", 10),
-        x: parseInt(localStorage.getItem("nsr_credits_x") || "2", 10)
-      };
     }
 
-    const state = {
-      lang: "tr",
-      platform: "youtube",
-      type: "üretim",
-      credits: initCredits()
-    };
+    const state = { lang: "tr", platform: "youtube", type: "üretim" };
 
     function setLang(l) {
       state.lang = l;
       document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-      const btn = document.getElementById("l-" + l);
-      if (btn) btn.classList.add("active");
+      document.getElementById("l-" + l).classList.add("active");
       document.getElementById("desc-text").innerText = FALLBACK_I18N[l] || FALLBACK_I18N.tr;
     }
 
     function openInfoModal(key) {
       document.getElementById("info-modal-title").innerText = INFO_CONTENT[key].title;
       document.getElementById("info-modal-body").innerHTML = INFO_CONTENT[key].body;
-      document.getElementById("info-modal").classList.remove("hidden");
-      document.getElementById("info-modal").classList.add("flex");
+      document.getElementById("info-modal").classList.replace("hidden", "flex");
     }
-    function closeInfoModal() { document.getElementById("info-modal").classList.add("hidden"); }
+    function closeInfoModal() { document.getElementById("info-modal").classList.replace("flex", "hidden"); }
 
     function notify(msg) {
       const el = document.getElementById("notification");
@@ -360,12 +306,10 @@
     function showView(name) {
       closeAllDropdowns();
       const header = document.getElementById("page-header");
-      document.getElementById("view-home").style.display = "none";
-      document.getElementById("view-apps").style.display = "none";
-      document.getElementById("view-platform").style.display = "none";
-      if (name === "home") { document.getElementById("view-home").style.display = "block"; header.style.display = "block"; }
-      else if (name === "apps") { document.getElementById("view-apps").style.display = "block"; header.style.display = "none"; }
-      else if (name === "platform") { document.getElementById("view-platform").style.display = "block"; header.style.display = "none"; }
+      document.getElementById("view-home").style.display = name === "home" ? "block" : "none";
+      document.getElementById("view-apps").style.display = name === "apps" ? "block" : "none";
+      document.getElementById("view-platform").style.display = name === "platform" ? "block" : "none";
+      header.style.display = name === "home" ? "block" : "none";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -377,123 +321,52 @@
     }
 
     function updateCreditsUI() { 
-      const currentCredit = state.credits[state.platform] || 0;
+      initCredits();
+      const currentCredit = localStorage.getItem(`nsr_credits_${state.platform}`) || "2";
       document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
     }
 
-    function openAdModal() { notify("Bonus sistem geçici olarak devre dışı."); }
-    function closeAdModal() { document.getElementById("ad-modal").classList.add("hidden"); }
-    function simulateAd() { notify("Bonus sistem geçici olarak devre dışı."); }
-
     async function generateDemo() {
-      const currentPlatform = state.platform;
-      const currentCredit = state.credits[currentPlatform] || 0;
-      
-      if (currentCredit <= 0) { 
-        notify(`${currentPlatform.toUpperCase()} için günlük üretim limitinize ulaştınız. Limitiniz yarın yenilenecektir.`);
-        return; 
-      }
-
+      initCredits();
+      let c = parseInt(localStorage.getItem(`nsr_credits_${state.platform}`) || "2");
       const val = (document.getElementById("topicInput").value || "").trim();
-      if (!val) { 
-        notify(state.type === "analiz" ? "Kanal linki giriniz." : "İçerik konusu giriniz."); 
-        return; 
-      }
+      if (c <= 0) { notify("Günlük üretim limitine ulaştınız."); return; }
+      if (!val) { notify("Konu giriniz."); return; }
 
-      state.credits[currentPlatform] -= 1;
-      localStorage.setItem(`nsr_credits_${currentPlatform}`, String(state.credits[currentPlatform]));
+      c--;
+      localStorage.setItem(`nsr_credits_${state.platform}`, String(c));
       updateCreditsUI();
 
-      const payload = state.type === "analiz"
-        ? { mode: "analysis", url: val }
-        : { mode: "produce", lang: state.lang, platform: state.platform, type: state.type, topic: val };
+      // CİDDİ VE STRATEJİK PROMPT GÜNCELLEMESİ
+      const instruction = `Dijital strateji uzmanı gibi davran. '${val}' konusu için; Şok, Flaş, Kimse Bilmiyor gibi ucuz kelimeleri kullanmadan, algoritma ve kanca (hook) odaklı, 100 karakteri geçmeyen profesyonel bir başlık ve 3 hashtag üret.`;
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ prompt: instruction, topic: val, lang: state.lang, platform: state.platform })
         });
-
         const data = await r.json();
-        const resultText = data?.text || data?.error || "Üretim gerçekleştirilemedi.";
-        
-        document.getElementById("result-text").innerText = resultText;
+        document.getElementById("result-text").innerText = data?.text || "Sunucu hatası.";
         document.getElementById("result-box").classList.remove("hidden");
-
-        const totalChars = resultText.length;
-        const validationEl = document.getElementById("validation-msg");
-        
-        if (totalChars > 100) {
-          validationEl.innerText = `⚠️ Toplam ${totalChars} karakter. Platform limiti 100 karakterdir.`;
-          validationEl.style.color = "#f43f5e";
-        } else {
-          validationEl.innerText = `✓ ${totalChars} / 100 karakter — Platform uyumlu.`;
-          validationEl.style.color = "#10b981";
-        }
-
       } catch (e) {
-        document.getElementById("result-text").innerText = "Sunucu hatası oluştu.";
+        document.getElementById("result-text").innerText = "Bağlantı hatası.";
         document.getElementById("result-box").classList.remove("hidden");
-        document.getElementById("validation-msg").innerText = "";
       }
     }
 
     function copyResult() { 
-      const text = document.getElementById("result-text").innerText;
-      const textArea = document.createElement("textarea");
-      textArea.value = text;
-      textArea.style.position = "fixed";
-      textArea.style.left = "-9999px";
-      textArea.style.top = "0";
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      try {
-        document.execCommand('copy');
-        notify("İçerik panoya kopyalandı.");
-      } catch (err) {
-        notify("Kopyalama başarısız.");
-      }
-      document.body.removeChild(textArea);
+      const t = document.getElementById("result-text").innerText;
+      const el = document.createElement("textarea"); el.value = t;
+      document.body.appendChild(el); el.select(); document.execCommand('copy');
+      document.body.removeChild(el); notify("Kopyalandı.");
     }
 
-    const dropdownMap = [
-      { btn: "nav-apps-btn", dd: "nav-apps-dd" }, 
-      { btn: "nav-platform-btn", dd: "nav-platform-dd" }, 
-      { btn: "nav-production-btn", dd: "nav-production-dd" }
-    ];
-    
-    function closeAllDropdowns() { 
-      dropdownMap.forEach(x => { 
-        const dd = document.getElementById(x.dd);
-        if(dd) dd.style.display = "none"; 
-      }); 
-    }
-    
-    function toggleDropdown(ddId) { 
-      const dd = document.getElementById(ddId); 
-      const isOpen = dd.style.display === "block"; 
-      closeAllDropdowns(); 
-      if (!isOpen) dd.style.display = "block"; 
-    }
-    
-    dropdownMap.forEach(x => { 
-      const btn = document.getElementById(x.btn);
-      if(btn) {
-        btn.addEventListener("click", (e) => { 
-          e.stopPropagation(); 
-          toggleDropdown(x.dd); 
-        }); 
-      }
-    });
-    
+    const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
+    function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
+    dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); closeAllDropdowns(); document.getElementById(x.dd).style.display = "block"; }); });
     document.addEventListener("click", closeAllDropdowns);
-    
-    (function init() { 
-      setLang("tr"); 
-      updateCreditsUI(); 
-    })();
+    (function init() { setLang("tr"); updateCreditsUI(); })();
   </script>
 </body>
 </html>
