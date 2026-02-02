@@ -54,10 +54,10 @@
           <div class="relative h-full flex items-center">
             <span class="nav-link" id="nav-prod-btn">Production</span>
             <div class="menu-dropdown grid grid-cols-1 gap-1" id="nav-prod-dd">
-              <button onclick="setMode('youtube')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50">YouTube</button>
-              <button onclick="setMode('instagram')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50">Instagram</button>
-              <button onclick="setMode('tiktok')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50">TikTok</button>
-              <button onclick="setMode('x')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50">X (Twitter)</button>
+              <button onclick="setMode('youtube')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">YouTube</button>
+              <button onclick="setMode('instagram')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">Instagram</button>
+              <button onclick="setMode('tiktok')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">TikTok</button>
+              <button onclick="setMode('x')" class="text-[10px] font-black uppercase text-left py-2 px-3 rounded-md hover:bg-rose-50 transition">X (Twitter)</button>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@
           <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">TR</button>
           <button onclick="setLang('en')" id="l-en" class="lang-btn">EN</button>
         </div>
-        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition">
+        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
           <span id="user-display">Login</span>
         </button>
       </div>
@@ -81,7 +81,7 @@
       <!-- Left side: Ad area -->
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
-          <span class="text-[9px] font-black text-slate-300 uppercase mb-4">Advertisement</span>
+          <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Advertisement</span>
           <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Ad Space</div>
         </div>
       </div>
@@ -98,9 +98,9 @@
             <div>
               <input type="text" id="topicInput" class="pro-input" placeholder="Enter content topic (e.g., Football skills)">
             </div>
-            <button onclick="generateContent()" id="genBtn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl shadow-rose-500/10">Start Elite Generation</button>
+            <button onclick="generateContent()" id="genBtn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl shadow-rose-500/10 active:scale-[0.98]">Start Elite Generation</button>
             
-            <div id="result-box" class="hidden animate-in fade-in duration-500">
+            <div id="result-box" class="hidden">
               <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-8 relative group">
                 <p id="result-text" class="text-base font-bold text-slate-800 leading-relaxed"></p>
                 <button onclick="copyToClipboard()" class="absolute top-6 right-6 text-slate-300 hover:text-rose-500 transition text-xl">
@@ -115,7 +115,7 @@
       <!-- Right side: Ad area -->
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
-          <span class="text-[9px] font-black text-slate-300 uppercase mb-4">Sponsorship</span>
+          <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Sponsorship</span>
           <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Ad Space</div>
         </div>
       </div>
@@ -127,9 +127,9 @@
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
       <h3 class="text-sm font-black uppercase tracking-widest text-slate-400">© 2026 NeoSocial_Rose</h3>
       <div class="flex gap-8">
-        <button onclick="showInfo('privacy')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-50">Privacy</button>
-        <button onclick="showInfo('terms')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-50">Terms</button>
-        <button onclick="showInfo('faq')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-50">FAQ</button>
+        <button onclick="showInfo('privacy')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-500 transition">Privacy</button>
+        <button onclick="showInfo('terms')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-500 transition">Terms</button>
+        <button onclick="showInfo('faq')" class="text-[10px] font-black uppercase text-slate-400 hover:text-rose-500 transition">FAQ</button>
       </div>
     </div>
   </footer>
@@ -141,7 +141,7 @@
     const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
     firebase.initializeApp(firebaseConfig);
 
-    const apiKey = ""; // Runtime provides the key
+    const apiKey = ""; // Runtime provides the key automatically
     const state = { 
       lang: 'tr', 
       platform: 'youtube', 
@@ -157,13 +157,13 @@
 
     firebase.auth().onAuthStateChanged(user => {
       state.userId = user ? user.uid : 'guest';
-      document.getElementById('user-display').innerText = user ? user.displayName.split(' ')[0] : 'Login';
+      document.getElementById('user-display').innerText = user ? user.displayName.split(' ')[0].toUpperCase() : 'LOGIN';
       loadCredits();
     });
 
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider);
+      firebase.auth().signInWithPopup(provider).catch(err => notify("Login failed."));
     }
 
     function loadCredits() {
@@ -179,7 +179,7 @@
 
     function setMode(p) {
       state.platform = p;
-      document.getElementById('current-platform').innerText = `${p} Production`;
+      document.getElementById('current-platform').innerText = `${p.toUpperCase()} Production`;
       document.getElementById('nav-prod-dd').style.display = 'none';
     }
 
@@ -190,22 +190,22 @@
     }
 
     async function callGemini(topic) {
-      const sysInstruction = `
+      const systemPrompt = `
         GÖREV: Sen dünyanın en pahalı, en profesyonel sosyal medya stratejistisin. Görevin, sıradan bot başlıkları yerine, yüksek prodüksiyonlu ve viral potansiyeli olan 'Elite' içerik kancaları üretmektir.
         
         KESİN KURALLAR:
         - Başlık mutlaka "POV: [Sanatsal/Profesyonel Kanca] [Emoji]" formatında olmalı.
         - Örnek: "POV: Elite Seviye Futbol Zekası 🧠" veya "POV: Futbol Sanatının Zirvesi 🎨".
-        - YASAKLAR: '7 Hata', '3 Taktik' gibi sayısal listeler ve 'Şok', 'Kimse bilmiyor', 'Gizli' gibi ucuz clickbait kelimeleri ASLA kullanma.
+        - YASAKLAR: '7 Hata', '3 Taktik' gibi sayısal listeler ve 'Şok', 'Kimse bilmiyor', 'Gizli', 'İnanılmaz' gibi ucuz clickbait kelimeleri ASLA kullanma.
         - Ton: 'Elite Masterclass', 'Aesthetic', 'Pure Talent'.
         - Dil: Yanıtı tamamen ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'} ver.
-        - Çıktı: Sadece 1 adet POV başlığı ve 4-5 adet Masterclass hashtag'i.
+        - Çıktı: Sadece 1 adet POV başlığı ve 4-5 adet Masterclass hashtag'i. Başka açıklama ekleme.
       `;
 
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
       const payload = {
         contents: [{ parts: [{ text: `Konu: ${topic}` }] }],
-        systemInstruction: { parts: [{ text: sysInstruction }] }
+        systemInstruction: { parts: [{ text: systemPrompt }] }
       };
 
       const delays = [1000, 2000, 4000, 8000, 16000];
@@ -219,14 +219,13 @@
           
           if (!r.ok) {
             const errData = await r.json();
-            throw new Error(errData.error?.message || "API HTTP Error");
+            throw new Error(errData.error?.message || "HTTP Error");
           }
 
           const d = await r.json();
           if (d.candidates && d.candidates[0] && d.candidates[0].content) {
             return d.candidates[0].content.parts[0].text;
           }
-          
         } catch(e) { 
           if (i === delays.length - 1) throw e;
           await new Promise(res => setTimeout(res, delays[i])); 
@@ -236,12 +235,17 @@
     }
 
     async function generateContent() {
-      if (state.credits <= 0) return notify("Limit reached for today.");
-      const topic = document.getElementById('topicInput').value.trim();
+      if (state.credits <= 0) return notify("Daily limit reached.");
+      const topicInput = document.getElementById('topicInput');
+      const topic = topicInput.value.trim();
       if (!topic) return notify("Enter a topic first.");
 
       const btn = document.getElementById('genBtn');
-      btn.disabled = true; btn.innerText = "Processing Elite Data...";
+      const resultBox = document.getElementById('result-box');
+      const resultText = document.getElementById('result-text');
+      
+      btn.disabled = true; 
+      btn.innerText = "Analyzing Elite Trends...";
 
       try {
         const result = await callGemini(topic);
@@ -250,16 +254,20 @@
           localStorage.setItem(`nsr_cred_${state.userId}`, state.credits);
           document.getElementById('credit-badge').innerText = `Credits: ${state.credits} / 2`;
           
-          document.getElementById('result-text').innerText = result.trim();
-          document.getElementById('result-box').classList.remove("hidden");
+          resultText.innerText = result.trim();
+          resultBox.classList.remove("hidden");
+          notify("Generation successful ✨");
         } else {
-          notify("Technical limitations. Try again.");
+          notify("Service temporarily unavailable.");
         }
       } catch(e) { 
-        console.error(e);
-        notify("Elite production failed. Check connection."); 
+        console.error("Gemini Error:", e);
+        notify("Production failed. Check your internet connection."); 
       }
-      finally { btn.disabled = false; btn.innerText = "Start Elite Generation"; }
+      finally { 
+        btn.disabled = false; 
+        btn.innerText = "Start Elite Generation"; 
+      }
     }
 
     function copyToClipboard() {
@@ -270,12 +278,20 @@
       notify("Elite hook copied ✨");
     }
 
-    // Dropdown Logic
-    document.getElementById('nav-apps-btn').onclick = (e) => { e.stopPropagation(); document.getElementById('nav-apps-dd').style.display = 'block'; };
-    document.getElementById('nav-prod-btn').onclick = (e) => { e.stopPropagation(); document.getElementById('nav-prod-dd').style.display = 'block'; };
-    window.onclick = () => { document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none'); };
+    // UI Logic
+    document.getElementById('nav-apps-btn').onclick = (e) => { 
+      e.stopPropagation(); 
+      document.getElementById('nav-apps-dd').style.display = 'block'; 
+    };
+    document.getElementById('nav-prod-btn').onclick = (e) => { 
+      e.stopPropagation(); 
+      document.getElementById('nav-prod-dd').style.display = 'block'; 
+    };
+    window.onclick = () => { 
+      document.querySelectorAll('.menu-dropdown').forEach(d => d.style.display = 'none'); 
+    };
 
-    function showInfo(type) { notify(`${type.toUpperCase()} section coming soon.`); }
+    function showInfo(type) { notify(`${type.toUpperCase()} section is under maintenance.`); }
   </script>
 </body>
 </html>
