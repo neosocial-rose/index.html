@@ -170,8 +170,8 @@
     const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
     firebase.initializeApp(firebaseConfig);
 
-    function loginWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider); }
-    function logoutFromGoogle() { firebase.auth().signOut(); }
+    function loginWithGoogle() { const provider = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(provider).catch(e => notify("Giriş başarısız.")); }
+    function logoutFromGoogle() { firebase.auth().signOut().then(() => { window.location.reload(); }); }
 
     // CREDIT SYSTEM LINKED TO UID
     function getCredits(uid = "guest") {
@@ -246,16 +246,27 @@
       const val = document.getElementById("topicInput").value.trim();
       if (!val) { notify("Lütfen konu giriniz."); return; }
 
+      // ENHANCED PROMPT WITH USER EXAMPLES
       const proPrompt = `
         GÖREV: Aşağıdaki konu hakkında GLOBAL ELITE Shorts/Reels başlığı üret.
         KONU: "${val}"
-        KESİN YASAKLAR: Sayılar, listeler, clickbait kalıpları (ŞOK, GİZLİ, HATA).
-        İSTENEN ELITE TARZ: POV, Masterclass, Aesthetic hooks.
-        FORMAT: "POV: [Profesyonel Başlık] [Emoji] #hashtag1 #hashtag2 #hashtag3 #masterclass"
-        DİL: ${state.lang}
+        
+        STİL REHBERİ (BU ÖRNEKLER GİBİ OLACAK):
+        - "POV: Top Kontrolü Masterclass ✨"
+        - "POV: Futbol Sahasının Kalbi ⚽️"
+        - "POV: Maç Okuma Ustası 📖"
+        - "POV: Sahada Ustalık Dersi ⚽"
+
+        KESİN YASAKLAR: 
+        - "ŞOK", "KİMSE BİLMİYOR", "HATA", "GİZLİ", "SIR", "ANALİZ", "HAZIR DEĞİLDİN", "GÖZDEN KAÇAN" gibi ucuz clickbait kelimeleri ASLA kullanma.
+        - "7 Hata", "3 Taktik" gibi sayısal listeler yapma.
+        
+        İSTENEN FORMAT: 
+        "POV: [Profesyonel ve Sanatsal Başlık] [Emoji] #hashtag1 #hashtag2 #hashtag3 #masterclass"
+        
+        DİL: ${state.lang} (Vibe profesyonel ve global olmalı).
       `;
 
-      // Save credits per UID
       state.credits[p] -= 1; 
       localStorage.setItem(`nsr_credits_${uid}_${p}`, state.credits[p]); 
       updateCreditsUI();
@@ -269,7 +280,7 @@
         const data = await r.json();
         let result = (data?.text || "").trim();
         
-        const cleaner = [/ŞOK/gi, /KİMSE/gi, /BİLMİYOR/gi, /HATA/gi, /SIR/gi, /GİZLİ/gi, /DETAY/gi, /HAZIR DEĞİLDİN/gi, /GÖZDEN KAÇAN/gi, /\d+/g];
+        const cleaner = [/ŞOK/gi, /KİMSE/gi, /BİLMİYOR/gi, /HATA/gi, /SIR/gi, /GİZLİ/gi, /DETAY/gi, /HAZIR DEĞİLDİN/gi, /GÖZDEN KAÇAN/gi, /\d+ Hata/gi, /\d+ Taktik/gi];
         cleaner.forEach(reg => { result = result.replace(reg, ""); });
         
         document.getElementById("result-text").innerText = result.replace(/\s\s+/g, ' ');
@@ -296,11 +307,7 @@
     document.getElementById("nav-platform-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-platform-dd"); };
     document.getElementById("nav-production-btn").onclick = (e) => { e.stopPropagation(); toggleDropdown("nav-production-dd"); };
     document.addEventListener("click", closeAllDropdowns);
-    function showView(name) {
-      if (name === 'home') {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
+    function showView(name) { if (name === 'home') { window.scrollTo({ top: 0, behavior: "smooth" }); } }
     (function init() { setLang("tr"); })();
   </script>
 </body>
