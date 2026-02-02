@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NeoSocial_Rose | AI Viral Content Generator</title>
-  
+
   <meta name="description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
 
@@ -29,19 +29,19 @@
     .pro-input { background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 1.5rem; width: 100%; font-weight: 700; color: #0f172a; outline: none; transition: 0.3s; }
     .pro-input:focus { border-color: #f43f5e; background: #fff; box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.1); }
     .platform-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; cursor: pointer; transition: all 0.3s; background: #fff; }
-    .platform-card:hover { border-color: #f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
+    .platform-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
     .platform-card.disabled { opacity: 0.4; cursor: not-allowed; }
     .platform-card.disabled:hover { transform: none; border-color: #f1f5f9; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
-    .modal.active { display: flex; }
-    .modal-content { background: #fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
-    .seo-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-    .seo-excellent { background: #dcfce7; color: #166534; }
-    .seo-good { background: #dbeafe; color: #1e40af; }
-    .seo-average { background: #fef3c7; color: #92400e; }
-    .seo-poor { background: #fee2e2; color: #991b1b; }
-    .page-content { display: none; }
-    .page-content.active { display: block; }
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
+    .modal.active { display:flex; }
+    .modal-content { background:#fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .seo-badge { display:inline-block; padding: 4px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
+    .seo-excellent { background:#dcfce7; color:#166534; }
+    .seo-good { background:#dbeafe; color:#1e40af; }
+    .seo-average { background:#fef3c7; color:#92400e; }
+    .seo-poor { background:#fee2e2; color:#991b1b; }
+    .page-content { display:none; }
+    .page-content.active { display:block; }
   </style>
 </head>
 
@@ -56,6 +56,7 @@
         </h1>
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
+
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-apps-btn" data-translate="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown" id="nav-apps-dd">
@@ -72,6 +73,7 @@
               </div>
             </div>
           </div>
+
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-platform-btn" data-translate="nav_platform">Platform</span>
             <div class="menu-dropdown text-center" id="nav-platform-dd">
@@ -81,10 +83,12 @@
               </div>
             </div>
           </div>
+
           <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
           <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
         </div>
       </div>
+
       <div class="flex items-center gap-3">
         <div class="flex gap-2">
           <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">🇹🇷</button>
@@ -94,28 +98,42 @@
           <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
           <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
         </div>
+
+        <!-- LOGIN -->
         <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
           <span id="user-display" data-translate="login">GİRİŞ</span>
+        </button>
+
+        <!-- LOGOUT (EKLENDİ) -->
+        <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg">
+          <span data-translate="logout">ÇIKIŞ</span>
         </button>
       </div>
     </div>
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
-    
+
     <!-- HOME PAGE -->
     <div id="page-home" class="page-content active">
+
       <!-- Hero Görsel Bölümü -->
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
         <div class="hero-box">
-          <img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 1</span>';">
+          <img class="hero-img" src="hero.jpeg" alt="Hero 1"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 1</span>';">
         </div>
+
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-          <div class="w-full h-full border-2 border-dashed border-amber-100 rounded-xl flex items-center justify-center italic text-amber-200 text-xs">Reklam Alanı</div>
+          <div class="w-full h-full border-2 border-dashed border-amber-100 rounded-xl flex items-center justify-center italic text-amber-200 text-xs">
+            Reklam Alanı
+          </div>
         </div>
+
         <div class="hero-box">
-          <img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 2</span>';">
+          <img class="hero-img" src="hero1.jpeg" alt="Hero 2"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 2</span>';">
         </div>
       </section>
 
@@ -123,7 +141,7 @@
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          
+
           <!-- YouTube -->
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
             <div class="flex items-center justify-between mb-4">
@@ -154,7 +172,7 @@
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Video başlıkları ve trend hashtag'ler</p>
           </div>
 
-          <!-- X (Twitter) -->
+          <!-- X -->
           <div class="platform-card" id="card-x" onclick="openGenerator('x')">
             <div class="flex items-center justify-between mb-4">
               <i class="fab fa-twitter text-blue-400 text-4xl"></i>
@@ -189,7 +207,8 @@
       <!-- Alt Görsel Bölümü -->
       <section class="mb-14">
         <div class="hero-box w-full h-80">
-          <img class="hero-img" src="hero2.jpeg" alt="Hero 3" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 3</span>';">
+          <img class="hero-img" src="hero2.jpeg" alt="Hero 3"
+               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 3</span>';">
         </div>
       </section>
     </div>
@@ -198,12 +217,11 @@
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
-        
+
         <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
           <p data-translate="about_p1">NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.</p>
-          
           <p data-translate="about_p2">Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.</p>
-          
+
           <div class="bg-rose-50 border-2 border-rose-100 rounded-2xl p-6 my-8">
             <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="about_mission">Misyonumuz</h3>
             <p data-translate="about_mission_text">İçerik üreticilerinin yaratıcılıklarına odaklanabilmeleri için teknik detayları bizim halletmemiz.</p>
@@ -230,9 +248,8 @@
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
-        
+
         <div class="space-y-6">
-          
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
             <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit nasıl çalışır?</h3>
             <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günde 2 üretim hakkınız vardır. Toplam 4 platform x 2 hak = 8 üretim yapabilirsiniz. Haklar her gün saat 00:00'da yenilenir.</p>
@@ -267,7 +284,6 @@
             <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q7">Mobil uygulama var mı?</h3>
             <p class="text-slate-700 font-bold text-sm" data-translate="faq_a7">Şu anda sadece web platformu aktiftir. Yakında App Store ve Google Play'de olacağız! 🚀</p>
           </div>
-
         </div>
       </div>
     </div>
@@ -276,9 +292,8 @@
     <div id="page-security" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="security_title">Güvenlik & Gizlilik</h1>
-        
+
         <div class="space-y-8 text-slate-700 font-bold leading-relaxed">
-          
           <div>
             <h3 class="text-xl font-black mb-4 text-rose-600" data-translate="security_data_title">Veri Güvenliği</h3>
             <p data-translate="security_data_text">NeoSocial_Rose, kullanıcı gizliliğine önem verir. Hiçbir kişisel veri sunucularımızda saklanmaz. Tüm verileriniz tarayıcınızın yerel depolama alanında (localStorage) güvenle tutulur.</p>
@@ -299,7 +314,6 @@
             <p class="mb-2" data-translate="security_contact_text">Güvenlik veya gizlilikle ilgili sorularınız için:</p>
             <a href="mailto:jarvisheyrose@gmail.com" class="text-blue-600 underline lowercase">jarvisheyrose@gmail.com</a>
           </div>
-
         </div>
       </div>
     </div>
@@ -382,13 +396,13 @@
 
   <script>
     // Firebase Config
-    const firebaseConfig = { 
-      apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", 
-      authDomain: "neosocial-rose.firebaseapp.com", 
-      projectId: "neosocial-rose", 
-      storageBucket: "neosocial-rose.firebasestorage.app", 
-      messagingSenderId: "909069196756", 
-      appId: "1:909069196756:web:db488838badee276f0ca41" 
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
+      authDomain: "neosocial-rose.firebaseapp.com",
+      projectId: "neosocial-rose",
+      storageBucket: "neosocial-rose.firebasestorage.app",
+      messagingSenderId: "909069196756",
+      appId: "1:909069196756:web:db488838badee276f0ca41"
     };
     firebase.initializeApp(firebaseConfig);
 
@@ -400,7 +414,8 @@
     // Translations
     const translations = {
       tr: {
-        nav_home: "Anasayfa", nav_apps: "Uygulamalar", nav_platform: "Platform", nav_about: "Hakkımızda", nav_faq: "SSS", login: "GİRİŞ", coming_soon: "YAKINDA",
+        nav_home: "Anasayfa", nav_apps: "Uygulamalar", nav_platform: "Platform", nav_about: "Hakkımızda", nav_faq: "SSS",
+        login: "GİRİŞ", logout: "ÇIKIŞ", coming_soon: "YAKINDA",
         select_platform: "Platform Seçin",
         platform_youtube_desc: "Video başlıkları ve hashtag'ler", platform_instagram_desc: "Gönderi başlıkları ve hashtag'ler",
         platform_tiktok_desc: "Video başlıkları ve trend hashtag'ler", platform_x_desc: "Tweet başlıkları ve hashtag'ler",
@@ -421,17 +436,17 @@
         about_disclaimer: "Sorumluluk Reddi",
         about_disclaimer_text: "NeoSocial_Rose sadece içerik önerileri sunar. Üretilen içeriklerin başarısı, viral olması veya herhangi bir metrikle ilgili garanti vermemekteyiz.",
         faq_title: "Sıkça Sorulan Sorular",
-        faq_q1: "Günlük limit nasıl çalışır?", faq_a1: "Her platform için günde 2 üretim hakkınız vardır. Toplam 4 platform x 2 hak = 8 üretim yapabilirsiniz.",
-        faq_q2: "SEO skoru nedir?", faq_a2: "SEO skoru, başlığınızın arama motorlarında ne kadar iyi performans gösterebileceğini tahmin eden bir metriktir.",
-        faq_q3: "Platform ücretsiz mi?", faq_a3: "Evet, NeoSocial_Rose şu anda tamamen ücretsizdir.",
-        faq_q4: "Verilerim saklanıyor mu?", faq_a4: "Hayır, hiçbir kullanıcı verisi sunucularımızda saklanmaz.",
-        faq_q5: "Hangi dilleri destekliyorsunuz?", faq_a5: "Türkçe, İngilizce, Fransızca, Almanca, İspanyolca ve Portekizce.",
-        faq_q6: "Üretilen içeriklerin başarısı garanti mi?", faq_a6: "Hayır. NeoSocial_Rose sadece öneri sunar.",
+        faq_q1: "Günlük limit nasıl çalışır?", faq_a1: "Her platform için günde 2 üretim hakkınız vardır. Toplam 4 platform x 2 hak = 8 üretim yapabilirsiniz. Haklar her gün saat 00:00'da yenilenir.",
+        faq_q2: "SEO skoru nedir?", faq_a2: "SEO skoru, başlığınızın arama motorlarında ne kadar iyi performans gösterebileceğini tahmin eden bir metriktir. 80+ mükemmel, 60-79 iyi, 40-59 orta, 40'ın altı zayıf kabul edilir.",
+        faq_q3: "Platform ücretsiz mi?", faq_a3: "Evet, NeoSocial_Rose şu anda tamamen ücretsizdir. Gelecekte premium özellikler eklenebilir.",
+        faq_q4: "Verilerim saklanıyor mu?", faq_a4: "Hayır, hiçbir kullanıcı verisi sunucularımızda saklanmaz. Tüm veriler tarayıcınızın yerel depolama alanında (localStorage) tutulur.",
+        faq_q5: "Hangi dilleri destekliyorsunuz?", faq_a5: "Türkçe, İngilizce, Fransızca, Almanca, İspanyolca ve Portekizce dillerinde içerik üretimi yapabilirsiniz.",
+        faq_q6: "Üretilen içeriklerin başarısı garanti mi?", faq_a6: "Hayır. NeoSocial_Rose sadece öneri sunar. Viral olma, izlenme sayısı veya etkileşim garantisi vermemekteyiz.",
         faq_q7: "Mobil uygulama var mı?", faq_a7: "Şu anda sadece web platformu aktiftir. Yakında App Store ve Google Play'de olacağız! 🚀",
         security_title: "Güvenlik & Gizlilik", security_data_title: "Veri Güvenliği",
-        security_data_text: "NeoSocial_Rose, kullanıcı gizliliğine önem verir. Hiçbir kişisel veri sunucularımızda saklanmaz.",
-        security_google_title: "Google Giriş", security_google_text: "Google ile giriş yaparken, sadece kimlik doğrulama için temel bilgileriniz kullanılır.",
-        security_content_title: "İçerik Güvenliği", security_content_text: "Üretilen tüm içerikler Gemini AI tarafından oluşturulur.",
+        security_data_text: "NeoSocial_Rose, kullanıcı gizliliğine önem verir. Hiçbir kişisel veri sunucularımızda saklanmaz. Tüm verileriniz tarayıcınızın yerel depolama alanında (localStorage) güvenle tutulur.",
+        security_google_title: "Google Giriş", security_google_text: "Google ile giriş yaparken, sadece kimlik doğrulama için temel bilgileriniz (isim, e-posta) kullanılır. Bu bilgiler hiçbir üçüncü tarafla paylaşılmaz.",
+        security_content_title: "İçerik Güvenliği", security_content_text: "Üretilen tüm içerikler Gemini AI tarafından oluşturulur. İçeriklerin uygunluğu ve etik kullanımı kullanıcının sorumluluğundadır.",
         security_contact_title: "İletişim", security_contact_text: "Güvenlik veya gizlilikle ilgili sorularınız için:",
         modal_subtitle: "Viral içerik üretin", remaining_rights: "Kalan Hak", topic_label: "İçerik Konusu",
         topic_placeholder: "Örn: Futbol taktikleri, Makyaj ipuçları, Yemek tarifleri",
@@ -443,7 +458,8 @@
         notify_login_fail: "Giriş başarısız."
       },
       en: {
-        nav_home: "Home", nav_apps: "Apps", nav_platform: "Platform", nav_about: "About", nav_faq: "FAQ", login: "LOGIN", coming_soon: "COMING SOON",
+        nav_home: "Home", nav_apps: "Apps", nav_platform: "Platform", nav_about: "About", nav_faq: "FAQ",
+        login: "LOGIN", logout: "LOGOUT", coming_soon: "COMING SOON",
         select_platform: "Select Platform",
         platform_youtube_desc: "Video titles and hashtags", platform_instagram_desc: "Post titles and hashtags",
         platform_tiktok_desc: "Video titles and trending hashtags", platform_x_desc: "Tweet titles and hashtags",
@@ -482,15 +498,15 @@
         notify_success: "Generation Successful ✨", notify_error: "Error occurred, please try again.", notify_copied: "Copied ✨",
         notify_login_fail: "Login failed."
       },
-      fr: { nav_home: "Accueil", nav_apps: "Applications", nav_platform: "Plateforme", nav_about: "À propos", nav_faq: "FAQ", login: "CONNEXION", coming_soon: "BIENTÔT", select_platform: "Sélectionner la plateforme", platform_youtube_desc: "Titres et hashtags vidéo", platform_instagram_desc: "Titres et hashtags de publication", platform_tiktok_desc: "Titres vidéo et hashtags tendance", platform_x_desc: "Titres et hashtags de tweet", important_info: "Informations importantes", info_1: "🎯 Cette plateforme <span class='text-rose-500'>fournit uniquement des suggestions</span>.", info_2: "⚠️ Aucune garantie <span class='text-rose-500'>n'est faite</span>.", info_3: "🤖 Tout le contenu est généré par <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Les scores SEO sont des estimations.", info_5: "🔄 Vous avez <span class='text-rose-500'>2 droits quotidiens</span> par plateforme.", about_title: "À propos", about_p1: "NeoSocial_Rose est une plateforme alimentée par l'IA.", about_p2: "En utilisant Gemini AI, nous générons des titres de haute qualité.", about_mission: "Notre mission", about_mission_text: "Gérer les détails techniques.", about_features: "Caractéristiques", about_feat_1: "✨ Support de 6 langues", about_feat_2: "🎯 Contenu optimisé", about_feat_3: "📊 Analyse SEO", about_feat_4: "🔄 Droits renouvelés", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Clause", about_disclaimer_text: "NeoSocial_Rose fournit uniquement des suggestions.", faq_title: "Questions fréquentes", faq_q1: "Comment fonctionne la limite?", faq_a1: "Vous avez 2 droits par plateforme.", faq_q2: "Qu'est-ce que le score SEO?", faq_a2: "Le score SEO estime les performances.", faq_q3: "Est-ce gratuit?", faq_a3: "Oui, actuellement gratuit.", faq_q4: "Mes données sont stockées?", faq_a4: "Non, aucune donnée stockée.", faq_q5: "Quelles langues?", faq_a5: "Turc, anglais, français, allemand, espagnol, portugais.", faq_q6: "Succès garanti?", faq_a6: "Non. Uniquement des suggestions.", faq_q7: "Application mobile?", faq_a7: "Bientôt sur App Store et Google Play! 🚀", security_title: "Sécurité", security_data_title: "Sécurité des données", security_data_text: "Aucune donnée personnelle stockée.", security_google_title: "Connexion Google", security_google_text: "Seules les informations de base sont utilisées.", security_content_title: "Sécurité du contenu", security_content_text: "Tout le contenu est créé par Gemini AI.", security_contact_title: "Contact", security_contact_text: "Pour questions:", modal_subtitle: "Générer du contenu", remaining_rights: "Droits restants", topic_label: "Sujet", topic_placeholder: "Ex: Tactiques de football", generate_btn: "COMMENCER", seo_score: "Score SEO", regenerate_btn: "🔄 Régénérer", footer_desc: "Centre de contenu viral.", footer_corporate: "Entreprise", footer_about: "À propos", footer_faq: "FAQ", footer_security: "Sécurité", footer_support: "Soutien", footer_privacy: "Confidentialité", notify_limit: "Limite atteinte. À demain! 🚀", notify_topic: "Veuillez entrer un sujet.", notify_success: "Génération réussie ✨", notify_error: "Erreur. Réessayez.", notify_copied: "Copié ✨", notify_login_fail: "Échec de connexion." },
-      de: { nav_home: "Startseite", nav_apps: "Apps", nav_platform: "Plattform", nav_about: "Über uns", nav_faq: "FAQ", login: "ANMELDEN", coming_soon: "DEMNÄCHST", select_platform: "Plattform wählen", platform_youtube_desc: "Videotitel und Hashtags", platform_instagram_desc: "Beitragstitel und Hashtags", platform_tiktok_desc: "Videotitel und Trend-Hashtags", platform_x_desc: "Tweet-Titel und Hashtags", important_info: "Wichtige Informationen", info_1: "🎯 Diese Plattform <span class='text-rose-500'>bietet nur Vorschläge</span>.", info_2: "⚠️ Keine Garantien <span class='text-rose-500'>werden gemacht</span>.", info_3: "🤖 Alle Inhalte werden von <span class='text-rose-500'>Gemini AI</span> generiert.", info_4: "📊 SEO-Scores sind Schätzungen.", info_5: "🔄 Sie haben <span class='text-rose-500'>2 tägliche Rechte</span> pro Plattform.", about_title: "Über uns", about_p1: "NeoSocial_Rose ist eine KI-gestützte Plattform.", about_p2: "Mit Gemini AI generieren wir hochwertige Titel.", about_mission: "Unsere Mission", about_mission_text: "Technische Details erledigen.", about_features: "Funktionen", about_feat_1: "✨ 6 Sprachunterstützung", about_feat_2: "🎯 Optimierte Inhalte", about_feat_3: "📊 SEO-Analyse", about_feat_4: "🔄 Täglich erneuert", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Haftungsausschluss", about_disclaimer_text: "NeoSocial_Rose bietet nur Vorschläge.", faq_title: "Häufig gestellte Fragen", faq_q1: "Wie funktioniert das Limit?", faq_a1: "Sie haben 2 Rechte pro Plattform.", faq_q2: "Was ist ein SEO-Score?", faq_a2: "Der SEO-Score schätzt die Leistung.", faq_q3: "Ist es kostenlos?", faq_a3: "Ja, derzeit völlig kostenlos.", faq_q4: "Werden Daten gespeichert?", faq_a4: "Nein, keine Daten gespeichert.", faq_q5: "Welche Sprachen?", faq_a5: "Türkisch, Englisch, Französisch, Deutsch, Spanisch, Portugiesisch.", faq_q6: "Erfolg garantiert?", faq_a6: "Nein. Nur Vorschläge.", faq_q7: "Mobile App?", faq_a7: "Bald im App Store und Google Play! 🚀", security_title: "Sicherheit", security_data_title: "Datensicherheit", security_data_text: "Keine personenbezogenen Daten gespeichert.", security_google_title: "Google-Anmeldung", security_google_text: "Nur grundlegende Informationen verwendet.", security_content_title: "Inhaltssicherheit", security_content_text: "Alle Inhalte von Gemini AI erstellt.", security_contact_title: "Kontakt", security_contact_text: "Für Fragen:", modal_subtitle: "Virale Inhalte generieren", remaining_rights: "Verbleibende Rechte", topic_label: "Thema", topic_placeholder: "Z.B. Fußballtaktiken", generate_btn: "GENERIERUNG STARTEN", seo_score: "SEO-Score", regenerate_btn: "🔄 Neu generieren", footer_desc: "Virale Inhalts-Hub.", footer_corporate: "Unternehmen", footer_about: "Über uns", footer_faq: "FAQ", footer_security: "Sicherheit", footer_support: "Unterstützung", footer_privacy: "Datenschutz", notify_limit: "Limit erreicht. Bis morgen! 🚀", notify_topic: "Bitte Thema eingeben.", notify_success: "Generierung erfolgreich ✨", notify_error: "Fehler. Bitte erneut versuchen.", notify_copied: "Kopiert ✨", notify_login_fail: "Anmeldung fehlgeschlagen." },
-      es: { nav_home: "Inicio", nav_apps: "Aplicaciones", nav_platform: "Plataforma", nav_about: "Acerca de", nav_faq: "Preguntas frecuentes", login: "INICIAR SESIÓN", coming_soon: "PRÓXIMAMENTE", select_platform: "Seleccionar plataforma", platform_youtube_desc: "Títulos de video y hashtags", platform_instagram_desc: "Títulos de publicación y hashtags", platform_tiktok_desc: "Títulos de video y hashtags de tendencia", platform_x_desc: "Títulos de tweet y hashtags", important_info: "Información importante", info_1: "🎯 Esta plataforma <span class='text-rose-500'>solo proporciona sugerencias</span>.", info_2: "⚠️ No se hacen garantías <span class='text-rose-500'>son hechas</span>.", info_3: "🤖 Todo el contenido es generado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Las puntuaciones SEO son estimaciones.", info_5: "🔄 Tienes <span class='text-rose-500'>2 derechos diarios</span> por plataforma.", about_title: "Acerca de nosotros", about_p1: "NeoSocial_Rose es una plataforma impulsada por IA.", about_p2: "Usando Gemini AI, generamos títulos de alta calidad.", about_mission: "Nuestra misión", about_mission_text: "Manejar los detalles técnicos.", about_features: "Características", about_feat_1: "✨ Soporte de 6 idiomas", about_feat_2: "🎯 Contenido optimizado", about_feat_3: "📊 Análisis SEO", about_feat_4: "🔄 Derechos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Descargo", about_disclaimer_text: "NeoSocial_Rose solo proporciona sugerencias.", faq_title: "Preguntas frecuentes", faq_q1: "¿Cómo funciona el límite?", faq_a1: "Tienes 2 derechos por plataforma.", faq_q2: "¿Qué es la puntuación SEO?", faq_a2: "La puntuación SEO estima el rendimiento.", faq_q3: "¿Es gratis?", faq_a3: "Sí, actualmente completamente gratuito.", faq_q4: "¿Se almacenan mis datos?", faq_a4: "No, no se almacenan datos.", faq_q5: "¿Qué idiomas?", faq_a5: "Turco, inglés, francés, alemán, español, portugués.", faq_q6: "¿Éxito garantizado?", faq_a6: "No. Solo sugerencias.", faq_q7: "¿Aplicación móvil?", faq_a7: "¡Pronto en App Store y Google Play! 🚀", security_title: "Seguridad", security_data_title: "Seguridad de datos", security_data_text: "No se almacenan datos personales.", security_google_title: "Inicio de sesión de Google", security_google_text: "Solo se utiliza información básica.", security_content_title: "Seguridad del contenido", security_content_text: "Todo el contenido creado por Gemini AI.", security_contact_title: "Contacto", security_contact_text: "Para preguntas:", modal_subtitle: "Generar contenido viral", remaining_rights: "Derechos restantes", topic_label: "Tema", topic_placeholder: "Ej: Tácticas de fútbol", generate_btn: "INICIAR GENERACIÓN", seo_score: "Puntuación SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Centro de contenido viral.", footer_corporate: "Corporativo", footer_about: "Acerca de", footer_faq: "Preguntas frecuentes", footer_security: "Seguridad", footer_support: "Soporte", footer_privacy: "Privacidad", notify_limit: "Límite alcanzado. ¡Hasta mañana! 🚀", notify_topic: "Por favor ingrese un tema.", notify_success: "Generación exitosa ✨", notify_error: "Error. Intente nuevamente.", notify_copied: "Copiado ✨", notify_login_fail: "Error de inicio de sesión." },
-      pt: { nav_home: "Início", nav_apps: "Aplicativos", nav_platform: "Plataforma", nav_about: "Sobre", nav_faq: "Perguntas frequentes", login: "ENTRAR", coming_soon: "EM BREVE", select_platform: "Selecionar plataforma", platform_youtube_desc: "Títulos de vídeo e hashtags", platform_instagram_desc: "Títulos de postagem e hashtags", platform_tiktok_desc: "Títulos de vídeo e hashtags de tendência", platform_x_desc: "Títulos de tweet e hashtags", important_info: "Informações importantes", info_1: "🎯 Esta plataforma <span class='text-rose-500'>fornece apenas sugestões</span>.", info_2: "⚠️ Nenhuma garantia <span class='text-rose-500'>é feita</span>.", info_3: "🤖 Todo o conteúdo é gerado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 As pontuações de SEO são estimativas.", info_5: "🔄 Você tem <span class='text-rose-500'>2 direitos diários</span> por plataforma.", about_title: "Sobre nós", about_p1: "NeoSocial_Rose é uma plataforma alimentada por IA.", about_p2: "Usando Gemini AI, geramos títulos de alta qualidade.", about_mission: "Nossa missão", about_mission_text: "Lidar com os detalhes técnicos.", about_features: "Recursos", about_feat_1: "✨ Suporte a 6 idiomas", about_feat_2: "🎯 Conteúdo otimizado", about_feat_3: "📊 Análise de SEO", about_feat_4: "🔄 Direitos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Isenção", about_disclaimer_text: "NeoSocial_Rose fornece apenas sugestões.", faq_title: "Perguntas frequentes", faq_q1: "Como funciona o limite?", faq_a1: "Você tem 2 direitos por plataforma.", faq_q2: "O que é pontuação de SEO?", faq_a2: "A pontuação de SEO estima o desempenho.", faq_q3: "É gratuito?", faq_a3: "Sim, atualmente completamente gratuito.", faq_q4: "Meus dados são armazenados?", faq_a4: "Não, nenhum dado armazenado.", faq_q5: "Quais idiomas?", faq_a5: "Turco, inglês, francês, alemão, espanhol, português.", faq_q6: "Sucesso garantido?", faq_a6: "Não. Apenas sugestões.", faq_q7: "Aplicativo móvel?", faq_a7: "Em breve na App Store e Google Play! 🚀", security_title: "Segurança", security_data_title: "Segurança de dados", security_data_text: "Nenhum dado pessoal armazenado.", security_google_title: "Login do Google", security_google_text: "Apenas informações básicas são usadas.", security_content_title: "Segurança de conteúdo", security_content_text: "Todo o conteúdo criado pelo Gemini AI.", security_contact_title: "Contato", security_contact_text: "Para perguntas:", modal_subtitle: "Gerar conteúdo viral", remaining_rights: "Direitos restantes", topic_label: "Tópico", topic_placeholder: "Ex: Táticas de futebol", generate_btn: "INICIAR GERAÇÃO", seo_score: "Pontuação de SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Hub de conteúdo viral.", footer_corporate: "Corporativo", footer_about: "Sobre", footer_faq: "Perguntas frequentes", footer_security: "Segurança", footer_support: "Suporte", footer_privacy: "Privacidade", notify_limit: "Limite atingido. Até amanhã! 🚀", notify_topic: "Por favor, insira um tópico.", notify_success: "Geração bem-sucedida ✨", notify_error: "Erro. Tente novamente.", notify_copied: "Copiado ✨", notify_login_fail: "Falha no login." }
+      fr: { nav_home: "Accueil", nav_apps: "Applications", nav_platform: "Plateforme", nav_about: "À propos", nav_faq: "FAQ", login: "CONNEXION", logout: "DÉCONNEXION", coming_soon: "BIENTÔT", select_platform: "Sélectionner la plateforme", platform_youtube_desc: "Titres et hashtags vidéo", platform_instagram_desc: "Titres et hashtags de publication", platform_tiktok_desc: "Titres vidéo et hashtags tendance", platform_x_desc: "Titres et hashtags de tweet", important_info: "Informations importantes", info_1: "🎯 Cette plateforme <span class='text-rose-500'>fournit uniquement des suggestions</span>.", info_2: "⚠️ Aucune garantie <span class='text-rose-500'>n'est faite</span>.", info_3: "🤖 Tout le contenu est généré par <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Les scores SEO sont des estimations.", info_5: "🔄 Vous avez <span class='text-rose-500'>2 droits quotidiens</span> par plateforme.", about_title: "À propos", about_p1: "NeoSocial_Rose est une plateforme alimentée par l'IA.", about_p2: "En utilisant Gemini AI, nous générons des titres de haute qualité.", about_mission: "Notre mission", about_mission_text: "Gérer les détails techniques.", about_features: "Caractéristiques", about_feat_1: "✨ Support de 6 langues", about_feat_2: "🎯 Contenu optimisé", about_feat_3: "📊 Analyse SEO", about_feat_4: "🔄 Droits renouvelés", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Clause", about_disclaimer_text: "NeoSocial_Rose fournit uniquement des suggestions.", faq_title: "Questions fréquentes", faq_q1: "Comment fonctionne la limite?", faq_a1: "Vous avez 2 droits par plateforme.", faq_q2: "Qu'est-ce que le score SEO?", faq_a2: "Le score SEO estime les performances.", faq_q3: "Est-ce gratuit?", faq_a3: "Oui, actuellement gratuit.", faq_q4: "Mes données sont stockées?", faq_a4: "Non, aucune donnée stockée.", faq_q5: "Quelles langues?", faq_a5: "Turc, anglais, français, allemand, espagnol, portugais.", faq_q6: "Succès garanti?", faq_a6: "Non. Uniquement des suggestions.", faq_q7: "Application mobile?", faq_a7: "Bientôt sur App Store et Google Play! 🚀", security_title: "Sécurité", security_data_title: "Sécurité des données", security_data_text: "Aucune donnée personnelle stockée.", security_google_title: "Connexion Google", security_google_text: "Seules les informations de base sont utilisées.", security_content_title: "Sécurité du contenu", security_content_text: "Tout le contenu est créé par Gemini AI.", security_contact_title: "Contact", security_contact_text: "Pour questions:", modal_subtitle: "Générer du contenu", remaining_rights: "Droits restants", topic_label: "Sujet", topic_placeholder: "Ex: Tactiques de football", generate_btn: "COMMENCER", seo_score: "Score SEO", regenerate_btn: "🔄 Régénérer", footer_desc: "Centre de contenu viral.", footer_corporate: "Entreprise", footer_about: "À propos", footer_faq: "FAQ", footer_security: "Sécurité", footer_support: "Soutien", footer_privacy: "Confidentialité", notify_limit: "Limite atteinte. À demain! 🚀", notify_topic: "Veuillez entrer un sujet.", notify_success: "Génération réussie ✨", notify_error: "Erreur. Réessayez.", notify_copied: "Copié ✨", notify_login_fail: "Échec de connexion." },
+      de: { nav_home: "Startseite", nav_apps: "Apps", nav_platform: "Plattform", nav_about: "Über uns", nav_faq: "FAQ", login: "ANMELDEN", logout: "ABMELDEN", coming_soon: "DEMNÄCHST", select_platform: "Plattform wählen", platform_youtube_desc: "Videotitel und Hashtags", platform_instagram_desc: "Beitragstitel und Hashtags", platform_tiktok_desc: "Videotitel und Trend-Hashtags", platform_x_desc: "Tweet-Titel und Hashtags", important_info: "Wichtige Informationen", info_1: "🎯 Diese Plattform <span class='text-rose-500'>bietet nur Vorschläge</span>.", info_2: "⚠️ Keine Garantien <span class='text-rose-500'>werden gemacht</span>.", info_3: "🤖 Alle Inhalte werden von <span class='text-rose-500'>Gemini AI</span> generiert.", info_4: "📊 SEO-Scores sind Schätzungen.", info_5: "🔄 Sie haben <span class='text-rose-500'>2 tägliche Rechte</span> pro Plattform.", about_title: "Über uns", about_p1: "NeoSocial_Rose ist eine KI-gestützte Plattform.", about_p2: "Mit Gemini AI generieren wir hochwertige Titel.", about_mission: "Unsere Mission", about_mission_text: "Technische Details erledigen.", about_features: "Funktionen", about_feat_1: "✨ 6 Sprachunterstützung", about_feat_2: "🎯 Optimierte Inhalte", about_feat_3: "📊 SEO-Analyse", about_feat_4: "🔄 Täglich erneuert", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Haftungsausschluss", about_disclaimer_text: "NeoSocial_Rose bietet nur Vorschläge.", faq_title: "Häufig gestellte Fragen", faq_q1: "Wie funktioniert das Limit?", faq_a1: "Sie haben 2 Rechte pro Plattform.", faq_q2: "Was ist ein SEO-Score?", faq_a2: "Der SEO-Score schätzt die Leistung.", faq_q3: "Ist es kostenlos?", faq_a3: "Ja, derzeit völlig kostenlos.", faq_q4: "Werden Daten gespeichert?", faq_a4: "Nein, keine Daten gespeichert.", faq_q5: "Welche Sprachen?", faq_a5: "Türkisch, Englisch, Französisch, Deutsch, Spanisch, Portugiesisch.", faq_q6: "Erfolg garantiert?", faq_a6: "Nein. Nur Vorschläge.", faq_q7: "Mobile App?", faq_a7: "Bald im App Store und Google Play! 🚀", security_title: "Sicherheit", security_data_title: "Datensicherheit", security_data_text: "Keine personenbezogenen Daten gespeichert.", security_google_title: "Google-Anmeldung", security_google_text: "Nur grundlegende Informationen verwendet.", security_content_title: "Inhaltssicherheit", security_content_text: "Alle Inhalte von Gemini AI erstellt.", security_contact_title: "Kontakt", security_contact_text: "Für Fragen:", modal_subtitle: "Virale Inhalte generieren", remaining_rights: "Verbleibende Rechte", topic_label: "Thema", topic_placeholder: "Z.B. Fußballtaktiken", generate_btn: "GENERIERUNG STARTEN", seo_score: "SEO-Score", regenerate_btn: "🔄 Neu generieren", footer_desc: "Virale Inhalts-Hub.", footer_corporate: "Unternehmen", footer_about: "Über uns", footer_faq: "FAQ", footer_security: "Sicherheit", footer_support: "Unterstützung", footer_privacy: "Datenschutz", notify_limit: "Limit erreicht. Bis morgen! 🚀", notify_topic: "Bitte Thema eingeben.", notify_success: "Generierung erfolgreich ✨", notify_error: "Fehler. Bitte erneut versuchen.", notify_copied: "Kopiert ✨", notify_login_fail: "Anmeldung fehlgeschlagen." },
+      es: { nav_home: "Inicio", nav_apps: "Aplicaciones", nav_platform: "Plataforma", nav_about: "Acerca de", nav_faq: "Preguntas frecuentes", login: "INICIAR SESIÓN", logout: "CERRAR SESIÓN", coming_soon: "PRÓXIMAMENTE", select_platform: "Seleccionar plataforma", platform_youtube_desc: "Títulos de video y hashtags", platform_instagram_desc: "Títulos de publicación y hashtags", platform_tiktok_desc: "Títulos de video y hashtags de tendencia", platform_x_desc: "Títulos de tweet y hashtags", important_info: "Información importante", info_1: "🎯 Esta plataforma <span class='text-rose-500'>solo proporciona sugerencias</span>.", info_2: "⚠️ No se hacen garantías <span class='text-rose-500'>son hechas</span>.", info_3: "🤖 Todo el contenido es generado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 Las puntuaciones SEO son estimaciones.", info_5: "🔄 Tienes <span class='text-rose-500'>2 derechos diarios</span> por plataforma.", about_title: "Acerca de nosotros", about_p1: "NeoSocial_Rose es una plataforma impulsada por IA.", about_p2: "Usando Gemini AI, generamos títulos de alta calidad.", about_mission: "Nuestra misión", about_mission_text: "Manejar los detalles técnicos.", about_features: "Características", about_feat_1: "✨ Soporte de 6 idiomas", about_feat_2: "🎯 Contenido optimizado", about_feat_3: "📊 Análisis SEO", about_feat_4: "🔄 Derechos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Descargo", about_disclaimer_text: "NeoSocial_Rose solo proporciona sugerencias.", faq_title: "Preguntas frecuentes", faq_q1: "¿Cómo funciona el límite?", faq_a1: "Tienes 2 derechos por plataforma.", faq_q2: "¿Qué es la puntuación SEO?", faq_a2: "La puntuación SEO estima el rendimiento.", faq_q3: "¿Es gratis?", faq_a3: "Sí, actualmente completamente gratuito.", faq_q4: "¿Se almacenan mis datos?", faq_a4: "No, no se almacenan datos.", faq_q5: "¿Qué idiomas?", faq_a5: "Turco, inglés, francés, alemán, español, portugués.", faq_q6: "¿Éxito garantizado?", faq_a6: "No. Solo sugerencias.", faq_q7: "¿Aplicación móvil?", faq_a7: "¡Pronto en App Store y Google Play! 🚀", security_title: "Seguridad", security_data_title: "Seguridad de datos", security_data_text: "No se almacenan datos personales.", security_google_title: "Inicio de sesión de Google", security_google_text: "Solo se utiliza información básica.", security_content_title: "Seguridad del contenido", security_content_text: "Todo el contenido creado por Gemini AI.", security_contact_title: "Contacto", security_contact_text: "Para preguntas:", modal_subtitle: "Generar contenido viral", remaining_rights: "Derechos restantes", topic_label: "Tema", topic_placeholder: "Ej: Tácticas de fútbol", generate_btn: "INICIAR GENERACIÓN", seo_score: "Puntuación SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Centro de contenido viral.", footer_corporate: "Corporativo", footer_about: "Acerca de", footer_faq: "Preguntas frecuentes", footer_security: "Seguridad", footer_support: "Soporte", footer_privacy: "Privacidad", notify_limit: "Límite alcanzado. ¡Hasta mañana! 🚀", notify_topic: "Por favor ingrese un tema.", notify_success: "Generación exitosa ✨", notify_error: "Error. Intente nuevamente.", notify_copied: "Copiado ✨", notify_login_fail: "Error de inicio de sesión." },
+      pt: { nav_home: "Início", nav_apps: "Aplicativos", nav_platform: "Plataforma", nav_about: "Sobre", nav_faq: "Perguntas frequentes", login: "ENTRAR", logout: "SAIR", coming_soon: "EM BREVE", select_platform: "Selecionar plataforma", platform_youtube_desc: "Títulos de vídeo e hashtags", platform_instagram_desc: "Títulos de postagem e hashtags", platform_tiktok_desc: "Títulos de vídeo e hashtags de tendência", platform_x_desc: "Títulos de tweet e hashtags", important_info: "Informações importantes", info_1: "🎯 Esta plataforma <span class='text-rose-500'>fornece apenas sugestões</span>.", info_2: "⚠️ Nenhuma garantia <span class='text-rose-500'>é feita</span>.", info_3: "🤖 Todo o conteúdo é gerado por <span class='text-rose-500'>Gemini AI</span>.", info_4: "📊 As pontuações de SEO são estimativas.", info_5: "🔄 Você tem <span class='text-rose-500'>2 direitos diários</span> por plataforma.", about_title: "Sobre nós", about_p1: "NeoSocial_Rose é uma plataforma alimentada por IA.", about_p2: "Usando Gemini AI, geramos títulos de alta qualidade.", about_mission: "Nossa missão", about_mission_text: "Lidar com os detalhes técnicos.", about_features: "Recursos", about_feat_1: "✨ Suporte a 6 idiomas", about_feat_2: "🎯 Conteúdo otimizado", about_feat_3: "📊 Análise de SEO", about_feat_4: "🔄 Direitos renovados", about_feat_5: "🤖 Powered by Gemini AI", about_disclaimer: "Isenção", about_disclaimer_text: "NeoSocial_Rose fornece apenas sugestões.", faq_title: "Perguntas frequentes", faq_q1: "Como funciona o limite?", faq_a1: "Você tem 2 direitos por plataforma.", faq_q2: "O que é pontuação de SEO?", faq_a2: "A pontuação de SEO estima o desempenho.", faq_q3: "É gratuito?", faq_a3: "Sim, atualmente completamente gratuito.", faq_q4: "Meus dados são armazenados?", faq_a4: "Não, nenhum dado armazenado.", faq_q5: "Quais idiomas?", faq_a5: "Turco, inglês, francês, alemão, espanhol, português.", faq_q6: "Sucesso garantido?", faq_a6: "Não. Apenas sugestões.", faq_q7: "Em breve na App Store e Google Play! 🚀", security_title: "Segurança", security_data_title: "Segurança de dados", security_data_text: "Nenhum dado pessoal armazenado.", security_google_title: "Login do Google", security_google_text: "Apenas informações básicas são usadas.", security_content_title: "Segurança de conteúdo", security_content_text: "Todo o conteúdo criado pelo Gemini AI.", security_contact_title: "Contato", security_contact_text: "Para perguntas:", modal_subtitle: "Gerar conteúdo viral", remaining_rights: "Direitos restantes", topic_label: "Tópico", topic_placeholder: "Ex: Táticas de futebol", generate_btn: "INICIAR GERAÇÃO", seo_score: "Pontuação de SEO", regenerate_btn: "🔄 Regenerar", footer_desc: "Hub de conteúdo viral.", footer_corporate: "Corporativo", footer_about: "Sobre", footer_faq: "Perguntas frequentes", footer_security: "Segurança", footer_support: "Suporte", footer_privacy: "Privacidade", notify_limit: "Limite atingido. Até amanhã! 🚀", notify_topic: "Por favor, insira um tópico.", notify_success: "Geração bem-sucedida ✨", notify_error: "Erro. Tente novamente.", notify_copied: "Copiado ✨", notify_login_fail: "Falha no login." }
     };
 
     // State
-    const state = { 
-      lang: 'tr', 
+    const state = {
+      lang: 'tr',
       currentPlatform: 'youtube',
       userId: 'guest',
       credits: { youtube: 2, instagram: 2, tiktok: 2, x: 2 }
@@ -498,22 +514,52 @@
 
     function notify(msg) {
       const el = document.getElementById('notification');
-      el.innerText = msg; el.style.display = 'block';
+      el.innerText = msg;
+      el.style.display = 'block';
       setTimeout(() => el.style.display = 'none', 3500);
     }
 
+    // ---- LOGIN / LOGOUT ----
     firebase.auth().onAuthStateChanged(user => {
       state.userId = user ? user.uid : 'guest';
+
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+
       const displayName = user ? user.displayName.split(' ')[0].toUpperCase() : translate('login');
       document.getElementById('user-display').innerText = displayName;
+
+      // Toggle butonlar (EKLENDİ)
+      if (user) {
+        if (loginBtn) loginBtn.classList.add('hidden');
+        if (logoutBtn) logoutBtn.classList.remove('hidden');
+      } else {
+        if (loginBtn) loginBtn.classList.remove('hidden');
+        if (logoutBtn) logoutBtn.classList.add('hidden');
+      }
+
       loadCredits();
     });
 
     function loginWithGoogle() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider).catch(err => {
-        console.error(err); notify(translate('notify_login_fail'));
+        console.error(err);
+        notify(translate('notify_login_fail'));
       });
+    }
+
+    // Logout fonksiyonu (EKLENDİ)
+    function logoutGoogle() {
+      firebase.auth().signOut()
+        .then(() => {
+          notify(state.lang === 'tr' ? 'Çıkış yapıldı.' : 'Logged out.');
+          closeGenerator();
+        })
+        .catch(err => {
+          console.error(err);
+          notify(translate('notify_error'));
+        });
     }
 
     function loadCredits() {
@@ -624,7 +670,7 @@
       const btn = document.getElementById('modal-gen-btn');
       const resultBox = document.getElementById('modal-result-box');
       const resultText = document.getElementById('modal-result-text');
-      
+
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ' + (state.lang === 'tr' ? 'ÜRETİLİYOR...' : 'GENERATING...');
 
@@ -688,10 +734,12 @@
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           resultText.innerText = result;
           document.getElementById('modal-char-count').innerText = `${result.length}/100 ${state.lang === 'tr' ? 'karakter' : 'characters'}`;
+
           const seoScore = calculateSEO(result);
           const scoreBadge = document.getElementById('seo-score-badge');
           scoreBadge.innerText = `${seoScore}/100`;
           scoreBadge.className = `seo-badge ${getSEOClass(seoScore)}`;
+
           resultBox.classList.remove('hidden');
           notify(translate('notify_success'));
         } else throw new Error('Empty response');
