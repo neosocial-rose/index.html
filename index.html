@@ -79,7 +79,8 @@
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
           <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Reklam</span>
-          <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Ad Space</div>
+          <!-- AdSense Slot 1 -->
+          <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Reklam Alanı</div>
         </div>
       </div>
 
@@ -111,7 +112,8 @@
       <div class="lg:col-span-3 hidden lg:block">
         <div class="bg-slate-50 border border-slate-100 rounded-[2rem] p-6 h-full flex flex-col items-center justify-center text-center">
           <span class="text-[9px] font-black text-slate-300 uppercase mb-4 tracking-widest">Sponsor</span>
-          <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Ad Space</div>
+          <!-- AdSense Slot 2 -->
+          <div class="w-full h-64 border-2 border-dashed border-slate-200 rounded-2xl flex items-center justify-center text-slate-200 italic text-xs">Reklam Alanı</div>
         </div>
       </div>
     </div>
@@ -184,12 +186,12 @@
     }
 
     async function callGemini(topic) {
-      const systemPrompt = `GÖREV: Sosyal medya için viral başlık ve hashtag üreticisisin.
+      const systemPrompt = `Sen dünyanın en iyi sosyal medya stratejistisin. Görevin, verilen konu hakkında viral potansiyeli yüksek başlık ve hashtagler üretmektir.
       - YouTube, Instagram ve TikTok trendlerine hakimsin.
       - Başlıklar merak uyandırıcı, tık tuzağı (clickbait) potansiyeli yüksek ve enerjik olmalı.
       - Başlıkta mutlaka emoji kullan.
       - Dil: ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'}.
-      - Çıktı formatı: Sadece 1 viral başlık ve 5-6 popüler hashtag. Ekstra açıklama yapma.`;
+      - Çıktı formatı: Sadece viral bir başlık ve 5-6 popüler hashtag. Başka hiçbir şey yazma.`;
 
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
       const payload = {
@@ -226,7 +228,7 @@
       const resultText = document.getElementById('result-text');
       
       btn.disabled = true; 
-      btn.innerText = "Üretiliyor...";
+      btn.innerText = "Analiz Ediliyor...";
 
       try {
         const result = await callGemini(topic);
