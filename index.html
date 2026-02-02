@@ -191,20 +191,15 @@
 
     async function callGemini(topic) {
       const sysInstruction = `
-        Sen dünyanın en pahalı sosyal medya stratejistisin. Görevin, konuyu alıp yüksek prodüksiyonlu, merak uyandıran ve global viral trendlere uygun 'Pro' bir başlık üretmektir.
+        GÖREV: Sen dünyanın en pahalı, en profesyonel sosyal medya stratejistisin. Görevin, sıradan bot başlıkları yerine, yüksek prodüksiyonlu ve viral potansiyeli olan 'Elite' içerik kancaları üretmektir.
         
-        YASAKLAR: 
-        - Asla '7 Hata', '3 Taktik' gibi sayısal listeler yapma.
-        - 'Şok', 'Gizli', 'Kimse bilmiyor' gibi ucuz clickbait kelimeleri kullanma.
-        - Basit 'POV' şablonuna sıkışma; sadece gerektiğinde ve kaliteli kullan.
-        
-        İSTENEN TARZ:
-        - Psikolojik kancalar: "You weren't ready for this...", "The reality of...", "POV: Witnessing [Topic] perfection 💎"
-        - Sinematik anlatım: "[Topic] energy hit different... 🚀", "Mastering the aesthetic of [Topic] ✨"
-        - Global ve 'Cool' bir dil kullan.
-        
-        ÇIKTI FORMATI:
-        Sadece başlık ve hashtags (maksimum 4-5 hashtag). Başlığın içinde mutlaka emoji olsun.
+        KESİN KURALLAR:
+        - Başlık mutlaka "POV: [Sanatsal/Profesyonel Kanca] [Emoji]" formatında olmalı.
+        - Örnek: "POV: Elite Seviye Futbol Zekası 🧠" veya "POV: Futbol Sanatının Zirvesi 🎨".
+        - YASAKLAR: '7 Hata', '3 Taktik' gibi sayısal listeler ve 'Şok', 'Kimse bilmiyor', 'Gizli' gibi ucuz clickbait kelimeleri ASLA kullanma.
+        - Ton: 'Elite Masterclass', 'Aesthetic', 'Pure Talent'.
+        - Dil: Yanıtı tamamen ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'} ver.
+        - Çıktı: Sadece 1 adet POV başlığı ve 4-5 adet Masterclass hashtag'i.
       `;
 
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -216,15 +211,20 @@
       const delays = [1000, 2000, 4000, 8000, 16000];
       for(let i = 0; i < delays.length; i++) {
         try {
-          const r = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
-          const d = await r.json();
+          const r = await fetch(url, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+          });
           
+          if (!r.ok) {
+            const errData = await r.json();
+            throw new Error(errData.error?.message || "API HTTP Error");
+          }
+
+          const d = await r.json();
           if (d.candidates && d.candidates[0] && d.candidates[0].content) {
             return d.candidates[0].content.parts[0].text;
-          }
-          
-          if (d.error) {
-            throw new Error(d.error.message || "API Error");
           }
           
         } catch(e) { 
@@ -241,7 +241,7 @@
       if (!topic) return notify("Enter a topic first.");
 
       const btn = document.getElementById('genBtn');
-      btn.disabled = true; btn.innerText = "Analyzing Trends...";
+      btn.disabled = true; btn.innerText = "Processing Elite Data...";
 
       try {
         const result = await callGemini(topic);
@@ -251,12 +251,13 @@
           document.getElementById('credit-badge').innerText = `Credits: ${state.credits} / 2`;
           
           document.getElementById('result-text').innerText = result.trim();
-          document.getElementById('result-box').classList.remove('hidden');
+          document.getElementById('result-box').classList.remove("hidden");
         } else {
-          notify("Content generation unavailable at the moment.");
+          notify("Technical limitations. Try again.");
         }
       } catch(e) { 
-        notify("Elite production failed. Please try again later."); 
+        console.error(e);
+        notify("Elite production failed. Check connection."); 
       }
       finally { btn.disabled = false; btn.innerText = "Start Elite Generation"; }
     }
@@ -266,7 +267,7 @@
       const el = document.createElement('textarea');
       el.value = text; document.body.appendChild(el); el.select();
       document.execCommand('copy'); document.body.removeChild(el);
-      notify("Copied to clipboard ✨");
+      notify("Elite hook copied ✨");
     }
 
     // Dropdown Logic
