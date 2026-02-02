@@ -53,7 +53,7 @@
       border:1px solid #f1f5f9;
       box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
       border-radius: 12px;
-      padding: 16px;
+      padding: 166px;
       min-width: 240px;
       z-index: 5000;
       pointer-events:auto;
@@ -170,12 +170,11 @@
             <label id="input-label" class="text-[10px] font-black uppercase text-slate-400 mb-3 block tracking-widest">İçerik Konusu Giriniz</label>
             <input type="text" id="topicInput" class="w-full border-2 border-slate-100 p-5 rounded-2xl outline-none focus:border-rose-500 font-bold text-slate-900 transition-all placeholder:text-slate-300" placeholder="Örn: Evde spor yapmanın avantajları">
           </div>
-          <button onclick="generateDemo()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">ÜRETİMİ BAŞLAT</button>
+          <button onclick="generateViral()" id="genBtn" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition transform active:scale-[0.98] shadow-2xl shadow-slate-300">ÜRETİMİ BAŞLAT</button>
           <div id="result-box" class="hidden">
             <div class="p-6 bg-slate-50 border-2 border-slate-100 rounded-2xl relative">
               <p id="result-text" class="text-base font-bold text-slate-800 font-mono break-words pr-10"></p>
               <button onclick="copyResult()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition scale-125"><i class="far fa-copy"></i></button>
-              <div id="validation-msg" class="mt-4 text-[10px] font-black uppercase"></div>
             </div>
           </div>
         </div>
@@ -263,10 +262,12 @@
       const userDisplay = document.getElementById("user-name-display");
       if (user) {
         userDisplay.innerText = user.displayName.toUpperCase();
-        logoutBtn.classList.replace("hidden", "flex");
+        logoutBtn.classList.remove("hidden");
+        logoutBtn.classList.add("flex");
       } else {
         userDisplay.innerText = "Google ile Giriş";
-        logoutBtn.classList.replace("flex", "hidden");
+        logoutBtn.classList.add("hidden");
+        logoutBtn.classList.remove("flex");
       }
     });
 
@@ -276,7 +277,7 @@
       fr: "Obtenez des suggestions de titres et de hashtags pour les plateformes populaires. Par honnêteté, nous devons préciser : cet outil vous guide mais ne garantit pas un succès définitif ou la viralité en raison des algorithmes. Bien que le système offre les meilleures suggestions basées sur des données, il ne promet pas de résultats à 100 %. S'il vous plaît, n'attendez pas de miracle ; utilisez cet outil pour renforcer votre stratégie.",
       de: "Erhalten Sie Titel- und Hashtag-Vorschläge für beliebte Plattformen. Aus Ehrlichkeit müssen wir darauf hinweisen: Dieses Tool leitet Sie an, garantiert jedoch aufgrund von Algorithmen keinen sicheren Erfolg oder Viralität. Auch wenn das System die besten datenbasierten Vorschläge liefert, verspricht es keine 100%igen Ergebnisse. Bitte erwarten Sie keine Wunder; nutzen Sie dieses Tool, um Ihre Strategie zu stärken.",
       es: "Obtenga sugerencias de títulos y hashtags para plataformas populares. Por honestidad, debemos indicar: Esta herramienta le guía, pero no garantiza el éxito definitivo o la viralidad debido a los algoritmos. Aunque el sistema ofrece las mejores sugerencias basadas en datos, no promete resultados del 100%. Por favor, no espere milagros; utilice esta herramienta para fortalecer su estrategia.",
-      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honestidade, debemos declarar: Esta ferramenta guia você, mas não garante sucesso definitivo veya viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas en dados, não promete resultados de 100%. Por favor, não espere milagres; use esta ferramenta para fortalecer sua estratégia."
+      pt: "Obtenha sugestões de títulos e hashtags para plataformas populares. Por honnêteté, debemos declarar: Esta ferramenta guia você, mas não garante successo definitivo ou viralidade devido aos algoritmos. Embora o sistema ofereça as melhores sugerenções baseadas em dados, não promete resultados de 100%. Por favor, no espere milagres; use esta ferramenta para fortalecer sua estratégia."
     };
 
     const INFO_CONTENT = {
@@ -305,7 +306,7 @@
       };
     }
 
-    const state = { lang: "tr", platform: "youtube", type: "üretim", credits: initCredits() };
+    const state = { lang: "tr", platform: "youtube", credits: initCredits() };
 
     function setLang(l) {
       state.lang = l;
@@ -338,17 +339,17 @@
     }
 
     function setMode(p, t) {
-      state.platform = p; state.type = t;
-      document.getElementById("current-mode-title").innerText = `${p} ${t}`.toUpperCase();
+      state.platform = p;
+      document.getElementById("current-mode-title").innerText = `${p} ÜRETİMİ`.toUpperCase();
       updateCreditsUI();
     }
 
     function updateCreditsUI() { 
-      const currentCredit = state.credits[state.platform] || 0;
-      document.getElementById("credit-count").innerText = `HAK: ${currentCredit} / 2`; 
+      const c = state.credits[state.platform] || 0;
+      document.getElementById("credit-count").innerText = `HAK: ${c} / 2`; 
     }
 
-    async function generateDemo() {
+    async function generateViral() {
       const p = state.platform;
       if (state.credits[p] <= 0) { notify("Limit doldu."); return; }
       const val = document.getElementById("topicInput").value.trim();
@@ -358,20 +359,22 @@
       localStorage.setItem(`nsr_credits_${p}`, String(state.credits[p]));
       updateCreditsUI();
 
-      // PROFESYONEL VE HİBRİT ÜRETİM TALİMATI
-      const hybridInstruction = `Sen bir viral içerik stratejistisin. '${val}' konusu için; Şok, Flaş, 7 Hata gibi ucuz kelimeleri ASLA kullanma. 
-      Önce konuyu derinlemesine analiz et, sonra 'You weren't ready for this' veya 'Wait for it' gibi global merak uyandıran bir İngilizce cümle kur ve yanına parantez içinde vurucu bir Türkçe kanca ekle. 
-      Örn: 'Wait for the saxophone drop... 🎷💨 (Saksafonun gücü!)'. 
-      Hashtag olarak #saxophone #trumpet #gaoyifei #shorts ve konuyla ilgili 2 trend hashtag daha ekle.`;
+      const finalPrompt = `
+        KATI KURAL: "ŞOK, FLAŞ, KİMSE BİLMİYOR, İNANILMAZ" gibi basit kelimeleri ASLA kullanma.
+        GÖREV: '${val}' konusu için profesyonel bir viral "Hook" üret.
+        FORMAT: [English Viral Catchphrase] + [Emoji] + (Turkish Analytical Note).
+        TARZ: "You weren't ready for this...", "The secret behind..." veya "Wait for the drop..." tarzı.
+        HASHTAG: #saxophone #trumpet #gaoyifei #shorts ve konuyla ilgili trend etiket.
+      `;
 
       try {
         const r = await fetch("/api/generate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: hybridInstruction, topic: val, lang: state.lang, platform: state.platform })
+          body: JSON.stringify({ prompt: finalPrompt, topic: val, lang: state.lang, platform: state.platform })
         });
         const data = await r.json();
-        document.getElementById("result-text").innerText = data?.text || "Sunucu hatası.";
+        document.getElementById("result-text").innerText = data?.text || "Hata.";
         document.getElementById("result-box").classList.remove("hidden");
       } catch (e) {
         document.getElementById("result-text").innerText = "Bağlantı hatası.";
@@ -386,9 +389,15 @@
       document.body.removeChild(el); notify("Kopyalandı.");
     }
 
-    const dropdownMap = [{ btn: "nav-apps-btn", dd: "nav-apps-dd" }, { btn: "nav-platform-btn", dd: "nav-platform-dd" }, { btn: "nav-production-btn", dd: "nav-production-dd" }];
-    function closeAllDropdowns() { dropdownMap.forEach(x => { document.getElementById(x.dd).style.display = "none"; }); }
-    dropdownMap.forEach(x => { document.getElementById(x.btn).addEventListener("click", (e) => { e.stopPropagation(); closeAllDropdowns(); document.getElementById(x.dd).style.display = "block"; }); });
+    function closeAllDropdowns() { document.querySelectorAll(".menu-dropdown").forEach(d => d.style.display = "none"); }
+    document.querySelectorAll(".nav-link").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        const dd = btn.nextElementSibling;
+        if(dd && dd.classList.contains("menu-dropdown")) dd.style.display = "block";
+      });
+    });
     document.addEventListener("click", closeAllDropdowns);
     (function init() { setLang("tr"); updateCreditsUI(); })();
   </script>
