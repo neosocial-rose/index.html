@@ -16,39 +16,49 @@ export default async function handler(req, res) {
 
     if (!topic) return res.status(400).json({ error: "topic empty" });
 
+    // RASTGELE ÇEŞİTLİLİK İÇİN
+    const randomSeed = Math.floor(Math.random() * 1000);
+
     const prompt =
-`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için başlık yaz.
+`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için ORİJİNAL başlık yaz.
+
+⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. Tekrar etme!
 
 SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
 
 KURAL 1 - BAŞLIK (1. satır):
 - "${topic}" konusuna DOĞRUDAN değin
-- Sayı kullan: 3, 5, 7, 10
-- Güçlü kelime: Sır, Taktik, Yöntem, Teknik, Strateji, Püf Noktası
-- 1-2 emoji
+- FARKLI açılardan yaklaş (zaman, sonuç, süreç, problem, çözüm)
+- Sayı kullan: 3, 5, 7, 10, 30 (farklı rakamlar dene)
+- Güçlü kelime varyasyonu kullan:
+  * Sır, Taktik, Yöntem, Teknik, Strateji
+  * Püf Noktası, İpucu, Formül, Sistem, Adım
+  * Hile, Kural, Detay, Özellik, Fark
+- 1-2 emoji (farklı kombinasyonlar)
 - Max 60 karakter
 
+ÇEŞİTLİ BAŞLIK YAPILARI (BUNLARDAN BİRİNİ SEÇ):
+1. Sonuç odaklı: "30 Günde ${topic} Ustası Ol: 5 Adım 🔥"
+2. Problem çözme: "${topic}'te Yapılan 3 Büyük Yanlış ❌"
+3. Hızlı sonuç: "${topic} İçin 10 Dakikalık Formül ⚡"
+4. Karşılaştırma: "Amatör vs Pro: ${topic}'te 7 Fark 🎯"
+5. Zaman bazlı: "${topic} 2024'te Nasıl Değişti? 📊"
+6. Gizli bilgi: "${topic} Profesyonellerinin 5 Sırrı 🤫"
+
 KURAL 2 - HASHTAG (2. satır):
-- "${topic}" ile alakalı
+- "${topic}" ile alakalı FARKLI hashtag'ler
+- Her seferinde değişik kombinasyon
 - 3-5 kısa hashtag
-- Boşlukla ayır
 - Max 40 karakter
 
-ÖRNEKLER (SADECE İLHAM AL, KOPYALAMA):
-- Video montaj: "Video Montajda 7 Profesyonel Teknik 🎬✨"
-- Yemek: "Pasta Yapımında 5 Şef Sırrı 🍰👨‍🍳"
-- Fitness: "Evde Kilo Vermek İçin 3 Etkili Yöntem 💪🔥"
-- Oyun: "Valorant'ta Rank Atlamak İçin 5 Strateji 🎮⚡"
-
-YASAK KELİMELER:
-❌ "Kimse bilmiyor"
-❌ "Şok"
-❌ "Gerçek"  
-❌ "Hata"
-❌ "Bitiriyor"
+YASAK:
+❌ Tekrar eden başlıklar
+❌ "Kimse bilmiyor", "Şok", "Gerçek", "Hata", "Bitiriyor"
 ❌ Konu dışı içerik
 
-ŞİMDİ "${topic}" İÇİN YAZ (SADECE 2 SATIR):
+Random Seed: ${randomSeed} (farklılık için)
+
+ŞİMDİ "${topic}" İÇİN ORİJİNAL YAZ (SADECE 2 SATIR):
 
 1. satır: Başlık
 2. satır: Hashtag`;
@@ -59,7 +69,14 @@ YASAK KELİMELER:
     const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.9,  // Daha fazla yaratıcılık
+          topP: 0.95,
+          topK: 40
+        }
+      })
     });
 
     const txt = await r.text();
