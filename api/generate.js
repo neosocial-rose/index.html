@@ -17,42 +17,41 @@ export default async function handler(req, res) {
     if (!topic) return res.status(400).json({ error: "topic empty" });
 
     const prompt =
-`Sohbet etme. Açıklama yapma. SADECE 2 SATIR.
+`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için başlık yaz.
 
-1) Başlık: EN FAZLA 60 karakter (emoji dahil). 60'ı GEÇME.
-2) Hashtag: EN FAZLA 40 karakter (boşluk dahil). 40'ı GEÇME.
+SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
 
-TOPLAM: Başlık + Hashtag = MAKSIMUM 100 KARAKTER
-
-- Kelime bölme yok. Yarım kelime yok.
-- Hashtag satırı sadece # ile başlayan etiketler + tek boşluk.
-
-SEO KURALLARI:
-- Jenerik başlık YASAK
-- MUTLAKA kullan: ŞOK / 7 HATA / 3 TAKTİK / 5 SIR / KİMSE BİLMİYOR / GERÇEK
-- Sayı kullan (3, 5, 7, 10)
+KURAL 1 - BAŞLIK (1. satır):
+- "${topic}" konusuna DOĞRUDAN değin
+- Sayı kullan: 3, 5, 7, 10
+- Güçlü kelime: Sır, Taktik, Yöntem, Teknik, Strateji, Püf Noktası
 - 1-2 emoji
-- Güçlü anahtar kelimeler
-- Merak uyandır ama clickbait yapma
+- Max 60 karakter
 
-HASHTAG KURALLARI:
+KURAL 2 - HASHTAG (2. satır):
+- "${topic}" ile alakalı
 - 3-5 kısa hashtag
-- Platform için özel (#FYP, #Keşfet vb YASAK)
-- Niche + güçlü hashtag'ler
+- Boşlukla ayır
+- Max 40 karakter
 
-ÇOCUK İŞİ BAŞLIK YASAK:
-❌ "Bu videoda"
-❌ "İzle ve öğren"
-❌ "Mutlaka izle"
-❌ Basit cümleler
+ÖRNEKLER (SADECE İLHAM AL, KOPYALAMA):
+- Video montaj: "Video Montajda 7 Profesyonel Teknik 🎬✨"
+- Yemek: "Pasta Yapımında 5 Şef Sırrı 🍰👨‍🍳"
+- Fitness: "Evde Kilo Vermek İçin 3 Etkili Yöntem 💪🔥"
+- Oyun: "Valorant'ta Rank Atlamak İçin 5 Strateji 🎮⚡"
 
-Dil: ${lang}
-Platform: ${platform}
-Konu: ${topic}
+YASAK KELİMELER:
+❌ "Kimse bilmiyor"
+❌ "Şok"
+❌ "Gerçek"  
+❌ "Hata"
+❌ "Bitiriyor"
+❌ Konu dışı içerik
 
-FORMAT (2 SATIR):
-Başlık buraya (max 60 karakter)
-#hashtag1 #hashtag2 #hashtag3 (max 40 karakter)`;
+ŞİMDİ "${topic}" İÇİN YAZ (SADECE 2 SATIR):
+
+1. satır: Başlık
+2. satır: Hashtag`;
 
     const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
@@ -102,15 +101,12 @@ function enforceTwoLinesMax(text) {
   tags = smartTrim(tags, 40);
   if (!tags) tags = "#shorts";
 
-  // TOPLAM 100 KARAKTER KONTROLÜ
-  const total = Array.from(title).length + Array.from(tags).length + 1; // +1 için \n
+  const total = Array.from(title).length + Array.from(tags).length + 1;
   if (total > 100) {
-    // Eğer 100'ü geçiyorsa hashtag'leri kısalt
     const maxTagLen = 100 - Array.from(title).length - 1;
     if (maxTagLen > 10) {
       tags = smartTrim(tags, maxTagLen);
     } else {
-      // Başlık çok uzunsa onu da kısalt
       title = smartTrim(title, 50);
       tags = smartTrim(tags, 49);
     }
