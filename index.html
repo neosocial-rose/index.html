@@ -11,7 +11,7 @@
   <meta name="author" content="NeoSocial_Rose">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://jarvisheyrose.com/">
-  
+   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jarvisheyrose.com/">
@@ -446,7 +446,7 @@
         loadCredits();
       }else{
         state.userId=null;
-        state.credits={youtube:2,instagram:2,tiktok:2,x:2};
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0}; // DÜZELTME: Çıkış yapıldığında haklar 0'a çekildi.
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
