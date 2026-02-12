@@ -3,28 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeoSocial_Rose | AI ile Viral İçerik Üret | Ücretsiz Sosyal Medya Başlık Üretici</title>
+  <title>NeoSocial_Rose | AI ile Viral İçerik Üret</title>
 
-  <!-- SEO Meta Tags (HEPSİ GERİ EKLENDİ) -->
-  <meta name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun. Gemini AI teknolojisi ile profesyonel içerik üretimi.">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici.">
   <meta name="keywords" content="ai içerik üretici, sosyal medya başlık, hashtag üretici, youtube başlık, instagram hashtag, tiktok viral, twitter içerik, ücretsiz ai araç, gemini ai, seo optimizasyon">
   <meta name="author" content="NeoSocial_Rose">
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://jarvisheyrose.com/">
-   
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jarvisheyrose.com/">
-  <meta property="og:title" content="NeoSocial_Rose | AI Viral Content Generator">
-  <meta property="og:description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
-  <meta property="og:image" content="https://jarvisheyrose.com/og-image.jpg">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://jarvisheyrose.com/">
-  <meta property="twitter:title" content="NeoSocial_Rose | AI Viral Content Generator">
-  <meta property="twitter:description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
-  <meta property="twitter:image" content="https://jarvisheyrose.com/og-image.jpg">
+  <meta name="robots" content="index, follow">
   
   <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
@@ -39,6 +24,8 @@
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; align-items:center; height:100%; user-select:none; }
     .nav-link:hover { color:#f43f5e; }
     .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
+    .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
+    .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
     #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
@@ -52,27 +39,8 @@
     .modal-content { background:#fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
     .page-content { display:none; }
     .page-content.active { display:block; }
-    
-    /* LIMIT UYARI MODALI İÇİN */
     #limit-modal .modal-content { text-align: center; border: 4px solid #fecdd3; }
   </style>
-
-  <!-- Structured Data / Schema.org -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "NeoSocial_Rose",
-    "description": "Ücretsiz AI sosyal medya başlık ve hashtag üretici",
-    "url": "https://jarvisheyrose.com",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
 </head>
 
 <body class="min-h-screen flex flex-col">
@@ -86,12 +54,12 @@
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
         <div class="hidden lg:flex items-center space-x-8 h-full">
-          <span class="nav-link flex" onclick="showPage('home')">Anasayfa</span>
+          <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
           
           <div class="relative h-full flex items-center group">
-            <span class="nav-link flex">Uygulamalar</span>
+            <span class="nav-link flex" data-translate="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown group-hover:block">
-              <p class="text-[10px] font-black text-center mb-3 text-rose-500">YAKINDA</p>
+              <p class="text-[10px] font-black text-center mb-3 text-rose-500" data-translate="coming_soon">YAKINDA</p>
               <div class="flex justify-around items-center gap-4">
                 <i class="fab fa-apple text-slate-800 text-3xl"></i> 
                 <i class="fab fa-google-play text-slate-800 text-3xl"></i>
@@ -99,17 +67,27 @@
             </div>
           </div>
 
-          <span class="nav-link flex" onclick="showPage('about')">Hakkımızda</span>
-          <span class="nav-link flex" onclick="showPage('faq')">SSS</span>
-          <span class="nav-link flex" onclick="showPage('contact')">İletişim</span>
+          <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
+          <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
+          <span class="nav-link flex" onclick="showPage('contact')" data-translate="nav_contact">İletişim</span>
         </div>
       </div>
 
       <div class="flex items-center gap-3">
-        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">GİRİŞ</button>
+        <!-- DİL BUTONLARI -->
+        <div class="hidden md:flex gap-2 mr-2">
+            <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">🇹🇷</button>
+            <button onclick="setLang('en')" id="l-en" class="lang-btn">🇬🇧</button>
+            <button onclick="setLang('fr')" id="l-fr" class="lang-btn">🇫🇷</button>
+            <button onclick="setLang('de')" id="l-de" class="lang-btn">🇩🇪</button>
+            <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
+            <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
+        </div>
+
+        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg" data-translate="login">GİRİŞ</button>
         <div id="user-area" class="hidden flex items-center gap-3">
             <span id="user-display" class="text-xs font-bold text-slate-700"></span>
-            <button onclick="logoutGoogle()" class="bg-white text-rose-500 border border-rose-200 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-rose-50">ÇIKIŞ</button>
+            <button onclick="logoutGoogle()" class="bg-white text-rose-500 border border-rose-200 px-4 py-2 rounded-xl text-[10px] font-black hover:bg-rose-50" data-translate="logout">ÇIKIŞ</button>
         </div>
       </div>
     </div>
@@ -144,7 +122,7 @@
 
       <!-- Platform Cards -->
       <section class="mb-14">
-        <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider">Platform Seçin</h2>
+        <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
           <!-- YOUTUBE -->
@@ -154,7 +132,7 @@
               <span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
             </div>
             <h3 class="text-lg font-black mb-2">YouTube</h3>
-            <p class="text-xs text-slate-500 font-bold">Video başlıkları</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları</p>
           </div>
 
           <!-- INSTAGRAM -->
@@ -164,7 +142,7 @@
               <span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
             </div>
             <h3 class="text-lg font-black mb-2">Instagram</h3>
-            <p class="text-xs text-slate-500 font-bold">Post başlıkları</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Post başlıkları</p>
           </div>
 
           <!-- TIKTOK -->
@@ -174,7 +152,7 @@
               <span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
             </div>
             <h3 class="text-lg font-black mb-2">TikTok</h3>
-            <p class="text-xs text-slate-500 font-bold">Viral içerik</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Viral içerik</p>
           </div>
 
           <!-- X (TWITTER) -->
@@ -184,7 +162,7 @@
               <span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
             </div>
             <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
-            <p class="text-xs text-slate-500 font-bold">Tweet fikirleri</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet fikirleri</p>
           </div>
 
         </div>
@@ -194,10 +172,10 @@
     <!-- ABOUT PAGE -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Hakkımızda</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
         <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
-          <p>NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.</p>
-          <p>Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X için güncel içerikler üretiyoruz.</p>
+          <p data-translate="about_p1">NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.</p>
+          <p data-translate="about_p2">Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X için güncel içerikler üretiyoruz.</p>
         </div>
       </div>
     </div>
@@ -205,11 +183,11 @@
     <!-- FAQ PAGE -->
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Sıkça Sorulan Sorular</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
         <div class="space-y-6">
           <div class="border-2 border-slate-100 rounded-2xl p-6">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Günlük limit nasıl çalışır?</h3>
-            <p class="text-slate-700 font-bold text-sm">Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit nasıl çalışır?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.</p>
           </div>
         </div>
       </div>
@@ -218,7 +196,7 @@
     <!-- CONTACT PAGE -->
     <div id="page-contact" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">İletişim</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="contact_title">İletişim</h1>
         <div class="text-center">
           <a href="mailto:jarvisheyrose@gmail.com" class="text-lg font-black text-rose-500 hover:text-rose-600">
             jarvisheyrose@gmail.com
@@ -235,24 +213,24 @@
       <div class="flex justify-between items-center mb-8">
         <div>
           <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1">Viral içerik üretin</p>
+          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
         </div>
         <button onclick="closeModal('generator-modal')" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
       </div>
 
       <div class="mb-6">
-        <span class="text-xs font-black uppercase text-slate-400">Kalan Hak:</span>
+        <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak:</span>
         <span id="modal-credit-badge" class="ml-2 bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black"></span>
       </div>
 
       <div class="space-y-6">
         <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3">İçerik Konusu</label>
-          <input type="text" id="modal-topic-input" class="pro-input" placeholder="Örn: Galatasaray maçı, Yeni iPhone...">
+          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
+          <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Galatasaray maçı, Yeni iPhone...">
         </div>
 
         <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl">
-          ÜRETİMİ BAŞLAT
+          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
         </button>
 
         <div id="modal-result-box" class="hidden space-y-4">
@@ -291,6 +269,16 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
+    // --- ÇEVİRİLER ---
+    const translations = {
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_about:"Hakkımızda",nav_faq:"SSS",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları",platform_instagram_desc:"Post başlıkları",platform_tiktok_desc:"Viral içerik",platform_x_desc:"Tweet fikirleri",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X için güncel içerikler üretiyoruz.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.",contact_title:"İletişim",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Galatasaray maçı...",generate_btn:"ÜRETİMİ BAŞLAT"},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_about:"About",nav_faq:"FAQ",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles",platform_instagram_desc:"Post titles",platform_tiktok_desc:"Viral content",platform_x_desc:"Tweet ideas",about_title:"About Us",about_p1:"AI-powered platform for creators.",about_p2:"We create content for YouTube, Instagram, TikTok and X.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"You have 2 credits per platform daily.",contact_title:"Contact",modal_subtitle:"Create viral content",remaining_rights:"Credits Left",topic_label:"Topic",topic_placeholder:"E.g. Super Bowl...",generate_btn:"GENERATE"},
+      fr: {nav_home:"Accueil",nav_apps:"Apps",nav_about:"À propos",nav_faq:"FAQ",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Choisir Plateforme",platform_youtube_desc:"Titres vidéo",platform_instagram_desc:"Titres posts",platform_tiktok_desc:"Contenu viral",platform_x_desc:"Idées tweets",about_title:"À propos",about_p1:"Plateforme IA pour créateurs.",about_p2:"Contenu pour YouTube, Instagram, TikTok et X.",faq_title:"FAQ",faq_q1:"Comment marche la limite?",faq_a1:"2 crédits par plateforme par jour.",contact_title:"Contact",modal_subtitle:"Créer contenu viral",remaining_rights:"Crédits Restants",topic_label:"Sujet",topic_placeholder:"Ex: PSG match...",generate_btn:"GÉNÉRER"},
+      de: {nav_home:"Startseite",nav_apps:"Apps",nav_about:"Über uns",nav_faq:"FAQ",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"BALD",select_platform:"Plattform wählen",platform_youtube_desc:"Videotitel",platform_instagram_desc:"Post-Titel",platform_tiktok_desc:"Viraler Inhalt",platform_x_desc:"Tweet Ideen",about_title:"Über uns",about_p1:"KI-Plattform für Creator.",about_p2:"Inhalte für YouTube, Instagram, TikTok und X.",faq_title:"FAQ",faq_q1:"Wie funktioniert das Limit?",faq_a1:"2 Credits pro Plattform täglich.",contact_title:"Kontakt",modal_subtitle:"Viralen Inhalt erstellen",remaining_rights:"Verbleibende Credits",topic_label:"Thema",topic_placeholder:"Z.B. Bundesliga...",generate_btn:"GENERIEREN"},
+      es: {nav_home:"Inicio",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRONTO",select_platform:"Seleccionar Plataforma",platform_youtube_desc:"Títulos de video",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Contenido viral",platform_x_desc:"Ideas de tweets",about_title:"Sobre nosotros",about_p1:"Plataforma IA para creadores.",about_p2:"Contenido para YouTube, Instagram, TikTok y X.",faq_title:"FAQ",faq_q1:"¿Cómo funciona el límite?",faq_a1:"2 créditos por plataforma diarios.",contact_title:"Contacto",modal_subtitle:"Crear contenido viral",remaining_rights:"Créditos Restantes",topic_label:"Tema",topic_placeholder:"Ej: El Clásico...",generate_btn:"GENERAR"},
+      pt: {nav_home:"Início",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar Plataforma",platform_youtube_desc:"Títulos de vídeo",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Conteúdo viral",platform_x_desc:"Ideias de tweets",about_title:"Sobre nós",about_p1:"Plataforma IA para criadores.",about_p2:"Conteúdo para YouTube, Instagram, TikTok e X.",faq_title:"FAQ",faq_q1:"Como funciona o limite?",faq_a1:"2 créditos por plataforma diários.",contact_title:"Contato",modal_subtitle:"Criar conteúdo viral",remaining_rights:"Créditos Restantes",topic_label:"Tópico",topic_placeholder:"Ex: Flamengo...",generate_btn:"GERAR"}
+    };
+
     // --- FIREBASE AYARLARI ---
     const firebaseConfig = {
       apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
@@ -305,24 +293,46 @@
     // --- STATE YÖNETİMİ ---
     const state = {
       userId: null,
+      lang: 'tr',
       currentPlatform: 'youtube',
-      // Başlangıç değerleri (yüklenene kadar geçici)
       credits: { youtube: 2, instagram: 2, tiktok: 2, x: 2 }
     };
 
-    // --- AUTHENTICATION & CREDITS LOGIC ---
+    // --- DİL FONKSİYONLARI ---
+    function setLang(l) {
+      state.lang = l;
+      // Butonları güncelle
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(`l-${l}`);
+      if (btn) btn.classList.add('active');
+      
+      // Metinleri güncelle
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        if (translations[l] && translations[l][key]) {
+          el.innerText = translations[l][key];
+        }
+      });
+      document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-translate-placeholder');
+        if (translations[l] && translations[l][key]) {
+          el.placeholder = translations[l][key];
+        }
+      });
+    }
+
+    // --- AUTHENTICATION & CREDITS LOGIC (DÜZELTİLDİ) ---
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         state.userId = user.uid;
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('user-area').classList.remove('hidden');
         document.getElementById('user-display').innerText = user.displayName ? user.displayName.split(' ')[0] : 'Kullanıcı';
-        loadCredits(); // GİRİŞ YAPINCA HAKLARI YÜKLE
+        loadCredits(); 
       } else {
         state.userId = null;
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('user-area').classList.add('hidden');
-        // Çıkış yapınca varsayılan görünüm
         resetUIBadges({ youtube: 2, instagram: 2, tiktok: 2, x: 2 });
       }
     });
@@ -330,39 +340,33 @@
     function loadCredits() {
       if (!state.userId) return;
 
-      // Tarih formatı: YYYY-MM-DD (Daha güvenli karşılaştırma için)
       const today = new Date().toISOString().split('T')[0];
-      const lastDate = localStorage.getItem(`nsr_date_${state.userId}`);
+      // ÖNEMLİ: Key artık tarihi de içeriyor. Böylece tarih değişirse eski key bulunamaz ve yeni gün başlar.
+      const dailyKey = `nsr_credits_${state.userId}_${today}`;
+      
+      const savedCredits = localStorage.getItem(dailyKey);
 
-      if (lastDate !== today) {
-        // GÜN DEĞİŞMİŞ: Hakları yenile ve tarihi kaydet
-        console.log("Yeni gün tespit edildi. Haklar yenileniyor.");
-        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
-        localStorage.setItem(`nsr_date_${state.userId}`, today);
-        saveCredits();
+      if (savedCredits) {
+        // Bugün için kayıt var, onu yükle
+        state.credits = JSON.parse(savedCredits);
       } else {
-        // AYNI GÜN: Hafızadan hakları oku
-        const savedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
-        if (savedCredits) {
-          state.credits = JSON.parse(savedCredits);
-        } else {
-          // Tarih var ama kredi yoksa (hata durumu), güvenli olarak 2'ye çek
-          state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
-          saveCredits();
-        }
+        // Bugün için kayıt yok (ya yeni gün ya da ilk giriş), hakları 2'ye resetle
+        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
+        saveCredits();
       }
       updateAllBadges();
     }
 
     function saveCredits() {
       if (!state.userId) return;
-      localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
+      const today = new Date().toISOString().split('T')[0];
+      const dailyKey = `nsr_credits_${state.userId}_${today}`;
+      localStorage.setItem(dailyKey, JSON.stringify(state.credits));
     }
 
     function updateAllBadges() {
       Object.keys(state.credits).forEach(platform => {
         const count = state.credits[platform];
-        // Kart üzerindeki badge
         const badge = document.getElementById(`badge-${platform}`);
         const card = document.getElementById(`card-${platform}`);
         
@@ -386,13 +390,12 @@
     // --- UI FONKSİYONLARI ---
     function openGenerator(platform) {
       if (!state.userId) {
-        notify("Lütfen önce giriş yapın.");
+        notify(state.lang === 'tr' ? "Lütfen önce giriş yapın." : "Please login first.");
         return;
       }
 
-      // HAK KONTROLÜ
       if (state.credits[platform] <= 0) {
-        document.getElementById('limit-modal').classList.add('active'); // ÖZEL MODAL AÇ
+        document.getElementById('limit-modal').classList.add('active');
         return;
       }
 
@@ -408,9 +411,11 @@
       if (!state.userId) return;
       
       const topic = document.getElementById('modal-topic-input').value.trim();
-      if (!topic) { notify("Lütfen bir konu yazın."); return; }
+      if (!topic) { 
+        notify(state.lang === 'tr' ? "Lütfen bir konu yazın." : "Please enter a topic."); 
+        return; 
+      }
 
-      // Tekrar kontrol (Modal açıkken hak bitmiş olabilir mi? Zor ama güvenli olsun)
       if (state.credits[state.currentPlatform] <= 0) {
         closeModal('generator-modal');
         document.getElementById('limit-modal').classList.add('active');
@@ -422,7 +427,8 @@
       const resultBox = document.getElementById('modal-result-box');
 
       btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ARAŞTIRILIYOR...';
+      const loadingText = state.lang === 'tr' ? 'ARAŞTIRILIYOR...' : 'RESEARCHING...';
+      btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
 
       try {
         const res = await fetch('/api/generate', {
@@ -430,7 +436,8 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             topic: topic,
-            platform: state.currentPlatform
+            platform: state.currentPlatform,
+            lang: state.lang // Dili de gönderiyoruz
           })
         });
 
@@ -438,22 +445,23 @@
         
         if (!res.ok) throw new Error(data.error || 'Hata');
 
-        // BAŞARILI: Krediyi düş ve kaydet
         state.credits[state.currentPlatform]--;
         saveCredits();
-        updateAllBadges(); // Arkadaki kartları güncelle
+        updateAllBadges();
         document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
 
         resultText.innerText = data.text;
         resultBox.classList.remove('hidden');
-        notify("İçerik Başarıyla Üretildi! ✨");
+        notify(state.lang === 'tr' ? "İçerik Başarıyla Üretildi! ✨" : "Content Generated! ✨");
 
       } catch (err) {
         console.error(err);
-        notify("Bir hata oluştu. Lütfen tekrar deneyin.");
+        notify(state.lang === 'tr' ? "Bir hata oluştu." : "An error occurred.");
       } finally {
         btn.disabled = false;
-        btn.innerText = "ÜRETİMİ BAŞLAT";
+        // Çeviriye uygun butonu geri getir
+        const genText = translations[state.lang] ? translations[state.lang].generate_btn : "ÜRETİMİ BAŞLAT";
+        btn.innerText = genText;
       }
     }
 
@@ -492,7 +500,6 @@
       navigator.clipboard.writeText(text).then(() => notify("Kopyalandı! ✨"));
     }
 
-    // Modal dışına tıklayınca kapatma
     window.onclick = function(e) {
       if (e.target.classList.contains('modal')) {
         e.target.classList.remove('active');
