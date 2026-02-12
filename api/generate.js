@@ -12,39 +12,36 @@ export default async function handler(req, res) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const topic = String(body.topic || "").trim();
     const lang = String(body.lang || "tr");
-    const platform = String(body.platform || "youtube");
-
+    
     if (!topic) return res.status(400).json({ error: "topic empty" });
 
-    // RASTGELE ÇEŞİTLİLİK İÇİN
     const randomSeed = Math.floor(Math.random() * 1000);
 
-    // GÜNCELLEME: Prompt tamamen değiştirildi.
-    // Kalıp cümleler silindi, doğrudan bulunan haberi kullanması emredildi.
+    // --- PROMPT AYARLARI ---
+    // Başlıkların yarım kalmaması için AI'ya "40 karakter" sınırı veriyoruz (Kodda 49'da keseceğiz).
+    // Böylece AI baştan kısa yazar, biz de kesmek zorunda kalmayız.
     const prompt =
 `Sen viral sosyal medya içerik uzmanısın. 
 
-GÖREV:
-1. Önce "${topic}" konusuyla ilgili internetteki EN SON DAKİKA gelişmelerini, skandalları veya trend olayları araştır.
-2. Bulduğun BU SPESİFİK BİLGİYİ kullanarak viral bir başlık yaz.
+GÖREV: İnternette "${topic}" konusundaki EN GÜNCEL gelişmeleri araştır ve buna göre içerik üret.
 
-⚠️ KRİTİK KURAL:
-- ASLA "3 Taktik", "5 Sır", "Büyük Dönüşüm" gibi GENEL kalıplar kullanma.
-- Doğrudan bulduğun haberi, kişi ismini veya olayı başlığa yaz.
-- Eğer "${topic}" genel bir kelimeyse (örn: "Müzik"), arama sonucunda bulduğun popüler sanatçının veya olayın adını kullan (Örn: "Taylor Swift'in Yeni Hamlesi Olay Oldu!").
+⚠️ KRİTİK KURAL: CÜMLELER ASLA YARIM KALMAMALI. ÇOK KISA VE ÖZ YAZ.
 
-FORMAT (SADECE 2 SATIR):
-1. Satır: Başlık (Max 60 karakter, merak uyandırıcı, spesifik olay odaklı)
-2. Satır: Hashtag (Konuyla tam alakalı 3-4 etiket)
+SADECE 2 SATIR YAZ:
 
-YASAKLAR:
-❌ Genel ifadeler (Örn: "Müzikte yeni dönem", "Futbolun sırları")
-❌ Kalıp cümleler
-❌ Sıkıcı haber başlığı (Clickbait ama gerçekçi olmalı)
+1. SATIR (BAŞLIK):
+- "${topic}" ile ilgili güncel, vurucu bir başlık.
+- MAKSİMUM 45 KARAKTER OLSUN (Çok kısa tut).
+- Sayı ve 1 emoji kullan.
+- Asla yarım bırakma.
+
+2. SATIR (HASHTAG):
+- Konuyla ilgili 3-4 popüler hashtag.
+- MAKSİMUM 45 KARAKTER.
 
 Random Seed: ${randomSeed}
 
-ŞİMDİ "${topic}" HAKKINDAKİ EN GÜNCEL OLAYI BAŞLIĞA TAŞI:`;
+ŞİMDİ YAZ (SADECE 2 SATIR):`;
 
     const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
@@ -54,10 +51,10 @@ Random Seed: ${randomSeed}
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        // GÜNCELLEME 2: Google Search Grounding aracı eklendi
+        // --- İNTERNET BAĞLANTISI ---
         tools: [{ google_search: {} }],
         generationConfig: {
-          temperature: 0.9,  // Daha fazla yaratıcılık
+          temperature: 0.8, // Daha tutarlı olması için düşürdük
           topP: 0.95,
           topK: 40
         }
@@ -73,8 +70,9 @@ Random Seed: ${randomSeed}
     }
 
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    // Veriyi temizle ve formatla
-    const fixed = enforceTwoLinesMax(out);
+    
+    // --- 49/50 KURALINA GÖRE DÜZENLEME ---
+    const fixed = enforceStrictLimits(out);
 
     return res.status(200).json({ text: fixed });
 
@@ -83,7 +81,7 @@ Random Seed: ${randomSeed}
   }
 }
 
-function enforceTwoLinesMax(text) {
+function enforceStrictLimits(text) {
   const lines = String(text || "")
     .replace(/\r/g, "")
     .split("\n")
@@ -93,27 +91,23 @@ function enforceTwoLinesMax(text) {
   let title = lines[0] || "";
   let tags = lines[1] || "";
 
+  // Eğer hashtag yoksa ve başlıkta # varsa ayır
   if (!tags && title.includes("#")) {
     const idx = title.indexOf("#");
     tags = title.slice(idx).trim();
     title = title.slice(0, idx).trim();
   }
 
-  title = smartTrim(title, 60);
+  // --- KESİN LİMİTLER ---
+  // Başlık: Max 49 Karakter (Kelime bölmeden)
+  title = smartTrim(title, 49);
+  
+  // Hashtag: Max 50 Karakter
   tags = normalizeTags(tags);
-  tags = smartTrim(tags, 40);
-  if (!tags) tags = "#shorts";
+  tags = smartTrim(tags, 50);
 
-  const total = Array.from(title).length + Array.from(tags).length + 1;
-  if (total > 100) {
-    const maxTagLen = 100 - Array.from(title).length - 1;
-    if (maxTagLen > 10) {
-      tags = smartTrim(tags, maxTagLen);
-    } else {
-      title = smartTrim(title, 50);
-      tags = smartTrim(tags, 49);
-    }
-  }
+  // Hashtag boşsa doldur
+  if (!tags) tags = "#shorts #viral";
 
   return `${title}\n${tags}`;
 }
@@ -126,11 +120,23 @@ function normalizeTags(s) {
   return t;
 }
 
+// Akıllı Kesme Fonksiyonu: Kelimeyi ortadan bölmez
 function smartTrim(str, maxLen) {
-  const arr = Array.from(String(str || ""));
-  if (arr.length <= maxLen) return arr.join("").trim();
-  const cut = arr.slice(0, maxLen).join("");
-  const lastSpace = cut.lastIndexOf(" ");
-  if (lastSpace > 0) return cut.slice(0, lastSpace).trim();
-  return cut.trim();
+  let trimmed = String(str || "").trim();
+  
+  if (trimmed.length <= maxLen) return trimmed;
+
+  // Max uzunluktan kes
+  trimmed = trimmed.substring(0, maxLen);
+
+  // Son karakter bir boşluk değilse, kelime ortasındayız demektir.
+  // Geriye doğru gidip ilk boşluğu bulalım.
+  const lastSpace = trimmed.lastIndexOf(" ");
+
+  if (lastSpace > 0) {
+    trimmed = trimmed.substring(0, lastSpace);
+  }
+  
+  // Eğer hiç boşluk yoksa (tek uzun kelimeyse) mecbur harften kesecek.
+  return trimmed.trim();
 }
