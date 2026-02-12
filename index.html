@@ -61,7 +61,7 @@
     .page-content.active { display:block; }
   </style>
 
-  <!-- Structured Data / Schema.org -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -228,7 +228,7 @@
       </div>
     </div>
 
-    <!-- OTHER PAGES (HIDDEN BY DEFAULT) -->
+    <!-- OTHER PAGES -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_about">Hakkımızda</h1>
@@ -265,7 +265,7 @@
         document.getElementById('user-display').innerText = u.displayName ? u.displayName.split(' ')[0].toUpperCase() : 'USER';
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('logout-btn').classList.remove('hidden');
-        loadCredits(); // Kullanıcı girince YEREL kaydı kontrol et
+        loadCredits(); 
       } else {
         state.userId = null;
         state.credits = { youtube: 0, instagram: 0, tiktok: 0, x: 0 };
@@ -283,26 +283,27 @@
     function logoutGoogle() { firebase.auth().signOut(); }
 
     /**
-     * Kredileri Yükle: Bir kez 0 olduysa, çıkış yapıp girmek hakları GERİ VERMEZ.
+     * Kredileri Yükle: Bir kez bittiğinde o gün için geri verilmez.
+     * Kullanıcı ID'si ve Tarih bazlı kontrol.
      */
     function loadCredits() {
       if (!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_credits_${state.userId}`;
+      const storageKey = `nsr_strict_v3_${state.userId}`;
       const saved = localStorage.getItem(storageKey);
       
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Eğer kayıtlı tarih bugüne aitse, o anki hakları al (ister 2 olsun ister 0)
         if (parsed.date === today) {
+          // Bugünün verisini yükle (0 ise 0 kalır)
           state.credits = parsed.credits;
         } else {
-          // Gün değiştiyse hakları tazele
+          // Yeni gün: Hakları tazele
           state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
           saveCredits();
         }
       } else {
-        // Hiç kayıt yoksa ilk hakları ver
+        // İlk kullanım
         state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
         saveCredits();
       }
@@ -312,7 +313,7 @@
     function saveCredits() {
       if (!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_credits_${state.userId}`;
+      const storageKey = `nsr_strict_v3_${state.userId}`;
       localStorage.setItem(storageKey, JSON.stringify({
         date: today,
         credits: state.credits
@@ -358,12 +359,12 @@
       btn.disabled = true; btn.innerText = '...';
       
       try {
-        const sys = `Viral sosyal medya içerik üreticisisin. Konuya uygun 3 başlık ve 10 hashtag üret. Dil: ${state.lang}.`;
+        const sys = `Sen profesyonel bir sosyal medya yöneticisisin. Konuya uygun, viral olabilecek 3 adet başlık ve 10 adet popüler hashtag üret. İçerik dili: ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'}.`;
         const p = `Platform: ${state.currentPlatform.toUpperCase()}, Konu: ${topic}.`;
         
         const res = await callGemini(p, sys);
         if (res) {
-          // Hak düşürme ve ANINDA kaydetme
+          // Hak düşürme ve ANINDA KALICI kaydetme
           state.credits[state.currentPlatform]--;
           saveCredits(); 
           
@@ -374,7 +375,10 @@
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
         }
-      } catch (err) { notify(translate('notify_error')); }
+      } catch (err) { 
+        console.error(err);
+        notify(translate('notify_error')); 
+      }
       finally { btn.disabled = false; btn.innerText = translate('generate_btn'); }
     }
 
@@ -388,11 +392,15 @@
 
       for (let i=0; i<r; i++) {
         try {
-          const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          const res = await fetch(url, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+          });
           const data = await res.json();
           const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
           if (text) return text;
-          throw new Error('Empty');
+          throw new Error('API Error');
         } catch (e) { 
           if (i === r-1) throw e; 
           await new Promise(v => setTimeout(v, Math.pow(2, i) * 1000)); 
