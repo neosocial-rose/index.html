@@ -532,7 +532,15 @@
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
         if(!r.ok||d.error)throw new Error(d.error||'API Error');
-        const res=d.text||'';
+        let res=d.text||'';
+        
+        // --- 100 KARAKTER SINIRI ---
+        // Gelen metin 100 karakterden uzunsa, tam 100. karakterde keser.
+        if(res.length > 100) {
+            res = res.substring(0, 100);
+        }
+        // --------------------------
+
         if(res){
           state.credits[state.currentPlatform]--;
           saveCredits();
