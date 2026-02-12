@@ -189,7 +189,7 @@
       en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About Us",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Titles & hashtags",modal_subtitle:"Viral content",remaining_rights:"Rights",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO Score",notify_limit:"No rights!",notify_topic:"Enter topic.",notify_success:"Generated ✨",notify_error:"Error!",notify_copied:"Copied ✨",notify_login_required:"Login required."}
     };
 
-    const state = { lang: 'tr', currentPlatform: 'youtube', userId: null, credits: { youtube: 2, instagram: 2, tiktok: 2, x: 2 } };
+    const state = { lang: 'tr', currentPlatform: 'youtube', userId: null, credits: { youtube: 0, instagram: 0, tiktok: 0, x: 0 } };
 
     const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
     firebase.initializeApp(firebaseConfig);
@@ -203,8 +203,10 @@
         loadCredits();
       } else {
         state.userId = null;
+        state.credits = { youtube: 0, instagram: 0, tiktok: 0, x: 0 };
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
+        updateBadges();
       }
     });
 
@@ -216,14 +218,20 @@
     function logoutGoogle() { firebase.auth().signOut(); }
 
     function loadCredits() {
+      if (!state.userId) return;
       const key = `nsr_credits_${state.userId}_${new Date().toDateString()}`;
       const saved = localStorage.getItem(key);
-      if (saved) state.credits = JSON.parse(saved);
-      else { state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 }; saveCredits(); }
+      if (saved) {
+        state.credits = JSON.parse(saved);
+      } else {
+        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
+        saveCredits();
+      }
       updateBadges();
     }
 
     function saveCredits() {
+      if (!state.userId) return;
       const key = `nsr_credits_${state.userId}_${new Date().toDateString()}`;
       localStorage.setItem(key, JSON.stringify(state.credits));
       updateBadges();
@@ -260,7 +268,7 @@
         const res = await callGemini(prompt);
         if (res) {
           state.credits[state.currentPlatform]--;
-          saveCredits();
+          saveCredits(); 
           document.getElementById('modal-result-text').innerText = res;
           document.getElementById('modal-result-box').classList.remove('hidden');
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
