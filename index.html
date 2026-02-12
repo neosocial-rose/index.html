@@ -53,7 +53,7 @@
         <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="location.reload()">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
-        <div class="hidden lg:flex items-center space-x-8 h-full">
+        <div class="hidden lg:flex items-center space-x-6 h-full">
           <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
           
           <div class="relative h-full flex items-center group">
@@ -69,6 +69,9 @@
 
           <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
           <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
+          <!-- YENİ EKLENEN MENÜLER -->
+          <span class="nav-link flex" onclick="showPage('press')" data-translate="nav_press">Basın</span>
+          <span class="nav-link flex" onclick="showPage('career')" data-translate="nav_career">Kariyer</span>
           <span class="nav-link flex" onclick="showPage('contact')" data-translate="nav_contact">İletişim</span>
         </div>
       </div>
@@ -180,7 +183,7 @@
       </div>
     </div>
 
-    <!-- FAQ PAGE -->
+    <!-- FAQ PAGE (GENİŞLETİLDİ) -->
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
@@ -189,6 +192,39 @@
             <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit nasıl çalışır?</h3>
             <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.</p>
           </div>
+          <!-- Yeni Eklenen Sorular -->
+          <div class="border-2 border-slate-100 rounded-2xl p-6">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q2">Kullanım ücretli mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a2">Hayır, platformumuz tamamen ücretsizdir.</p>
+          </div>
+          <div class="border-2 border-slate-100 rounded-2xl p-6">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q3">Verilerim güvende mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a3">Evet, içerikleriniz size özeldir ve Google altyapısıyla korunur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRESS PAGE (YENİ EKLENDİ) -->
+    <div id="page-press" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
+        <h1 class="text-4xl font-black mb-8" data-translate="press_title">Basın Odası</h1>
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+            <i class="fas fa-newspaper text-amber-500 text-5xl mb-4"></i>
+            <p class="text-xl font-black text-amber-600 mb-2" data-translate="coming_soon">YAKINDA</p>
+            <p class="text-sm text-slate-600" data-translate="press_desc">Basın bültenleri ve medya kitimiz yakında burada yayınlanacaktır.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAREER PAGE (YENİ EKLENDİ) -->
+    <div id="page-career" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
+        <h1 class="text-4xl font-black mb-8" data-translate="career_title">Kariyer</h1>
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8">
+            <i class="fas fa-briefcase text-blue-500 text-5xl mb-4"></i>
+            <p class="text-xl font-black text-blue-600 mb-2" data-translate="career_subtitle">BİZE KATILIN</p>
+            <p class="text-sm text-slate-600" data-translate="career_desc">Şu anda açık pozisyon bulunmamaktadır. Lütfen daha sonra tekrar kontrol edin.</p>
         </div>
       </div>
     </div>
@@ -269,14 +305,14 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // --- ÇEVİRİLER ---
+    // --- ÇEVİRİLER (GÜNCELLENDİ) ---
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_about:"Hakkımızda",nav_faq:"SSS",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları",platform_instagram_desc:"Post başlıkları",platform_tiktok_desc:"Viral içerik",platform_x_desc:"Tweet fikirleri",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X için güncel içerikler üretiyoruz.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.",contact_title:"İletişim",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Galatasaray maçı...",generate_btn:"ÜRETİMİ BAŞLAT"},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_about:"About",nav_faq:"FAQ",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles",platform_instagram_desc:"Post titles",platform_tiktok_desc:"Viral content",platform_x_desc:"Tweet ideas",about_title:"About Us",about_p1:"AI-powered platform for creators.",about_p2:"We create content for YouTube, Instagram, TikTok and X.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"You have 2 credits per platform daily.",contact_title:"Contact",modal_subtitle:"Create viral content",remaining_rights:"Credits Left",topic_label:"Topic",topic_placeholder:"E.g. Super Bowl...",generate_btn:"GENERATE"},
-      fr: {nav_home:"Accueil",nav_apps:"Apps",nav_about:"À propos",nav_faq:"FAQ",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Choisir Plateforme",platform_youtube_desc:"Titres vidéo",platform_instagram_desc:"Titres posts",platform_tiktok_desc:"Contenu viral",platform_x_desc:"Idées tweets",about_title:"À propos",about_p1:"Plateforme IA pour créateurs.",about_p2:"Contenu pour YouTube, Instagram, TikTok et X.",faq_title:"FAQ",faq_q1:"Comment marche la limite?",faq_a1:"2 crédits par plateforme par jour.",contact_title:"Contact",modal_subtitle:"Créer contenu viral",remaining_rights:"Crédits Restants",topic_label:"Sujet",topic_placeholder:"Ex: PSG match...",generate_btn:"GÉNÉRER"},
-      de: {nav_home:"Startseite",nav_apps:"Apps",nav_about:"Über uns",nav_faq:"FAQ",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"BALD",select_platform:"Plattform wählen",platform_youtube_desc:"Videotitel",platform_instagram_desc:"Post-Titel",platform_tiktok_desc:"Viraler Inhalt",platform_x_desc:"Tweet Ideen",about_title:"Über uns",about_p1:"KI-Plattform für Creator.",about_p2:"Inhalte für YouTube, Instagram, TikTok und X.",faq_title:"FAQ",faq_q1:"Wie funktioniert das Limit?",faq_a1:"2 Credits pro Plattform täglich.",contact_title:"Kontakt",modal_subtitle:"Viralen Inhalt erstellen",remaining_rights:"Verbleibende Credits",topic_label:"Thema",topic_placeholder:"Z.B. Bundesliga...",generate_btn:"GENERIEREN"},
-      es: {nav_home:"Inicio",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRONTO",select_platform:"Seleccionar Plataforma",platform_youtube_desc:"Títulos de video",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Contenido viral",platform_x_desc:"Ideas de tweets",about_title:"Sobre nosotros",about_p1:"Plataforma IA para creadores.",about_p2:"Contenido para YouTube, Instagram, TikTok y X.",faq_title:"FAQ",faq_q1:"¿Cómo funciona el límite?",faq_a1:"2 créditos por plataforma diarios.",contact_title:"Contacto",modal_subtitle:"Crear contenido viral",remaining_rights:"Créditos Restantes",topic_label:"Tema",topic_placeholder:"Ej: El Clásico...",generate_btn:"GENERAR"},
-      pt: {nav_home:"Início",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar Plataforma",platform_youtube_desc:"Títulos de vídeo",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Conteúdo viral",platform_x_desc:"Ideias de tweets",about_title:"Sobre nós",about_p1:"Plataforma IA para criadores.",about_p2:"Conteúdo para YouTube, Instagram, TikTok e X.",faq_title:"FAQ",faq_q1:"Como funciona o limite?",faq_a1:"2 créditos por plataforma diários.",contact_title:"Contato",modal_subtitle:"Criar conteúdo viral",remaining_rights:"Créditos Restantes",topic_label:"Tópico",topic_placeholder:"Ex: Flamengo...",generate_btn:"GERAR"}
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_about:"Hakkımızda",nav_faq:"SSS",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları",platform_instagram_desc:"Post başlıkları",platform_tiktok_desc:"Viral içerik",platform_x_desc:"Tweet fikirleri",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X için güncel içerikler üretiyoruz.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Gece yarısından sonra yenilenir.",faq_q2:"Kullanım ücretli mi?",faq_a2:"Hayır, platformumuz tamamen ücretsizdir.",faq_q3:"Verilerim güvende mi?",faq_a3:"Evet, içerikleriniz size özeldir.",press_title:"Basın Odası",press_desc:"Basın bültenleri yakında.",career_title:"Kariyer",career_subtitle:"BİZE KATILIN",career_desc:"Açık pozisyon bulunmuyor.",contact_title:"İletişim",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Galatasaray maçı...",generate_btn:"ÜRETİMİ BAŞLAT"},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_about:"About",nav_faq:"FAQ",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles",platform_instagram_desc:"Post titles",platform_tiktok_desc:"Viral content",platform_x_desc:"Tweet ideas",about_title:"About Us",about_p1:"AI-powered platform for creators.",about_p2:"We create content for YouTube, Instagram, TikTok and X.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"You have 2 credits per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Is my data safe?",faq_a3:"Yes, your content is private.",press_title:"Press Room",press_desc:"Press releases coming soon.",career_title:"Career",career_subtitle:"JOIN US",career_desc:"No open positions.",contact_title:"Contact",modal_subtitle:"Create viral content",remaining_rights:"Credits Left",topic_label:"Topic",topic_placeholder:"E.g. Super Bowl...",generate_btn:"GENERATE"},
+      fr: {nav_home:"Accueil",nav_apps:"Apps",nav_about:"À propos",nav_faq:"FAQ",nav_press:"Presse",nav_career:"Carrière",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Choisir Plateforme",platform_youtube_desc:"Titres vidéo",platform_instagram_desc:"Titres posts",platform_tiktok_desc:"Contenu viral",platform_x_desc:"Idées tweets",about_title:"À propos",about_p1:"Plateforme IA pour créateurs.",about_p2:"Contenu pour YouTube, Instagram, TikTok et X.",faq_title:"FAQ",faq_q1:"Comment marche la limite?",faq_a1:"2 crédits par plateforme par jour.",faq_q2:"Est-ce gratuit?",faq_a2:"Oui, totalement gratuit.",faq_q3:"Données sécurisées?",faq_a3:"Oui, contenu privé.",press_title:"Presse",press_desc:"Bientôt disponible.",career_title:"Carrière",career_subtitle:"REJOIGNEZ-NOUS",career_desc:"Pas de poste ouvert.",contact_title:"Contact",modal_subtitle:"Créer contenu viral",remaining_rights:"Crédits Restants",topic_label:"Sujet",topic_placeholder:"Ex: PSG match...",generate_btn:"GÉNÉRER"},
+      de: {nav_home:"Startseite",nav_apps:"Apps",nav_about:"Über uns",nav_faq:"FAQ",nav_press:"Presse",nav_career:"Karriere",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"BALD",select_platform:"Plattform wählen",platform_youtube_desc:"Videotitel",platform_instagram_desc:"Post-Titel",platform_tiktok_desc:"Viraler Inhalt",platform_x_desc:"Tweet Ideen",about_title:"Über uns",about_p1:"KI-Plattform für Creator.",about_p2:"Inhalte für YouTube, Instagram, TikTok und X.",faq_title:"FAQ",faq_q1:"Wie funktioniert das Limit?",faq_a1:"2 Credits pro Plattform täglich.",faq_q2:"Ist es kostenlos?",faq_a2:"Ja, komplett kostenlos.",faq_q3:"Daten sicher?",faq_a3:"Ja, privat.",press_title:"Presse",press_desc:"Bald verfügbar.",career_title:"Karriere",career_subtitle:"KARRIERE",career_desc:"Keine offenen Stellen.",contact_title:"Kontakt",modal_subtitle:"Viralen Inhalt erstellen",remaining_rights:"Verbleibende Credits",topic_label:"Thema",topic_placeholder:"Z.B. Bundesliga...",generate_btn:"GENERIEREN"},
+      es: {nav_home:"Inicio",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_press:"Prensa",nav_career:"Carrera",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRONTO",select_platform:"Seleccionar Plataforma",platform_youtube_desc:"Títulos de video",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Contenido viral",platform_x_desc:"Ideas de tweets",about_title:"Sobre nosotros",about_p1:"Plataforma IA para creadores.",about_p2:"Contenido para YouTube, Instagram, TikTok y X.",faq_title:"FAQ",faq_q1:"¿Cómo funciona el límite?",faq_a1:"2 créditos por plataforma diarios.",faq_q2:"¿Es gratis?",faq_a2:"Sí, totalmente gratis.",faq_q3:"¿Datos seguros?",faq_a3:"Sí, privado.",press_title:"Prensa",press_desc:"Próximamente.",career_title:"Carrera",career_subtitle:"ÚNETE",career_desc:"No hay vacantes.",contact_title:"Contacto",modal_subtitle:"Crear contenido viral",remaining_rights:"Créditos Restantes",topic_label:"Tema",topic_placeholder:"Ej: El Clásico...",generate_btn:"GENERAR"},
+      pt: {nav_home:"Início",nav_apps:"Apps",nav_about:"Sobre",nav_faq:"FAQ",nav_press:"Imprensa",nav_career:"Carreira",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar Plataforma",platform_youtube_desc:"Títulos de vídeo",platform_instagram_desc:"Títulos de post",platform_tiktok_desc:"Conteúdo viral",platform_x_desc:"Ideias de tweets",about_title:"Sobre nós",about_p1:"Plataforma IA para criadores.",about_p2:"Conteúdo para YouTube, Instagram, TikTok e X.",faq_title:"FAQ",faq_q1:"Como funciona o limite?",faq_a1:"2 créditos por plataforma diários.",faq_q2:"É grátis?",faq_a2:"Sim, totalmente.",faq_q3:"Dados seguros?",faq_a3:"Sim, privado.",press_title:"Imprensa",press_desc:"Em breve.",career_title:"Carreira",career_subtitle:"JUNTE-SE",career_desc:"Sem vagas.",contact_title:"Contato",modal_subtitle:"Criar conteúdo viral",remaining_rights:"Créditos Restantes",topic_label:"Tópico",topic_placeholder:"Ex: Flamengo...",generate_btn:"GERAR"}
     };
 
     // --- FIREBASE AYARLARI ---
@@ -321,7 +357,7 @@
       });
     }
 
-    // --- AUTHENTICATION & CREDITS LOGIC (DÜZELTİLDİ) ---
+    // --- AUTHENTICATION & CREDITS LOGIC (GÜÇLENDİRİLDİ) ---
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         state.userId = user.uid;
@@ -341,16 +377,16 @@
       if (!state.userId) return;
 
       const today = new Date().toISOString().split('T')[0];
-      // ÖNEMLİ: Key artık tarihi de içeriyor. Böylece tarih değişirse eski key bulunamaz ve yeni gün başlar.
-      const dailyKey = `nsr_credits_${state.userId}_${today}`;
+      // VERSİYONLAMA EKLENDİ (v2): Eski hatalı kayıtları geçersiz kılmak için.
+      const dailyKey = `nsr_credits_v2_${state.userId}_${today}`;
       
       const savedCredits = localStorage.getItem(dailyKey);
 
       if (savedCredits) {
-        // Bugün için kayıt var, onu yükle
+        // Bugün için kayıt bulundu, onu yükle
         state.credits = JSON.parse(savedCredits);
       } else {
-        // Bugün için kayıt yok (ya yeni gün ya da ilk giriş), hakları 2'ye resetle
+        // BUGÜN İÇİN HİÇ KAYIT YOK (Yeni gün veya ilk giriş) -> RESETLE
         state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
         saveCredits();
       }
@@ -360,7 +396,7 @@
     function saveCredits() {
       if (!state.userId) return;
       const today = new Date().toISOString().split('T')[0];
-      const dailyKey = `nsr_credits_${state.userId}_${today}`;
+      const dailyKey = `nsr_credits_v2_${state.userId}_${today}`;
       localStorage.setItem(dailyKey, JSON.stringify(state.credits));
     }
 
@@ -416,6 +452,7 @@
         return; 
       }
 
+      // Tekrar kontrol: Modal açıkken tarih değişmiş veya hak bitmiş olabilir
       if (state.credits[state.currentPlatform] <= 0) {
         closeModal('generator-modal');
         document.getElementById('limit-modal').classList.add('active');
@@ -437,7 +474,7 @@
           body: JSON.stringify({
             topic: topic,
             platform: state.currentPlatform,
-            lang: state.lang // Dili de gönderiyoruz
+            lang: state.lang 
           })
         });
 
@@ -459,7 +496,6 @@
         notify(state.lang === 'tr' ? "Bir hata oluştu." : "An error occurred.");
       } finally {
         btn.disabled = false;
-        // Çeviriye uygun butonu geri getir
         const genText = translations[state.lang] ? translations[state.lang].generate_btn : "ÜRETİMİ BAŞLAT";
         btn.innerText = genText;
       }
