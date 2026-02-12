@@ -168,7 +168,7 @@
             <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
           </button>
           <div id="modal-result-box" class="hidden space-y-4">
-            <div class="flex items-center justify-between"><span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span><span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span></div>
+            <div class="flex items-center justify-between"><span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">SEO Skoru</span><span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span></div>
             <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
               <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed whitespace-pre-wrap"></p>
               <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
@@ -258,34 +258,80 @@
 
     function closeGenerator() { document.getElementById('generator-modal').classList.remove('active'); }
 
+    function calculateSEO(t) {
+      let s = 65;
+      if (t.length > 50) s += 10;
+      if (t.includes('#')) s += 10;
+      if (/[A-Z]/.test(t)) s += 5;
+      if (t.length > 200) s += 10;
+      return Math.min(s, 100);
+    }
+
+    function getSEOClass(s) {
+      if (s >= 85) return 'seo-excellent';
+      if (s >= 70) return 'seo-good';
+      if (s >= 50) return 'seo-average';
+      return 'seo-poor';
+    }
+
     async function handleGeneration() {
-      const topic = document.getElementById('modal-topic-input').value.trim();
+      const topicInput = document.getElementById('modal-topic-input');
+      const topic = topicInput.value.trim();
       if (!topic) return notify(translate('notify_topic'));
       const btn = document.getElementById('modal-gen-btn');
-      btn.disabled = true; btn.innerText = '...';
+      btn.disabled = true; btn.innerText = state.lang === 'tr' ? 'ÜRETİLİYOR...' : 'GENERATING...';
+      
       try {
-        const prompt = `Generate viral ${state.currentPlatform} titles and 10 hashtags for topic: ${topic}. Language: ${state.lang}.`;
-        const res = await callGemini(prompt);
+        const sysPrompt = `Sen profesyonel bir sosyal medya yöneticisisin. Kullanıcının verdiği konuya uygun, viral olabilecek 3 adet başlık ve 10 adet popüler hashtag üret. İçerik dili: ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'}.`;
+        const prompt = `Platform: ${state.currentPlatform.toUpperCase()}, Konu: ${topic}.`;
+        
+        const res = await callGemini(prompt, sysPrompt);
         if (res) {
           state.credits[state.currentPlatform]--;
           saveCredits(); 
-          document.getElementById('modal-result-text').innerText = res;
+          
+          const txtBox = document.getElementById('modal-result-text');
+          txtBox.innerText = res;
+          
+          const score = calculateSEO(res);
+          const sb = document.getElementById('seo-score-badge');
+          sb.innerText = `${score}/100`;
+          sb.className = `seo-badge ${getSEOClass(score)}`;
+          
           document.getElementById('modal-result-box').classList.remove('hidden');
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
         }
-      } catch (err) { notify(translate('notify_error')); }
+      } catch (err) { 
+        console.error(err);
+        notify(translate('notify_error')); 
+      }
       finally { btn.disabled = false; btn.innerText = translate('generate_btn'); }
     }
 
-    async function callGemini(p, r=5) {
+    async function callGemini(p, s, r=5) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: p }] }],
+        systemInstruction: { parts: [{ text: s }] },
+        tools: [{ "google_search": {} }]
+      };
+
       for (let i=0; i<r; i++) {
         try {
-          const res = await fetch(url, { method:'POST', body: JSON.stringify({ contents:[{parts:[{text:p}]}], tools:[{google_search:{}}] }) });
+          const res = await fetch(url, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+          });
           const data = await res.json();
-          return data.candidates?.[0]?.content?.parts?.[0]?.text;
-        } catch (e) { if (i===r-1) throw e; await new Promise(v=>setTimeout(v, Math.pow(2,i)*1000)); }
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) return text;
+          throw new Error('API Response Empty');
+        } catch (e) { 
+          if (i === r-1) throw e; 
+          await new Promise(v => setTimeout(v, Math.pow(2, i) * 1000)); 
+        }
       }
     }
 
