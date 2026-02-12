@@ -19,52 +19,32 @@ export default async function handler(req, res) {
     // RASTGELE ÇEŞİTLİLİK İÇİN
     const randomSeed = Math.floor(Math.random() * 1000);
 
-    // GÜNCELLEME 1: Prompt'a internet araştırması emri eklendi
+    // GÜNCELLEME: Prompt tamamen değiştirildi.
+    // Kalıp cümleler silindi, doğrudan bulunan haberi kullanması emredildi.
     const prompt =
 `Sen viral sosyal medya içerik uzmanısın. 
 
-GÖREV: Önce "${topic}" konusuyla ilgili internetteki EN GÜNCEL ve TREND gelişmeleri araştır. Sonra bu güncel bilgilere dayanarak ORİJİNAL bir başlık yaz.
+GÖREV:
+1. Önce "${topic}" konusuyla ilgili internetteki EN SON DAKİKA gelişmelerini, skandalları veya trend olayları araştır.
+2. Bulduğun BU SPESİFİK BİLGİYİ kullanarak viral bir başlık yaz.
 
-⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. Tekrar etme!
+⚠️ KRİTİK KURAL:
+- ASLA "3 Taktik", "5 Sır", "Büyük Dönüşüm" gibi GENEL kalıplar kullanma.
+- Doğrudan bulduğun haberi, kişi ismini veya olayı başlığa yaz.
+- Eğer "${topic}" genel bir kelimeyse (örn: "Müzik"), arama sonucunda bulduğun popüler sanatçının veya olayın adını kullan (Örn: "Taylor Swift'in Yeni Hamlesi Olay Oldu!").
 
-SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
+FORMAT (SADECE 2 SATIR):
+1. Satır: Başlık (Max 60 karakter, merak uyandırıcı, spesifik olay odaklı)
+2. Satır: Hashtag (Konuyla tam alakalı 3-4 etiket)
 
-KURAL 1 - BAŞLIK (1. satır):
-- "${topic}" konusuna DOĞRUDAN değin
-- FARKLI açılardan yaklaş (zaman, sonuç, süreç, problem, çözüm)
-- Sayı kullan: 3, 5, 7, 10, 30 (farklı rakamlar dene)
-- Güçlü kelime varyasyonu kullan:
-  * Sır, Taktik, Yöntem, Teknik, Strateji
-  * Püf Noktası, İpucu, Formül, Sistem, Adım
-  * Hile, Kural, Detay, Özellik, Fark
-- 1-2 emoji (farklı kombinasyonlar)
-- Max 60 karakter
+YASAKLAR:
+❌ Genel ifadeler (Örn: "Müzikte yeni dönem", "Futbolun sırları")
+❌ Kalıp cümleler
+❌ Sıkıcı haber başlığı (Clickbait ama gerçekçi olmalı)
 
-ÇEŞİTLİ BAŞLIK YAPILARI (BUNLARDAN BİRİNİ SEÇ):
-1. Sonuç odaklı: "30 Günde ${topic} Ustası Ol: 5 Adım 🔥"
-2. Problem çözme: "${topic}'te Yapılan 3 Büyük Yanlış ❌"
-3. Hızlı sonuç: "${topic} İçin 10 Dakikalık Formül ⚡"
-4. Karşılaştırma: "Amatör vs Pro: ${topic}'te 7 Fark 🎯"
-5. Zaman bazlı: "${topic} 2024'te Nasıl Değişti? 📊"
-6. Gizli bilgi: "${topic} Profesyonellerinin 5 Sırrı 🤫"
+Random Seed: ${randomSeed}
 
-KURAL 2 - HASHTAG (2. satır):
-- "${topic}" ile alakalı FARKLI hashtag'ler
-- Her seferinde değişik kombinasyon
-- 3-5 kısa hashtag
-- Max 40 karakter
-
-YASAK:
-❌ Tekrar eden başlıklar
-❌ "Kimse bilmiyor", "Şok", "Gerçek", "Hata", "Bitiriyor"
-❌ Konu dışı içerik
-
-Random Seed: ${randomSeed} (farklılık için)
-
-ŞİMDİ "${topic}" İÇİN ORİJİNAL YAZ (SADECE 2 SATIR):
-
-1. satır: Başlık
-2. satır: Hashtag`;
+ŞİMDİ "${topic}" HAKKINDAKİ EN GÜNCEL OLAYI BAŞLIĞA TAŞI:`;
 
     const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
