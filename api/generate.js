@@ -19,8 +19,11 @@ export default async function handler(req, res) {
     // RASTGELE ÇEŞİTLİLİK İÇİN
     const randomSeed = Math.floor(Math.random() * 1000);
 
+    // GÜNCELLEME 1: Prompt'a internet araştırması emri eklendi
     const prompt =
-`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için ORİJİNAL başlık yaz.
+`Sen viral sosyal medya içerik uzmanısın. 
+
+GÖREV: Önce "${topic}" konusuyla ilgili internetteki EN GÜNCEL ve TREND gelişmeleri araştır. Sonra bu güncel bilgilere dayanarak ORİJİNAL bir başlık yaz.
 
 ⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. Tekrar etme!
 
@@ -71,6 +74,8 @@ Random Seed: ${randomSeed} (farklılık için)
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
+        // GÜNCELLEME 2: Google Search Grounding aracı eklendi
+        tools: [{ google_search: {} }],
         generationConfig: {
           temperature: 0.9,  // Daha fazla yaratıcılık
           topP: 0.95,
@@ -88,6 +93,7 @@ Random Seed: ${randomSeed} (farklılık için)
     }
 
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    // Veriyi temizle ve formatla
     const fixed = enforceTwoLinesMax(out);
 
     return res.status(200).json({ text: fixed });
