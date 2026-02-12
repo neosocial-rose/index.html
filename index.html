@@ -60,8 +60,6 @@
     .seo-poor { background:#fee2e2; color:#991b1b; }
     .page-content { display:none; }
     .page-content.active { display:block; }
-    /* LIMIT UYARI MODALI İÇİN EK STİL */
-    #limit-modal .modal-content { text-align: center; border: 4px solid #fecdd3; }
   </style>
 
   <!-- Structured Data / Schema.org -->
@@ -91,7 +89,7 @@
         <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showPage('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
-        <div class="hidden lg:flex items-center space-x-6 h-full">
+        <div class="hidden lg:flex items-center space-x-8 h-full">
           <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
 
           <div class="relative h-full flex items-center">
@@ -123,11 +121,9 @@
 
           <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
           <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
-          <!-- EKLENEN MENÜLER -->
+          <span class="nav-link flex" onclick="showPage('security')" data-translate="nav_security">Güvenlik</span>
           <span class="nav-link flex" onclick="showPage('press')" data-translate="nav_press">Basın</span>
           <span class="nav-link flex" onclick="showPage('career')" data-translate="nav_career">Kariyer</span>
-          
-          <span class="nav-link flex" onclick="showPage('security')" data-translate="nav_security">Güvenlik</span>
           <span class="nav-link flex" onclick="showPage('contact')" data-translate="nav_contact">İletişim</span>
         </div>
       </div>
@@ -265,7 +261,7 @@
       </div>
     </div>
 
-    <!-- FAQ PAGE (GENİŞLETİLDİ) -->
+    <!-- FAQ PAGE -->
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
@@ -281,15 +277,6 @@
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
             <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q3">Hangi AI kullanılıyor?</h3>
             <p class="text-slate-700 font-bold text-sm" data-translate="faq_a3">Google'ın Gemini AI teknolojisini kullanıyoruz.</p>
-          </div>
-          <!-- YENİ SORULAR -->
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q4">Kullanım ücretli mi?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a4">Hayır, platformumuz tamamen ücretsizdir.</p>
-          </div>
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q5">Verilerim güvende mi?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a5">Evet, içerikleriniz size özeldir.</p>
           </div>
         </div>
       </div>
@@ -318,26 +305,30 @@
       </div>
     </div>
 
-    <!-- PRESS PAGE (YENİ EKLENDİ) -->
+    <!-- PRESS PAGE -->
     <div id="page-press" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
-        <h1 class="text-4xl font-black mb-8" data-translate="press_title">Basın Odası</h1>
-        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
-            <i class="fas fa-newspaper text-amber-500 text-5xl mb-4"></i>
-            <p class="text-xl font-black text-amber-600 mb-2" data-translate="coming_soon">YAKINDA</p>
-            <p class="text-sm text-slate-600" data-translate="press_desc">Basın bültenleri ve medya kitimiz yakında burada yayınlanacaktır.</p>
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="press_title">Basın Odası</h1>
+        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
+          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+            <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
+            <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
+            <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- CAREER PAGE (YENİ EKLENDİ) -->
+    <!-- CAREER PAGE -->
     <div id="page-career" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
-        <h1 class="text-4xl font-black mb-8" data-translate="career_title">Kariyer</h1>
-        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8">
-            <i class="fas fa-briefcase text-blue-500 text-5xl mb-4"></i>
-            <p class="text-xl font-black text-blue-600 mb-2" data-translate="career_subtitle">BİZE KATILIN</p>
-            <p class="text-sm text-slate-600" data-translate="career_desc">Şu anda açık pozisyon bulunmamaktadır. Lütfen daha sonra tekrar kontrol edin.</p>
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="career_title">Kariyer</h1>
+        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
+          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+            <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
+            <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
+            <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -413,21 +404,6 @@
     </div>
   </div>
 
-  <!-- LIMIT UYARI MODALI (EKLENDİ) -->
-  <div id="limit-modal" class="modal">
-    <div class="modal-content">
-      <div class="mb-6">
-        <i class="fas fa-hourglass-end text-rose-500 text-6xl"></i>
-      </div>
-      <h2 class="text-2xl font-black mb-4">HAKLARINIZ BİTTİ</h2>
-      <p class="text-slate-600 font-bold mb-8">
-        Üzgünüz, bugünlük bu platformdaki 2 üretim hakkınızın tamamını kullandınız.<br><br>
-        Yarın haklarınız yenilendiğinde sizi tekrar bekliyoruz! ✨
-      </p>
-      <button onclick="document.getElementById('limit-modal').classList.remove('active')" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold">Tamam, anlaşıldı</button>
-    </div>
-  </div>
-
   <footer class="bg-slate-900 text-slate-500 py-16 px-4 mt-auto">
     <div class="max-w-7xl mx-auto text-center">
       <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
@@ -449,8 +425,8 @@
 
   <script>
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_2:"⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",faq_q4:"Kullanım ücretli mi?",faq_a4:"Hayır, platformumuz tamamen ücretsizdir.",faq_q5:"Verilerim güvende mi?",faq_a5:"Evet, içerikleriniz size özeldir.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",press_desc:"Basın bültenleri yakında.",career_title:"Kariyer",career_subtitle:"BİZE KATILIN",career_desc:"Açık pozisyon bulunmuyor.",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"Üretim hakkınız bitti! Yarın yenilenecek.",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",faq_q4:"Is it paid?",faq_a4:"No, it is free.",faq_q5:"Is my data safe?",faq_a5:"Yes, private.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",press_desc:"Coming soon.",career_title:"Career",career_subtitle:"JOIN US",career_desc:"No openings.",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"Daily limit reached! Will reset tomorrow.",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_2:"⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"Üretim hakkınız bitti! Yarın yenilenecek.",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"Daily limit reached! Will reset tomorrow.",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
     };
 
     const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:2,instagram:2,tiktok:2,x:2}};
@@ -470,10 +446,11 @@
         loadCredits();
       }else{
         state.userId=null;
-        resetUIBadges({youtube:2,instagram:2,tiktok:2,x:2}); 
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0}; // DÜZELTME: Çıkış yapıldığında haklar 0'a çekildi.
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
+        updateAllBadges();
       }
     });
 
@@ -486,53 +463,27 @@
       }).catch(e=>console.error(e));
     }
 
-    // YEREL TARİH FONKSİYONU (DÜZELTME: Günlük İmza)
-    function getTodayKey() {
-      // Türkiye saatiyle uyumlu olması için basit YYYY-MM-DD formatı
-      return new Date().toLocaleDateString('en-CA'); 
-    }
-
     function loadCredits(){
       if(!state.userId) return;
-      const today = getTodayKey();
-      // V3 SÜRÜMÜ: Eski bozuk kayıtları temizlemek için key değiştirdik
-      const dailyKey = `nsr_credits_v3_${state.userId}_${today}`;
-      
-      const savedCredits = localStorage.getItem(dailyKey);
-
-      if (savedCredits) {
-        try {
-          state.credits = JSON.parse(savedCredits);
-        } catch (e) {
-          console.error("Kayıt hatası", e);
-          state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
-          saveCredits();
-        }
-      } else {
-        // Bugün için kayıt yoksa (yeni gün veya ilk giriş) -> RESETLEME
-        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
-        saveCredits();
+      const t=new Date().toDateString();
+      const ld=localStorage.getItem(`nsr_date_${state.userId}`);
+      if(ld!==t){
+        localStorage.setItem(`nsr_date_${state.userId}`,t);
+        state.credits={youtube:2,instagram:2,tiktok:2,x:2};
+        localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
+      }else{
+        const s=localStorage.getItem(`nsr_credits_${state.userId}`);
+        if(s)state.credits=JSON.parse(s);
       }
       updateAllBadges();
     }
 
     function saveCredits(){
       if(!state.userId) return;
-      const today = getTodayKey();
-      const dailyKey = `nsr_credits_v3_${state.userId}_${today}`;
-      localStorage.setItem(dailyKey, JSON.stringify(state.credits));
+      localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
     }
 
     function updateAllBadges(){Object.keys(state.credits).forEach(p=>{const b=document.getElementById(`badge-${p}`);if(b)b.innerText=`${state.credits[p]}/2`;const c=document.getElementById(`card-${p}`);if(c){if(state.credits[p]<=0)c.classList.add('disabled');else c.classList.remove('disabled');}});}
-
-    function resetUIBadges(defaults) {
-      Object.keys(defaults).forEach(p => {
-        const b = document.getElementById(`badge-${p}`);
-        if(b) b.innerText = "2/2";
-        const c = document.getElementById(`card-${p}`);
-        if(c) c.classList.remove('disabled');
-      });
-    }
 
     function setLang(l){state.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.getElementById(`l-${l}`);if(btn)btn.classList.add('active');translatePage();}
 
@@ -547,9 +498,8 @@
         notify(translate('notify_login_required'));
         return;
       }
-      // LIMIT KONTROLÜ VE UYARI PENCERESİ
       if(state.credits[p]<=0){
-        document.getElementById('limit-modal').classList.add('active');
+        notify(translate('notify_limit'));
         return;
       }
       state.currentPlatform=p;
@@ -574,14 +524,7 @@
       }
       const tp=document.getElementById('modal-topic-input').value.trim();
       if(!tp){notify(translate('notify_topic'));return;}
-      
-      // IKINCI KONTROL
-      if(state.credits[state.currentPlatform]<=0){
-        closeGenerator();
-        document.getElementById('limit-modal').classList.add('active');
-        return;
-      }
-
+      if(state.credits[state.currentPlatform]<=0){notify(translate('notify_limit'));return;}
       const btn=document.getElementById('modal-gen-btn'),rb=document.getElementById('modal-result-box'),rt=document.getElementById('modal-result-text');
       btn.disabled=true;
       btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> '+(state.lang==='tr'?'ÜRETİLİYOR...':'GENERATING...');
@@ -591,7 +534,6 @@
         if(!r.ok||d.error)throw new Error(d.error||'API Error');
         const res=d.text||'';
         if(res){
-          // BASARILI OLUNCA DUS
           state.credits[state.currentPlatform]--;
           saveCredits();
           updateAllBadges();
