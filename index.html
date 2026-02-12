@@ -307,28 +307,24 @@
 
     <!-- PRESS PAGE -->
     <div id="page-press" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="press_title">Basın Odası</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
-          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
+        <h1 class="text-4xl font-black mb-8" data-translate="press_title">Basın Odası</h1>
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
             <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
             <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
             <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
-          </div>
         </div>
       </div>
     </div>
 
     <!-- CAREER PAGE -->
     <div id="page-career" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="career_title">Kariyer</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
-          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
+        <h1 class="text-4xl font-black mb-8" data-translate="career_title">Kariyer</h1>
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
             <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
             <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
             <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
-          </div>
         </div>
       </div>
     </div>
@@ -419,7 +415,7 @@
     </div>
   </footer>
 
-  <!-- Firebase Scripts (EN ALTTA) -->
+  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -430,24 +426,24 @@
       en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"Limit reached today! Will reset tomorrow.",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
     };
 
-    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:2,instagram:2,tiktok:2,x:2}};
-
-    function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
+    const appId = 'neosocial-rose';
+    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:2,instagram:2,tiktok:2,x:2}, isLoading: false};
 
     const firebaseConfig={apiKey:"AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",authDomain:"neosocial-rose.firebaseapp.com",projectId:"neosocial-rose",storageBucket:"neosocial-rose.firebasestorage.app",messagingSenderId:"909069196756",appId:"1:909069196756:web:db488838badee276f0ca41"};
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    firebase.auth().onAuthStateChanged(u=>{
+    firebase.auth().onAuthStateChanged(async (u)=>{
       if(u){
         state.userId=u.uid;
         const dn=u.displayName?u.displayName.split(' ')[0].toUpperCase():translate('login');
         document.getElementById('user-display').innerText=dn;
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('logout-btn').classList.remove('hidden');
-        loadCreditsFromCloud();
+        await loadCreditsFromCloud();
       }else{
         state.userId=null;
+        // Giriş yapmamış kullanıcıya hak gösterme (ya da 0 göster)
         state.credits={youtube:0,instagram:0,tiktok:0,x:0}; 
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
@@ -456,21 +452,12 @@
       }
     });
 
-    function loginWithGoogle(){const p=new firebase.auth.GoogleAuthProvider();firebase.auth().signInWithPopup(p).catch(e=>{console.error(e);notify('Giriş başarısız.');});}
-
-    function logoutGoogle(){
-      firebase.auth().signOut().then(()=>{
-        notify('Çıkış yapıldı.');
-        closeGenerator();
-      }).catch(e=>console.error(e));
-    }
-
-    // --- KESİN LİMİT KONTROLÜ: BULUT SİSTEMİ (Firestore) ---
-    // Haklar artık hesaba bağlanıyor, giriş-çıkış yapmak hakları geri getirmez.
+    // KURAL 1: KESİN YOLLAR - /artifacts/{appId}/users/{userId}/{collectionName}
     async function loadCreditsFromCloud(){
       if(!state.userId) return;
       const today = new Date().toLocaleDateString('en-CA');
-      const docRef = db.collection('artifacts').doc('neosocial-rose').collection('users').doc(state.userId).collection('limits').doc(today);
+      // Kural 1'e uygun yol düzenlemesi
+      const docRef = db.collection('artifacts').doc(appId).collection('users').doc(state.userId).collection('limits').doc(today);
       
       try {
         const doc = await docRef.get();
@@ -484,7 +471,7 @@
         updateAllBadges();
       } catch (e) {
         console.error("Cloud Error:", e);
-        // Fallback to local if cloud fails
+        // Fallback: Hata durumunda LocalStorage kullan
         loadCreditsLocal();
       }
     }
@@ -492,7 +479,7 @@
     async function saveCreditsToCloud(){
       if(!state.userId) return;
       const today = new Date().toLocaleDateString('en-CA');
-      const docRef = db.collection('artifacts').doc('neosocial-rose').collection('users').doc(state.userId).collection('limits').doc(today);
+      const docRef = db.collection('artifacts').doc(appId).collection('users').doc(state.userId).collection('limits').doc(today);
       try {
         await docRef.set(state.credits);
       } catch (e) {
@@ -501,7 +488,6 @@
       }
     }
 
-    // Local Storage Fallback
     function loadCreditsLocal(){
       const key = `nsr_v4_${state.userId}_${new Date().toLocaleDateString('en-CA')}`;
       const stored = localStorage.getItem(key);
@@ -515,23 +501,17 @@
 
     function updateAllBadges(){Object.keys(state.credits).forEach(p=>{const b=document.getElementById(`badge-${p}`);if(b)b.innerText=`${state.credits[p]}/2`;const c=document.getElementById(`card-${p}`);if(c){if(state.credits[p]<=0)c.classList.add('disabled');else c.classList.remove('disabled');}});}
 
+    function loginWithGoogle(){const p=new firebase.auth.GoogleAuthProvider();firebase.auth().signInWithPopup(p).catch(e=>{notify('Giriş başarısız.');});}
+    function logoutGoogle(){firebase.auth().signOut().then(()=>{notify('Çıkış yapıldı.'); closeGenerator();});}
+    function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
     function setLang(l){state.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.getElementById(`l-${l}`);if(btn)btn.classList.add('active');translatePage();}
-
     function translate(k){return translations[state.lang][k]||translations['tr'][k]||k;}
-
     function translatePage(){document.querySelectorAll('[data-translate]').forEach(e=>{const k=e.getAttribute('data-translate');e.innerHTML=translate(k);});document.querySelectorAll('[data-translate-placeholder]').forEach(e=>{const k=e.getAttribute('data-translate-placeholder');e.placeholder=translate(k);});}
-
     function showPage(p){document.querySelectorAll('.page-content').forEach(pg=>pg.classList.remove('active'));const t=document.getElementById(`page-${p}`);if(t)t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 
     function openGenerator(p){
-      if(!state.userId){
-        notify(translate('notify_login_required'));
-        return;
-      }
-      if(state.credits[p]<=0){
-        notify(translate('notify_limit'));
-        return;
-      }
+      if(!state.userId){ notify(translate('notify_login_required')); return; }
+      if(state.credits[p]<=0){ notify(translate('notify_limit')); return; }
       state.currentPlatform=p;
       const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)'};
       document.getElementById('modal-platform-title').innerText=pn[p];
@@ -542,34 +522,32 @@
     }
 
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
-
     function calculateSEO(t){let s=50;if(t.length>=40&&t.length<=80)s+=15;const er=/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;if(er.test(t))s+=10;const hc=(t.match(/#/g)||[]).length;if(hc>=2&&hc<=5)s+=15;return Math.min(Math.max(s,0),100);}
-
     function getSEOClass(s){if(s>=80)return'seo-excellent';if(s>=60)return'seo-good';if(s>=40)return'seo-average';return'seo-poor';}
 
     async function generateContent(){
-      if(!state.userId){
-        notify(translate('notify_login_required'));
-        return;
-      }
+      if(!state.userId){ notify(translate('notify_login_required')); return; }
       const tp=document.getElementById('modal-topic-input').value.trim();
-      if(!tp){notify(translate('notify_topic'));return;}
-      if(state.credits[state.currentPlatform]<=0){
-          notify(translate('notify_limit'));
-          closeGenerator();
-          return;
-      }
+      if(!tp){ notify(translate('notify_topic')); return; }
+      if(state.credits[state.currentPlatform]<=0){ notify(translate('notify_limit')); closeGenerator(); return; }
       
       const btn=document.getElementById('modal-gen-btn'),rb=document.getElementById('modal-result-box'),rt=document.getElementById('modal-result-text');
       btn.disabled=true;
+      state.isLoading = true;
       btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> '+(state.lang==='tr'?'ÜRETİLİYOR...':'GENERATING...');
+      
       try{
-        const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
-        const d=await r.json();
-        if(!r.ok||d.error)throw new Error(d.error||'API Error');
-        let res=d.text||'';
+        const r=await fetch('/api/generate',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})
+        });
         
-        // 100 Karakter UI Koruması (API zaten yapıyor ama burası son durak)
+        const d=await r.json();
+        if(!r.ok||d.error) throw new Error(d.error||'API Error');
+        
+        let res=d.text||'';
+        // 100 Karakter UI Koruması
         if(res.length > 100) res = res.substring(0, 100);
 
         if(res){
@@ -584,25 +562,27 @@
           sb.className=`seo-badge ${getSEOClass(sc)}`;
           rb.classList.remove('hidden');
           notify(translate('notify_success'));
-        }else throw new Error('Empty');
-      }catch(e){
+        } else {
+          throw new Error('Empty result');
+        }
+      } catch(e) {
         console.error(e);
         notify(translate('notify_error'));
-      }finally{
+      } finally {
         btn.disabled=false;
+        state.isLoading = false;
         btn.innerHTML=`<span data-translate="generate_btn">${translate('generate_btn')}</span>`;
       }
     }
 
     function copyModalContent(){const t=document.getElementById('modal-result-text').innerText,e=document.createElement('textarea');e.value=t;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);notify(translate('notify_copied'));}
 
+    // Menü Dropdown Logic
     const ab=document.getElementById('nav-apps-btn'),ad=document.getElementById('nav-apps-dd');if(ab&&ad){ab.addEventListener('mouseenter',()=>ad.style.display='block');ab.parentElement.addEventListener('mouseleave',()=>ad.style.display='none');}
-
     const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
 
-    document.getElementById('generator-modal').addEventListener('click',function(e){if(e.target===this)closeGenerator();});
-
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenerator();});
+    document.getElementById('generator-modal').addEventListener('click',function(e){if(e.target===this && !state.isLoading)closeGenerator();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape' && !state.isLoading)closeGenerator();});
 
     window.addEventListener('DOMContentLoaded',()=>{translatePage();});
   </script>
