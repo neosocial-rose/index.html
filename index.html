@@ -49,6 +49,7 @@
     .platform-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; cursor: pointer; transition: all 0.3s; background: #fff; }
     .platform-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
     .platform-card.disabled { opacity: 0.4; cursor: not-allowed; }
+    .platform-card.disabled:hover { transform: none; border-color: #f1f5f9; }
     .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
     .modal.active { display:flex; }
     .modal-content { background:#fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
@@ -61,7 +62,6 @@
     .page-content.active { display:block; }
   </style>
 
-  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,14 +90,20 @@
         </h1>
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
-          
+
           <div class="relative h-full flex items-center group">
             <span class="nav-link flex" id="nav-apps-btn" data-translate="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown group-hover:block" id="nav-apps-dd">
               <p class="text-[10px] font-black text-center mb-3 text-rose-500" data-translate="coming_soon">YAKINDA</p>
               <div class="flex justify-around items-center gap-4">
-                <div class="text-center"><i class="fab fa-apple text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">App Store</p></div>
-                <div class="text-center"><i class="fab fa-google-play text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">Google Play</p></div>
+                <div class="text-center">
+                  <i class="fab fa-apple text-slate-800 text-3xl"></i>
+                  <p class="text-[8px] font-bold mt-1">App Store</p>
+                </div>
+                <div class="text-center">
+                  <i class="fab fa-google-play text-slate-800 text-3xl"></i>
+                  <p class="text-[8px] font-bold mt-1">Google Play</p>
+                </div>
               </div>
             </div>
           </div>
@@ -106,7 +112,7 @@
             <span class="nav-link flex" id="nav-platform-btn" data-translate="nav_platform">Platform</span>
             <div class="menu-dropdown text-center group-hover:block" id="nav-platform-dd">
               <div class="bg-gradient-to-r from-rose-50 to-purple-50 p-3 rounded-lg">
-                <p class="text-[10px] font-black text-slate-700 mb-1 uppercase">🤖 Power By</p>
+                <p class="text-[10px] font-black text-slate-700 mb-1">🤖 POWERED BY</p>
                 <p class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">GEMINI AI</p>
               </div>
             </div>
@@ -130,9 +136,11 @@
           <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
           <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
         </div>
+
         <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
           <span id="user-display" data-translate="login">GİRİŞ</span>
         </button>
+
         <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg">
           <span data-translate="logout">ÇIKIŞ</span>
         </button>
@@ -141,44 +149,65 @@
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
-    <!-- HOME PAGE -->
+
     <div id="page-home" class="page-content active">
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
-        <div class="hero-box"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 1</span>';"></div>
+        <div class="hero-box">
+          <img class="hero-img" src="hero.jpeg" alt="AI Hero" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 1</span>';">
+        </div>
+
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
           <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 2</span>';"></div>
+
+        <div class="hero-box">
+          <img class="hero-img" src="hero1.jpeg" alt="AI Hero 2" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 2</span>';">
+        </div>
       </section>
 
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
-            <div class="flex items-center justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-youtube text-red-600 text-4xl"></i>
+              <span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
             <h3 class="text-lg font-black mb-2">YouTube</h3>
-            <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları ve hashtag'ler</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları & hashtag'ler</p>
           </div>
+
           <div class="platform-card" id="card-instagram" onclick="openGenerator('instagram')">
-            <div class="flex items-center justify-between mb-4"><i class="fab fa-instagram text-pink-600 text-4xl"></i><span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-instagram text-pink-600 text-4xl"></i>
+              <span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
             <h3 class="text-lg font-black mb-2">Instagram</h3>
-            <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Gönderi başlıkları ve hashtag'ler</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Gönderi başlıkları & hashtag'ler</p>
           </div>
+
           <div class="platform-card" id="card-tiktok" onclick="openGenerator('tiktok')">
-            <div class="flex items-center justify-between mb-4"><i class="fab fa-tiktok text-slate-900 text-4xl"></i><span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-tiktok text-slate-900 text-4xl"></i>
+              <span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
             <h3 class="text-lg font-black mb-2">TikTok</h3>
-            <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Video başlıkları ve trend hashtag'ler</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Trend hashtag'ler</p>
           </div>
+
           <div class="platform-card" id="card-x" onclick="openGenerator('x')">
-            <div class="flex items-center justify-between mb-4"><i class="fab fa-twitter text-blue-400 text-4xl"></i><span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <div class="flex items-center justify-between mb-4">
+              <i class="fab fa-twitter text-blue-400 text-4xl"></i>
+              <span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
             <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
-            <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları & hashtag'ler</p>
           </div>
         </div>
       </section>
 
-      <!-- Info Section -->
       <section class="max-w-3xl mx-auto mb-14">
         <div class="bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-100 rounded-[2rem] p-8">
           <div class="flex items-start gap-4 mb-6">
@@ -186,11 +215,11 @@
             <div>
               <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-translate="important_info">Önemli Bilgiler</h3>
               <div class="space-y-3 text-sm font-bold text-slate-700">
-                <p data-translate="info_1">🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.</p>
-                <p data-translate="info_2">⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.</p>
-                <p data-translate="info_3">🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.</p>
-                <p data-translate="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
-                <p data-translate="info_5">🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.</p>
+                <p data-translate="info_1">🎯 Öneri sunar.</p>
+                <p data-translate="info_2">⚠️ Garanti yoktur.</p>
+                <p data-translate="info_3">🤖 Gemini AI üretir.</p>
+                <p data-translate="info_4">📊 SEO skorları tahminidir.</p>
+                <p data-translate="info_5">🔄 Günlük 2 hak.</p>
               </div>
             </div>
           </div>
@@ -198,51 +227,50 @@
       </section>
     </div>
 
-    <!-- Generator Modal -->
-    <div id="generator-modal" class="modal">
-      <div class="modal-content">
-        <div class="flex justify-between items-center mb-8">
-          <div>
-            <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-            <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
-          </div>
-          <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="space-y-6">
-          <div class="flex justify-between items-center"><span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span><span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span></div>
-          <div>
-            <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
-            <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol taktikleri">
-          </div>
-          <button onclick="handleGeneration()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-            <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
-          </button>
-          <div id="modal-result-box" class="hidden space-y-4">
-            <div class="flex items-center justify-between"><span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span><span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span></div>
-            <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
-              <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed whitespace-pre-wrap"></p>
-              <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- OTHER PAGES -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_about">Hakkımızda</h1>
-        <p class="text-slate-700 font-bold">NeoSocial_Rose, Gemini AI destekli bir içerik üretim asistanıdır.</p>
-      </div>
-    </div>
-
-    <div id="page-faq" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_faq">SSS</h1>
-        <p class="text-slate-700 font-bold">Günlük 2 adet üretim hakkınız bulunmaktadır.</p>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
+        <p class="text-slate-700 font-bold" data-translate="about_p1">NeoSocial_Rose asistanıdır.</p>
       </div>
     </div>
   </main>
+
+  <div id="generator-modal" class="modal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-8">
+        <div>
+          <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
+          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
+        </div>
+        <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span>
+          <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <div>
+          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
+          <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol">
+        </div>
+        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
+          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
+        </button>
+        <div id="modal-result-box" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span>
+            <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
+          </div>
+          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
+            <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12 whitespace-pre-wrap"></p>
+            <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -250,176 +278,135 @@
   <script>
     const apiKey = ""; 
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",important_info:"Önemli Bilgiler",notify_limit:"Hak doldu!",notify_topic:"Konu giriniz.",notify_success:"Üretildi ✨",notify_error:"Hata!",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About Us",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Titles & hashtags",modal_subtitle:"Viral content",remaining_rights:"Rights",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO Score",important_info:"Important Info",notify_limit:"No rights!",notify_topic:"Enter topic.",notify_success:"Generated ✨",notify_error:"Error!",notify_copied:"Copied ✨",notify_login_required:"Login required."}
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları & hashtag'ler",platform_instagram_desc:"Gönderi başlıkları & hashtag'ler",platform_tiktok_desc:"Trend hashtag'ler",platform_x_desc:"Tweet başlıkları & hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Öneri sunar.",info_2:"⚠️ Garanti yoktur.",info_3:"🤖 Gemini AI üretir.",info_4:"📊 SEO skorları tahminidir.",info_5:"🔄 Günlük 2 hak.",about_title:"Hakkımızda",modal_subtitle:"Viral içerik",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",notify_limit:"Hak bitti!",notify_topic:"Konu gir!",notify_success:"Başarılı ✨",notify_error:"Hata!",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Titles & hashtags",important_info:"Important",modal_subtitle:"Viral content",remaining_rights:"Rights",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO",notify_limit:"Limit reached!",notify_topic:"Enter topic!",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
     };
 
-    const state = { lang: 'tr', currentPlatform: 'youtube', userId: null, credits: { youtube: 0, instagram: 0, tiktok: 0, x: 0 } };
+    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0}};
 
-    const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
+    function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
+
+    const firebaseConfig={apiKey:"AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",authDomain:"neosocial-rose.firebaseapp.com",projectId:"neosocial-rose",storageBucket:"neosocial-rose.firebasestorage.app",messagingSenderId:"909069196756",appId:"1:909069196756:web:db488838badee276f0ca41"};
     firebase.initializeApp(firebaseConfig);
 
-    firebase.auth().onAuthStateChanged(u => {
-      if (u) {
-        state.userId = u.uid;
-        document.getElementById('user-display').innerText = u.displayName ? u.displayName.split(' ')[0].toUpperCase() : 'USER';
+    firebase.auth().onAuthStateChanged(u=>{
+      if(u){
+        state.userId=u.uid;
+        document.getElementById('user-display').innerText=u.displayName?u.displayName.split(' ')[0].toUpperCase():'USER';
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('logout-btn').classList.remove('hidden');
         loadCredits(); 
-      } else {
-        state.userId = null;
-        state.credits = { youtube: 0, instagram: 0, tiktok: 0, x: 0 };
+      }else{
+        state.userId=null;
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0};
+        document.getElementById('user-display').innerText='GİRİŞ';
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
-        updateBadges();
+        updateAllBadges();
       }
     });
 
-    function notify(m) { const e = document.getElementById('notification'); e.innerText = m; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 3000); }
-    function setLang(l) { state.lang = l; document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.id === `l-${l}`)); translatePage(); }
-    function translate(k) { return translations[state.lang][k] || translations['en'][k] || k; }
-    function translatePage() { document.querySelectorAll('[data-translate]').forEach(e => e.innerHTML = translate(e.getAttribute('data-translate'))); document.querySelectorAll('[data-translate-placeholder]').forEach(e => e.placeholder = translate(e.getAttribute('data-translate-placeholder'))); }
-    function loginWithGoogle() { firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
-    function logoutGoogle() { firebase.auth().signOut(); }
+    function loginWithGoogle(){firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>notify('Giriş hatası!'));}
+    function logoutGoogle(){firebase.auth().signOut();}
 
-    /**
-     * Kredileri Yükle: Bir kez bittiğinde o gün için geri verilmez.
-     * Kullanıcı ID'si ve Tarih bazlı kontrol.
-     */
-    function loadCredits() {
-      if (!state.userId) return;
+    function loadCredits(){
+      if(!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_v3_${state.userId}`;
+      const storageKey = `nsr_strict_v4_${state.userId}`;
       const saved = localStorage.getItem(storageKey);
       
-      if (saved) {
+      if(saved){
         const parsed = JSON.parse(saved);
-        if (parsed.date === today) {
-          // Bugünün verisini yükle (0 ise 0 kalır)
-          state.credits = parsed.credits;
+        if(parsed.date === today){
+          state.credits = parsed.credits; // Önceki oturumda kalan hakkı yükle (0 ise 0 kalır)
         } else {
-          // Yeni gün: Hakları tazele
-          state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
+          state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
           saveCredits();
         }
       } else {
-        // İlk kullanım
-        state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
+        state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
         saveCredits();
       }
-      updateBadges();
+      updateAllBadges();
     }
 
-    function saveCredits() {
-      if (!state.userId) return;
+    function saveCredits(){
+      if(!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_v3_${state.userId}`;
-      localStorage.setItem(storageKey, JSON.stringify({
+      localStorage.setItem(`nsr_strict_v4_${state.userId}`, JSON.stringify({
         date: today,
         credits: state.credits
       }));
-      updateBadges();
+      updateAllBadges();
     }
 
-    function updateBadges() {
-      Object.keys(state.credits).forEach(p => {
-        const b = document.getElementById(`badge-${p}`);
-        if (b) b.innerText = `${state.credits[p]}/2`;
-        const c = document.getElementById(`card-${p}`);
-        if (c) c.classList.toggle('disabled', state.credits[p] <= 0);
+    function updateAllBadges(){
+      Object.keys(state.credits).forEach(p=>{
+        const b=document.getElementById(`badge-${p}`);
+        if(b)b.innerText=`${state.credits[p]}/2`;
+        const c=document.getElementById(`card-${p}`);
+        if(c) c.classList.toggle('disabled', state.credits[p] <= 0);
       });
     }
 
-    function openGenerator(p) {
-      if (!state.userId) return notify(translate('notify_login_required'));
-      if (state.credits[p] <= 0) return notify(translate('notify_limit'));
-      state.currentPlatform = p;
-      document.getElementById('modal-platform-title').innerText = p.toUpperCase();
-      document.getElementById('modal-credit-badge').innerText = `${state.credits[p]}/2`;
+    function setLang(l){state.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.id===`l-${l}`));translatePage();}
+    function translate(k){return translations[state.lang][k]||translations['tr'][k]||k;}
+    function translatePage(){document.querySelectorAll('[data-translate]').forEach(e=>e.innerHTML=translate(e.getAttribute('data-translate')));document.querySelectorAll('[data-translate-placeholder]').forEach(e=>e.placeholder=translate(e.getAttribute('data-translate-placeholder')));}
+    function showPage(p){document.querySelectorAll('.page-content').forEach(pg=>pg.classList.remove('active'));const t=document.getElementById(`page-${p}`);if(t)t.classList.add('active');window.scrollTo(0,0);}
+
+    function openGenerator(p){
+      if(!state.userId) return notify(translate('notify_login_required'));
+      if(state.credits[p]<=0) return notify(translate('notify_limit'));
+      state.currentPlatform=p;
+      document.getElementById('modal-platform-title').innerText=p.toUpperCase();
+      document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
       document.getElementById('modal-result-box').classList.add('hidden');
       document.getElementById('generator-modal').classList.add('active');
     }
 
-    function closeGenerator() { document.getElementById('generator-modal').classList.remove('active'); }
+    function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
-    function calculateSEO(t) {
-      let s = 65;
-      if (t.length > 50) s += 10;
-      if (t.includes('#')) s += 10;
-      if (/[A-Z]/.test(t)) s += 5;
-      return Math.min(s, 100);
-    }
-
-    async function handleGeneration() {
-      const topicInput = document.getElementById('modal-topic-input');
-      const topic = topicInput.value.trim();
-      if (!topic) return notify(translate('notify_topic'));
-      
-      const btn = document.getElementById('modal-gen-btn');
-      btn.disabled = true; btn.innerText = '...';
+    async function generateContent(){
+      const tp=document.getElementById('modal-topic-input').value.trim();
+      if(!tp) return notify(translate('notify_topic'));
+      const btn=document.getElementById('modal-gen-btn');
+      btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ÜRETİLİYOR...';
       
       try {
-        const sys = `Sen profesyonel bir sosyal medya yöneticisisin. Konuya uygun, viral olabilecek 3 adet başlık ve 10 adet popüler hashtag üret. İçerik dili: ${state.lang === 'tr' ? 'Türkçe' : 'İngilizce'}.`;
-        const p = `Platform: ${state.currentPlatform.toUpperCase()}, Konu: ${topic}.`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const payload = {
+          contents: [{ parts: [{ text: `Sen viral içerik uzmanısın. ${state.currentPlatform} için ${tp} konusu hakkında 3 vurucu başlık ve 10 trending hashtag üret. Dil: ${state.lang}.` }] }],
+          tools: [{ google_search: {} }]
+        };
+        const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
+        const d = await r.json();
+        const res = d.candidates?.[0]?.content?.parts?.[0]?.text;
         
-        const res = await callGemini(p, sys);
-        if (res) {
-          // Hak düşürme ve ANINDA KALICI kaydetme
+        if(res){
           state.credits[state.currentPlatform]--;
-          saveCredits(); 
-          
-          document.getElementById('modal-result-text').innerText = res;
-          const score = calculateSEO(res);
-          document.getElementById('seo-score-badge').innerText = `${score}/100`;
+          saveCredits(); // Hak düştükten hemen sonra KALICI olarak kaydet
+          document.getElementById('modal-result-text').innerText=res;
           document.getElementById('modal-result-box').classList.remove('hidden');
-          document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
+          document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
+        } else {
+           throw new Error('Yanıt alınamadı');
         }
-      } catch (err) { 
-        console.error(err);
+      } catch(e){ 
+        console.error(e);
         notify(translate('notify_error')); 
-      }
-      finally { btn.disabled = false; btn.innerText = translate('generate_btn'); }
-    }
-
-    async function callGemini(p, s, r=5) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-      const payload = {
-        contents: [{ parts: [{ text: p }] }],
-        systemInstruction: { parts: [{ text: s }] },
-        tools: [{ "google_search": {} }]
-      };
-
-      for (let i=0; i<r; i++) {
-        try {
-          const res = await fetch(url, { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload) 
-          });
-          const data = await res.json();
-          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (text) return text;
-          throw new Error('API Error');
-        } catch (e) { 
-          if (i === r-1) throw e; 
-          await new Promise(v => setTimeout(v, Math.pow(2, i) * 1000)); 
-        }
+      } finally { 
+        btn.disabled=false; 
+        btn.innerText=translate('generate_btn'); 
       }
     }
 
-    function copyModalContent() {
-      const t = document.getElementById('modal-result-text').innerText;
-      const el = document.createElement('textarea'); el.value = t; document.body.appendChild(el); el.select();
-      document.execCommand('copy'); document.body.removeChild(el); notify(translate('notify_copied'));
+    function copyModalContent(){
+      const t=document.getElementById('modal-result-text').innerText;
+      const e=document.createElement('textarea');e.value=t;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);notify(translate('notify_copied'));
     }
-
-    function showPage(p) {
-      document.querySelectorAll('.page-content').forEach(pg => pg.classList.remove('active'));
-      const t = document.getElementById(`page-${p}`);
-      if(t) t.classList.add('active');
-      window.scrollTo(0,0);
-    }
+    
+    window.onload = () => { translatePage(); };
   </script>
 </body>
 </html>
