@@ -422,11 +422,12 @@
   <!-- Firebase Scripts (EN ALTTA) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
   <script>
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_2:"⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"Üretim hakkınız bitti! Yarın yenilenecek.",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"Daily limit reached! Will reset tomorrow.",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_2:"⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"Bugünlük limit bitti! Yarın tekrar yenilenecek.",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"Limit reached today! Will reset tomorrow.",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
     };
 
     const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:2,instagram:2,tiktok:2,x:2}};
@@ -435,6 +436,7 @@
 
     const firebaseConfig={apiKey:"AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",authDomain:"neosocial-rose.firebaseapp.com",projectId:"neosocial-rose",storageBucket:"neosocial-rose.firebasestorage.app",messagingSenderId:"909069196756",appId:"1:909069196756:web:db488838badee276f0ca41"};
     firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
     firebase.auth().onAuthStateChanged(u=>{
       if(u){
@@ -443,7 +445,7 @@
         document.getElementById('user-display').innerText=dn;
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('logout-btn').classList.remove('hidden');
-        loadCredits();
+        loadCreditsFromCloud();
       }else{
         state.userId=null;
         state.credits={youtube:0,instagram:0,tiktok:0,x:0}; 
@@ -463,32 +465,51 @@
       }).catch(e=>console.error(e));
     }
 
-    // --- GÜVENLİ YEREL KAYIT SİSTEMİ (V4) ---
-    // Tarih ve kullanıcı ID'sini tek bir anahtarda birleştiriyoruz.
-    // Bu sayede tarih senkronizasyon hatası oluşmaz.
-    function getTodayKey() {
-        return `nsr_v4_${state.userId}_${new Date().toLocaleDateString('en-CA')}`;
+    // --- KESİN LİMİT KONTROLÜ: BULUT SİSTEMİ (Firestore) ---
+    // Haklar artık hesaba bağlanıyor, giriş-çıkış yapmak hakları geri getirmez.
+    async function loadCreditsFromCloud(){
+      if(!state.userId) return;
+      const today = new Date().toLocaleDateString('en-CA');
+      const docRef = db.collection('artifacts').doc('neosocial-rose').collection('users').doc(state.userId).collection('limits').doc(today);
+      
+      try {
+        const doc = await docRef.get();
+        if(doc.exists){
+          state.credits = doc.data();
+        } else {
+          // Yeni gün, hakları tanımla
+          state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
+          await docRef.set(state.credits);
+        }
+        updateAllBadges();
+      } catch (e) {
+        console.error("Cloud Error:", e);
+        // Fallback to local if cloud fails
+        loadCreditsLocal();
+      }
     }
 
-    function loadCredits(){
+    async function saveCreditsToCloud(){
       if(!state.userId) return;
-      const key = getTodayKey();
-      
-      const stored = localStorage.getItem(key);
-      if(stored){
-        // Bugün için kayıt var, onu yükle
-        state.credits = JSON.parse(stored);
-      } else {
-        // Bugün için kayıt YOK, demek ki yeni gün veya ilk giriş -> 2 hak ver
-        state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
-        saveCredits();
+      const today = new Date().toLocaleDateString('en-CA');
+      const docRef = db.collection('artifacts').doc('neosocial-rose').collection('users').doc(state.userId).collection('limits').doc(today);
+      try {
+        await docRef.set(state.credits);
+      } catch (e) {
+        console.error("Cloud Save Error:", e);
+        saveCreditsLocal();
       }
+    }
+
+    // Local Storage Fallback
+    function loadCreditsLocal(){
+      const key = `nsr_v4_${state.userId}_${new Date().toLocaleDateString('en-CA')}`;
+      const stored = localStorage.getItem(key);
+      if(stored) state.credits = JSON.parse(stored);
       updateAllBadges();
     }
-
-    function saveCredits(){
-      if(!state.userId) return;
-      const key = getTodayKey();
+    function saveCreditsLocal(){
+      const key = `nsr_v4_${state.userId}_${new Date().toLocaleDateString('en-CA')}`;
       localStorage.setItem(key, JSON.stringify(state.credits));
     }
 
@@ -533,7 +554,12 @@
       }
       const tp=document.getElementById('modal-topic-input').value.trim();
       if(!tp){notify(translate('notify_topic'));return;}
-      if(state.credits[state.currentPlatform]<=0){notify(translate('notify_limit'));return;}
+      if(state.credits[state.currentPlatform]<=0){
+          notify(translate('notify_limit'));
+          closeGenerator();
+          return;
+      }
+      
       const btn=document.getElementById('modal-gen-btn'),rb=document.getElementById('modal-result-box'),rt=document.getElementById('modal-result-text');
       btn.disabled=true;
       btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> '+(state.lang==='tr'?'ÜRETİLİYOR...':'GENERATING...');
@@ -541,10 +567,14 @@
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
         if(!r.ok||d.error)throw new Error(d.error||'API Error');
-        const res=d.text||'';
+        let res=d.text||'';
+        
+        // 100 Karakter UI Koruması (API zaten yapıyor ama burası son durak)
+        if(res.length > 100) res = res.substring(0, 100);
+
         if(res){
           state.credits[state.currentPlatform]--;
-          saveCredits();
+          await saveCreditsToCloud();
           updateAllBadges();
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           rt.innerText=res;
