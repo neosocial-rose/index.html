@@ -255,7 +255,7 @@
           <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
           <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol">
         </div>
-        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
+        <button onclick="handleGenerate()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
           <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
         </button>
         <div id="modal-result-box" class="hidden space-y-4">
@@ -312,13 +312,13 @@
     function loadCredits(){
       if(!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_v4_${state.userId}`;
+      const storageKey = `nsr_strict_v5_${state.userId}`;
       const saved = localStorage.getItem(storageKey);
       
       if(saved){
         const parsed = JSON.parse(saved);
         if(parsed.date === today){
-          state.credits = parsed.credits; // Önceki oturumda kalan hakkı yükle (0 ise 0 kalır)
+          state.credits = parsed.credits; 
         } else {
           state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
           saveCredits();
@@ -333,7 +333,7 @@
     function saveCredits(){
       if(!state.userId) return;
       const today = new Date().toDateString();
-      localStorage.setItem(`nsr_strict_v4_${state.userId}`, JSON.stringify({
+      localStorage.setItem(`nsr_strict_v5_${state.userId}`, JSON.stringify({
         date: today,
         credits: state.credits
       }));
@@ -366,38 +366,66 @@
 
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
-    async function generateContent(){
-      const tp=document.getElementById('modal-topic-input').value.trim();
-      if(!tp) return notify(translate('notify_topic'));
-      const btn=document.getElementById('modal-gen-btn');
-      btn.disabled=true; btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> ÜRETİLİYOR...';
+    // AI Üretim Fonksiyonu (Retry Mekanizması Dahil)
+    async function handleGenerate() {
+      const topic = document.getElementById('modal-topic-input').value.trim();
+      if (!topic) return notify(translate('notify_topic'));
       
+      const btn = document.getElementById('modal-gen-btn');
+      btn.disabled = true; 
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ÜRETİLİYOR...';
+
+      const sysPrompt = `Sen bir sosyal medya uzmanısın. ${state.currentPlatform.toUpperCase()} platformu için viral olabilecek 3 adet başlık ve 10 adet trend hashtag üret. Yanıtını doğrudan içerik olarak ver, açıklama yapma. Dil: ${state.lang === 'tr' ? 'Türkçe' : 'English'}.`;
+      const userPrompt = `Konu: ${topic}`;
+
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        const payload = {
-          contents: [{ parts: [{ text: `Sen viral içerik uzmanısın. ${state.currentPlatform} için ${tp} konusu hakkında 3 vurucu başlık ve 10 trending hashtag üret. Dil: ${state.lang}.` }] }],
-          tools: [{ google_search: {} }]
-        };
-        const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-        const d = await r.json();
-        const res = d.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-        if(res){
+        const result = await callGeminiAPI(userPrompt, sysPrompt);
+        if (result) {
           state.credits[state.currentPlatform]--;
-          saveCredits(); // Hak düştükten hemen sonra KALICI olarak kaydet
-          document.getElementById('modal-result-text').innerText=res;
+          saveCredits();
+          
+          document.getElementById('modal-result-text').innerText = result;
           document.getElementById('modal-result-box').classList.remove('hidden');
-          document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
+          document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
-        } else {
-           throw new Error('Yanıt alınamadı');
         }
-      } catch(e){ 
-        console.error(e);
-        notify(translate('notify_error')); 
-      } finally { 
-        btn.disabled=false; 
-        btn.innerText=translate('generate_btn'); 
+      } catch (error) {
+        console.error("Hata:", error);
+        notify(translate('notify_error'));
+      } finally {
+        btn.disabled = false;
+        btn.innerText = translate('generate_btn');
+      }
+    }
+
+    // Gemini API Çağrısı (Üstel Geri Çekilme ile)
+    async function callGeminiAPI(query, systemPrompt) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: query }] }],
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        tools: [{ "google_search": {} }]
+      };
+
+      for (let i = 0; i < 5; i++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) throw new Error(`HTTP Hata: ${response.status}`);
+
+          const data = await response.json();
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (text) return text;
+          throw new Error('Yanıt boş geldi.');
+        } catch (err) {
+          if (i === 4) throw err;
+          const delay = Math.pow(2, i) * 1000;
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
       }
     }
 
