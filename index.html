@@ -446,7 +446,7 @@
         loadCredits();
       }else{
         state.userId=null;
-        state.credits={youtube:0,instagram:0,tiktok:0,x:0}; // DÜZELTME: Çıkış yapıldığında haklar 0'a çekildi.
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0}; 
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
@@ -463,24 +463,33 @@
       }).catch(e=>console.error(e));
     }
 
+    // --- GÜVENLİ YEREL KAYIT SİSTEMİ (V4) ---
+    // Tarih ve kullanıcı ID'sini tek bir anahtarda birleştiriyoruz.
+    // Bu sayede tarih senkronizasyon hatası oluşmaz.
+    function getTodayKey() {
+        return `nsr_v4_${state.userId}_${new Date().toLocaleDateString('en-CA')}`;
+    }
+
     function loadCredits(){
       if(!state.userId) return;
-      const t=new Date().toDateString();
-      const ld=localStorage.getItem(`nsr_date_${state.userId}`);
-      if(ld!==t){
-        localStorage.setItem(`nsr_date_${state.userId}`,t);
-        state.credits={youtube:2,instagram:2,tiktok:2,x:2};
-        localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
-      }else{
-        const s=localStorage.getItem(`nsr_credits_${state.userId}`);
-        if(s)state.credits=JSON.parse(s);
+      const key = getTodayKey();
+      
+      const stored = localStorage.getItem(key);
+      if(stored){
+        // Bugün için kayıt var, onu yükle
+        state.credits = JSON.parse(stored);
+      } else {
+        // Bugün için kayıt YOK, demek ki yeni gün veya ilk giriş -> 2 hak ver
+        state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
+        saveCredits();
       }
       updateAllBadges();
     }
 
     function saveCredits(){
       if(!state.userId) return;
-      localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
+      const key = getTodayKey();
+      localStorage.setItem(key, JSON.stringify(state.credits));
     }
 
     function updateAllBadges(){Object.keys(state.credits).forEach(p=>{const b=document.getElementById(`badge-${p}`);if(b)b.innerText=`${state.credits[p]}/2`;const c=document.getElementById(`card-${p}`);if(c){if(state.credits[p]<=0)c.classList.add('disabled');else c.classList.remove('disabled');}});}
@@ -532,8 +541,7 @@
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
         if(!r.ok||d.error)throw new Error(d.error||'API Error');
-        let res=d.text||'';
-        
+        const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
           saveCredits();
