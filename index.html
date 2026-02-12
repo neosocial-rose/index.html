@@ -60,6 +60,23 @@
     .page-content { display:none; }
     .page-content.active { display:block; }
   </style>
+
+  <!-- Structured Data / Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "NeoSocial_Rose",
+    "description": "Ücretsiz AI sosyal medya başlık ve hashtag üretici",
+    "url": "https://jarvisheyrose.com",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
 </head>
 
 <body class="min-h-screen flex flex-col">
@@ -160,6 +177,25 @@
           </div>
         </div>
       </section>
+
+      <!-- Info Section -->
+      <section class="max-w-3xl mx-auto mb-14">
+        <div class="bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-100 rounded-[2rem] p-8">
+          <div class="flex items-start gap-4 mb-6">
+            <i class="fas fa-info-circle text-rose-500 text-2xl mt-1"></i>
+            <div>
+              <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-translate="important_info">Önemli Bilgiler</h3>
+              <div class="space-y-3 text-sm font-bold text-slate-700">
+                <p data-translate="info_1">🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.</p>
+                <p data-translate="info_2">⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.</p>
+                <p data-translate="info_3">🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.</p>
+                <p data-translate="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
+                <p data-translate="info_5">🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- Generator Modal -->
@@ -191,6 +227,21 @@
         </div>
       </div>
     </div>
+
+    <!-- OTHER PAGES (HIDDEN BY DEFAULT) -->
+    <div id="page-about" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_about">Hakkımızda</h1>
+        <p class="text-slate-700 font-bold">NeoSocial_Rose, Gemini AI destekli bir içerik üretim asistanıdır.</p>
+      </div>
+    </div>
+
+    <div id="page-faq" class="page-content max-w-4xl mx-auto">
+      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_faq">SSS</h1>
+        <p class="text-slate-700 font-bold">Günlük 2 adet üretim hakkınız bulunmaktadır.</p>
+      </div>
+    </div>
   </main>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -199,8 +250,8 @@
   <script>
     const apiKey = ""; 
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",notify_limit:"Hak doldu!",notify_topic:"Konu giriniz.",notify_success:"Üretildi ✨",notify_error:"Hata!",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About Us",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Titles & hashtags",modal_subtitle:"Viral content",remaining_rights:"Rights",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO Score",notify_limit:"No rights!",notify_topic:"Enter topic.",notify_success:"Generated ✨",notify_error:"Error!",notify_copied:"Copied ✨",notify_login_required:"Login required."}
+      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",important_info:"Önemli Bilgiler",notify_limit:"Hak doldu!",notify_topic:"Konu giriniz.",notify_success:"Üretildi ✨",notify_error:"Hata!",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
+      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About Us",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Titles & hashtags",modal_subtitle:"Viral content",remaining_rights:"Rights",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO Score",important_info:"Important Info",notify_limit:"No rights!",notify_topic:"Enter topic.",notify_success:"Generated ✨",notify_error:"Error!",notify_copied:"Copied ✨",notify_login_required:"Login required."}
     };
 
     const state = { lang: 'tr', currentPlatform: 'youtube', userId: null, credits: { youtube: 0, instagram: 0, tiktok: 0, x: 0 } };
@@ -214,13 +265,13 @@
         document.getElementById('user-display').innerText = u.displayName ? u.displayName.split(' ')[0].toUpperCase() : 'USER';
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('logout-btn').classList.remove('hidden');
-        loadCredits(); // Kullanıcı giriş yapınca kredileri yükle
+        loadCredits(); // Kullanıcı girince YEREL kaydı kontrol et
       } else {
         state.userId = null;
         state.credits = { youtube: 0, instagram: 0, tiktok: 0, x: 0 };
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
-        updateBadges(); // Arayüzü temizle
+        updateBadges();
       }
     });
 
@@ -232,45 +283,40 @@
     function logoutGoogle() { firebase.auth().signOut(); }
 
     /**
-     * Hakları (Kredileri) Yükleme ve Tarih Kontrolü
-     * Bir kez bittiğinde o gün için geri verilmez.
+     * Kredileri Yükle: Bir kez 0 olduysa, çıkış yapıp girmek hakları GERİ VERMEZ.
      */
     function loadCredits() {
       if (!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_perm_data_${state.userId}`;
+      const storageKey = `nsr_strict_credits_${state.userId}`;
       const saved = localStorage.getItem(storageKey);
       
       if (saved) {
         const parsed = JSON.parse(saved);
+        // Eğer kayıtlı tarih bugüne aitse, o anki hakları al (ister 2 olsun ister 0)
         if (parsed.date === today) {
-          // Eğer bugün zaten kullanım varsa, saklanan hakları yükle
           state.credits = parsed.credits;
         } else {
-          // Yeni bir gün: Hakları tazele ve kaydet
+          // Gün değiştiyse hakları tazele
           state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
           saveCredits();
         }
       } else {
-        // İlk kez kullanan/giriş yapan kişi: Başlangıç haklarını ver
+        // Hiç kayıt yoksa ilk hakları ver
         state.credits = { youtube: 2, instagram: 2, tiktok: 2, x: 2 };
         saveCredits();
       }
       updateBadges();
     }
 
-    /**
-     * Hakları (Kredileri) Kaydetme
-     */
     function saveCredits() {
       if (!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_perm_data_${state.userId}`;
-      const dataToSave = {
+      const storageKey = `nsr_strict_credits_${state.userId}`;
+      localStorage.setItem(storageKey, JSON.stringify({
         date: today,
         credits: state.credits
-      };
-      localStorage.setItem(storageKey, JSON.stringify(dataToSave));
+      }));
       updateBadges();
     }
 
@@ -300,15 +346,7 @@
       if (t.length > 50) s += 10;
       if (t.includes('#')) s += 10;
       if (/[A-Z]/.test(t)) s += 5;
-      if (t.length > 200) s += 10;
       return Math.min(s, 100);
-    }
-
-    function getSEOClass(s) {
-      if (s >= 85) return 'seo-excellent';
-      if (s >= 70) return 'seo-good';
-      if (s >= 50) return 'seo-average';
-      return 'seo-poor';
     }
 
     async function handleGeneration() {
@@ -320,21 +358,18 @@
       btn.disabled = true; btn.innerText = '...';
       
       try {
-        const sysPrompt = `Sen profesyonel bir sosyal medya yöneticisisin. Viral başlıklar ve hashtagler üret. Dil: ${state.lang}.`;
-        const prompt = `Platform: ${state.currentPlatform.toUpperCase()}, Konu: ${topic}.`;
+        const sys = `Viral sosyal medya içerik üreticisisin. Konuya uygun 3 başlık ve 10 hashtag üret. Dil: ${state.lang}.`;
+        const p = `Platform: ${state.currentPlatform.toUpperCase()}, Konu: ${topic}.`;
         
-        const res = await callGemini(prompt, sysPrompt);
+        const res = await callGemini(p, sys);
         if (res) {
-          // Hak düşürme işlemi ve KALICI kayıt
+          // Hak düşürme ve ANINDA kaydetme
           state.credits[state.currentPlatform]--;
           saveCredits(); 
           
           document.getElementById('modal-result-text').innerText = res;
           const score = calculateSEO(res);
-          const sb = document.getElementById('seo-score-badge');
-          sb.innerText = `${score}/100`;
-          sb.className = `seo-badge ${getSEOClass(score)}`;
-          
+          document.getElementById('seo-score-badge').innerText = `${score}/100`;
           document.getElementById('modal-result-box').classList.remove('hidden');
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
@@ -357,7 +392,7 @@
           const data = await res.json();
           const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
           if (text) return text;
-          throw new Error('API Response Empty');
+          throw new Error('Empty');
         } catch (e) { 
           if (i === r-1) throw e; 
           await new Promise(v => setTimeout(v, Math.pow(2, i) * 1000)); 
