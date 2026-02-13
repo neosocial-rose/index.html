@@ -1,12 +1,29 @@
 export default async function handler(req, res) {
+  // CORS headers ekle
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+  res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
+  // OPTIONS request için
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
+
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "POST only" });
+    return res.status(405).json({ error: "Sadece POST desteklenir" });
   }
 
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_KEY) return res.status(500).json({ error: "GEMINI_API_KEY yok" });
+  
+  if (!GEMINI_KEY) {
+    console.error("❌ GEMINI_API_KEY bulunamadı!");
+    return res.status(500).json({ 
+      error: "API anahtarı yapılandırılmamış. Lütfen Vercel Environment Variables kontrol edin." 
+    });
+  }
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
@@ -14,7 +31,11 @@ export default async function handler(req, res) {
     const lang = String(body.lang || "tr");
     const platform = String(body.platform || "youtube");
 
-    if (!topic) return res.status(400).json({ error: "topic empty" });
+    if (!topic) {
+      return res.status(400).json({ error: "Konu boş olamaz" });
+    }
+
+    console.log("✅ İstek alındı:", { topic, platform, lang });
 
     // RASTGELE ÇEŞİTLİLİK İÇİN
     const randomSeed = Math.floor(Math.random() * 10000);
@@ -65,16 +86,19 @@ Random Seed: ${randomSeed} (farklılık için)
 1. satır: Başlık (max 60 karakter)
 2. satır: Hashtag (max 40 karakter)`;
 
-    const model = "gemini-2.0-flash-exp";
+    // STABİL MODEL KULLAN
+    const model = "gemini-1.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
-    const r = await fetch(url, {
+    console.log("📡 Gemini API'ye istek gönderiliyor...");
+
+    const apiResponse = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        // ✅ İNTERNET ARAŞTIRMASI AKTİF
-        tools: [{ google_search: {} }],
+        // ✅ İNTERNET ARAŞTIRMASI (opsiyonel - bazen sorun çıkarabilir)
+        // tools: [{ google_search: {} }],
         generationConfig: {
           temperature: 0.9,
           topP: 0.95,
@@ -84,21 +108,51 @@ Random Seed: ${randomSeed} (farklılık için)
       })
     });
 
-    const txt = await r.text();
-    let data = {};
-    try { data = JSON.parse(txt); } catch {}
+    const responseText = await apiResponse.text();
+    console.log("📥 Gemini yanıt aldı, status:", apiResponse.status);
 
-    if (!r.ok) {
-      return res.status(500).json({ error: "Gemini error", detail: txt.slice(0, 300) });
+    let data = {};
+    try { 
+      data = JSON.parse(responseText); 
+    } catch (parseError) {
+      console.error("❌ JSON parse hatası:", parseError);
+      console.error("Response text:", responseText.slice(0, 200));
+      return res.status(500).json({ 
+        error: "Gemini yanıtı parse edilemedi",
+        detail: responseText.slice(0, 200)
+      });
     }
 
-    const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    const fixed = enforceTwoLinesMax(out);
+    if (!apiResponse.ok) {
+      console.error("❌ Gemini API hatası:", data);
+      return res.status(500).json({ 
+        error: "Gemini API hatası", 
+        detail: data?.error?.message || responseText.slice(0, 200) 
+      });
+    }
 
-    return res.status(200).json({ text: fixed });
+    const generatedText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    
+    if (!generatedText) {
+      console.error("❌ Boş yanıt:", data);
+      return res.status(500).json({ 
+        error: "Gemini boş yanıt döndü",
+        detail: JSON.stringify(data).slice(0, 200)
+      });
+    }
+
+    console.log("✅ İçerik üretildi:", generatedText.slice(0, 50) + "...");
+
+    const processedText = enforceTwoLinesMax(generatedText);
+
+    return res.status(200).json({ text: processedText });
 
   } catch (e) {
-    return res.status(500).json({ error: "server error", detail: String(e) });
+    console.error("💥 Server hatası:", e);
+    return res.status(500).json({ 
+      error: "Sunucu hatası", 
+      detail: String(e.message || e).slice(0, 200) 
+    });
   }
 }
 
