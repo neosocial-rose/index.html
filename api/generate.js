@@ -19,45 +19,27 @@ export default async function handler(req, res) {
     const randomSeed = Math.floor(Math.random() * 1000);
 
     const prompt =
-`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için ORİJİNAL başlık yaz.
+`Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
 
-⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. Tekrar etme!
+⚠️ KRİTİK: İnternetten güncel bilgi al ve FARKLI başlık üret!
 
 SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
 
 KURAL 1 - BAŞLIK (1. satır):
-- "${topic}" konusuna DOĞRUDAN değin
-- FARKLI açılardan yaklaş (zaman, sonuç, süreç, problem, çözüm)
-- Sayı kullan: 3, 5, 7, 10, 30 (farklı rakamlar dene)
-- Güçlü kelime varyasyonu kullan:
-* Sır, Taktik, Yöntem, Teknik, Strateji
-* Püf Noktası, İpucu, Formül, Sistem, Adım
-* Hile, Kural, Detay, Özellik, Fark
-- 1-2 emoji (farklı kombinasyonlar)
+- "${topic}" konusundaki GÜNCEL gelişmeleri kullan
+- İnternetten trend hashtag'leri araştır
+- Sayı kullan: 3, 5, 7, 10, 30
+- 1-2 emoji
 - Max 60 karakter
 
-ÇEŞİTLİ BAŞLIK YAPILARI (BUNLARDAN BİRİNİ SEÇ):
-1. Sonuç odaklı: "30 Günde ${topic} Ustası Ol: 5 Adım 🔥"
-2. Problem çözme: "${topic}'te Yapılan 3 Büyük Yanlış ❌"
-3. Hızlı sonuç: "${topic} İçin 10 Dakikalık Formül ⚡"
-4. Karşılaştırma: "Amatör vs Pro: ${topic}'te 7 Fark 🎯"
-5. Zaman bazlı: "${topic} 2024'te Nasıl Değişti? 📊"
-6. Gizli bilgi: "${topic} Profesyonellerinin 5 Sırrı 🤫"
-
 KURAL 2 - HASHTAG (2. satır):
-- "${topic}" ile alakalı FARKLI hashtag'ler
-- Her seferinde değişik kombinasyon
+- İnternetten POPÜLER hashtag'leri bul
 - 3-5 kısa hashtag
 - Max 40 karakter
 
-YASAK:
-❌ Tekrar eden başlıklar
-❌ "Kimse bilmiyor", "Şok", "Gerçek", "Hata", "Bitiriyor"
-❌ Konu dışı içerik
+Random Seed: ${randomSeed}
 
-Random Seed: ${randomSeed} (farklılık için)
-
-ŞİMDİ "${topic}" İÇİN ORİJİNAL YAZ (SADECE 2 SATIR):
+ŞİMDİ "${topic}" İÇİN GÜNCEL İÇERİK YAZ (SADECE 2 SATIR):
 
 1. satır: Başlık
 2. satır: Hashtag`;
@@ -70,6 +52,7 @@ Random Seed: ${randomSeed} (farklılık için)
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
+        tools: [{ google_search: {} }],
         generationConfig: {
           temperature: 0.9,
           topP: 0.95,
