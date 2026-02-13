@@ -535,9 +535,18 @@ btn.disabled=true;
 btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> '+(state.lang==='tr'?'ÜRETİLİYOR...':'GENERATING...');
 
 try{
-const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
+// API endpoint kontrolü
+const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/api/generate' : '/api/generate';
+const r=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
+
+if(!r.ok){
+const errorText = await r.text();
+console.error('API Hatası:', errorText);
+throw new Error(`API Error: ${r.status}`);
+}
+
 const d=await r.json();
-if(!r.ok||d.error)throw new Error(d.error||'API Error');
+if(d.error)throw new Error(d.error);
 
 const res=d.text||'';
 if(res){
