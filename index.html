@@ -61,22 +61,6 @@
     .page-content { display:none; }
     .page-content.active { display:block; }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "NeoSocial_Rose",
-    "description": "Ücretsiz AI sosyal medya başlık ve hashtag üretici",
-    "url": "https://jarvisheyrose.com",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  }
-  </script>
 </head>
 
 <body class="min-h-screen flex flex-col">
@@ -96,14 +80,8 @@
             <div class="menu-dropdown group-hover:block" id="nav-apps-dd">
               <p class="text-[10px] font-black text-center mb-3 text-rose-500" data-translate="coming_soon">YAKINDA</p>
               <div class="flex justify-around items-center gap-4">
-                <div class="text-center">
-                  <i class="fab fa-apple text-slate-800 text-3xl"></i>
-                  <p class="text-[8px] font-bold mt-1">App Store</p>
-                </div>
-                <div class="text-center">
-                  <i class="fab fa-google-play text-slate-800 text-3xl"></i>
-                  <p class="text-[8px] font-bold mt-1">Google Play</p>
-                </div>
+                <div class="text-center"><i class="fab fa-apple text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">App Store</p></div>
+                <div class="text-center"><i class="fab fa-google-play text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">Google Play</p></div>
               </div>
             </div>
           </div>
@@ -112,7 +90,7 @@
             <span class="nav-link flex" id="nav-platform-btn" data-translate="nav_platform">Platform</span>
             <div class="menu-dropdown text-center group-hover:block" id="nav-platform-dd">
               <div class="bg-gradient-to-r from-rose-50 to-purple-50 p-3 rounded-lg">
-                <p class="text-[10px] font-black text-slate-700 mb-1">🤖 POWERED BY</p>
+                <p class="text-[10px] font-black text-slate-700 mb-1 uppercase">🤖 Power By</p>
                 <p class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-purple-600">GEMINI AI</p>
               </div>
             </div>
@@ -136,11 +114,9 @@
           <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
           <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
         </div>
-
         <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
           <span id="user-display" data-translate="login">GİRİŞ</span>
         </button>
-
         <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg">
           <span data-translate="logout">ÇIKIŞ</span>
         </button>
@@ -149,79 +125,39 @@
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
-
     <div id="page-home" class="page-content active">
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
-        <div class="hero-box">
-          <img class="hero-img" src="hero.jpeg" alt="AI Hero" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 1</span>';">
-        </div>
-
+        <div class="hero-box"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 1</span>';"></div>
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
           <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-
-        <div class="hero-box">
-          <img class="hero-img" src="hero1.jpeg" alt="AI Hero 2" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 2</span>';">
-        </div>
+        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase\'>Görsel 2</span>';"></div>
       </section>
 
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-youtube text-red-600 text-4xl"></i>
-              <span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">YouTube</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları & hashtag'ler</p>
           </div>
-
           <div class="platform-card" id="card-instagram" onclick="openGenerator('instagram')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-instagram text-pink-600 text-4xl"></i>
-              <span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-instagram text-pink-600 text-4xl"></i><span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">Instagram</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Gönderi başlıkları & hashtag'ler</p>
           </div>
-
           <div class="platform-card" id="card-tiktok" onclick="openGenerator('tiktok')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-tiktok text-slate-900 text-4xl"></i>
-              <span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-tiktok text-slate-900 text-4xl"></i><span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">TikTok</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Trend hashtag'ler</p>
           </div>
-
           <div class="platform-card" id="card-x" onclick="openGenerator('x')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-twitter text-blue-400 text-4xl"></i>
-              <span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-twitter text-blue-400 text-4xl"></i><span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları & hashtag'ler</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="max-w-3xl mx-auto mb-14">
-        <div class="bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-100 rounded-[2rem] p-8">
-          <div class="flex items-start gap-4 mb-6">
-            <i class="fas fa-info-circle text-rose-500 text-2xl mt-1"></i>
-            <div>
-              <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-translate="important_info">Önemli Bilgiler</h3>
-              <div class="space-y-3 text-sm font-bold text-slate-700">
-                <p data-translate="info_1">🎯 Öneri sunar.</p>
-                <p data-translate="info_2">⚠️ Garanti yoktur.</p>
-                <p data-translate="info_3">🤖 Gemini AI üretir.</p>
-                <p data-translate="info_4">📊 SEO skorları tahminidir.</p>
-                <p data-translate="info_5">🔄 Günlük 2 hak.</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -238,35 +174,16 @@
   <div id="generator-modal" class="modal">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-8">
-        <div>
-          <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
-        </div>
+        <div><h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2><p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p></div>
         <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
       </div>
-      <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-          <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span>
-          <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
-        </div>
-      </div>
+      <div class="mb-6"><div class="flex justify-between items-center mb-4"><span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span><span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span></div></div>
       <div class="space-y-6">
-        <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
-          <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol">
-        </div>
-        <button onclick="handleGenerate()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
-        </button>
+        <div><label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label><input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol"></div>
+        <button onclick="handleGenerate()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition shadow-xl active:scale-[0.98]"><span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span></button>
         <div id="modal-result-box" class="hidden space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span>
-            <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
-          </div>
-          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
-            <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12 whitespace-pre-wrap"></p>
-            <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
-          </div>
+          <div class="flex items-center justify-between"><span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span><span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span></div>
+          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group"><p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12 whitespace-pre-wrap"></p><button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button></div>
         </div>
       </div>
     </div>
@@ -309,16 +226,17 @@
     function loginWithGoogle(){firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>notify('Giriş hatası!'));}
     function logoutGoogle(){firebase.auth().signOut();}
 
+    // Kredi sistemini UserId'ye göre mühürleyen fonksiyon
     function loadCredits(){
       if(!state.userId) return;
       const today = new Date().toDateString();
-      const storageKey = `nsr_strict_v5_${state.userId}`;
+      const storageKey = `nsr_strict_lock_${state.userId}`;
       const saved = localStorage.getItem(storageKey);
       
       if(saved){
         const parsed = JSON.parse(saved);
         if(parsed.date === today){
-          state.credits = parsed.credits; 
+          state.credits = parsed.credits; // Kalan hakları yükle (0 ise 0 kalır)
         } else {
           state.credits = {youtube:2,instagram:2,tiktok:2,x:2};
           saveCredits();
@@ -333,7 +251,7 @@
     function saveCredits(){
       if(!state.userId) return;
       const today = new Date().toDateString();
-      localStorage.setItem(`nsr_strict_v5_${state.userId}`, JSON.stringify({
+      localStorage.setItem(`nsr_strict_lock_${state.userId}`, JSON.stringify({
         date: today,
         credits: state.credits
       }));
@@ -356,7 +274,7 @@
 
     function openGenerator(p){
       if(!state.userId) return notify(translate('notify_login_required'));
-      if(state.credits[p]<=0) return notify(translate('notify_limit'));
+      if(state.credits[p] <= 0) return notify(translate('notify_limit'));
       state.currentPlatform=p;
       document.getElementById('modal-platform-title').innerText=p.toUpperCase();
       document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
@@ -366,65 +284,40 @@
 
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
-    // AI Üretim Fonksiyonu (Retry Mekanizması Dahil)
     async function handleGenerate() {
       const topic = document.getElementById('modal-topic-input').value.trim();
       if (!topic) return notify(translate('notify_topic'));
-      
       const btn = document.getElementById('modal-gen-btn');
-      btn.disabled = true; 
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ÜRETİLİYOR...';
-
-      const sysPrompt = `Sen bir sosyal medya uzmanısın. ${state.currentPlatform.toUpperCase()} platformu için viral olabilecek 3 adet başlık ve 10 adet trend hashtag üret. Yanıtını doğrudan içerik olarak ver, açıklama yapma. Dil: ${state.lang === 'tr' ? 'Türkçe' : 'English'}.`;
-      const userPrompt = `Konu: ${topic}`;
-
+      btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ÜRETİLİYOR...';
+      
+      const sys = `Viral sosyal medya yöneticisisin. ${state.currentPlatform.toUpperCase()} için viral başlıklar ve hashtagler üret. Dil: ${state.lang}.`;
+      
       try {
-        const result = await callGeminiAPI(userPrompt, sysPrompt);
-        if (result) {
+        const res = await callGeminiAPI(topic, sys);
+        if (res) {
           state.credits[state.currentPlatform]--;
-          saveCredits();
-          
-          document.getElementById('modal-result-text').innerText = result;
+          saveCredits(); 
+          document.getElementById('modal-result-text').innerText = res;
           document.getElementById('modal-result-box').classList.remove('hidden');
           document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
           notify(translate('notify_success'));
         }
-      } catch (error) {
-        console.error("Hata:", error);
-        notify(translate('notify_error'));
-      } finally {
-        btn.disabled = false;
-        btn.innerText = translate('generate_btn');
-      }
+      } catch (err) { notify(translate('notify_error')); }
+      finally { btn.disabled = false; btn.innerText = translate('generate_btn'); }
     }
 
-    // Gemini API Çağrısı (Üstel Geri Çekilme ile)
-    async function callGeminiAPI(query, systemPrompt) {
+    async function callGeminiAPI(q, s) {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-      const payload = {
-        contents: [{ parts: [{ text: query }] }],
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        tools: [{ "google_search": {} }]
-      };
-
+      const payload = { contents: [{ parts: [{ text: q }] }], systemInstruction: { parts: [{ text: s }] }, tools: [{ "google_search": {} }] };
       for (let i = 0; i < 5; i++) {
         try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-
-          if (!response.ok) throw new Error(`HTTP Hata: ${response.status}`);
-
-          const data = await response.json();
-          const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (text) return text;
-          throw new Error('Yanıt boş geldi.');
-        } catch (err) {
-          if (i === 4) throw err;
-          const delay = Math.pow(2, i) * 1000;
-          await new Promise(resolve => setTimeout(resolve, delay));
+          const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!res.ok) throw new Error();
+          const data = await res.json();
+          return data.candidates?.[0]?.content?.parts?.[0]?.text;
+        } catch (e) {
+          if (i === 4) throw e;
+          await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
         }
       }
     }
