@@ -342,8 +342,8 @@ onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'
 <div>
 <i class="fas fa-envelope text-rose-500 text-4xl mb-4"></i>
 <p class="text-slate-700 font-bold mb-2" data-translate="contact_email">E-posta</p>
-<a href="mailto:jarvisheyrose@gmail.com" class="text-lg font-black text-rose-500 hover:text-rose-600">
-jarvisheyrose@gmail.com
+<a href="/cdn-cgi/l/email-protection#3a505b484c5349525f434855495f7a5d575b535614595557" class="text-lg font-black text-rose-500 hover:text-rose-600">
+<span class="__cf_email__" data-cfemail="117b7063677862797468637e627451767c70787d3f727e7c">[email&#160;protected]</span>
 </a>
 </div>
 <div class="border-t-2 border-slate-100 pt-8">
@@ -421,7 +421,7 @@ jarvisheyrose@gmail.com
 </footer>
 
 <!-- Firebase Scripts (EN ALTTA) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <script>
@@ -447,7 +447,7 @@ document.getElementById('logout-btn').classList.remove('hidden');
 loadCreditsFromStorage();
 }else{
 state.userId=null;
-state.credits={youtube:2,instagram:2,tiktok:2,x:2};
+state.credits={youtube:0,instagram:0,tiktok:0,x:0};
 document.getElementById('user-display').innerText=translate('login');
 document.getElementById('login-btn').classList.remove('hidden');
 document.getElementById('logout-btn').classList.add('hidden');
@@ -477,6 +477,9 @@ localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits
 } else {
 if(storedCredits){
 state.credits = JSON.parse(storedCredits);
+} else {
+state.credits = {youtube:2, instagram:2, tiktok:2, x:2};
+localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
 }
 }
 updateAllBadges();
@@ -578,11 +581,4 @@ const ab=document.getElementById('nav-apps-btn'),ad=document.getElementById('nav
 
 const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
 
-document.getElementById('generator-modal').addEventListener('click',function(e){if(e.target===this)closeGenerator();});
-
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenerator();});
-
-window.addEventListener('DOMContentLoaded',()=>{translatePage();});
-</script>
-</body>
-</html>
+document.getElementById('generator-modal').addEventLis
