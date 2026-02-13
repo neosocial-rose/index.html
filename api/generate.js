@@ -17,17 +17,17 @@ export default async function handler(req, res) {
     if (!topic) return res.status(400).json({ error: "topic empty" });
 
     // RASTGELE ÇEŞİTLİLİK İÇİN
-    const randomSeed = Math.floor(Math.random() * 1000);
+    const randomSeed = Math.floor(Math.random() * 10000);
 
-    const prompt =
-`Sen viral sosyal medya içerik uzmanısın. "${topic}" konusu için ORİJİNAL başlık yaz.
+    const prompt = `Sen viral sosyal medya içerik uzmanısın. İnternetten "${topic}" konusundaki EN GÜNCEL trend ve gelişmeleri araştır.
 
-⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. Tekrar etme!
+⚠️ KRİTİK: Her seferinde FARKLI bir başlık üret. İnternetteki GÜNCEL trendleri kullan.
 
 SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
 
 KURAL 1 - BAŞLIK (1. satır):
 - "${topic}" konusuna DOĞRUDAN değin
+- İnternetten güncel bilgi al ve kullan
 - FARKLI açılardan yaklaş (zaman, sonuç, süreç, problem, çözüm)
 - Sayı kullan: 3, 5, 7, 10, 30 (farklı rakamlar dene)
 - Güçlü kelime varyasyonu kullan:
@@ -42,28 +42,30 @@ KURAL 1 - BAŞLIK (1. satır):
 2. Problem çözme: "${topic}'te Yapılan 3 Büyük Yanlış ❌"
 3. Hızlı sonuç: "${topic} İçin 10 Dakikalık Formül ⚡"
 4. Karşılaştırma: "Amatör vs Pro: ${topic}'te 7 Fark 🎯"
-5. Zaman bazlı: "${topic} 2024'te Nasıl Değişti? 📊"
+5. Zaman bazlı: "${topic} 2026'da Nasıl Değişti? 📊"
 6. Gizli bilgi: "${topic} Profesyonellerinin 5 Sırrı 🤫"
+7. Trend odaklı: "Viral Olan ${topic} Trendi! 🚀"
 
 KURAL 2 - HASHTAG (2. satır):
-- "${topic}" ile alakalı FARKLI hashtag'ler
+- "${topic}" ile alakalı GÜNCEL ve TREND hashtag'ler
+- İnternetten popüler hashtag'leri araştır
 - Her seferinde değişik kombinasyon
 - 3-5 kısa hashtag
 - Max 40 karakter
 
 YASAK:
 ❌ Tekrar eden başlıklar
-❌ "Kimse bilmiyor", "Şok", "Gerçek", "Hata", "Bitiriyor"
+❌ "Kimse bilmiyor", "Şok", "Gerçek" (aşırı kullanılmış kelimeler)
 ❌ Konu dışı içerik
 
 Random Seed: ${randomSeed} (farklılık için)
 
-ŞİMDİ "${topic}" İÇİN ORİJİNAL YAZ (SADECE 2 SATIR):
+ŞİMDİ "${topic}" İÇİN GÜNCEL VE ORİJİNAL İÇERİK YAZ (SADECE 2 SATIR):
 
-1. satır: Başlık
-2. satır: Hashtag`;
+1. satır: Başlık (max 60 karakter)
+2. satır: Hashtag (max 40 karakter)`;
 
-    const model = "gemini-2.5-flash";
+    const model = "gemini-2.0-flash-exp";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
     const r = await fetch(url, {
@@ -71,10 +73,13 @@ Random Seed: ${randomSeed} (farklılık için)
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
+        // ✅ İNTERNET ARAŞTIRMASI AKTİF
+        tools: [{ google_search: {} }],
         generationConfig: {
-          temperature: 0.9,  // Daha fazla yaratıcılık
+          temperature: 0.9,
           topP: 0.95,
-          topK: 40
+          topK: 40,
+          maxOutputTokens: 200
         }
       })
     });
@@ -116,7 +121,7 @@ function enforceTwoLinesMax(text) {
   title = smartTrim(title, 60);
   tags = normalizeTags(tags);
   tags = smartTrim(tags, 40);
-  if (!tags) tags = "#shorts";
+  if (!tags) tags = "#viral #trending";
 
   const total = Array.from(title).length + Array.from(tags).length + 1;
   if (total > 100) {
