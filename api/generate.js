@@ -18,96 +18,61 @@ export default async function handler(req, res) {
 
     const randomSeed = Math.floor(Math.random() * 1000);
 
-    // --- 1. VARSAYILAN PROMPT (YouTube, Insta vb. için) ---
-    let prompt =
-`Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
-SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
-
-KURAL 1 - BAŞLIK (1. satır):
-- "${topic}" konusundaki GÜNCEL gelişmeleri kullan
-- Sayı kullan: 3, 5, 7, 10
-- 1-2 emoji
-- Max 60 karakter
-
-KURAL 2 - HASHTAG (2. satır):
-- 3-5 kısa hashtag
-- Max 40 karakter
-
-Random Seed: ${randomSeed}
-
-ŞİMDİ YAZ:
-1. satır: Başlık
-2. satır: Hashtag`;
-
-    // --- 2. KRİPTO/FİNANS İSE GERÇEK VERİYİ DEVREYE SOK ---
+    // --- 1. KRİPTO/FİNANS İÇİN ÖZEL AKIŞ (HASHTAG YOK, SAF ANALİZ) ---
     if (platform === 'crypto' || platform === 'finance') {
-        // Konunun ilk kelimesini coin sembolü olarak al (Örn: "BTC ne olur" -> "BTC")
         const symbol = topic.split(' ')[0].toUpperCase();
-        
-        // Binance'den gerçek fiyatı çek
         const coinData = await getBinancePrice(symbol);
 
-        if (coinData) {
-            // VERİ BULUNDU! Prompt'u tamamen değiştiriyoruz.
-            const trendIcon = parseFloat(coinData.change) > 0 ? "🚀" : "🔻";
-            const trendText = parseFloat(coinData.change) > 0 ? "YÜKSELİYOR" : "DÜŞÜYOR";
+        let cryptoPrompt = "";
 
-            prompt = `
-            Rol: Kripto Para Analisti.
-            Dil: ${lang}
-            Konu: ${topic}
-            
-            GERÇEK PİYASA VERİLERİ (Şu an Canlı):
-            - Coin: ${coinData.symbol}
-            - Fiyat: $${coinData.price}
-            - Değişim: %${coinData.change}
-            - Durum: ${trendText}
+        if (coinData) {
+            // GERÇEK VERİ VARSA
+            const trendText = parseFloat(coinData.change) > 0 ? "YÜKSELİŞTE" : "DÜŞÜŞTE";
+            cryptoPrompt = `
+            Rol: Kripto Analisti. Dil: ${lang}.
+            Veri: ${coinData.symbol} Fiyat: $${coinData.price}, Değişim: %${coinData.change} (${trendText}).
             
             GÖREV:
-            Bu verileri kullanarak viral bir başlık at.
+            Yatırımcıya durumu özetleyen TEK BİR CÜMLE yaz.
             
             KURALLAR:
-            1. BAŞLIKTA MUTLAKA FİYATI ($${coinData.price}) VEYA DEĞİŞİMİ (%${coinData.change}) KULLAN.
-            2. Asla "Yükseliş mi düşüş mü?" diye sorma. Veriye bakarak yorum yap.
-            3. Eğer %${coinData.change} pozitifse "Fırladı, Rekor, Hedef" gibi kelimeler kullan.
-            4. Eğer %${coinData.change} negatifse "Çakıldı, Destek, Kritik" gibi kelimeler kullan.
-            5. Sadece 2 satır yaz.
+            1. ASLA HASHTAG KULLANMA (# YOK).
+            2. Fiyatı ve Değişim oranını cümlenin içine yedir.
+            3. "Yükseliş mi düşüş mü" diye sorma, veriye bakarak "Fırladı" veya "Çakıldı" diye yorum yap.
+            4. Maksimum 100 karakter olsun.
             
-            ÖRNEK ÇIKTI FORMATI:
-            ${coinData.symbol} $${coinData.price} Oldu! ${trendIcon} Sırada Ne Var?
-            #${coinData.symbol} #Kripto #Analiz
+            ÖRNEK:
+            BTC 98.500$ seviyesini kırdı, %5 yükselişle boğalar piyasaya geri döndü! 🚀
+            `;
+        } else {
+            // VERİ YOKSA (Coin bulunamadıysa)
+            cryptoPrompt = `
+            Konu: ${topic}. Kripto para piyasası hakkında TEK BİR CÜMLELİK, hashtagsiz, 100 karakteri geçmeyen viral bir analiz yaz.
+            Dil: ${lang}.
             `;
         }
-    }
-    // --- BİTİŞ ---
 
-    const model = "gemini-2.5-flash"; // Veya 1.5-flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
+        // Gemini'ye sor (Kripto için)
+        const txt = await callGemini(GEMINI_KEY, cryptoPrompt);
+        
+        // Çıktıyı temizle (Hashtag varsa sil, 100 karaktere kırp)
+        const cleanText = txt.replace(/#/g, '').trim(); 
+        const finalText = smartTrim(cleanText, 100);
 
-    const r = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }], // Google araması da açık kalsın
-        generationConfig: {
-          temperature: 0.9,
-          topP: 0.95,
-          topK: 40
-        }
-      })
-    });
-
-    const txt = await r.text();
-    let data = {};
-    try { data = JSON.parse(txt); } catch {}
-
-    if (!r.ok) {
-      return res.status(500).json({ error: "Gemini error", detail: txt.slice(0, 300) });
+        return res.status(200).json({ text: finalText });
     }
 
-    const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    const fixed = enforceTwoLinesMax(out);
+    // --- 2. DİĞER PLATFORMLAR İÇİN STANDART AKIŞ (YOUTUBE, INSTA VS.) ---
+    // (Burada hala Başlık + Hashtag yapısı korunuyor)
+    let prompt =
+`Sen viral içerik uzmanısın. Konu: "${topic}".
+SADECE 2 SATIR YAZ.
+1. Satır: Başlık (Max 60 karakter, sayı ve emoji kullan).
+2. Satır: 3-5 Hashtag.
+Dil: ${lang}. Seed: ${randomSeed}`;
+
+    const txt = await callGemini(GEMINI_KEY, prompt);
+    const fixed = enforceTwoLinesMax(txt); // Eski formatlayıcıyı kullan
 
     return res.status(200).json({ text: fixed });
 
@@ -116,43 +81,47 @@ Random Seed: ${randomSeed}
   }
 }
 
-// --- BİNANCE FİYAT ÇEKME FONKSİYONU ---
-async function getBinancePrice(symbolInput) {
-    try {
-        // Sembol temizliği (BTC -> BTCUSDT)
-        let s = symbolInput.replace(/[^A-Z0-9]/g, '');
-        if (!s) s = "BTC";
-        
-        // Çoğu coin USDT paritesindedir, eğer USDT yazmıyorsa ekle
-        if (!s.endsWith("USDT") && !s.endsWith("TRY")) {
-            s += "USDT";
-        }
+// --- GEMINI API ÇAĞRISI (Tekrarı önlemek için fonksiyona aldım) ---
+async function callGemini(key, prompt) {
+    const model = "gemini-2.5-flash";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.9, topK: 40 }
+      })
+    });
 
-        const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
-        
-        if (!res.ok) return null; // Coin bulunamadı
-
-        const d = await res.json();
-        
-        return {
-            symbol: s.replace("USDT", ""), // BTC
-            price: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2), // 0.0045 veya 98500.20
-            change: parseFloat(d.priceChangePercent).toFixed(2) // -2.50
-        };
-    } catch (e) {
-        console.error("Binance error:", e);
-        return null;
-    }
+    if (!r.ok) throw new Error("Gemini API Error");
+    const json = await r.json();
+    return json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
-// --- FORMATLAMA FONKSİYONLARI (AYNEN KALDI) ---
-function enforceTwoLinesMax(text) {
-  const lines = String(text || "")
-    .replace(/\r/g, "")
-    .split("\n")
-    .map(s => s.trim())
-    .filter(Boolean);
+// --- BİNANCE FİYAT ÇEKME ---
+async function getBinancePrice(symbolInput) {
+    try {
+        let s = symbolInput.replace(/[^A-Z0-9]/g, '');
+        if (!s) s = "BTC";
+        if (!s.endsWith("USDT") && !s.endsWith("TRY")) s += "USDT";
 
+        const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
+        if (!res.ok) return null;
+
+        const d = await res.json();
+        return {
+            symbol: s.replace("USDT", ""),
+            price: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2),
+            change: parseFloat(d.priceChangePercent).toFixed(2)
+        };
+    } catch (e) { return null; }
+}
+
+// --- FORMATLAMA (DİĞER PLATFORMLAR İÇİN) ---
+function enforceTwoLinesMax(text) {
+  const lines = String(text || "").replace(/\r/g, "").split("\n").map(s => s.trim()).filter(Boolean);
   let title = lines[0] || "";
   let tags = lines[1] || "";
 
@@ -165,18 +134,8 @@ function enforceTwoLinesMax(text) {
   title = smartTrim(title, 60);
   tags = normalizeTags(tags);
   tags = smartTrim(tags, 40);
-  if (!tags) tags = "#shorts";
+  if (!tags) tags = "#shorts"; // Sadece YouTube/Insta için varsayılan tag
 
-  const total = Array.from(title).length + Array.from(tags).length + 1;
-  if (total > 100) {
-    const maxTagLen = 100 - Array.from(title).length - 1;
-    if (maxTagLen > 10) {
-      tags = smartTrim(tags, maxTagLen);
-    } else {
-      title = smartTrim(title, 50);
-      tags = smartTrim(tags, 49);
-    }
-  }
   return `${title}\n${tags}`;
 }
 
