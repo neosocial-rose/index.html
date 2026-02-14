@@ -1,6 +1,7 @@
 export default async function handler(req, res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
+  // Sadece POST isteği
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
@@ -14,122 +15,128 @@ export default async function handler(req, res) {
 
     if (!topic) return res.status(400).json({ error: "Konu boş" });
 
-    // --- PROFESYONEL KRİPTO ANALİZ MODU ---
+    // --- KRİPTO ANALİZ BÖLÜMÜ ---
     if (platform === 'crypto' || platform === 'finance') {
         
-        // 1. Coin Sembolünü bul (Örn: "eth yorum" -> "ETH")
-        const symbol = extractCoinSymbol(topic); 
+        // 1. Sembolü Yakala (eth -> ETHUSDT)
+        let symbol = extractCoinSymbol(topic);
         
-        // 2. Binance'den MUM (CANDLE) verisi çek (Son 30 Dk)
-        const candle = await getBinanceCandle(symbol);
+        // 2. Binance'den Veri Çek (GARANTİLİ YÖNTEM)
+        const coinData = await getBinanceData(symbol);
 
         let finalPrompt = "";
 
-        if (candle) {
-            // Mum verilerini yorumla
-            const isGreen = candle.close > candle.open; // Yeşil mum mu?
-            const percent = ((candle.close - candle.open) / candle.open) * 100;
-            const volatility = Math.abs(percent).toFixed(2);
-            const direction = isGreen ? "YUKARI (BULLISH)" : "AŞAĞI (BEARISH)";
+        if (coinData) {
+            // --- SENARYO A: VERİ BAŞARIYLA ÇEKİLDİ ---
+            const trend = parseFloat(coinData.change) > 0 ? "YÜKSELİŞ (ALICILI)" : "DÜŞÜŞ (SATICILI)";
             
             finalPrompt = `
-            ROL: Sen 20 yıllık tecrübeli, sert mizaçlı bir Teknik Analistsin. Asla çocukça konuşma.
+            ROL: Wall Street Teknik Analisti.
+            DİL: ${lang} (Türkçe ise Borsa İstanbul ağzıyla konuş).
             
-            CANLI 30 DAKİKALIK MUM VERİSİ:
-            - Coin: ${candle.symbol}
-            - Şu Anki Fiyat: $${candle.close}
-            - Mum Açılışı: $${candle.open}
-            - En Yüksek (Direnç): $${candle.high}
-            - En Düşük (Destek): $${candle.low}
-            - Son 30dk Değişim: %${volatility}
-            - Yön: ${direction}
+            CANLI VERİ:
+            - Coin: ${coinData.symbol}
+            - Fiyat: $${coinData.price}
+            - 24s Değişim: %${coinData.change}
+            - Yön: ${trend}
             
             GÖREV:
-            Bu verilere bakarak yatırımcıya TEK CÜMLELİK, teknik terimler içeren, profesyonel bir analiz yaz.
+            Yatırımcıya TEK CÜMLELİK, net teknik analiz ver.
             
-            KESİN KURALLAR:
-            1. ASLA "yükseldi" veya "düştü" gibi basit kelimeler kullanma.
-            2. Şunları kullan: "Test ediyor", "Kırdı", "Red yedi", "Hacimli mum", "Destek çalıştı", "Dirençte zorlanıyor".
-            3. Mutlaka Fiyatı ($${candle.close}) cümlenin içinde geçir.
-            4. Eğer yön YUKARI ise: "Direnci zorluyor", "Alıcılar iştahlı", "Kırılım geldi" de.
-            5. Eğer yön AŞAĞI ise: "Satış baskısı", "Desteğe çekiliyor", "Kâr realizasyonu" de.
-            6. Max 100 karakter. Hashtag YOK.
+            KURALLAR:
+            1. FİYATI ($${coinData.price}) MUTLAKA YAZ.
+            2. ASLA "ben yapay zekayım", "verim yok" deme.
+            3. "Yükseldi/Düştü" deme. Şunları de: "Direnci test ediyor", "Desteğe çekildi", "Hacimli kırdı".
+            4. Max 100 karakter. Hashtag YOK.
             
-            ÖRNEK (Bunlar gibi yaz):
-            - "ETH 2.950$ direncinden red yedi, 2.920$ desteğine geri çekiliyor! 📉"
-            - "BTC 98.000$ üzerinde kalıcı olmaya çalışıyor, alıcılar devrede! 🚀"
+            ÖRNEK:
+            ${coinData.symbol} $${coinData.price} direncini zorluyor, boğalar iştahlı! 🚀
             `;
         } else {
-            // Veri yoksa
-            finalPrompt = `Konu: ${topic}. Kripto piyasası hakkında "Volatilite yüksek, işlem hacimlerine dikkat!" minvalinde profesyonel, tek cümlelik bir uyarı yap.`;
+            // --- SENARYO B: VERİ ÇEKİLEMEDİ (YAPAY ZEKA SUSTURUCU) ---
+            // Burası çalışırsa AI "Ben bilmiyorum" diyemez, genel konuşur.
+            finalPrompt = `
+            Konu: ${topic} (Kripto Para).
+            GÖREV: Şu an bu coin için anlık veriye ulaşamadın ama profesyonel görünmelisin.
+            Yatırımcıya "Piyasadaki volatilite yüksek, destek seviyelerine dikkat edin" minvalinde,
+            TEK CÜMLELİK, RAKAMSIZ, genel geçer bir borsa uyarısı yap.
+            ASLA "Ben yapay zekayım", "Bilmiyorum" DEME. Sanki piyasayı izliyormuş gibi konuş.
+            `;
         }
 
         const txt = await callGemini(GEMINI_KEY, finalPrompt);
         return res.status(200).json({ text: txt.replace(/#/g, '').trim() });
     }
 
-    // --- DİĞER PLATFORMLAR (ESKİ SİSTEM) ---
-    // (YouTube vb. için standart viral başlık)
-    const prompt = `Sen viral içerik uzmanısın. Konu: "${topic}". Platform: ${platform}. Dil: ${lang}.
-    SADECE 2 SATIR YAZ:
-    1. Satır: Başlık (Max 60 karakter, sayı ve emoji kullan).
-    2. Satır: 3-5 Hashtag.`;
+    // --- DİĞER PLATFORMLAR (YouTube vb.) ---
+    const prompt = `Konu: "${topic}". Platform: ${platform}. Dil: ${lang}.
+    Viral Başlık (Max 60 karakter) ve 3 Hashtag yaz. 2 satır olsun.`;
 
     const txt = await callGemini(GEMINI_KEY, prompt);
-    const fixed = enforceTwoLinesMax(txt);
-
-    return res.status(200).json({ text: fixed });
+    return res.status(200).json({ text: enforceTwoLinesMax(txt) });
 
   } catch (e) {
-    return res.status(500).json({ error: "Sunucu hatası", detail: String(e) });
+    return res.status(500).json({ error: "Server hatası", detail: String(e) });
   }
 }
 
 // --- YARDIMCI FONKSİYONLAR ---
 
-// 1. Coin Sembolü Çıkarıcı
+// 1. Sembol Bulucu (Geliştirilmiş)
 function extractCoinSymbol(text) {
-    const t = text.toUpperCase().split(' ')[0].replace(/[^A-Z0-9]/g, '');
-    return t.length < 2 ? "BTC" : t;
+    const t = text.toUpperCase();
+    // Yaygın coinleri elle düzelt
+    if (t.includes("BITCOIN")) return "BTCUSDT";
+    if (t.includes("ETHEREUM")) return "ETHUSDT";
+    if (t.includes("AVAX")) return "AVAXUSDT";
+    if (t.includes("SOLANA")) return "SOLUSDT";
+    if (t.includes("RIPPLE")) return "XRPUSDT";
+    
+    // Kelimeyi al, USDT ekle
+    let clean = t.split(' ')[0].replace(/[^A-Z0-9]/g, '');
+    if (clean.length < 2) return "BTCUSDT"; // Boşsa BTC getir
+    if (!clean.endsWith("USDT") && !clean.endsWith("TRY")) clean += "USDT";
+    return clean;
 }
 
-// 2. Binance MUM Verisi (30 Dakikalık)
-async function getBinanceCandle(symbol) {
+// 2. Binance Veri Çekici (Hata Korumalı)
+async function getBinanceData(symbol) {
     try {
-        let s = symbol;
-        if (!s.endsWith("USDT") && !s.endsWith("TRY")) s += "USDT";
-        
-        // interval=30m (30 dakika), limit=1 (son mum)
-        const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=30m&limit=1`);
-        if (!res.ok) return null;
+        // Binance API bazen timeout yer, o yüzden 2 saniye bekleriz max.
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-        const data = await res.json();
-        const k = data[0]; // İlk ve tek mum
-        
+        const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`, {
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
+        if (!res.ok) return null; // Coin yoksa null dön
+
+        const d = await res.json();
         return {
-            symbol: s.replace("USDT", ""),
-            open: parseFloat(k[1]).toFixed(2),  // Açılış
-            high: parseFloat(k[2]).toFixed(2),  // En Yüksek
-            low: parseFloat(k[3]).toFixed(2),   // En Düşük
-            close: parseFloat(k[4]).toFixed(2)  // Kapanış (Şu anki fiyat)
+            symbol: symbol.replace("USDT", ""),
+            price: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2),
+            change: parseFloat(d.priceChangePercent).toFixed(2)
         };
-    } catch (e) { return null; }
+    } catch (e) {
+        console.log("Binance Error:", e);
+        return null; // Hata olursa null dön (Yedek senaryoya geç)
+    }
 }
 
-// 3. Gemini Fonksiyonu
+// 3. Gemini Çağırıcı
 async function callGemini(key, prompt) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
-    const r = await fetch(url, {
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.5 } }) // Sıcaklık 0.5 (Daha ciddi)
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
     });
-    if (!r.ok) throw new Error("AI Error");
-    const json = await r.json();
-    return json?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    const j = await r.json();
+    return j?.candidates?.[0]?.content?.parts?.[0]?.text || "Analiz hazırlanıyor...";
 }
 
-// 4. Standart Formatlayıcı (YouTube vb. için)
+// 4. Formatlayıcı
 function enforceTwoLinesMax(text) {
-  const lines = String(text || "").split("\n").map(s => s.trim()).filter(Boolean);
-  return `${lines[0] || ""}\n${lines[1] || "#shorts"}`;
+  const l = String(text || "").split("\n").map(s => s.trim()).filter(Boolean);
+  return `${l[0] || ""}\n${l[1] || "#shorts"}`;
 }
