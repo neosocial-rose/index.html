@@ -17,101 +17,109 @@ export default async function handler(req, res) {
     if (!topic) return res.status(400).json({ error: "topic empty" });
 
     const randomSeed = Math.floor(Math.random() * 1000);
+    let finalPrompt = "";
+    let isCryptoMode = false;
 
-    // --- KRİPTO ANALİZ AKIŞI ---
-    if (platform === 'crypto' || platform === 'finance') {
+    // --- 1. SENARYO: KRİPTO ANALİZ (GERÇEK VERİ + TEKNİK YORUM) ---
+    if (platform === 'crypto') {
+      isCryptoMode = true;
       const symbol = extractCoinSymbol(topic);
-      const coinData = await getBinanceData(symbol);
+      const coin = await getBinancePrice(symbol);
 
-      let cryptoPrompt = "";
-      if (coinData) {
-        // VERİ VAR: Gemini'ye net ve rakamsal analiz yaptır
-        cryptoPrompt = `
-        Sen profesyonel bir borsa terminalisin. Dil: ${lang}.
-        VERİ: ${coinData.symbol} Fiyat: $${coinData.price}, 24s Değişim: %${coinData.change}.
-        GÖREV: Bu rakamları kullanarak tek bir cümlelik teknik analiz yaz.
-        KURALLAR:
-        - "Piyasa koşulları", "dikkatli olunmalı", "önem taşımaktadır" gibi boş lafları ASLA kullanma.
-        - MUTLAKA Fiyatı ($${coinData.price}) ve Değişimi (%${coinData.change}) cümlenin içinde geçir.
-        - Eğer %${coinData.change} pozitifse "direnci kırdı", "hacimli yükseliş" gibi terimler kullan.
-        - Eğer %${coinData.change} negatifse "desteği test ediyor", "satış baskısı" gibi terimler kullan.
-        - Maksimum 100 karakter. Hashtag kullanma.
+      if (coin) {
+        finalPrompt = `
+          ROL: Kıdemli Kripto Analisti. Dil: ${lang}.
+          VERİ: ${coin.s} Fiyat: $${coin.p}, Değişim: %${coin.c}.
+          GÖREV: Bu rakamları kullanarak tek bir cümlelik teknik rapor yaz.
+          KURALLAR:
+          - ASLA HASHTAG KULLANMA.
+          - ASLA "yapay zekayım", "yatırım tavsiyesi değildir", "erişimim yok" deme.
+          - Fiyatı ($${coin.p}) ve Değişimi (%${coin.c}) cümlenin içinde mutlaka kullan.
+          - Yön %${coin.c} ise buna göre "Desteği test ediyor" veya "Direnci kırdı" de.
+          - Maksimum 100 karakter.
         `;
       } else {
-        // VERİ ÇEKİLEMEZSE: Profesyonelce durumu kurtar
-        cryptoPrompt = `Konu: ${topic}. Kripto piyasasında volatilite artıyor, ${topic} için işlem hacimleri ve teknik seviyeler takip edilmeli. Hashtagsiz tek cümle yaz.`;
+        finalPrompt = `Konu: ${topic}. Kripto piyasasında volatilite artıyor, teknik seviyeler ve hacim takibi kritik. Hashtagsiz tek cümle yaz.`;
       }
+    } 
 
-      const out = await callGemini(GEMINI_KEY, cryptoPrompt, 0.2); // Düşük temperature ile daha stabil sonuç
-      const cleanOutput = out.replace(/#/g, '').trim();
-      return res.status(200).json({ text: smartTrim(cleanOutput, 100) });
+    // --- 2. SENARYO: FİNANS & BORSA (VİRAL BAŞLIK + HASHTAG) ---
+    else if (platform === 'finance') {
+      finalPrompt = `
+        ROL: Viral Finans Editörü. Dil: ${lang}.
+        KONU: ${topic}.
+        GÖREV: Reklam geliri (TBM) yüksek kelimeler içeren, viral bir borsa başlığı ve hashtagleri üret.
+        FORMAT:
+        1. Satır: Başlık (Sayı ve emoji kullan, max 60 karakter)
+        2. Satır: 3-5 adet popüler hashtag (#borsa #finans vb.)
+      `;
     }
 
-    // --- STANDART SOSYAL MEDYA AKIŞI (ORİJİNAL PROMPT) ---
-    const standardPrompt = 
-`Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
-SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
-KURAL 1 - BAŞLIK (1. satır):
-- "${topic}" konusundaki GÜNCEL gelişmeleri kullan, sayı ve emoji ekle. Max 60 karakter.
-KURAL 2 - HASHTAG (2. satır):
-- 3-5 kısa hashtag. Max 40 karakter.
-Random Seed: ${randomSeed}
-1. satır: Başlık
-2. satır: Hashtag`;
+    // --- 3. SENARYO: DİĞER SOSYAL MEDYA KARTLARI ---
+    else {
+      finalPrompt = `
+        ROL: Viral Sosyal Medya Uzmanı. Dil: ${lang}. Konu: ${topic}.
+        İNTERNETTEN trendleri araştır ve şu formatta yaz:
+        1. Satır: Başlık (Max 60 karakter)
+        2. Satır: 3-5 Hashtag
+        Seed: ${randomSeed}
+      `;
+    }
 
-    const out = await callGemini(GEMINI_KEY, standardPrompt, 0.9);
-    const fixed = enforceTwoLinesMax(out);
+    // GEMINI ÇAĞRISI
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: finalPrompt }] }],
+        tools: [{ google_search: {} }], // Trendler için search açık
+        generationConfig: { 
+          temperature: isCryptoMode ? 0.2 : 0.9, // Kriptoda daha ciddi, diğerlerinde daha viral
+          topP: 0.95 
+        }
+      })
+    });
 
-    return res.status(200).json({ text: fixed });
+    const data = await r.json();
+    const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+    if (isCryptoMode) {
+      // Kriptoda hashtag temizliği ve tek satır kuralı
+      const clean = out.replace(/#/g, '').split('\n')[0].trim();
+      return res.status(200).json({ text: smartTrim(clean, 100) });
+    } else {
+      // Finans ve diğerlerinde 2 satır + hashtag kuralı
+      const fixed = enforceTwoLinesMax(out);
+      return res.status(200).json({ text: fixed });
+    }
 
   } catch (e) {
     return res.status(500).json({ error: "server error", detail: String(e) });
   }
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
+// --- TÜM YARDIMCI FONKSİYONLAR (EKSİKSİZ) ---
 
-async function callGemini(key, prompt, temp = 0.7) {
-  const model = "gemini-2.0-flash"; // Güncel model adı
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
-  
-  const r = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      tools: [{ google_search: {} }],
-      generationConfig: { temperature: temp, topP: 0.95 }
-    })
-  });
-
-  if (!r.ok) return "İçerik üretiminde bir sorun oluştu.";
-  const data = await r.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-}
-
-async function getBinanceData(symbol) {
+async function getBinancePrice(symbol) {
   try {
     const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
     if (!res.ok) return null;
     const d = await res.json();
     return {
-      symbol: symbol.replace("USDT", ""),
-      price: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2),
-      change: parseFloat(d.priceChangePercent).toFixed(2)
+      s: symbol.replace("USDT", ""),
+      p: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2),
+      c: parseFloat(d.priceChangePercent).toFixed(2)
     };
   } catch { return null; }
 }
 
 function extractCoinSymbol(text) {
-  const mapping = { "BITCOIN": "BTC", "ETHEREUM": "ETH", "AVAX": "AVAX", "SOLANA": "SOL", "RIPPLE": "XRP" };
+  const m = { "BITCOIN": "BTC", "ETHEREUM": "ETH", "AVAX": "AVAX", "SOLANA": "SOL", "RIPPLE": "XRP" };
   const up = text.toUpperCase();
-  for (let key in mapping) if (up.includes(key)) return mapping[key] + "USDT";
-  let clean = up.split(' ')[0].replace(/[^A-Z0-9]/g, '');
-  return (clean.length < 2 ? "BTC" : clean) + "USDT";
+  for (let k in m) if (up.includes(k)) return m[k] + "USDT";
+  let c = up.split(' ')[0].replace(/[^A-Z0-9]/g, '');
+  return (c.length < 2 ? "BTC" : c) + "USDT";
 }
-
-// --- ORİJİNAL FORMATLAMA FONKSİYONLARIN (EKSİKSİZ) ---
 
 function enforceTwoLinesMax(text) {
   const lines = String(text || "").replace(/\r/g, "").split("\n").map(s => s.trim()).filter(Boolean);
@@ -127,7 +135,7 @@ function enforceTwoLinesMax(text) {
   title = smartTrim(title, 60);
   tags = normalizeTags(tags);
   tags = smartTrim(tags, 40);
-  if (!tags) tags = "#shorts";
+  if (!tags) tags = "#viral #trend";
 
   return `${title}\n${tags}`;
 }
@@ -136,8 +144,7 @@ function normalizeTags(s) {
   let t = String(s || "").trim();
   if (!t) return "";
   if (!t.startsWith("#")) t = "#" + t;
-  t = t.replace(/[，,;]+/g, " ").replace(/\s+/g, " ").trim();
-  return t;
+  return t.replace(/[，,;]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function smartTrim(str, maxLen) {
@@ -145,6 +152,5 @@ function smartTrim(str, maxLen) {
   if (arr.length <= maxLen) return arr.join("").trim();
   const cut = arr.slice(0, maxLen).join("");
   const lastSpace = cut.lastIndexOf(" ");
-  if (lastSpace > 0) return cut.slice(0, lastSpace).trim();
-  return cut.trim();
+  return lastSpace > 0 ? cut.slice(0, lastSpace).trim() : cut.trim();
 }
