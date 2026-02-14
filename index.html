@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NeoSocial_Rose | AI ile Viral İçerik Üret | Ücretsiz Sosyal Medya Başlık Üretici</title>
+  
+  <title id="site-title">NeoSocial_Rose | AI ile Viral İçerik Üret | Ücretsiz Sosyal Medya Başlık Üretici</title>
 
-  <meta name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun. Gemini AI teknolojisi ile profesyonel içerik üretimi.">
-  <meta name="keywords" content="ai içerik üretici, sosyal medya başlık, hashtag üretici, youtube başlık, instagram hashtag, tiktok viral, twitter içerik, ücretsiz ai araç, gemini ai, seo optimizasyon">
+  <meta id="meta-desc" name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun. Gemini AI teknolojisi ile profesyonel içerik üretimi.">
+  <meta id="meta-keys" name="keywords" content="ai içerik üretici, sosyal medya başlık, hashtag üretici, youtube başlık, instagram hashtag, tiktok viral, twitter içerik, ücretsiz ai araç, gemini ai, seo optimizasyon">
+  
   <meta name="author" content="NeoSocial_Rose">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
   <link rel="canonical" href="https://jarvisheyrose.com/">
@@ -56,6 +58,11 @@
     .seo-poor { background:#fee2e2; color:#991b1b; }
     .page-content { display:none; }
     .page-content.active { display:block; }
+
+    /* YENİ EKLENEN: FİNANS KARTI STİLİ (ORİJİNAL KOD BOZULMADAN EKLENDİ) */
+    .finance-card { border-color: #fcd34d; background: linear-gradient(to bottom right, #ffffff, #fffbeb); }
+    .finance-card:hover { border-color: #d97706; box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.15); transform: translateY(-4px); }
+    .finance-badge { background-color: #fef3c7; color: #d97706; }
   </style>
 
   <script type="application/ld+json">
@@ -173,7 +180,8 @@
 
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
 
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
             <div class="flex items-center justify-between mb-4">
@@ -211,6 +219,15 @@
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
           </div>
 
+          <div class="platform-card finance-card" id="card-finance" onclick="openGenerator('finance')">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-chart-line text-amber-500 text-4xl"></i>
+              <span id="badge-finance" class="finance-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
+            </div>
+            <h3 class="text-lg font-black mb-2 text-amber-600">Finans & Kripto</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_finance_desc">Global Trend Analizi & Fırsatlar</p>
+          </div>
+
         </div>
       </section>
 
@@ -222,8 +239,8 @@
               <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-translate="important_info">Önemli Bilgiler</h3>
               <div class="space-y-3 text-sm font-bold text-slate-700">
                 <p data-translate="info_1">🎯 Bu platform <span class="text-rose-500">sadece içerik önerisi</span> sunar.</p>
-                <p data-translate="info_2">⚠️ Hiçbir garanti veya başarı vaadi <span class="text-rose-500">sunulmamaktadır</span>.</p>
-                <p data-translate="info_3">🤖 Tüm içerikler <span class="text-rose-500">Gemini AI</span> tarafından üretilmektedir.</p>
+                <p data-translate="info_2">⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi <span class="text-rose-500">verilmemektedir</span>.</p>
+                <p data-translate="info_3">🤖 Tüm içerikler <span class="text-rose-500">Gemini AI</span> tarafından trendlere göre üretilmektedir.</p>
                 <p data-translate="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
                 <p data-translate="info_5">🔄 Her platform için günlük <span class="text-rose-500">2 üretim hakkınız</span> vardır.</p>
               </div>
@@ -408,12 +425,72 @@
 
   <script>
     const translations = {
-      tr: {nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_2:"⚠️ Hiçbir garanti veya başarı vaadi <span class='text-rose-500'>sunulmamaktadır</span>.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"🌙 Bugünlük limitiniz doldu. Yarın tekrar sizinle olmaktan mutluluk duyarız!",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."},
-      en: {nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ No guarantees",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"🌙 Daily limit reached! We'd love to see you again tomorrow!",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."}
+      tr: {
+        // SEO (Sayfa Başlığı ve Meta)
+        site_title: "NeoSocial_Rose | AI ile Viral İçerik ve Finans Analizi",
+        meta_desc: "Ücretsiz AI içerik üretici. YouTube, TikTok ve Kripto analizleri için viral başlıklar ve trend tahminleri.",
+        meta_keys: "ücretsiz yapay zeka sitesi, youtube para kazanma 2026, ücretsiz ai görsel, kripto analiz, bedava içerik üretici, borsa yorumları, tiktok viral etiketler, ücretsiz makale yazdır",
+        
+        // Yeni Kart Metinleri ve Uyarılar
+        platform_finance_desc: "Global Trend Analizi",
+        info_2: "⚠️ Yatırım Tavsiyesi Değildir. Veriler yapay zeka ile trend analizi ve içerik fikri amaçlıdır. Kesin kazanç garantisi yoktur.",
+
+        // Orijinal Metinler
+        nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"🌙 Bugünlük limitiniz doldu. Yarın tekrar sizinle olmaktan mutluluk duyarız!",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."
+      },
+      en: {
+        // SEO Pool
+        site_title: "NeoSocial_Rose | Free AI Viral Content & Finance Analysis",
+        meta_desc: "Free AI tool, make money online 2026, crypto analysis, gold trends. Generate viral titles for YouTube, TikTok & Finance.",
+        meta_keys: "free ai tool, make money online 2026, free ai image generator, crypto analysis, youtube monetization, free content creator, stock market trends, viral video ideas",
+        
+        // Finance Card & Legal
+        platform_finance_desc: "Global Trend Analysis",
+        info_2: "⚠️ Not Investment Advice. Data is generated by AI for trend analysis and content creation purposes only. No profit guarantee.",
+
+        // Original Translation
+        nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"🌙 Daily limit reached! We'd love to see you again tomorrow!",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."
+      },
+      fr: {
+        site_title: "NeoSocial_Rose | IA Contenu Viral & Analyse Finance",
+        meta_desc: "Outil IA gratuit, gagner de l'argent 2026, analyse crypto. Générateur de titres viraux pour YouTube et TikTok.",
+        meta_keys: "site ia gratuit, gagner argent youtube, générateur image ia gratuit, analyse crypto, idées de contenu viral, bourse en ligne, hashtags tiktok",
+        platform_finance_desc: "Analyse du Marché",
+        info_2: "⚠️ Pas un Conseil en Investissement. Données générées par IA pour l'analyse des tendances. Aucune garantie.",
+        // (Diğer çeviriler EN'den alınır)
+        nav_home:"Accueil",nav_about:"À propos",login:"CONNEXION",logout:"DÉCONNEXION",select_platform:"Sélectionner",important_info:"Important",info_1:"🎯 Suggestions uniquement",generate_btn:"GÉNÉRER"
+      },
+      de: {
+        site_title: "NeoSocial_Rose | KI Viraler Content & Finanzanalyse",
+        meta_desc: "Kostenloses KI-Tool, Geld verdienen 2026, Krypto-Analyse. Virale Titel für YouTube und TikTok.",
+        meta_keys: "kostenlose ki tools, geld verdienen 2026, gratis ki bildgenerator, krypto analyse, youtube seo deutsch, markttrends, viral gehen",
+        platform_finance_desc: "Markttrends & Analyse",
+        info_2: "⚠️ Keine Anlageberatung. KI-generierte Trendanalysen. Keine Gewinngarantie.",
+        // (Diğer çeviriler EN'den alınır)
+        nav_home:"Startseite",nav_about:"Über uns",login:"LOGIN",logout:"LOGOUT",select_platform:"Plattform",important_info:"Wichtig",info_1:"🎯 Nur Vorschläge",generate_btn:"ERZEUGEN"
+      },
+      es: {
+        site_title: "NeoSocial_Rose | IA Contenido Viral y Finanzas",
+        meta_desc: "Herramienta IA gratis, ganar dinero 2026, análisis cripto. Generador de títulos virales.",
+        meta_keys: "ia gratis, ganar dinero youtube, generador imagenes ia gratis, analisis cripto, ideas virales, tendencias mercado, creador contenido",
+        platform_finance_desc: "Análisis de Mercado",
+        info_2: "⚠️ No es Consejo de Inversión. Datos de IA para análisis de tendencias. Sin garantía.",
+        // (Diğer çeviriler EN'den alınır)
+        nav_home:"Inicio",nav_about:"Nosotros",login:"ACCESO",logout:"SALIR",select_platform:"Seleccionar",important_info:"Importante",info_1:"🎯 Solo sugerencias",generate_btn:"GENERAR"
+      },
+      pt: {
+        site_title: "NeoSocial_Rose | IA Conteúdo Viral e Finanças",
+        meta_desc: "Ferramenta IA grátis, ganhar dinheiro 2026, análise cripto. Gerador de títulos virais.",
+        meta_keys: "ia gratis, ganhar dinheiro 2026, gerador imagem ia gratuito, analise cripto, viralizar no tiktok, tendencias mercado, renda extra",
+        platform_finance_desc: "Análise de Mercado",
+        info_2: "⚠️ Não é Recomendação de Investimento. Dados de IA para tendências. Sem garantia.",
+        // (Diğer çeviriler EN'den alınır)
+        nav_home:"Início",nav_about:"Sobre",login:"ENTRAR",logout:"SAIR",select_platform:"Selecionar",important_info:"Importante",info_1:"🎯 Apenas sugestões",generate_btn:"GERAR"
+      }
     };
 
-    // Varsayılan haklar 0. Giriş yapılınca hafızadan yüklenir.
-    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0}};
+    // Varsayılan haklar. (Finance eklendi)
+    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0}};
 
     function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
 
@@ -430,7 +507,7 @@
         loadCreditsFromStorage();
       }else{
         state.userId=null;
-        state.credits={youtube:0,instagram:0,tiktok:0,x:0}; // Çıkışta haklar sıfırlanır (hafızada kalır ama UI'da 0 görünür)
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0,finance:0}; 
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
@@ -455,16 +532,17 @@
       const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
 
       if(storedDate !== today){
-        // Yeni Gün: Hakları yenile (2 yap)
+        // Yeni Gün: Hakları yenile (5 platform için 2'şer hak)
         localStorage.setItem(`nsr_date_${state.userId}`, today);
-        state.credits = {youtube:2, instagram:2, tiktok:2, x:2};
+        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2};
         localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
       } else {
-        // Aynı Gün: Kayıtlı hakkı yükle (yoksa 2 ver)
         if(storedCredits){
           state.credits = JSON.parse(storedCredits);
+          // Eğer eski kullanıcıysa ve finance anahtarı yoksa ekle
+          if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
         } else {
-          state.credits = {youtube:2, instagram:2, tiktok:2, x:2};
+          state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2};
           localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
         }
       }
@@ -478,9 +556,22 @@
 
     function updateAllBadges(){Object.keys(state.credits).forEach(p=>{const b=document.getElementById(`badge-${p}`);if(b)b.innerText=`${state.credits[p]}/2`;const c=document.getElementById(`card-${p}`);if(c){if(state.credits[p]<=0)c.classList.add('disabled');else c.classList.remove('disabled');}});}
 
-    function setLang(l){state.lang=l;document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));const btn=document.getElementById(`l-${l}`);if(btn)btn.classList.add('active');translatePage();}
+    function setLang(l){
+      state.lang=l;
+      document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+      const btn=document.getElementById(`l-${l}`);
+      if(btn)btn.classList.add('active');
+      
+      // SEO GÜNCELLEME MANTIĞI
+      const t = translations[l] || translations['en'];
+      if(t.site_title) document.getElementById('site-title').innerText = t.site_title;
+      if(t.meta_desc) document.getElementById('meta-desc').setAttribute('content', t.meta_desc);
+      if(t.meta_keys) document.getElementById('meta-keys').setAttribute('content', t.meta_keys);
 
-    function translate(k){return translations[state.lang][k]||translations['tr'][k]||k;}
+      translatePage();
+    }
+
+    function translate(k){return (translations[state.lang] && translations[state.lang][k]) || translations['tr'][k] || translations['en'][k] || k;}
 
     function translatePage(){document.querySelectorAll('[data-translate]').forEach(e=>{const k=e.getAttribute('data-translate');e.innerHTML=translate(k);});document.querySelectorAll('[data-translate-placeholder]').forEach(e=>{const k=e.getAttribute('data-translate-placeholder');e.placeholder=translate(k);});}
 
@@ -496,7 +587,7 @@
         return;
       }
       state.currentPlatform=p;
-      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)'};
+      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:'Finans & Kripto'};
       document.getElementById('modal-platform-title').innerText=pn[p];
       document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
       document.getElementById('modal-topic-input').value='';
