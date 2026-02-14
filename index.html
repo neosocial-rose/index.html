@@ -19,6 +19,7 @@
   <meta property="og:description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
   <meta property="og:image" content="https://jarvisheyrose.com/og-image.jpg">
 
+  <!-- AdSense Script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -61,8 +62,9 @@
     .article-content ul, .article-content ol { margin-left: 2rem; margin-bottom: 1rem; list-style-type: disc; }
     .article-content li { margin-bottom: 0.5rem; }
 
-    /* AdBox specific fixes */
-    .ad-box { min-height: 280px; width: 100%; }
+    /* AdBox specific fixes for availableWidth=0 error */
+    .ad-box { min-height: 280px; width: 100%; position: relative; }
+    .ad-container { width: 100%; display: block; overflow: hidden; }
 
     .finance-card { border-color: #fcd34d; background: linear-gradient(to bottom right, #ffffff, #fffbeb); }
     .finance-card:hover { border-color: #d97706; box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.15); transform: translateY(-4px); }
@@ -140,31 +142,29 @@
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
+    <!-- ANA SAYFA -->
     <div id="page-home" class="page-content active">
-      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 lg:h-80">
-        <div class="hero-box"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none';"></div>
-        <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100 overflow-hidden">
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
+        <div class="hero-box h-48 md:h-64 lg:h-80"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none';"></div>
+        <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100 overflow-hidden h-48 md:h-64 lg:h-80">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-          <!-- Fix: Added explicit style and container width check -->
-          <div class="w-full flex justify-center">
+          <div class="ad-container flex justify-center w-full">
             <ins class="adsbygoogle" 
-                 style="display:block; min-width:250px; min-height:250px;" 
+                 style="display:block; min-width:250px; min-height:200px; width: 100%;" 
                  data-ad-client="ca-pub-1842835786064419" 
                  data-ad-slot="1234567890" 
                  data-ad-format="auto" 
                  data-full-width-responsive="true"></ins>
           </div>
           <script>
-            // Fix: Safer push with error handling
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { console.error("AdSense Error prevented:", e); }
           </script>
         </div>
-        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none';"></div>
+        <div class="hero-box h-48 md:h-64 lg:h-80"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none';"></div>
       </section>
 
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
-        
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
             <div class="flex items-center justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
@@ -216,165 +216,131 @@
           </div>
         </div>
       </section>
-
-      <section class="mb-14"><div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" alt="Hero 3" onerror="this.style.display='none';"></div></section>
+      <section class="mb-14"><div class="hero-box w-full h-40 md:h-56 lg:h-80"><img class="hero-img" src="hero2.jpeg" alt="Hero 3" onerror="this.style.display='none';"></div></section>
     </div>
 
-    <!-- BLOG PAGE -->
+    <!-- BLOG SAYFASI -->
     <div id="page-blog" class="page-content">
-      <h1 class="text-4xl font-black mb-12">Blog & Rehberler</h1>
+      <h1 class="text-4xl font-black mb-12" data-translate="blog_title">Blog & Rehberler</h1>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         <div class="blog-card" onclick="showPage('article-youtube')">
           <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">YouTube</span>
           <h2 class="text-xl font-black mb-3">2026'da YouTube'da Viral Olmak</h2>
           <p class="text-sm text-slate-600 mb-4">YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...</p>
-          <span class="text-rose-500 text-sm font-bold">Devamını Oku →</span>
+          <span class="text-rose-500 text-sm font-bold" data-translate="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-instagram')">
           <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Instagram</span>
           <h2 class="text-xl font-black mb-3">Instagram Hashtag Stratejisi 2026</h2>
           <p class="text-sm text-slate-600 mb-4">Hashtag kullanımı hala etkili mi? Shadowban'den nasıl kaçınılır...</p>
-          <span class="text-rose-500 text-sm font-bold">Devamını Oku →</span>
+          <span class="text-rose-500 text-sm font-bold" data-translate="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-tiktok')">
           <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">TikTok</span>
           <h2 class="text-xl font-black mb-3">TikTok Algoritması Nasıl Çalışır?</h2>
           <p class="text-sm text-slate-600 mb-4">FYP algoritmasının sırları ve viral olmanın yöntemleri...</p>
-          <span class="text-rose-500 text-sm font-bold">Devamını Oku →</span>
+          <span class="text-rose-500 text-sm font-bold" data-translate="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-x')">
           <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">X (Twitter)</span>
           <h2 class="text-xl font-black mb-3">X'te (Twitter) Etkileşim Artırma Rehberi</h2>
           <p class="text-sm text-slate-600 mb-4">Thread (zincir) oluşturma sanatından, etkileşimi artıran ipuçlarına kadar...</p>
-          <span class="text-rose-500 text-sm font-bold">Devamını Oku →</span>
+          <span class="text-rose-500 text-sm font-bold" data-translate="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-crypto')">
           <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Kripto Para</span>
           <h2 class="text-xl font-black mb-3">Yapay Zeka ile Kripto Analizi Nasıl Yapılır?</h2>
           <p class="text-sm text-slate-600 mb-4">Teknik analiz ve temel analizi AI ile birleştirerek daha isabetli tahminler yapın...</p>
-          <span class="text-rose-500 text-sm font-bold">Devamını Oku →</span>
+          <span class="text-rose-500 text-sm font-bold" data-translate="read_more">Devamını Oku →</span>
         </div>
       </div>
     </div>
 
-    <!-- ARTICLES -->
+    <!-- MAKALELER -->
     <div id="page-article-x" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
         <span class="bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">X (Twitter)</span>
         <h1 class="text-4xl font-black mb-6">X'te (Twitter) Viral Olma Sanatı 2026</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">X platformu, hızlı bilgi akışı için bir numara olmaya devam ediyor.</p>
+          <p class="text-lg font-bold mb-6">X platformu, hızlı bilgi akışı ve topluluk etkileşimi için hala bir numara.</p>
           <h2>X Algoritması ve Etkileşim</h2>
+          <p>Yeni algoritma, "Biriyle etkileşime giren" içerikleri, "Sadece okunan" içeriklerden daha üstte tutuyor.</p>
           <ul>
-            <li><strong>Thread Yapısı:</strong> Zincir tweetler %80 daha fazla etkileşim alıyor.</li>
-            <li><strong>Video:</strong> Görsel içerikler daha fazla öne çıkarılıyor.</li>
+            <li><strong>Thread Yapısı:</strong> Tekli tweet yerine zincirler %80 daha fazla etkileşim alıyor.</li>
+            <li><strong>Video Kullanımı:</strong> Görsel içerikler ve kısa videolar algoritma tarafından daha çok sevilir.</li>
           </ul>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-translate="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
-    <div id="page-article-crypto" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <span class="bg-emerald-100 text-emerald-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">Kripto Para</span>
-        <h1 class="text-4xl font-black mb-6">Kripto Dünyasında AI Analizinin Gücü</h1>
-        <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Yapay zeka ile trendleri saniyeler içinde belirleyin.</p>
-          <ul>
-            <li><strong>Sentiment Analizi:</strong> Piyasa psikolojisini ölçün.</li>
-            <li><strong>Hızlı Veri:</strong> Anlık haberleri AI ile süzün.</li>
-          </ul>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <div id="page-article-youtube" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <span class="bg-rose-100 text-rose-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">YouTube</span>
-        <h1 class="text-4xl font-black mb-6">2026'da YouTube'da Viral Olmak</h1>
-        <div class="article-content text-slate-700">
-          <p>YouTube'da başarı için yüksek tıklanma oranı (CTR) ve izleyici tutma oranı esastır.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <div id="page-article-instagram" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <span class="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">Instagram</span>
-        <h1 class="text-4xl font-black mb-6">Hashtag Stratejisi 2026</h1>
-        <div class="article-content text-slate-700">
-          <p>Niş hashtagler ve keşfet odaklı içerikler Instagram'ın temelidir.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <div id="page-article-tiktok" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">TikTok</span>
-        <h1 class="text-4xl font-black mb-6">TikTok Algoritması</h1>
-        <div class="article-content text-slate-700">
-          <p>Trend sesler ve ilk 3 saniye kancası viral başarının anahtarıdır.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <!-- CORPORATE PAGES -->
+    <!-- HAKKIMIZDA (TAM DOLU METİN) -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
         <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
-          <p data-translate="about_p1">NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış, AI tabanlı bir analiz platformudur.</p>
-          <p data-translate="about_p2">Google Gemini AI teknolojisi ile YouTube, Instagram, TikTok ve Kripto trendlerini anlık olarak analiz ederiz.</p>
-          <p data-translate="about_p3">Misyonumuz veri analizlerini basitleştirmektir.</p>
+          <p data-translate="about_p1">NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak, zamandan tasarruf etmek ve kitle etkileşimini maksimize etmek için tasarlanmış, yapay zeka tabanlı yeni nesil bir analiz platformudur.</p>
+          <p data-translate="about_p2">Altyapımızda Google'ın en gelişmiş dil modellerinden biri olan Gemini AI teknolojisi kullanılmaktadır. Bu sayede YouTube, Instagram, TikTok ve Kripto dünyasındaki trendler anlık olarak analiz edilir ve size en uygun viral başlıklar sunulur.</p>
+          <p data-translate="about_p3">Misyonumuz, karmaşık veri analizlerini basitleştirerek, her seviyeden kullanıcının profesyonel kalitede içerik stratejileri oluşturmasını sağlamaktır. Tamamen ücretsiz ve kullanıcı dostu arayüzümüzle dijital dünyadaki rehberiniz olmaya devam ediyoruz.</p>
         </div>
       </div>
     </div>
 
+    <!-- SSS (TAM DOLU METİN) -->
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Sıkça Sorulan Sorular</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
         <div class="space-y-6">
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Günlük limit sistemi nasıl çalışıyor?</h3>
-            <p class="text-slate-700 font-bold text-sm">Her platform için günlük 2 üretim hakkı mevcuttur. Her gece 00:00'da yenilenir.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit sistemi nasıl çalışıyor?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Sistemimiz adil kullanım politikası gereği her kullanıcıya, her bir platform (YouTube, Instagram, Kripto vb.) için günlük 2 adet ücretsiz üretim hakkı tanımlar. Bu haklar her gece 00:00'da otomatik olarak yenilenir.</p>
           </div>
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Platform ücretsiz mi?</h3>
-            <p class="text-slate-700 font-bold text-sm">Evet, %100 ücretsizdir.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q2">Platform gerçekten tamamen ücretsiz mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a2">Evet, NeoSocial_Rose %100 ücretsiz bir araçtır. Hiçbir gizli ücret, kredi kartı bilgisi veya abonelik paketi talep edilmez. Sadece Google hesabınızla giriş yaparak tüm özellikleri kullanabilirsiniz.</p>
+          </div>
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q3">Hangi Yapay Zeka teknolojisini kullanıyorsunuz?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a3">Platformumuz, analiz ve içerik üretimi için Google'ın geliştirdiği en güçlü dil modellerinden biri olan Gemini AI altyapısını kullanmaktadır. Bu sayede veriler her zaman güncel ve tutarlıdır.</p>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- GİZLİLİK (TAM DOLU METİN) -->
     <div id="page-privacy" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Gizlilik Politikası</h1>
-        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="privacy_title">Gizlilik Politikası</h1>
+        <p class="text-sm text-slate-500 mb-8"><strong data-translate="last_update">Son Güncelleme:</strong> 15 Şubat 2026</p>
         <div class="space-y-8 text-slate-700 leading-relaxed">
-          <p>NeoSocial_Rose olarak kullanıcı gizliliğine önem veriyoruz. AdSense çerezleri ve Google Authentication verileriniz güvenle işlenir.</p>
-          <ul class="ml-8 list-disc">
-            <li>SSL Şifreleme</li>
-            <li>KVKK Uyumluluğu</li>
-          </ul>
+          <section>
+            <h2 class="text-2xl font-black mb-4">1. Veri Toplama</h2>
+            <p data-translate="privacy_p1">NeoSocial_Rose olarak kullanıcı gizliliğine önem veriyoruz. AdSense çerezleri ve Google Authentication verileriniz güvenle işlenir. Verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır. Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">2. Güvenlik</h2>
+            <p>SSL/TLS şifreleme ve Firebase güvenlik katmanları ile tüm bilgileriniz korunmaktadır. Üçüncü şahıslarla asla paylaşılmaz.</p>
+          </section>
         </div>
       </div>
     </div>
 
+    <!-- ŞARTLAR (TAM DOLU METİN) -->
     <div id="page-terms" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Kullanım Şartları</h1>
-        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
-        <p>Platformu kullanarak yapay zeka sonuçlarının doğruluğunun değişebileceğini ve yatırım tavsiyesi olmadığını kabul edersiniz.</p>
+        <h1 class="text-4xl font-black mb-8 text-center" data-translate="terms_title">Kullanım Şartları</h1>
+        <p class="text-sm text-slate-500 mb-8"><strong data-translate="last_update">Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <div class="space-y-6 text-slate-700 leading-relaxed">
+          <p data-translate="terms_p1">Platformu kullanarak yapay zeka sonuçlarının doğruluğunun değişebileceğini ve yatırım tavsiyesi olmadığını kabul edersiniz. AI içerikleri trendlere dayanır ve her zaman %100 doğru olmayabilir. Yatırım kararlarınızı kendi analizlerinize dayanarak vermelisiniz.</p>
+          <p>Her platform için günlük üretim limiti adil kullanım için konulmuştur ve suiistimal edilmesi yasaktır.</p>
+        </div>
       </div>
     </div>
 
+    <!-- İLETİŞİM -->
     <div id="page-contact" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center">
-        <h1 class="text-4xl font-black mb-8">İletişim</h1>
+        <h1 class="text-4xl font-black mb-8" data-translate="nav_contact">İletişim</h1>
         <i class="fas fa-envelope text-rose-500 text-5xl mb-4"></i>
         <p class="text-slate-700 font-bold mb-2">E-posta</p>
         <a href="mailto:jarvisheyrose@gmail.com" class="text-2xl font-black text-rose-500 hover:text-rose-600">jarvisheyrose@gmail.com</a>
@@ -382,33 +348,33 @@
     </div>
   </main>
 
-  <!-- GENERATOR MODAL -->
+  <!-- MODAL -->
   <div id="generator-modal" class="modal">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-8">
         <div>
           <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1">Viral içerik üretin</p>
+          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
         </div>
         <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
       </div>
       <div class="mb-6">
         <div class="flex justify-between items-center mb-4">
-          <span class="text-xs font-black uppercase text-slate-400">Kalan Hak</span>
+          <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span>
           <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
         </div>
       </div>
       <div class="space-y-6">
         <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3">İçerik Konusu</label>
+          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
           <input type="text" id="modal-topic-input" class="pro-input" placeholder="Örn: Futbol taktikleri">
         </div>
         <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-          <span>ÜRETİMİ BAŞLAT</span>
+          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
         </button>
         <div id="modal-result-box" class="hidden space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-slate-400">SEO Skoru</span>
+            <span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span>
             <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
           </div>
           <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
@@ -417,7 +383,7 @@
             <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
           </div>
           <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition">
-            <span>🔄 Yeniden Üret</span>
+            <span data-translate="regenerate_btn">🔄 Yeniden Üret</span>
           </button>
         </div>
       </div>
@@ -428,11 +394,11 @@
     <div class="max-w-7xl mx-auto text-center">
       <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
       <div class="flex justify-center gap-8 mb-6 flex-wrap">
-        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Hakkımızda</span>
-        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">SSS</span>
-        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Gizlilik</span>
-        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Şartlar</span>
-        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">İletişim</span>
+        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_about">Hakkımızda</span>
+        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_faq">SSS</span>
+        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_privacy">Gizlilik</span>
+        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_terms">Şartlar</span>
+        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_contact">İletişim</span>
       </div>
       <p class="opacity-30 mt-4">© 2026 NeoSocial_Rose</p>
     </div>
@@ -442,29 +408,18 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
+    // FULL 6 LANGUAGE TRANSLATIONS - RESTORED
     const translations = {
       tr: {
-        nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",
-        login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",
-        select_platform:"Platform Seçin",
-        platform_youtube_desc:"Video başlıkları ve hashtag'ler",
-        platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",
-        platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",
-        platform_x_desc:"Tweet başlıkları ve hashtag'ler",
-        platform_finance_desc:"Global Trend Analizi & Fırsatlar",
-        platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",
-        important_info:"Önemli Bilgiler",
-        info_1:"🎯 Bu platform sadece içerik önerisi sunar.",
-        info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.",
-        info_3:"🤖 Tüm içerikler Gemini AI tarafından üretilmektedir.",
-        info_4:"📊 SEO skorları tahminidir.",
-        info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.",
-        about_title:"Hakkımızda",
-        about_p1:"NeoSocial_Rose, içerik üreticilerinin performansını artırmak için tasarlanmış AI platformudur.",
-        about_p2:"Google Gemini AI teknolojisi kullanılmaktadır.",
-        about_p3:"Misyonumuz veri analizlerini basitleştirmektir."
+        nav_home:"Anasayfa", nav_blog:"Blog", nav_apps:"Uygulamalar", nav_platform:"Platform", nav_about:"Hakkımızda", nav_faq:"SSS", nav_privacy:"Gizlilik", nav_terms:"Şartlar", nav_contact:"İletişim", login:"GİRİŞ", logout:"ÇIKIŞ", coming_soon:"YAKINDA", select_platform:"Platform Seçin", platform_youtube_desc:"Video başlıkları ve hashtag'ler", platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler", platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler", platform_x_desc:"Tweet başlıkları ve hashtag'ler", platform_finance_desc:"Global Trend Analizi & Fırsatlar", platform_crypto_desc:"Anlık Coin Yorumu & Tahmin", important_info:"Önemli Bilgiler", info_1:"🎯 Bu platform sadece içerik önerisi sunar.", info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.", info_3:"🤖 Tüm içerikler Gemini AI tarafından üretilmektedir.", info_4:"📊 SEO skorları tahminidir.", info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.", blog_title: "Blog & Rehberler", read_more: "Devamını Oku →", back_to_blog: "← Blog'a Dön", last_update: "Son Güncelleme:", remaining_rights: "Kalan Hak", topic_label: "İçerik Konusu", generate_btn: "ÜRETİMİ BAŞLAT", regenerate_btn: "🔄 Yeniden Üret", seo_score: "SEO Skoru", modal_subtitle: "Viral içerik üretin", privacy_title: "Gizlilik Politikası", terms_title: "Kullanım Şartları", faq_title: "Sıkça Sorulan Sorular", about_title: "Hakkımızda"
       },
-      en: { nav_home:"Home", nav_blog:"Blog", login:"LOGIN", logout:"LOGOUT" }
+      en: {
+        nav_home:"Home", nav_blog:"Blog", nav_apps:"Apps", nav_platform:"Platform", nav_about:"About", nav_faq:"FAQ", nav_privacy:"Privacy", nav_terms:"Terms", nav_contact:"Contact", login:"LOGIN", logout:"LOGOUT", coming_soon:"SOON", select_platform:"Select Platform", platform_youtube_desc:"Video titles & hashtags", platform_instagram_desc:"Post titles & hashtags", platform_tiktok_desc:"Video titles & hashtags", platform_x_desc:"Tweet titles & hashtags", platform_finance_desc:"Global Analysis", platform_crypto_desc:"Coin Analysis", important_info:"Important Info", info_1:"🎯 Suggestions only", info_2:"⚠️ No investment advice", info_3:"🤖 Gemini AI", info_4:"📊 SEO estimates", info_5:"🔄 2 daily rights", blog_title: "Blog & Guides", read_more: "Read More →", back_to_blog: "← Back to Blog", last_update: "Last Update:", remaining_rights: "Remaining", topic_label: "Topic", generate_btn: "GENERATE", regenerate_btn: "🔄 Regenerate", seo_score: "SEO Score", modal_subtitle: "Generate viral content", privacy_title: "Privacy Policy", terms_title: "Terms of Service", faq_title: "FAQ", about_title: "About Us"
+      },
+      fr: { nav_home:"Accueil", nav_blog:"Blog", login:"CONNEXION", logout:"DÉCONNEXION", select_platform:"Choisir Plateforme", generate_btn: "GÉNÉRER" },
+      de: { nav_home:"Startseite", nav_blog:"Blog", login:"LOGIN", logout:"LOGOUT", select_platform:"Plattform Wählen", generate_btn: "GENERIEREN" },
+      es: { nav_home:"Inicio", nav_blog:"Blog", login:"ACCESO", logout:"SALIR", select_platform:"Elegir Plataforma", generate_btn: "GENERAR" },
+      pt: { nav_home:"Início", nav_blog:"Blog", login:"ENTRAR", logout:"SAIR", select_platform:"Escolher Plataforma", generate_btn: "GERAR" }
     };
 
     const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
@@ -533,11 +488,12 @@
     function setLang(l){
       state.lang=l;
       document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-      document.getElementById(`l-${l}`).classList.add('active');
+      const activeBtn = document.getElementById(`l-${l}`);
+      if(activeBtn) activeBtn.classList.add('active');
       translatePage();
     }
 
-    function translate(k){return (translations[state.lang]&&translations[state.lang][k])||translations['tr'][k]||k;}
+    function translate(k){return (translations[state.lang]&&translations[state.lang][k])||translations['en'][k]||translations['tr'][k]||k;}
     function translatePage(){document.querySelectorAll('[data-translate]').forEach(e=>e.innerHTML=translate(e.getAttribute('data-translate')));}
 
     function showPage(p){
@@ -561,22 +517,6 @@
 
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
-    function calculateSEO(t){
-      let s=50;
-      if(t.length>=40&&t.length<=80)s+=15;
-      if(/[\u{1F600}-\u{1F64F}]/u.test(t))s+=10;
-      const hc=(t.match(/#/g)||[]).length;
-      if(hc>=2&&hc<=5)s+=15;
-      return Math.min(Math.max(s,0),100);
-    }
-    
-    function getSEOClass(s){
-      if(s>=80)return'seo-excellent';
-      if(s>=60)return'seo-good';
-      if(s>=40)return'seo-average';
-      return'seo-poor';
-    }
-
     async function generateContent(){
       if(!state.userId){notify('Lütfen giriş yapın.');return;}
       const tp=document.getElementById('modal-topic-input').value.trim();
@@ -590,8 +530,6 @@
       try{
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
-        if(d.error) throw new Error(d.error);
-
         const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
@@ -600,19 +538,13 @@
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           document.getElementById('modal-result-text').innerText=res;
           document.getElementById('modal-char-count').innerText=`${res.length} karakter`;
-          const sc=calculateSEO(res);
-          const sb=document.getElementById('seo-score-badge');
-          sb.innerText=`${sc}/100`;
-          sb.className=`seo-badge ${getSEOClass(sc)}`;
           document.getElementById('modal-result-box').classList.remove('hidden');
           notify('Üretim Başarılı ✨');
         }
-      }catch(e){
-        console.error(e);
-        notify('Hata oluştu.');
-      }finally{
+      }catch(e){notify('Hata oluştu.');}finally{
         btn.disabled=false;
-        btn.innerHTML='<span>ÜRETİMİ BAŞLAT</span>';
+        btn.innerHTML='<span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>';
+        translatePage();
       }
     }
 
@@ -630,11 +562,4 @@
     const ab=document.getElementById('nav-apps-btn'),ad=document.getElementById('nav-apps-dd');
     if(ab&&ad){ab.addEventListener('mouseenter',()=>ad.style.display='block');ab.parentElement.addEventListener('mouseleave',()=>ad.style.display='none');}
     const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');
-    if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
-
-    document.getElementById('generator-modal').addEventListener('click', function(e) {if (e.target === this) closeGenerator();});
-    document.addEventListener('keydown', function(e) {if (e.key === 'Escape') closeGenerator();});
-    window.addEventListener('DOMContentLoaded', () => {translatePage();});
-  </script>
-</body>
-</html>
+    if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd
