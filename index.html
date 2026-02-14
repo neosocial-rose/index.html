@@ -6,8 +6,8 @@
   
   <title id="site-title">NeoSocial_Rose | AI ile Viral İçerik Üret | Ücretsiz Sosyal Medya Başlık Üretici</title>
 
-  <meta id="meta-desc" name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun. Gemini AI teknolojisi ile profesyonel içerik üretimi.">
-  <meta id="meta-keys" name="keywords" content="ai içerik üretici, sosyal medya başlık, hashtag üretici, youtube başlık, instagram hashtag, tiktok viral, twitter içerik, ücretsiz ai araç, gemini ai, seo optimizasyon">
+  <meta id="meta-desc" name="description" content="🚀 Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok, X ve Kripto analizleri için viral içerikler oluşturun.">
+  <meta id="meta-keys" name="keywords" content="ai içerik üretici, sosyal medya başlık, hashtag üretici, youtube başlık, instagram hashtag, tiktok viral, twitter içerik, ücretsiz ai araç, gemini ai, kripto analiz">
   
   <meta name="author" content="NeoSocial_Rose">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -59,10 +59,15 @@
     .page-content { display:none; }
     .page-content.active { display:block; }
 
-    /* YENİ EKLENEN: FİNANS KARTI STİLİ (ORİJİNAL KOD BOZULMADAN EKLENDİ) */
+    /* FİNANS KARTI STİLİ (SARI) */
     .finance-card { border-color: #fcd34d; background: linear-gradient(to bottom right, #ffffff, #fffbeb); }
     .finance-card:hover { border-color: #d97706; box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.15); transform: translateY(-4px); }
     .finance-badge { background-color: #fef3c7; color: #d97706; }
+
+    /* YENİ EKLENEN: KRİPTO ANALİZ KARTI STİLİ (YEŞİL) */
+    .crypto-card { border-color: #6ee7b7; background: linear-gradient(to bottom right, #ffffff, #ecfdf5); }
+    .crypto-card:hover { border-color: #059669; box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.15); transform: translateY(-4px); }
+    .crypto-badge { background-color: #d1fae5; color: #059669; }
   </style>
 
   <script type="application/ld+json">
@@ -93,24 +98,16 @@
         </h1>
         <div class="hidden lg:flex items-center space-x-8 h-full">
           <span class="nav-link flex" onclick="showPage('home')" data-translate="nav_home">Anasayfa</span>
-
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-apps-btn" data-translate="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown" id="nav-apps-dd">
               <p class="text-[10px] font-black text-center mb-3 text-rose-500" data-translate="coming_soon">YAKINDA</p>
               <div class="flex justify-around items-center gap-4">
-                <div class="text-center">
-                  <i class="fab fa-apple text-slate-800 text-3xl"></i>
-                  <p class="text-[8px] font-bold mt-1">App Store</p>
-                </div>
-                <div class="text-center">
-                  <i class="fab fa-google-play text-slate-800 text-3xl"></i>
-                  <p class="text-[8px] font-bold mt-1">Google Play</p>
-                </div>
+                <div class="text-center"><i class="fab fa-apple text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">App Store</p></div>
+                <div class="text-center"><i class="fab fa-google-play text-slate-800 text-3xl"></i><p class="text-[8px] font-bold mt-1">Google Play</p></div>
               </div>
             </div>
           </div>
-
           <div class="relative h-full flex items-center">
             <span class="nav-link flex" id="nav-platform-btn" data-translate="nav_platform">Platform</span>
             <div class="menu-dropdown text-center" id="nav-platform-dd">
@@ -120,7 +117,6 @@
               </div>
             </div>
           </div>
-
           <span class="nav-link flex" onclick="showPage('about')" data-translate="nav_about">Hakkımızda</span>
           <span class="nav-link flex" onclick="showPage('faq')" data-translate="nav_faq">SSS</span>
           <span class="nav-link flex" onclick="showPage('security')" data-translate="nav_security">Güvenlik</span>
@@ -139,93 +135,63 @@
           <button onclick="setLang('es')" id="l-es" class="lang-btn">🇪🇸</button>
           <button onclick="setLang('pt')" id="l-pt" class="lang-btn">🇵🇹</button>
         </div>
-
-        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg">
-          <span id="user-display" data-translate="login">GİRİŞ</span>
-        </button>
-
-        <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg">
-          <span data-translate="logout">ÇIKIŞ</span>
-        </button>
+        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg"><span id="user-display" data-translate="login">GİRİŞ</span></button>
+        <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg"><span data-translate="logout">ÇIKIŞ</span></button>
       </div>
     </div>
   </nav>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pt-32 pb-20">
-
     <div id="page-home" class="page-content active">
-
       <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14 h-80">
-        <div class="hero-box">
-          <img class="hero-img" src="hero.jpeg" alt="AI Content Generator Hero Image"
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 1</span>';">
-        </div>
-
+        <div class="hero-box"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none';"></div>
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-1842835786064419"
-               data-ad-slot="1234567890"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-
-        <div class="hero-box">
-          <img class="hero-img" src="hero1.jpeg" alt="Social Media Content Creation"
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 2</span>';">
-        </div>
+        <div class="hero-box"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none';"></div>
       </section>
 
       <section class="mb-14">
         <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-translate="select_platform">Platform Seçin</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-youtube text-red-600 text-4xl"></i>
-              <span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">YouTube</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_youtube_desc">Video başlıkları ve hashtag'ler</p>
           </div>
 
           <div class="platform-card" id="card-instagram" onclick="openGenerator('instagram')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-instagram text-pink-600 text-4xl"></i>
-              <span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-instagram text-pink-600 text-4xl"></i><span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">Instagram</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_instagram_desc">Gönderi başlıkları ve hashtag'ler</p>
           </div>
 
           <div class="platform-card" id="card-tiktok" onclick="openGenerator('tiktok')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-tiktok text-slate-900 text-4xl"></i>
-              <span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-tiktok text-slate-900 text-4xl"></i><span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">TikTok</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_tiktok_desc">Video başlıkları ve trend hashtag'ler</p>
           </div>
 
           <div class="platform-card" id="card-x" onclick="openGenerator('x')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fab fa-twitter text-blue-400 text-4xl"></i>
-              <span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-twitter text-blue-400 text-4xl"></i><span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
           </div>
 
           <div class="platform-card finance-card" id="card-finance" onclick="openGenerator('finance')">
-            <div class="flex items-center justify-between mb-4">
-              <i class="fas fa-chart-line text-amber-500 text-4xl"></i>
-              <span id="badge-finance" class="finance-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span>
-            </div>
-            <h3 class="text-lg font-black mb-2 text-amber-600">Finans & Kripto</h3>
+            <div class="flex items-center justify-between mb-4"><i class="fas fa-chart-line text-amber-500 text-4xl"></i><span id="badge-finance" class="finance-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <h3 class="text-lg font-black mb-2 text-amber-600">Finans & Borsa</h3>
             <p class="text-xs text-slate-500 font-bold" data-translate="platform_finance_desc">Global Trend Analizi & Fırsatlar</p>
+          </div>
+
+          <div class="platform-card crypto-card" id="card-crypto" onclick="openGenerator('crypto')">
+            <div class="flex items-center justify-between mb-4"><i class="fab fa-bitcoin text-emerald-500 text-4xl"></i><span id="badge-crypto" class="crypto-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+            <h3 class="text-lg font-black mb-2 text-emerald-600">Kripto Analiz</h3>
+            <p class="text-xs text-slate-500 font-bold" data-translate="platform_crypto_desc">Anlık Coin Yorumu & Tahmin</p>
           </div>
 
         </div>
@@ -249,157 +215,28 @@
         </div>
       </section>
 
-      <section class="mb-14">
-        <div class="hero-box w-full h-80">
-          <img class="hero-img" src="hero2.jpeg" alt="Viral Content Creation Tool"
-               onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-[10px] font-black text-slate-300 uppercase tracking-widest\'>Görsel 3</span>';">
-        </div>
-      </section>
+      <section class="mb-14"><div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" alt="Hero 3" onerror="this.style.display='none';"></div></section>
     </div>
 
-    <div id="page-about" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
-          <p data-translate="about_p1">NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.</p>
-          <p data-translate="about_p2">Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.</p>
-          <p data-translate="about_p3">Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-faq" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">Sıkça Sorulan Sorular</h1>
-        <div class="space-y-6">
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit nasıl çalışır?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.</p>
-          </div>
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q2">Ücretsiz mi?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a2">Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.</p>
-          </div>
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q3">Hangi AI kullanılıyor?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a3">Google'ın Gemini AI teknolojisini kullanıyoruz.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-security" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="security_title">Güvenlik</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
-          <div class="flex items-start gap-4">
-            <i class="fas fa-shield-alt text-rose-500 text-2xl"></i>
-            <div>
-              <h3 class="text-lg font-black mb-2" data-translate="security_h1">Veri Güvenliği</h3>
-              <p data-translate="security_p1">Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <i class="fas fa-lock text-rose-500 text-2xl"></i>
-            <div>
-              <h3 class="text-lg font-black mb-2" data-translate="security_h2">Gizlilik</h3>
-              <p data-translate="security_p2">Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-press" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="press_title">Basın Odası</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
-          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
-            <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
-            <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
-            <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-career" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="career_title">Kariyer</h1>
-        <div class="space-y-6 text-slate-700 font-bold leading-relaxed text-center">
-          <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl p-8">
-            <i class="fas fa-hourglass-half text-amber-500 text-5xl mb-4"></i>
-            <p class="text-2xl font-black text-amber-600 mb-2" data-translate="coming_soon_title">YAKINDA AKTİF OLACAK</p>
-            <p class="text-sm text-slate-600" data-translate="coming_soon_desc">Bu bölüm şu anda geliştirilme aşamasındadır.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="page-contact" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="contact_title">İletişim</h1>
-        <div class="space-y-8 text-center">
-          <div>
-            <i class="fas fa-envelope text-rose-500 text-4xl mb-4"></i>
-            <p class="text-slate-700 font-bold mb-2" data-translate="contact_email">E-posta</p>
-            <a href="mailto:jarvisheyrose@gmail.com" class="text-lg font-black text-rose-500 hover:text-rose-600">
-              jarvisheyrose@gmail.com
-            </a>
-          </div>
-          <div class="border-t-2 border-slate-100 pt-8">
-            <p class="text-slate-500 font-bold text-sm" data-translate="contact_response">Size en kısa sürede dönüş yapacağız.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <div id="page-about" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl"><h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1><div class="space-y-6 text-slate-700 font-bold leading-relaxed"><p data-translate="about_p1">İçerik üreticileri için AI platformu.</p><p data-translate="about_p2">Gemini AI teknolojisi.</p><p data-translate="about_p3">Misyonumuz zaman tasarrufu.</p></div></div></div>
+    <div id="page-faq" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl"><h1 class="text-4xl font-black mb-8 text-center" data-translate="faq_title">SSS</h1><div class="space-y-6"><div class="border-2 border-slate-100 rounded-2xl p-6"><h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Limit?</h3><p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Günde 2 hak.</p></div><div class="border-2 border-slate-100 rounded-2xl p-6"><h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q2">Ücretsiz mi?</h3><p class="text-slate-700 font-bold text-sm" data-translate="faq_a2">Evet.</p></div></div></div></div>
+    <div id="page-security" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl"><h1 class="text-4xl font-black mb-8 text-center" data-translate="security_title">Güvenlik</h1><p data-translate="security_p1">Firebase güvencesi.</p></div></div>
+    <div id="page-press" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center"><h1 class="text-4xl font-black mb-8" data-translate="press_title">Basın</h1><p class="text-2xl font-black text-amber-600" data-translate="coming_soon_title">YAKINDA</p></div></div>
+    <div id="page-career" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center"><h1 class="text-4xl font-black mb-8" data-translate="career_title">Kariyer</h1><p class="text-2xl font-black text-amber-600" data-translate="coming_soon_title">YAKINDA</p></div></div>
+    <div id="page-contact" class="page-content max-w-4xl mx-auto"><div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl text-center"><h1 class="text-4xl font-black mb-8" data-translate="contact_title">İletişim</h1><p class="text-lg font-black text-rose-500">jarvisheyrose@gmail.com</p></div></div>
   </main>
 
   <div id="generator-modal" class="modal">
     <div class="modal-content">
-      <div class="flex justify-between items-center mb-8">
-        <div>
-          <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p>
-        </div>
-        <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-          <span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span>
-          <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
-        </div>
-      </div>
-
+      <div class="flex justify-between items-center mb-8"><div><h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2><p class="text-xs text-slate-500 font-bold mt-1" data-translate="modal_subtitle">Viral içerik üretin</p></div><button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button></div>
+      <div class="mb-6"><div class="flex justify-between items-center mb-4"><span class="text-xs font-black uppercase text-slate-400" data-translate="remaining_rights">Kalan Hak</span><span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span></div></div>
       <div class="space-y-6">
-        <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label>
-          <input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol taktikleri">
-        </div>
-
-        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-          <span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span>
-        </button>
-
+        <div><label class="block text-xs font-black uppercase text-slate-400 mb-3" data-translate="topic_label">İçerik Konusu</label><input type="text" id="modal-topic-input" class="pro-input" data-translate-placeholder="topic_placeholder" placeholder="Örn: Futbol taktikleri"></div>
+        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]"><span data-translate="generate_btn">ÜRETİMİ BAŞLAT</span></button>
         <div id="modal-result-box" class="hidden space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span>
-            <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
-          </div>
-          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
-            <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12"></p>
-            <p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3">0 karakter</p>
-            <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl">
-              <i class="far fa-copy"></i>
-            </button>
-          </div>
-          <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition">
-            <span data-translate="regenerate_btn">🔄 Yeniden Üret</span>
-          </button>
+          <div class="flex items-center justify-between"><span class="text-xs font-black uppercase text-slate-400" data-translate="seo_score">SEO Skoru</span><span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span></div>
+          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group"><p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12"></p><p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3">0 karakter</p><button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button></div>
+          <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition"><span data-translate="regenerate_btn">🔄 Yeniden Üret</span></button>
         </div>
       </div>
     </div>
@@ -408,14 +245,7 @@
   <footer class="bg-slate-900 text-slate-500 py-16 px-4 mt-auto">
     <div class="max-w-7xl mx-auto text-center">
       <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
-      <div class="flex justify-center gap-8 mb-6 flex-wrap">
-        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_about">Hakkımızda</span>
-        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_faq">SSS</span>
-        <span onclick="showPage('security')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_security">Güvenlik</span>
-        <span onclick="showPage('press')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_press">Basın</span>
-        <span onclick="showPage('career')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_career">Kariyer</span>
-        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_contact">İletişim</span>
-      </div>
+      <div class="flex justify-center gap-8 mb-6 flex-wrap"><span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_about">Hakkımızda</span><span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_faq">SSS</span><span onclick="showPage('security')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_security">Güvenlik</span><span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_contact">İletişim</span></div>
       <p class="opacity-30 mt-4">© 2026 NeoSocial_Rose</p>
     </div>
   </footer>
@@ -426,71 +256,41 @@
   <script>
     const translations = {
       tr: {
-        // SEO (Sayfa Başlığı ve Meta)
         site_title: "NeoSocial_Rose | AI ile Viral İçerik ve Finans Analizi",
         meta_desc: "Ücretsiz AI içerik üretici. YouTube, TikTok ve Kripto analizleri için viral başlıklar ve trend tahminleri.",
         meta_keys: "ücretsiz yapay zeka sitesi, youtube para kazanma 2026, ücretsiz ai görsel, kripto analiz, bedava içerik üretici, borsa yorumları, tiktok viral etiketler, ücretsiz makale yazdır",
+        nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",
         
-        // Yeni Kart Metinleri ve Uyarılar
-        platform_finance_desc: "Global Trend Analizi",
-        info_2: "⚠️ Yatırım Tavsiyesi Değildir. Veriler yapay zeka ile trend analizi ve içerik fikri amaçlıdır. Kesin kazanç garantisi yoktur.",
-
-        // Orijinal Metinler
-        nav_home:"Anasayfa",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_security:"Güvenlik",nav_press:"Basın",nav_career:"Kariyer",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",coming_soon_title:"YAKINDA AKTİF OLACAK",coming_soon_desc:"Bu bölüm şu anda geliştirilme aşamasındadır.",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, sosyal medya içerik üreticilerinin işini kolaylaştırmak için tasarlanmış yapay zeka destekli bir platformdur.",about_p2:"Gemini AI teknolojisi kullanarak YouTube, Instagram, TikTok ve X (Twitter) platformları için yüksek kaliteli, SEO uyumlu başlıklar ve hashtag'ler üretiyoruz.",about_p3:"Misyonumuz, içerik üreticilerin daha fazla zamandan tasarruf etmelerini ve viral içerikler oluşturmalarını sağlamaktır.",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit nasıl çalışır?",faq_a1:"Her platform için günde 2 üretim hakkınız vardır. Hak sıfırlandığında yeni gün başında otomatik olarak yenilenir.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet, tamamen ücretsizdir. Giriş yapmanız yeterlidir.",faq_q3:"Hangi AI kullanılıyor?",faq_a3:"Google'ın Gemini AI teknolojisini kullanıyoruz.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Kullanıcı verileriniz Firebase Authentication ile güvenli bir şekilde saklanmaktadır.",security_h2:"Gizlilik",security_p2:"Ürettiğiniz içerikler sadece sizin tarafınızdan görülebilir ve üçüncü şahıslarla paylaşılmaz.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Size en kısa sürede dönüş yapacağız.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"🌙 Bugünlük limitiniz doldu. Yarın tekrar sizinle olmaktan mutluluk duyarız!",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."
+        // YENİ EKLENEN KART AÇIKLAMALARI
+        platform_finance_desc:"Global Trend Analizi & Fırsatlar",
+        platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",
+        
+        important_info:"Önemli Bilgiler",
+        info_1:"🎯 Bu platform <span class='text-rose-500'>sadece içerik önerisi</span> sunar.",
+        info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi <span class='text-rose-500'>verilmemektedir</span>.",
+        info_3:"🤖 Tüm içerikler <span class='text-rose-500'>Gemini AI</span> tarafından üretilmektedir.",
+        info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",
+        info_5:"🔄 Her platform için günlük <span class='text-rose-500'>2 üretim hakkınız</span> vardır.",
+        about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, AI destekli platform.",about_p2:"Gemini AI teknolojisi.",about_p3:"Zaman tasarrufu.",faq_title:"SSS",faq_q1:"Limit?",faq_a1:"Günde 2 hak.",faq_q2:"Ücretsiz mi?",faq_a2:"Evet.",faq_q3:"AI?",faq_a3:"Google Gemini.",security_title:"Güvenlik",security_h1:"Veri Güvenliği",security_p1:"Firebase güvencesi.",security_h2:"Gizlilik",security_p2:"İçerikler gizli.",press_title:"Basın Odası",career_title:"Kariyer",contact_title:"İletişim",contact_email:"E-posta",contact_response:"Dönüş yapılacaktır.",modal_subtitle:"Viral içerik üretin",remaining_rights:"Kalan Hak",topic_label:"İçerik Konusu",topic_placeholder:"Örn: Futbol taktikleri",generate_btn:"ÜRETİMİ BAŞLAT",seo_score:"SEO Skoru",regenerate_btn:"🔄 Yeniden Üret",notify_limit:"🌙 Limit doldu!",notify_topic:"Lütfen konu girin.",notify_success:"Üretim Başarılı ✨",notify_error:"Hata oluştu.",notify_copied:"Kopyalandı ✨",notify_login_required:"Lütfen giriş yapın."
       },
       en: {
-        // SEO Pool
-        site_title: "NeoSocial_Rose | Free AI Viral Content & Finance Analysis",
+        site_title: "NeoSocial_Rose | Free AI Viral Content & Crypto Analysis",
         meta_desc: "Free AI tool, make money online 2026, crypto analysis, gold trends. Generate viral titles for YouTube, TikTok & Finance.",
         meta_keys: "free ai tool, make money online 2026, free ai image generator, crypto analysis, youtube monetization, free content creator, stock market trends, viral video ideas",
-        
-        // Finance Card & Legal
-        platform_finance_desc: "Global Trend Analysis",
-        info_2: "⚠️ Not Investment Advice. Data is generated by AI for trend analysis and content creation purposes only. No profit guarantee.",
-
-        // Original Translation
-        nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"This section is under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",important_info:"Important",info_1:"🎯 Suggestions only",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform for content creators.",about_p2:"Using Gemini AI technology.",about_p3:"Our mission is to save time.",faq_title:"FAQ",faq_q1:"How does daily limit work?",faq_a1:"2 rights per platform daily.",faq_q2:"Is it free?",faq_a2:"Yes, completely free.",faq_q3:"Which AI?",faq_a3:"Google Gemini AI.",security_title:"Security",security_h1:"Data Security",security_p1:"Your data is secure with Firebase.",security_h2:"Privacy",security_p2:"Your content is private.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate viral content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football tactics",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"🌙 Daily limit reached! We'd love to see you again tomorrow!",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."
+        nav_home:"Home",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_security:"Security",nav_press:"Press",nav_career:"Career",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",coming_soon_title:"COMING SOON",coming_soon_desc:"Under development.",select_platform:"Select Platform",platform_youtube_desc:"Video titles & hashtags",platform_instagram_desc:"Post titles & hashtags",platform_tiktok_desc:"Video titles & hashtags",platform_x_desc:"Tweet titles & hashtags",
+        platform_finance_desc:"Global Trend Analysis",
+        platform_crypto_desc:"Instant Coin Review & Forecast",
+        important_info:"Important",info_1:"🎯 Suggestions only",info_2:"⚠️ Not Investment Advice. No profit guarantee.",info_3:"🤖 Gemini AI",info_4:"📊 SEO estimates",info_5:"🔄 2 daily rights",about_title:"About Us",about_p1:"AI-powered platform.",faq_title:"FAQ",faq_q1:"Limit?",faq_a1:"2 daily.",security_title:"Security",security_p1:"Firebase secured.",press_title:"Press Room",career_title:"Career",contact_title:"Contact",contact_email:"Email",contact_response:"We'll respond soon.",modal_subtitle:"Generate content",remaining_rights:"Remaining",topic_label:"Topic",topic_placeholder:"E.g. Football",generate_btn:"GENERATE",seo_score:"SEO",regenerate_btn:"🔄 Regenerate",notify_limit:"🌙 Limit reached!",notify_topic:"Enter topic",notify_success:"Success ✨",notify_error:"Error",notify_copied:"Copied ✨",notify_login_required:"Please login."
       },
-      fr: {
-        site_title: "NeoSocial_Rose | IA Contenu Viral & Analyse Finance",
-        meta_desc: "Outil IA gratuit, gagner de l'argent 2026, analyse crypto. Générateur de titres viraux pour YouTube et TikTok.",
-        meta_keys: "site ia gratuit, gagner argent youtube, générateur image ia gratuit, analyse crypto, idées de contenu viral, bourse en ligne, hashtags tiktok",
-        platform_finance_desc: "Analyse du Marché",
-        info_2: "⚠️ Pas un Conseil en Investissement. Données générées par IA pour l'analyse des tendances. Aucune garantie.",
-        // (Diğer çeviriler EN'den alınır)
-        nav_home:"Accueil",nav_about:"À propos",login:"CONNEXION",logout:"DÉCONNEXION",select_platform:"Sélectionner",important_info:"Important",info_1:"🎯 Suggestions uniquement",generate_btn:"GÉNÉRER"
-      },
-      de: {
-        site_title: "NeoSocial_Rose | KI Viraler Content & Finanzanalyse",
-        meta_desc: "Kostenloses KI-Tool, Geld verdienen 2026, Krypto-Analyse. Virale Titel für YouTube und TikTok.",
-        meta_keys: "kostenlose ki tools, geld verdienen 2026, gratis ki bildgenerator, krypto analyse, youtube seo deutsch, markttrends, viral gehen",
-        platform_finance_desc: "Markttrends & Analyse",
-        info_2: "⚠️ Keine Anlageberatung. KI-generierte Trendanalysen. Keine Gewinngarantie.",
-        // (Diğer çeviriler EN'den alınır)
-        nav_home:"Startseite",nav_about:"Über uns",login:"LOGIN",logout:"LOGOUT",select_platform:"Plattform",important_info:"Wichtig",info_1:"🎯 Nur Vorschläge",generate_btn:"ERZEUGEN"
-      },
-      es: {
-        site_title: "NeoSocial_Rose | IA Contenido Viral y Finanzas",
-        meta_desc: "Herramienta IA gratis, ganar dinero 2026, análisis cripto. Generador de títulos virales.",
-        meta_keys: "ia gratis, ganar dinero youtube, generador imagenes ia gratis, analisis cripto, ideas virales, tendencias mercado, creador contenido",
-        platform_finance_desc: "Análisis de Mercado",
-        info_2: "⚠️ No es Consejo de Inversión. Datos de IA para análisis de tendencias. Sin garantía.",
-        // (Diğer çeviriler EN'den alınır)
-        nav_home:"Inicio",nav_about:"Nosotros",login:"ACCESO",logout:"SALIR",select_platform:"Seleccionar",important_info:"Importante",info_1:"🎯 Solo sugerencias",generate_btn:"GENERAR"
-      },
-      pt: {
-        site_title: "NeoSocial_Rose | IA Conteúdo Viral e Finanças",
-        meta_desc: "Ferramenta IA grátis, ganhar dinheiro 2026, análise cripto. Gerador de títulos virais.",
-        meta_keys: "ia gratis, ganhar dinheiro 2026, gerador imagem ia gratuito, analise cripto, viralizar no tiktok, tendencias mercado, renda extra",
-        platform_finance_desc: "Análise de Mercado",
-        info_2: "⚠️ Não é Recomendação de Investimento. Dados de IA para tendências. Sem garantia.",
-        // (Diğer çeviriler EN'den alınır)
-        nav_home:"Início",nav_about:"Sobre",login:"ENTRAR",logout:"SAIR",select_platform:"Selecionar",important_info:"Importante",info_1:"🎯 Apenas sugestões",generate_btn:"GERAR"
-      }
+      // (Diğer diller İngilizce'den türetilmiştir, sadece kritik kısımlar çevrilmiştir)
+      fr: { site_title: "NeoSocial_Rose | IA & Crypto", platform_finance_desc: "Analyse Marché", platform_crypto_desc: "Analyse Crypto", info_2: "⚠️ Pas un conseil en investissement.", nav_home:"Accueil", login:"CONNEXION", logout:"DÉCONNEXION" },
+      de: { site_title: "NeoSocial_Rose | KI & Krypto", platform_finance_desc: "Marktanalyse", platform_crypto_desc: "Krypto Analyse", info_2: "⚠️ Keine Anlageberatung.", nav_home:"Startseite", login:"LOGIN", logout:"LOGOUT" },
+      es: { site_title: "NeoSocial_Rose | IA & Cripto", platform_finance_desc: "Análisis Mercado", platform_crypto_desc: "Análisis Cripto", info_2: "⚠️ No es consejo de inversión.", nav_home:"Inicio", login:"ACCESO", logout:"SALIR" },
+      pt: { site_title: "NeoSocial_Rose | IA & Cripto", platform_finance_desc: "Análise Mercado", platform_crypto_desc: "Análise Cripto", info_2: "⚠️ Não é recomendação de investimento.", nav_home:"Início", login:"ENTRAR", logout:"SAIR" }
     };
 
-    // Varsayılan haklar. (Finance eklendi)
-    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0}};
+    // 6. Kart (crypto) eklendi
+    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
 
     function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
 
@@ -507,7 +307,7 @@
         loadCreditsFromStorage();
       }else{
         state.userId=null;
-        state.credits={youtube:0,instagram:0,tiktok:0,x:0,finance:0}; 
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0};
         document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
@@ -516,43 +316,32 @@
     });
 
     function loginWithGoogle(){const p=new firebase.auth.GoogleAuthProvider();firebase.auth().signInWithPopup(p).catch(e=>{console.error(e);notify('Giriş başarısız.');});}
-
-    function logoutGoogle(){
-      firebase.auth().signOut().then(()=>{
-        notify('Çıkış yapıldı.');
-        closeGenerator();
-      }).catch(e=>console.error(e));
-    }
+    function logoutGoogle(){firebase.auth().signOut().then(()=>{notify('Çıkış yapıldı.');closeGenerator();}).catch(e=>console.error(e));}
 
     function loadCreditsFromStorage(){
       if(!state.userId) return;
-      
       const today = new Date().toDateString();
       const storedDate = localStorage.getItem(`nsr_date_${state.userId}`);
       const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
 
       if(storedDate !== today){
-        // Yeni Gün: Hakları yenile (5 platform için 2'şer hak)
         localStorage.setItem(`nsr_date_${state.userId}`, today);
-        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2};
+        // Herkese 2 hak
+        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
         localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
       } else {
         if(storedCredits){
           state.credits = JSON.parse(storedCredits);
-          // Eğer eski kullanıcıysa ve finance anahtarı yoksa ekle
-          if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
+          if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2; // Eski kullanıcıya crypto hakkı ekle
         } else {
-          state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2};
+          state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
           localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
         }
       }
       updateAllBadges();
     }
 
-    function saveCredits(){
-      if(!state.userId) return;
-      localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
-    }
+    function saveCredits(){if(!state.userId)return;localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));}
 
     function updateAllBadges(){Object.keys(state.credits).forEach(p=>{const b=document.getElementById(`badge-${p}`);if(b)b.innerText=`${state.credits[p]}/2`;const c=document.getElementById(`card-${p}`);if(c){if(state.credits[p]<=0)c.classList.add('disabled');else c.classList.remove('disabled');}});}
 
@@ -562,32 +351,25 @@
       const btn=document.getElementById(`l-${l}`);
       if(btn)btn.classList.add('active');
       
-      // SEO GÜNCELLEME MANTIĞI
       const t = translations[l] || translations['en'];
       if(t.site_title) document.getElementById('site-title').innerText = t.site_title;
       if(t.meta_desc) document.getElementById('meta-desc').setAttribute('content', t.meta_desc);
       if(t.meta_keys) document.getElementById('meta-keys').setAttribute('content', t.meta_keys);
-
+      
       translatePage();
     }
 
-    function translate(k){return (translations[state.lang] && translations[state.lang][k]) || translations['tr'][k] || translations['en'][k] || k;}
+    function translate(k){return (translations[state.lang] && translations[state.lang][k]) || translations['en'][k] || translations['tr'][k] || k;}
 
     function translatePage(){document.querySelectorAll('[data-translate]').forEach(e=>{const k=e.getAttribute('data-translate');e.innerHTML=translate(k);});document.querySelectorAll('[data-translate-placeholder]').forEach(e=>{const k=e.getAttribute('data-translate-placeholder');e.placeholder=translate(k);});}
 
     function showPage(p){document.querySelectorAll('.page-content').forEach(pg=>pg.classList.remove('active'));const t=document.getElementById(`page-${p}`);if(t)t.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 
     function openGenerator(p){
-      if(!state.userId){
-        notify(translate('notify_login_required'));
-        return;
-      }
-      if(state.credits[p]<=0){
-        notify(translate('notify_limit'));
-        return;
-      }
+      if(!state.userId){notify(translate('notify_login_required'));return;}
+      if(state.credits[p]<=0){notify(translate('notify_limit'));return;}
       state.currentPlatform=p;
-      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:'Finans & Kripto'};
+      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:'Finans', crypto:'Kripto Analiz'};
       document.getElementById('modal-platform-title').innerText=pn[p];
       document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
       document.getElementById('modal-topic-input').value='';
@@ -598,14 +380,10 @@
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
     function calculateSEO(t){let s=50;if(t.length>=40&&t.length<=80)s+=15;const er=/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/u;if(er.test(t))s+=10;const hc=(t.match(/#/g)||[]).length;if(hc>=2&&hc<=5)s+=15;return Math.min(Math.max(s,0),100);}
-
     function getSEOClass(s){if(s>=80)return'seo-excellent';if(s>=60)return'seo-good';if(s>=40)return'seo-average';return'seo-poor';}
 
     async function generateContent(){
-      if(!state.userId){
-        notify(translate('notify_login_required'));
-        return;
-      }
+      if(!state.userId){notify(translate('notify_login_required'));return;}
       const tp=document.getElementById('modal-topic-input').value.trim();
       if(!tp){notify(translate('notify_topic'));return;}
       if(state.credits[state.currentPlatform]<=0){notify(translate('notify_limit'));return;}
@@ -617,15 +395,9 @@
       try{
         const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000/api/generate' : '/api/generate';
         const r=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
-
-        if(!r.ok){
-          const errorText = await r.text();
-          console.error('API Hatası:', errorText);
-          throw new Error(`API Error: ${r.status}`);
-        }
-
+        if(!r.ok) throw new Error(`API Error: ${r.status}`);
         const d=await r.json();
-        if(d.error)throw new Error(d.error);
+        if(d.error) throw new Error(d.error);
 
         const res=d.text||'';
         if(res){
@@ -633,7 +405,6 @@
           saveCredits();
           updateAllBadges();
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
-
           rt.innerText=res;
           document.getElementById('modal-char-count').innerText=`${res.length} karakter`;
           const sc=calculateSEO(res),sb=document.getElementById('seo-score-badge');
@@ -642,32 +413,17 @@
           rb.classList.remove('hidden');
           notify(translate('notify_success'));
         }else throw new Error('Empty');
-      }catch(e){
-        console.error(e);
-        notify(translate('notify_error'));
-      }finally{
-        btn.disabled=false;
-        btn.innerHTML=`<span data-translate="generate_btn">${translate('generate_btn')}</span>`;
-      }
+      }catch(e){console.error(e);notify(translate('notify_error'));}finally{btn.disabled=false;btn.innerHTML=`<span data-translate="generate_btn">${translate('generate_btn')}</span>`;}
     }
 
     function copyModalContent(){const t=document.getElementById('modal-result-text').innerText,e=document.createElement('textarea');e.value=t;document.body.appendChild(e);e.select();document.execCommand('copy');document.body.removeChild(e);notify(translate('notify_copied'));}
 
     const ab=document.getElementById('nav-apps-btn'),ad=document.getElementById('nav-apps-dd');if(ab&&ad){ab.addEventListener('mouseenter',()=>ad.style.display='block');ab.parentElement.addEventListener('mouseleave',()=>ad.style.display='none');}
-
     const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
 
-    document.getElementById('generator-modal').addEventListener('click', function(e) {
-      if (e.target === this) closeGenerator();
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') closeGenerator();
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      translatePage();
-    });
+    document.getElementById('generator-modal').addEventListener('click', function(e) {if (e.target === this) closeGenerator();});
+    document.addEventListener('keydown', function(e) {if (e.key === 'Escape') closeGenerator();});
+    window.addEventListener('DOMContentLoaded', () => {translatePage();});
   </script>
 </body>
 </html>
