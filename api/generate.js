@@ -18,7 +18,9 @@ export default async function handler(req, res) {
 
     const randomSeed = Math.floor(Math.random() * 1000);
 
-    const prompt =
+    // --- 1. ORİJİNAL PROMPT (VARSAYILAN) ---
+    // (Burada 'const' yerine 'let' kullandık ki aşağıda değiştirebilelim)
+    let prompt =
 `Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
 
 ⚠️ KRİTİK: İnternetten güncel bilgi al ve FARKLI başlık üret!
@@ -44,6 +46,39 @@ Random Seed: ${randomSeed}
 1. satır: Başlık
 2. satır: Hashtag`;
 
+    // --- 2. YENİ EKLENEN: KRİPTO/FİNANS İSE GERÇEK VERİ ÇEK ---
+    if (platform === 'crypto' || platform === 'finance') {
+        const coinData = await getBinancePrice(topic);
+        
+        if (coinData) {
+            const trendIcon = coinData.c > 0 ? "🚀" : "🔻";
+            const trendText = coinData.c > 0 ? "YÜKSELİŞ" : "DÜŞÜŞ";
+            
+            // Gemini'ye GERÇEK veriyi veriyoruz ve yorumlatıyoruz
+            prompt = `
+            Rol: Kripto Para Analisti. Dil: ${lang}.
+            
+            GERÇEK BİNAS VERİLERİ (Şu an):
+            - Coin: ${coinData.s}
+            - Fiyat: $${coinData.p}
+            - Değişim (24s): %${coinData.c}
+            - Durum: ${trendText} ${trendIcon}
+
+            GÖREV:
+            Bu matematiksel verilere dayanarak yatırımcıyı heyecanlandıracak veya uyaracak MÜKEMMEL bir başlık at.
+
+            KURALLAR:
+            1. Satır: Başlık (Max 60 karakter). Mutlaka Fiyatı ($${coinData.p}) veya Değişimi (%${coinData.c}) metnin içinde kullan!
+            2. Satır: İlgili 3 hashtag.
+            
+            Örnek Çıktı:
+            ${coinData.s} $${coinData.p} Oldu! ${trendIcon} Sırada Ne Var?
+            #${coinData.s} #Kripto #Analiz
+            `;
+        }
+    }
+    // --- EKLEME BİTTİ ---
+
     const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
@@ -52,6 +87,8 @@ Random Seed: ${randomSeed}
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
+        // Kripto verisini biz elle verdiğimiz için google_search tool'unu sadece normal modda kullanabiliriz
+        // ama burada açık kalması sorun yaratmaz, Gemini verdiğimiz veriyi öncelikler.
         tools: [{ google_search: {} }],
         generationConfig: {
           temperature: 0.9,
@@ -79,6 +116,36 @@ Random Seed: ${randomSeed}
   }
 }
 
+// --- YARDIMCI FONKSİYONLAR (EN ALTA EKLENDİ) ---
+
+// 1. Binance'den Fiyat Çeken Basit Fonksiyon
+async function getBinancePrice(userInput) {
+    try {
+        // Kullanıcı "Bitcoin analizi" yazsa bile içinden "BTC"yi bulmaya çalışır
+        // Basitçe: İlk kelimeyi al, harf dışındakileri sil, USDT ekle.
+        let symbol = String(userInput).split(' ')[0].toUpperCase().replace(/[^A-Z]/g, '');
+        
+        // Eğer çok kısaysa (örn boşluk) varsayılan BTC olsun
+        if (symbol.length < 2) symbol = "BTC";
+        
+        // Sonu USDT ile bitmiyorsa ekle (Binance pariteleri genelde BTCUSDT şeklindedir)
+        if (!symbol.endsWith("USDT")) symbol += "USDT";
+
+        const r = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`);
+        if (!r.ok) return null; // Coin bulunamadıysa null dön (Eski sistem çalışsın)
+        
+        const d = await r.json();
+        return {
+            s: symbol.replace("USDT", ""), // Sadece Coin adı (BTC)
+            p: parseFloat(d.lastPrice).toFixed(2), // Fiyat (98000.50)
+            c: parseFloat(d.priceChangePercent).toFixed(2) // Yüzde değişim (-2.50)
+        };
+    } catch (e) {
+        return null; // Hata olursa null dön
+    }
+}
+
+// 2. Orijinal Metin Düzenleme Fonksiyonları (DOKUNULMADI)
 function enforceTwoLinesMax(text) {
   const lines = String(text || "")
     .replace(/\r/g, "")
