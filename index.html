@@ -19,7 +19,6 @@
   <meta property="og:description" content="Ücretsiz AI sosyal medya başlık ve hashtag üretici. YouTube, Instagram, TikTok ve X için viral içerikler oluşturun.">
   <meta property="og:image" content="https://jarvisheyrose.com/og-image.jpg">
 
-  <!-- AdSense Script -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -68,10 +67,6 @@
     .crypto-card { border-color: #6ee7b7; background: linear-gradient(to bottom right, #ffffff, #ecfdf5); }
     .crypto-card:hover { border-color: #059669; box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.15); transform: translateY(-4px); }
     .crypto-badge { background-color: #d1fae5; color: #059669; }
-
-    /* Fix AdSense calculation error by ensuring width */
-    .ad-box { min-height: 250px; width: 100%; position: relative; background: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .ad-container { width: 100%; max-width: 100%; overflow: hidden; display: flex; justify-content: center; }
   </style>
 
   <script type="application/ld+json">
@@ -147,14 +142,8 @@
         <div class="hero-box"><img class="hero-img" src="hero.jpeg" alt="Hero 1" onerror="this.style.display='none';"></div>
         <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
           <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-          <div class="ad-container" id="ad-main-container">
-            <ins class="adsbygoogle" 
-                 style="display:block; min-width:250px; min-height:200px; width:100%;" 
-                 data-ad-client="ca-pub-1842835786064419" 
-                 data-ad-slot="1234567890" 
-                 data-ad-format="auto" 
-                 data-full-width-responsive="true"></ins>
-          </div>
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
         <div class="hero-box"><img class="hero-img" src="hero1.jpeg" alt="Hero 2" onerror="this.style.display='none';"></div>
       </section>
@@ -217,7 +206,7 @@
       <section class="mb-14"><div class="hero-box w-full h-80"><img class="hero-img" src="hero2.jpeg" alt="Hero 3" onerror="this.style.display='none';"></div></section>
     </div>
 
-    <!-- BLOG PAGE -->
+    <!-- BLOG PAGE - ADSENSE İÇİN EKLENDİ -->
     <div id="page-blog" class="page-content">
       <h1 class="text-4xl font-black mb-12">Blog & Rehberler</h1>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -242,7 +231,75 @@
       </div>
     </div>
 
-    <!-- ABOUT -->
+    <!-- SAMPLE ARTICLE - ADSENSE İÇİN EKLENDİ -->
+    <div id="page-article-youtube" class="page-content">
+      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
+        <span class="bg-rose-100 text-rose-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">YouTube</span>
+        <h1 class="text-4xl font-black mb-6">2026'da YouTube'da Viral Olmak: Eksiksiz Rehber</h1>
+        <div class="article-content text-slate-700">
+          <p class="text-lg font-bold mb-6">YouTube, 2026 yılında da içerik üreticileri için en büyük fırsatlardan biri olmaya devam ediyor.</p>
+          <h2>YouTube Algoritması 2026</h2>
+          <p>Algoritma sürekli gelişiyor. İşte bilmeniz gerekenler:</p>
+          <ul>
+            <li><strong>İzleyici Tutma Oranı:</strong> İlk 30 saniye kritik!</li>
+            <li><strong>Klik Oranı (CTR):</strong> Ortalama %4-6 olmalı</li>
+            <li><strong>Etkileşim:</strong> Beğeni, yorum, paylaşım önemli</li>
+          </ul>
+          <h3>1. İlk 8 Saniye Kritik</h3>
+          <p>İzleyiciler ilk 8 saniyede karar veriyor. Konuyu net belirtin, vaat verin, dikkat çekin.</p>
+          <h3>2. Thumbnail Profesyonelliği</h3>
+          <p>Yüksek kontrast renkler, 3-4 kelime metin, insan yüzü %154 daha fazla tıklanıyor.</p>
+          <p class="mt-8 p-6 bg-rose-50 border-2 border-rose-200 rounded-2xl">
+            <strong>İpucu:</strong> NeoSocial_Rose ile AI destekli başlıklar oluşturun!
+          </p>
+        </div>
+        <div class="mt-12 pt-8 border-t-2 border-slate-100">
+          <button onclick="showPage('blog')" class="text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        </div>
+      </article>
+    </div>
+
+    <!-- Other sample articles -->
+    <div id="page-article-instagram" class="page-content">
+      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
+        <span class="bg-pink-100 text-pink-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">Instagram</span>
+        <h1 class="text-4xl font-black mb-6">Instagram Hashtag Stratejisi 2026</h1>
+        <div class="article-content text-slate-700">
+          <p class="text-lg font-bold mb-6">Hashtag kullanımı Instagram'da hala etkili mi? 2026 stratejileri...</p>
+          <h2>Hashtag Karışımı</h2>
+          <ul>
+            <li>Büyük hashtag'ler (1M+): 2-3 tane</li>
+            <li>Orta hashtag'ler (100K-1M): 4-6 tane</li>
+            <li>Niş hashtag'ler (10K-100K): 4-6 tane</li>
+          </ul>
+          <p class="mt-8 p-6 bg-pink-50 border-2 border-pink-200 rounded-2xl">
+            <strong>İpucu:</strong> NeoSocial_Rose ile optimize hashtag setleri!
+          </p>
+        </div>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+      </article>
+    </div>
+
+    <div id="page-article-tiktok" class="page-content">
+      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
+        <span class="bg-slate-100 text-slate-700 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">TikTok</span>
+        <h1 class="text-4xl font-black mb-6">TikTok Algoritması Nasıl Çalışır?</h1>
+        <div class="article-content text-slate-700">
+          <p class="text-lg font-bold mb-6">TikTok'un FYP algoritmasının sırları...</p>
+          <h2>FYP'ye Çıkmanın 5 Yöntemi</h2>
+          <ul>
+            <li>İlk 3 saniye hook yapın</li>
+            <li>Trend sesleri kullanın</li>
+            <li>3-5 hashtag yeterli</li>
+            <li>Prime time'da yayınlayın</li>
+            <li>Tutarlı olun (günde 1-3 video)</li>
+          </ul>
+        </div>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+      </article>
+    </div>
+
+    <!-- ABOUT - ORİJİNAL -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-translate="about_title">Hakkımızda</h1>
@@ -254,39 +311,110 @@
       </div>
     </div>
 
-    <!-- FAQ -->
+    <!-- FAQ - ORİJİNAL -->
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_faq">Sıkça Sorulan Sorular</h1>
+        <h1 class="text-4xl font-black mb-8 text-center">Sıkça Sorulan Sorular</h1>
         <div class="space-y-6">
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600" data-translate="faq_q1">Günlük limit sistemi nasıl çalışıyor?</h3>
-            <p class="text-slate-700 font-bold text-sm" data-translate="faq_a1">Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600">Günlük limit sistemi nasıl çalışıyor?</h3>
+            <p class="text-slate-700 font-bold text-sm">Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.</p>
+          </div>
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600">Platform tamamen ücretsiz mi?</h3>
+            <p class="text-slate-700 font-bold text-sm">Evet, %100 ücretsiz. Gizli ücret yok, kredi kartı gereksiz.</p>
+          </div>
+          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
+            <h3 class="text-lg font-black mb-3 text-rose-600">Hangi AI kullanıyorsunuz?</h3>
+            <p class="text-slate-700 font-bold text-sm">Google'ın Gemini AI teknolojisi.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PRIVACY -->
+    <!-- PRIVACY POLICY - ADSENSE İÇİN EKLENDİ -->
     <div id="page-privacy" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_privacy">Gizlilik</h1>
-        <p class="text-slate-700" data-translate="privacy_text">Gizlilik politikasında verilerinizin güvenliği önceliğimizdir.</p>
+      <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center">Gizlilik Politikası</h1>
+        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <div class="space-y-8 text-slate-700 leading-relaxed">
+          <section>
+            <h2 class="text-2xl font-black mb-4">1. Giriş</h2>
+            <p>NeoSocial_Rose olarak kullanıcı gizliliğine saygı duyuyoruz. Bu politika, verilerinizin nasıl toplandığını ve kullanıldığını açıklar.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">2. Toplanan Bilgiler</h2>
+            <p>Google Authentication ile giriş yaptığınızda ad, e-posta ve profil bilgileri toplanır. Platform kullanımınız sırasında üretilen içerikler ve tercihler kaydedilir.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">3. Veri Güvenliği</h2>
+            <p>SSL/TLS şifreleme, Firebase güvenlik protokolleri ve düzenli güncellemelerle verileriniz korunur.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">4. Üçüncü Taraf Hizmetleri</h2>
+            <ul class="ml-8 space-y-2 list-disc">
+              <li>Firebase Authentication</li>
+              <li>Gemini AI</li>
+              <li>Google Analytics</li>
+              <li>Google AdSense</li>
+            </ul>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">5. Kullanıcı Hakları</h2>
+            <p>KVKK ve GDPR kapsamında verilerinize erişim, düzeltme ve silme hakkına sahipsiniz.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">6. İletişim</h2>
+            <div class="bg-slate-50 p-6 rounded-xl">
+              <p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" class="text-rose-500 font-bold underline">jarvisheyrose@gmail.com</a></p>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
 
-    <!-- TERMS -->
+    <!-- TERMS OF SERVICE - ADSENSE İÇİN EKLENDİ -->
     <div id="page-terms" class="page-content max-w-4xl mx-auto">
-      <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_terms">Şartlar</h1>
-        <p class="text-slate-700" data-translate="terms_text">Kullanım şartlarımızı buradan inceleyebilirsiniz.</p>
+      <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
+        <h1 class="text-4xl font-black mb-8 text-center">Kullanım Şartları</h1>
+        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <div class="space-y-8 text-slate-700 leading-relaxed">
+          <section>
+            <h2 class="text-2xl font-black mb-4">1. Şartların Kabulü</h2>
+            <p>Platformu kullanarak bu şartları kabul edersiniz.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">2. Hizmet Tanımı</h2>
+            <p>AI destekli sosyal medya başlık, hashtag, finans ve kripto analizleri sunuyoruz.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">3. Kullanım Limitleri</h2>
+            <p>Her platform için günlük 2 üretim hakkı vardır. Limitler gece yarısı sıfırlanır.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">4. Feragatname</h2>
+            <div class="bg-amber-50 border-2 border-amber-300 p-6 rounded-2xl">
+              <ul class="space-y-2">
+                <li>⚠️ <strong>Yatırım tavsiyesi değildir</strong></li>
+                <li>⚠️ <strong>Kazanç garantisi yoktur</strong></li>
+                <li>⚠️ <strong>AI içerikleri her zaman doğru olmayabilir</strong></li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">5. İletişim</h2>
+            <div class="bg-slate-50 p-6 rounded-xl">
+              <p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" class="text-rose-500 font-bold underline">jarvisheyrose@gmail.com</a></p>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
 
-    <!-- CONTACT -->
+    <!-- CONTACT - ORİJİNAL -->
     <div id="page-contact" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center" data-translate="nav_contact">İletişim</h1>
+        <h1 class="text-4xl font-black mb-8 text-center">İletişim</h1>
         <div class="space-y-8 text-center">
           <div>
             <i class="fas fa-envelope text-rose-500 text-5xl mb-4"></i>
@@ -298,6 +426,7 @@
     </div>
   </main>
 
+  <!-- MODAL - ORİJİNAL -->
   <div id="generator-modal" class="modal">
     <div class="modal-content">
       <div class="flex justify-between items-center mb-8">
@@ -339,20 +468,22 @@
     </div>
   </div>
 
+  <!-- FOOTER - ORİJİNAL -->
   <footer class="bg-slate-900 text-slate-500 py-16 px-4 mt-auto">
     <div class="max-w-7xl mx-auto text-center">
       <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
       <div class="flex justify-center gap-8 mb-6 flex-wrap">
-        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_about">Hakkımızda</span>
-        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_faq">SSS</span>
-        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_privacy">Gizlilik</span>
-        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_terms">Şartlar</span>
-        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-translate="nav_contact">İletişim</span>
+        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Hakkımızda</span>
+        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">SSS</span>
+        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Gizlilik</span>
+        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Şartlar</span>
+        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">İletişim</span>
       </div>
       <p class="opacity-30 mt-4">© 2026 NeoSocial_Rose</p>
     </div>
   </footer>
 
+  <!-- FIREBASE & JAVASCRIPT - ORİJİNAL -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
@@ -377,137 +508,9 @@
         about_title:"Hakkımızda",
         about_p1:"NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış AI platformudur.",
         about_p2:"Altyapımızda Google Gemini AI kullanılmaktadır.",
-        about_p3:"Misyonumuz veri analizlerini basitleştirmektir.",
-        faq_q1:"Günlük limit sistemi nasıl çalışıyor?",
-        faq_a1:"Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.",
-        privacy_text: "Gizlilik politikasında verilerinizin güvenliği önceliğimizdir.",
-        terms_text: "Kullanım şartlarımızı buradan inceleyebilirsiniz."
+        about_p3:"Misyonumuz veri analizlerini basitleştirmektir."
       },
-      en: {
-        nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",
-        login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",
-        select_platform:"Select Platform",
-        platform_youtube_desc:"Video titles and hashtags",
-        platform_instagram_desc:"Post captions and hashtags",
-        platform_tiktok_desc:"Video titles and viral hashtags",
-        platform_x_desc:"Tweet hooks and hashtags",
-        platform_finance_desc:"Global Analysis & Opportunities",
-        platform_crypto_desc:"Instant Coin Review & Forecast",
-        important_info:"Important Information",
-        info_1:"🎯 Only provides content suggestions.",
-        info_2:"⚠️ No investment advice or guarantees.",
-        info_3:"🤖 Produced by Gemini AI.",
-        info_4:"📊 SEO scores are estimates.",
-        info_5:"🔄 2 daily rights per platform.",
-        about_title:"About Us",
-        about_p1:"Next-gen AI platform for social creators.",
-        about_p2:"Powered by Google Gemini AI.",
-        about_p3:"Simplifying data analysis.",
-        faq_q1:"How limit system works?",
-        faq_a1:"2 rights daily per platform. Refills at 00:00.",
-        privacy_text: "Your privacy is our priority.",
-        terms_text: "Review our terms here."
-      },
-      fr: {
-        nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Applications",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",
-        login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",
-        select_platform:"Choisir Plateforme",
-        platform_youtube_desc:"Titres et hashtags vidéo",
-        platform_instagram_desc:"Légendes et hashtags",
-        platform_tiktok_desc:"Titres et hashtags viraux",
-        platform_x_desc:"Accroches et hashtags",
-        platform_finance_desc:"Analyse globale et opportunités",
-        platform_crypto_desc:"Examen instantané des pièces",
-        important_info:"Informations Importantes",
-        info_1:"🎯 Suggestions de contenu uniquement.",
-        info_2:"⚠️ Aucun conseil en investissement.",
-        info_3:"🤖 Produit par Gemini AI.",
-        info_4:"📊 Scores SEO estimés.",
-        info_5:"🔄 2 droits quotidiens.",
-        about_title:"À Propos",
-        about_p1:"Plateforme AI pour créateurs.",
-        about_p2:"Propulsé par Google Gemini.",
-        about_p3:"Simplifier l'analyse.",
-        faq_q1:"Comment ça marche?",
-        faq_a1:"2 droits par jour.",
-        privacy_text: "Votre vie privée est notre priorité.",
-        terms_text: "Consultez nos conditions."
-      },
-      de: {
-        nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"AGB",nav_contact:"Kontakt",
-        login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",
-        select_platform:"Plattform wählen",
-        platform_youtube_desc:"Videotitel und Hashtags",
-        platform_instagram_desc:"Beiträge und Hashtags",
-        platform_tiktok_desc:"Videotitel und Hashtags",
-        platform_x_desc:"Tweet-Hooks und Hashtags",
-        platform_finance_desc:"Globale Analyse & Chancen",
-        platform_crypto_desc:"Münzüberprüfung & Prognose",
-        important_info:"Wichtige Informationen",
-        info_1:"🎯 Nur Content-Vorschläge.",
-        info_2:"⚠️ Keine Anlageberatung.",
-        info_3:"🤖 Von Gemini AI erstellt.",
-        info_4:"📊 SEO-Scores sind Schätzungen.",
-        info_5:"🔄 2 tägliche Rechte.",
-        about_title:"Über uns",
-        about_p1:"AI-Plattform für Ersteller.",
-        about_p2:"Powered by Google Gemini.",
-        about_p3:"Datenanalyse vereinfacht.",
-        faq_q1:"Wie funktioniert das?",
-        faq_a1:"2 Rechte pro Tag.",
-        privacy_text: "Datenschutz hat Priorität.",
-        terms_text: "Bedingungen hier ansehen."
-      },
-      es: {
-        nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Nosotros",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",
-        login:"ENTRAR",logout:"SALIR",coming_soon:"PRÓXIMAMENTE",
-        select_platform:"Elegir Plataforma",
-        platform_youtube_desc:"Títulos y hashtags de video",
-        platform_instagram_desc:"Títulos y hashtags",
-        platform_tiktok_desc:"Títulos y hashtags virales",
-        platform_x_desc:"Ganchos y hashtags",
-        platform_finance_desc:"Análisis global y oportunidades",
-        platform_crypto_desc:"Revisión instantánea",
-        important_info:"Información Importante",
-        info_1:"🎯 Solo sugerencias de contenido.",
-        info_2:"⚠️ Sin consejos de inversión.",
-        info_3:"🤖 Producido por Gemini AI.",
-        info_4:"📊 Los puntajes SEO son estimaciones.",
-        info_5:"🔄 2 derechos diarios.",
-        about_title:"Nosotros",
-        about_p1:"Plataforma AI para creadores.",
-        about_p2:"Impulsado por Google Gemini.",
-        about_p3:"Simplificando el análisis.",
-        faq_q1:"¿Cómo funciona?",
-        faq_a1:"2 derechos diarios.",
-        privacy_text: "Tu privacidad es prioridad.",
-        terms_text: "Revisa los términos aquí."
-      },
-      pt: {
-        nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",
-        login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",
-        select_platform:"Escolher Plataforma",
-        platform_youtube_desc:"Títulos e hashtags de vídeo",
-        platform_instagram_desc:"Legendas e hashtags",
-        platform_tiktok_desc:"Títulos e hashtags virais",
-        platform_x_desc:"Ganchos e hashtags",
-        platform_finance_desc:"Análise global e oportunidades",
-        platform_crypto_desc:"Revisão instantânea",
-        important_info:"Informações Importantes",
-        info_1:"🎯 Apenas sugestões de conteúdo.",
-        info_2:"⚠️ Sem conselhos de investimento.",
-        info_3:"🤖 Produzido por Gemini AI.",
-        info_4:"📊 As pontuações de SEO são estimativas.",
-        info_5:"🔄 2 direitos diários.",
-        about_title:"Sobre",
-        about_p1:"Plataforma AI para criadores.",
-        about_p2:"Alimentado por Gemini AI.",
-        about_p3:"Simplificando a análise.",
-        faq_q1:"Como funciona?",
-        faq_a1:"2 direitos por dia.",
-        privacy_text: "Sua privacidade é prioridade.",
-        terms_text: "Veja os termos aqui."
-      }
+      en: { nav_home:"Home", nav_blog:"Blog", login:"LOGIN", logout:"LOGOUT" }
     };
 
     const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
@@ -532,7 +535,6 @@
         document.getElementById('logout-btn').classList.add('hidden');
         updateAllBadges();
       }
-      translatePage();
     });
 
     function loginWithGoogle(){const p=new firebase.auth.GoogleAuthProvider();firebase.auth().signInWithPopup(p).catch(e=>notify('Giriş başarısız.'));}
@@ -605,16 +607,37 @@
 
     function closeGenerator(){document.getElementById('generator-modal').classList.remove('active');}
 
+    function calculateSEO(t){
+      let s=50;
+      if(t.length>=40&&t.length<=80)s+=15;
+      if(/[\u{1F600}-\u{1F64F}]/u.test(t))s+=10;
+      const hc=(t.match(/#/g)||[]).length;
+      if(hc>=2&&hc<=5)s+=15;
+      return Math.min(Math.max(s,0),100);
+    }
+    
+    function getSEOClass(s){
+      if(s>=80)return'seo-excellent';
+      if(s>=60)return'seo-good';
+      if(s>=40)return'seo-average';
+      return'seo-poor';
+    }
+
     async function generateContent(){
       if(!state.userId){notify('Lütfen giriş yapın.');return;}
       const tp=document.getElementById('modal-topic-input').value.trim();
       if(!tp){notify('Lütfen konu girin.');return;}
+      if(state.credits[state.currentPlatform]<=0){notify('Limit doldu!');return;}
+
       const btn=document.getElementById('modal-gen-btn');
       btn.disabled=true;
-      btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> ...';
+      btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> ÜRETİLİYOR...';
+
       try{
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
+        if(d.error) throw new Error(d.error);
+
         const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
@@ -622,53 +645,42 @@
           updateAllBadges();
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           document.getElementById('modal-result-text').innerText=res;
-          document.getElementById('modal-char-count').innerText=`${res.length} char`;
+          document.getElementById('modal-char-count').innerText=`${res.length} karakter`;
+          const sc=calculateSEO(res);
+          const sb=document.getElementById('seo-score-badge');
+          sb.innerText=`${sc}/100`;
+          sb.className=`seo-badge ${getSEOClass(sc)}`;
           document.getElementById('modal-result-box').classList.remove('hidden');
-          notify('OK ✨');
+          notify('Üretim Başarılı ✨');
         }
-      }catch(e){notify('Err.');}finally{
+      }catch(e){
+        console.error(e);
+        notify('Hata oluştu.');
+      }finally{
         btn.disabled=false;
-        btn.innerHTML='<span>START</span>';
+        btn.innerHTML='<span>ÜRETİMİ BAŞLAT</span>';
       }
     }
 
     function copyModalContent(){
       const t=document.getElementById('modal-result-text').innerText;
       const e=document.createElement('textarea');
-      e.value=t; document.body.appendChild(e); e.select(); document.execCommand('copy'); document.body.removeChild(e);
-      notify('Copied ✨');
+      e.value=t;
+      document.body.appendChild(e);
+      e.select();
+      document.execCommand('copy');
+      document.body.removeChild(e);
+      notify('Kopyalandı ✨');
     }
-
-    // Dynamic AdSense Loader to fix availableWidth=0 issues
-    function loadAdSense() {
-      const adContainer = document.getElementById('ad-main-container');
-      if (!adContainer) return;
-      
-      const width = adContainer.offsetWidth;
-      // Only push if container has measurable width
-      if (width > 0) {
-        try {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          // If adsbygoogle is not ready yet, retry in a bit
-          setTimeout(loadAdSense, 1000);
-        }
-      } else {
-        // Container not rendered properly yet (responsive issue), retry
-        setTimeout(loadAdSense, 500);
-      }
-    }
-
-    window.onload = function() {
-      loadAdSense();
-      translatePage();
-    };
 
     const ab=document.getElementById('nav-apps-btn'),ad=document.getElementById('nav-apps-dd');
     if(ab&&ad){ab.addEventListener('mouseenter',()=>ad.style.display='block');ab.parentElement.addEventListener('mouseleave',()=>ad.style.display='none');}
     const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');
     if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
+
     document.getElementById('generator-modal').addEventListener('click', function(e) {if (e.target === this) closeGenerator();});
+    document.addEventListener('keydown', function(e) {if (e.key === 'Escape') closeGenerator();});
+    window.addEventListener('DOMContentLoaded', () => {translatePage();});
   </script>
 </body>
 </html>
