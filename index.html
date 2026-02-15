@@ -614,24 +614,38 @@
       const today = new Date().toDateString();
       const storedDate = localStorage.getItem(`nsr_date_${state.userId}`);
       const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
+      
+      // Eğer tarih farklıysa SIFIRLA
       if(storedDate !== today){
         localStorage.setItem(`nsr_date_${state.userId}`, today);
         state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
-        localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
+        saveCredits(); // Yeni tarihi ve full krediyi kaydet
       } else {
+        // Tarih aynıysa ve kayıt varsa YÜKLE
         if(storedCredits){
-          state.credits = JSON.parse(storedCredits);
-          if(!state.credits.finance) state.credits.finance = 2;
-          if(!state.credits.crypto) state.credits.crypto = 2;
+          try {
+            state.credits = JSON.parse(storedCredits);
+            // Eksik anahtar varsa tamamla (eski versiyondan kalma veri için)
+            if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
+            if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2;
+          } catch(e) {
+            // Veri bozuksa sıfırla
+            state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+            saveCredits();
+          }
         } else {
-          state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
-          localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits));
+           // Tarih var ama kredi yoksa sıfırla (Güvenlik)
+           state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+           saveCredits();
         }
       }
       updateAllBadges();
     }
 
-    function saveCredits(){if(!state.userId)return;localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));}
+    function saveCredits(){
+        if(!state.userId) return;
+        localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
+    }
 
     function updateAllBadges(){
       Object.keys(state.credits).forEach(p=>{
@@ -710,7 +724,7 @@
         const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
-          saveCredits();
+          saveCredits(); // KREDİYİ HEMEN DÜŞ VE KAYDET
           updateAllBadges();
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           document.getElementById('modal-result-text').innerText=res;
