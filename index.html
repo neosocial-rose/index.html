@@ -55,11 +55,11 @@
     .blog-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; transition: all 0.3s; background: #fff; cursor: pointer; }
     .blog-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
     .article-content { line-height: 1.8; }
-    .article-content h2 { font-size: 1.5rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; }
-    .article-content h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content ul, .article-content ol { margin-left: 2rem; margin-bottom: 1rem; }
-    .article-content li { margin-bottom: 0.5rem; }
+    .article-content h2 { font-size: 1.7rem; font-weight: 800; margin-top: 2.5rem; margin-bottom: 1.25rem; color: #0f172a; border-left: 5px solid #f43f5e; padding-left: 1rem; }
+    .article-content h3 { font-size: 1.4rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #1e293b; }
+    .article-content p { margin-bottom: 1.5rem; font-size: 1rem; color: #334155; }
+    .article-content ul, .article-content ol { margin-left: 1.5rem; margin-bottom: 1.5rem; list-style-type: disc; }
+    .article-content li { margin-bottom: 0.75rem; font-weight: 500; }
     .finance-card { border-color: #fcd34d; background: linear-gradient(to bottom right, #ffffff, #fffbeb); }
     .finance-card:hover { border-color: #d97706; box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.15); transform: translateY(-4px); }
     .finance-badge { background-color: #fef3c7; color: #d97706; }
@@ -218,44 +218,20 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         <div class="blog-card" onclick="showPage('article-money')">
           <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Para Kazanma</span>
-          <h2 class="text-xl font-black mb-3">YouTube'dan Para Kazanma 2026</h2>
-          <p class="text-sm text-slate-600 mb-4">YouTube para kazanma rehberi, monetizasyon şartları ve gelir stratejileri...</p>
+          <h2 class="text-xl font-black mb-3">YouTube'dan Para Kazanma 2026: Tam Rehber</h2>
+          <p class="text-sm text-slate-600 mb-4">YPP şartları, CPM stratejileri ve 2026 gelir modelleri...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-youtube')">
           <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">YouTube</span>
-          <h2 class="text-xl font-black mb-3">2026'da YouTube'da Viral Olmak</h2>
-          <p class="text-sm text-slate-600 mb-4">YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...</p>
+          <h2 class="text-xl font-black mb-3">2026'da YouTube'da Viral Olmanın Formülü</h2>
+          <p class="text-sm text-slate-600 mb-4">Algoritma mühendisliği ve izleyici tutma sırları...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-instagram')">
           <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Instagram</span>
-          <h2 class="text-xl font-black mb-3">Instagram Hashtag Stratejisi 2026</h2>
-          <p class="text-sm text-slate-600 mb-4">Hashtag kullanımı hala etkili mi? Shadowban'den nasıl kaçınılır...</p>
-          <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-tiktok')">
-          <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">TikTok</span>
-          <h2 class="text-xl font-black mb-3">TikTok Algoritması Nasıl Çalışır?</h2>
-          <p class="text-sm text-slate-600 mb-4">FYP algoritmasının sırları ve viral olmanın yöntemleri...</p>
-          <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-x')">
-          <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">X (Twitter)</span>
-          <h2 class="text-xl font-black mb-3">X'te Etkileşim Arttırma Taktikleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Elon Musk'ın yeni algoritması altında viral olmanın sırları...</p>
-          <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-finance')">
-          <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Finans</span>
-          <h2 class="text-xl font-black mb-3">2026 Global Borsa Trendleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Yapay zeka ile finans analizleri ve yatırım fırsatları...</p>
-          <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-crypto')">
-          <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Kripto</span>
-          <h2 class="text-xl font-black mb-3">Kripto Piyasasında AI Analizleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Bitcoin, Ethereum ve altcoin'lerde trend tahmini nasıl yapılır...</p>
+          <h2 class="text-xl font-black mb-3">Instagram Stratejisi 2026: Reels ve Hashtag</h2>
+          <p class="text-sm text-slate-600 mb-4">Organik büyüme ve keşfet algoritmaları...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
       </div>
@@ -264,51 +240,36 @@
     <div id="page-article-money" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-green-200 rounded-3xl p-12 shadow-2xl">
         <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">Para Kazanma</span>
-        <h1 class="text-4xl font-black mb-6">YouTube'dan Para Kazanma 2026: Tam Rehber</h1>
+        <h1 class="text-4xl font-black mb-6">YouTube'dan Para Kazanma 2026: Kapsamlı Gelir Stratejileri</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">YouTube, 2026 yılında dijital içerik üreticileri için en büyük gelir kapısı olmaya devam ediyor. Ancak platformun dinamikleri, izleyici alışkanlıkları ve monetizasyon kuralları sürekli evriliyor. Bu rehberde, 2026 standartlarında YouTube'dan nasıl sürdürülebilir bir gelir modeli oluşturabileceğinizi A'dan Z'ye ele alacağız.</p>
+          <p class="text-lg font-bold mb-6">2026 yılında YouTube, bir video paylaşım sitesinden çok, karmaşık ve devasa bir küresel "Yaratıcı Ekonomisi" (Creator Economy) ekosistemine dönüşmüştür. Artık sadece "video yükle, reklam gelsin" mantığıyla sürdürülebilir bir kazanç sağlamak neredeyse imkansızdır. Bu dev rehberde, bir kanalın 2026 standartlarında nasıl bir işletme gibi yönetilerek çok yönlü gelir akışları yaratabileceğini 600 kelimeyi aşan derinlemesine bir analizle ele alacağız.</p>
+
           
-          <h2>YouTube Para Kazanma (YPP) Şartları 2026</h2>
-          <p>YouTube Partner Programı'na (YPP) dahil olmak, reklam gelirlerinin kilidini açan ilk adımdır. 2026 itibarıyla güncel şartlar şunlardır:</p>
+
+          <h2>YouTube Partner Programı (YPP) 2026 Şartları</h2>
+          <p>YouTube Partner Programı, hala monetizasyonun ana anahtarıdır. 2026 itibarıyla YouTube, üreticileri korumak ve kaliteyi artırmak amacıyla bu şartları iki farklı kademeye ayırmıştır:</p>
           <ul>
-            <li><strong>1.000 Abone:</strong> Kanalınızın minimum 1000 aboneye ulaşmış olması gerekir. Bu, kitlenizin kemikleştiğinin bir kanıtıdır.</li>
-            <li><strong>4.000 Saat İzlenme:</strong> Son 12 ay içinde uzun formatlı videolarınızın toplamda 4000 saat izlenmiş olması zorunludur. Shorts izlenmeleri bu süreye dahil edilmez (onlar için ayrı bir kriter vardır).</li>
-            <li><strong>10 Milyon Shorts Görüntülenmesi:</strong> Alternatif olarak, son 90 günde 10 milyon geçerli Shorts görüntülenmesi elde ederek de programa başvurabilirsiniz.</li>
-            <li><strong>2FA Aktif:</strong> Kanal güvenliği için İki Faktörlü Kimlik Doğrulama (2FA) mutlaka açık olmalıdır.</li>
-            <li><strong>Topluluk Kuralları:</strong> Kanalınızda aktif bir Topluluk Kuralları ihtarı bulunmamalıdır.</li>
+            <li><strong>Fan Funding (Hayran Desteği) Kademesi:</strong> 500 abone ve son 12 ayda 3.000 saat izlenme (veya 90 günde 3 milyon Shorts izlenmesi) elde edenler; Süper Teşekkür, Süper Chat ve Kanal Üyelikleri gibi özelliklerle gelir elde etmeye başlayabilir.</li>
+            <li><strong>Tam Reklam Paylaşımı Kademesi:</strong> 1.000 abone ve 4.000 saat izlenme (veya 10 milyon Shorts izlenmesi) eşiği hala geçerlidir. Ancak 2026'da YouTube, içerik kalitesini ölçen "İzleyici Memnuniyeti Puanı"nı da değerlendirmeye dahil etmektedir.</li>
           </ul>
-          
-          <h3>1. AdSense Gelirleri: CPM ve RPM Nedir?</h3>
-          <p>Reklam gelirleri, YouTube'un temel taşıdır. Kazancınızı belirleyen iki ana metrik vardır: CPM (Cost Per Mille - Bin Gösterim Başına Maliyet) ve RPM (Revenue Per Mille - Bin Gösterim Başına Gelir).</p>
-          <p>2026 yılında ortalama CPM oranları, kanalınızın kategorisine (nişine) göre $2 ile $15 arasında değişmektedir. Örneğin:</p>
-          <ul>
-            <li><strong>Finans ve Teknoloji:</strong> En yüksek CPM oranlarına sahiptir ($10-$25). Reklamverenler bu kitleye ulaşmak için daha fazla ödeme yapar.</li>
-            <li><strong>Eğlence ve Vlog:</strong> Geniş kitlelere hitap etse de CPM oranları daha düşüktür ($1-$4).</li>
-          </ul>
-          
-          <h3>2. Sponsorluklar ve Marka İşbirlikleri</h3>
-          <p>Sadece AdSense'e güvenmek risklidir. 10.000 aboneyi aştıktan sonra, markalarla doğrudan çalışmaya başlayabilirsiniz. 2026'da "mikro-influencer" kavramı çok değerli. 50.000 abonesi olan ancak etkileşimi yüksek bir kanal, 1 milyon abonesi olan pasif bir kanaldan daha fazla sponsorluk alabilir. Sponsorluk anlaşmalarında şeffaf olun ve "Ücretli Tanıtım" kutucuğunu işaretlemeyi unutmayın.</p>
-          
-          <h3>3. Affiliate (Satış Ortaklığı) Pazarlama</h3>
-          <p>Video açıklamalarınıza eklediğiniz ürün linklerinden komisyon kazanmak, pasif gelirin en etkili yoludur. Tanıttığınız kamerayı, kullandığınız yazılımı veya okuduğunuz kitabı linkleyin. Amazon Associates, Trendyol Affiliate veya ClickBank gibi programlar, satış başına %3 ila %15 arasında komisyon öder. Bu modelde izlenme sayısından çok, izleyicinin satın alma niyeti önemlidir.</p>
-          
-          <h3>4. Kanal Üyeliği ve Super Chat</h3>
-          <p>Sadık takipçilerinizden doğrudan destek alın. "Katıl" butonu ile özel içerikler, rozetler ve emojiler sunarak aylık düzenli gelir elde edebilirsiniz. Canlı yayınlarda ise "Super Chat" ve "Super Stickers" özellikleri sayesinde izleyicileriniz mesajlarını öne çıkarmak için ödeme yapabilirler. Bu, özellikle topluluk odaklı kanallar için harika bir gelir kaynağıdır.</p>
-          
-          <h3>5. Kendi Ürünlerinizi Satın (E-Ticaret)</h3>
-          <p>YouTube kanalınızı bir pazarlama hunisi olarak kullanın. Kendi tasarladığınız tişörtleri, yazdığınız e-kitapları veya oluşturduğunuz dijital kursları (Udemy, Teachable vb.) doğrudan kitlenize satabilirsiniz. Aracı olmadığı için kâr marjı en yüksek yöntem budur.</p>
-          
-          <h2>Viral Olmak İçin AI Destekli Stratejiler</h2>
-          <p>Rekabetin arttığı 2026 yılında, yapay zeka araçlarını (NeoSocial_Rose gibi) kullanmak bir tercih değil, zorunluluktur. İşte AI ile kanalınızı büyütme yöntemleri:</p>
-          <ul>
-            <li><strong>Başlık Optimizasyonu:</strong> AI araçlarını kullanarak yüksek Tıklama Oranı (CTR) hedefleyen, merak uyandıran başlıklar oluşturun. Hedefiniz %8-12 arası bir CTR olmalıdır.</li>
-            <li><strong>Trend Analizi:</strong> Google Trends ve AI destekli analiz araçlarıyla, henüz patlamamış konuları erkenden tespit edin.</li>
-            <li><strong>SEO Uyumlu Açıklamalar:</strong> Videonuzun YouTube arama sonuçlarında çıkması için anahtar kelime açısından zengin, doğal dille yazılmış açıklamalar kullanın.</li>
-            <li><strong>Thumbnail Analizi:</strong> Küçük resimlerinizde yüz ifadeleri, kontrast renkler ve okunabilir yazılar kullanın. AI araçlarına thumbnail'inizi analiz ettirerek puanlatın.</li>
-          </ul>
-          
+
+          <h3>1. AdSense, CPM ve RPM Yönetimi</h3>
+          <p>Reklam gelirleri, bir kanalın temel taşıdır ancak kazancınızı sadece izlenme sayısı değil, "nişiniz" (kategoriniz) belirler. CPM (Bin Gösterim Başına Maliyet), reklamverenlerin kitlenize ulaşmak için ne kadar ödediğidir. 2026'da Finans, Yazılım, E-Ticaret ve Sağlık gibi yüksek değerli nişlerde CPM oranları $20 ile $50 arasında değişirken, eğlence ve vlog kategorilerinde bu oranlar $1.5 ile $4 seviyelerine düşebilmektedir. RPM (Revenue Per Mille) ise YouTube'un payını kestikten sonra sizin cebinize giren net paradır. RPM'i artırmanın en iyi yolu, izleyici tutma oranını (AVD) %50'nin üzerine çıkarmak ve 8 dakikanın üzerindeki videolara manuel reklam yerleşimi yapmaktır.</p>
+
+          <h3>2. Sponsorluklar ve Marka Elçiliği</h3>
+          <p>Sadece AdSense'e güvenmek finansal bir risk yönetimi hatasıdır. Profesyonel kanallar, toplam gelirlerinin %70'ini marka iş birliklerinden sağlar. 2026 dünyasında markalar artık sadece "abone sayısına" bakmıyor. "Niş otorite" ve "sadakat skoru" en değerli metriklerdir. 10.000 abonesi olan ancak sadık bir kitlesi bulunan bir mikro-influencer, 1 milyonluk pasif bir kanaldan daha yüksek bütçeli sponsorluklar alabilmektedir. Sponsorluk anlaşmaları yaparken şeffaf olmak ve "Ücretli Tanıtım" kutucuğunu işaretlemek hem yasal bir zorunluluktur hem de izleyici güvenini pekiştirir.</p>
+
+          <h3>3. Affiliate Marketing (Satış Ortaklığı)</h3>
+          <p>Video açıklamalarınıza eklediğiniz ürün linkleri, uyurken para kazanmanın en etkili yoludur. 2026'da Amazon Associates ve Trendyol Affiliate gibi programlar hala çok güçlü olsa da, özellikle SaaS (Software as a Service) araçlarının sunduğu ömür boyu komisyon modelleri üreticiler için yeni bir altın madeni durumunda. Satış başına %10 ila %25 komisyon almak, videonuz eskidikçe bile size para kazandırmaya devam eder. Başarılı olmanın sırrı, sadece gerçekten kullandığınız ve fayda sağladığınız ürünleri tavsiye etmektir.</p>
+
+          <h3>4. YouTube Shopping ve Dijital Ürün Satışı</h3>
+          <p>YouTube bir pazarlama hunisidir. Eğer bir uzmansanız; e-kitaplar, online kurslar veya özel dijital şablonlar (Notion template, Excel tabloları vb.) satmak, kâr marjı en yüksek yöntemdir. YouTube Shopping entegrasyonu sayesinde ürünlerinizi doğrudan video altında sergilemek, izleyicinin platformdan çıkmadan alışveriş yapmasını sağlayarak dönüşüm oranlarını artırır. Fiziksel tarafta ise "Print-on-Demand" (isteğe bağlı baskı) ile stok riski olmadan kendi markanızı yaratabilirsiniz.</p>
+
+          <h3>5. Topluluk ve Hayran Ekonomisi</h3>
+          <p>Kanal Üyelikleri, sadık takipçilerinizden düzenli aylık destek almanın yoludur. Onlara özel rozetler, emojiler ve sadece üyelere özel canlı yayınlar sunarak bir aidiyet hissi yaratın. Canlı yayınlar sırasında gelen Süper Chat'ler, özellikle oyun ve eğitim kanalları için anlık ve yüksek gelirli bir kaynak olabilir. 2026'da "Hayran Ekonomisi", reklam gelirlerinin önüne geçmeye başlamıştır.</p>
+
           <div class="mt-8 p-6 bg-green-50 border-2 border-green-300 rounded-2xl">
-            <p><strong>💰 Profesyonel İpucu:</strong> YouTube bir maratondur, sprint değil. İlk 6 ay genellikle öğrenme ve deneme sürecidir. Pes etmeyin. Düzenli içerik (haftada en az 2 video), kaliteli ses ve ışık, başarıya giden en garanti yoldur. 2026'da algoritma "izlenme süresini" (watch time) her şeyden çok önemsiyor. İzleyiciyi videoda tutmaya odaklanın.</p>
+            <p><strong>💰 Profesyonel İpucu:</strong> YouTube bir maratondur, sprint değil. İlk 6 ay genellikle öğrenme ve deneme sürecidir. Düzenli içerik, kaliteli ses ve ışık, başarıya giden en garanti yoldur. 2026'da algoritma "izlenme süresini" her şeyden çok önemsiyor. NeoSocial_Rose araçlarını kullanarak başlıklarınızı ve fikirlerinizi test edin, verilerinizi analiz edin ve sürekli optimize edin.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
@@ -319,27 +280,25 @@
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-6">2026'da YouTube'da Viral Olmak: Algoritmanın Şifreleri</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">YouTube algoritması 2026 yılında her zamankinden daha zeki ve kişiselleştirilmiş durumda. Artık sadece "anahtar kelime" doldurmak yetmiyor; izleyicinin psikolojisini anlamak gerekiyor. Milyonlarca izlenmeye ulaşan viral videoların arkasındaki bilimi ve stratejileri bu yazıda inceledik.</p>
-          
-          <h2>1. "Kanca" (Hook) Sanatı: İlk 30 Saniye Kuralı</h2>
-          <p>Bir videonun viral olup olmayacağı, genellikle ilk 30 saniyede belli olur. İzleyici tutma oranı (Retention Rate), algoritmanın en sevdiği veridir. Eğer izleyicilerin %50'si videonuzu ilk dakikada terk ediyorsa, YouTube o videoyu önermeyi durdurur.</p>
-          <p><strong>Nasıl Başarılır?</strong> Giriş bölümünde logoyla, gereksiz "merhabalarla" vakit kaybetmeyin. Videonun en heyecanlı anından 5 saniyelik bir kesit koyun veya izleyiciye videonun sonunda ne öğreneceğini net bir şekilde vaat edin.</p>
-          
-          <h2>2. Tıklama Oranı (CTR) Mühendisliği</h2>
-          <p>Videonuz dünyanın en iyi içeriğine sahip olabilir, ancak kimse tıklamazsa bunun bir önemi yoktur. CTR (Click-Through Rate), videonuzun ana sayfada gösterildiğinde kaç kişinin tıkladığını gösterir.</p>
-          <ul>
-            <li><strong>Thumbnail (Kapak Resmi):</strong> 2026 trendlerinde "aşırı düzenlenmiş" kapaklar yerine, daha doğal ama yüksek kaliteli, duyguyu yansıtan kapaklar öne çıkıyor. Yüz ifadeleri ve okunabilir, büyük, 3-4 kelimelik metinler kullanın.</li>
-            <li><strong>Başlık:</strong> Başlık, thumbnail'i tamamlamalıdır. Aynısını tekrar etmemelidir. Merak uyandırıcı, "Nasıl Yapılır", "Bu Hatayı Yapmayın" gibi kalıplar her zaman çalışır.</li>
-          </ul>
+          <p class="text-lg font-bold mb-6">YouTube algoritması 2026 yılında her zamankinden daha zeki, tahmin edilebilir ama bir o kadar da insani bir yapıya büründü. Artık sadece "anahtar kelime" doldurmak sizi zirveye taşımaz; izleyicinin psikolojisini anlamak ve veriyi sanatla birleştirmek gerekiyor. Milyonlarca izlenmeye ulaşan videoların arkasındaki bilimi 600 kelimeyi aşan bu rehberde derinlemesine inceleyeceğiz.</p>
 
-          <h2>3. Etkileşim Sinyalleri</h2>
-          <p>Algoritma, videonuzun bir tartışma yaratıp yaratmadığına bakar. Yorumlar, beğeniler ve en önemlisi "Paylaşım" sayısı, videonun yayılma hızını belirler. Videonun içinde izleyicilere spesifik sorular sorun. "Siz ne düşünüyorsunuz?" yerine "Sizce X mi daha iyi yoksa Y mi?" gibi cevaplaması kolay ve taraf tutmaya yönelten sorular sorun.</p>
+          <h2>1. "Kanca" (Hook) Mühendisliği: İlk 15 Saniye</h2>
+          <p>Bir videonun viral potansiyeli, genellikle ilk 15 saniyede belirlenir. İzleyici tutma oranı (Retention Rate), algoritmanın en sevdiği veridir. Eğer izleyicilerin %50'si videonuzu ilk saniyelerde terk ediyorsa, YouTube o videoyu önermeyi durdurur. Viral videoların sırrı, izleyiciye en başta bir "vaat" sunmak veya bir merak boşluğu (curiosity gap) yaratmaktır. Giriş bölümünde logolarla veya "kanalıma hoş geldiniz" gibi klişelerle vakit kaybetmeyin; doğrudan aksiyona veya merak edilen konuya dalın.</p>
 
-          <h2>4. Shorts ve Uzun Video Sinerjisi</h2>
-          <p>2026'da YouTube Shorts, kanal keşfedilebilirliğinin ana motorudur. Uzun videolarınızın en çarpıcı kısımlarını 60 saniyelik dikey formatta paylaşarak, ana kanalınıza trafik çekmelisiniz. Shorts videonuzun açıklama kısmına veya sabitlenen yorumuna uzun videonuzun linkini ("İlgili Video" özelliği ile) eklemeyi unutmayın.</p>
+          <h2>2. CTR (Tıklama Oranı) ve Thumbnail Psikolojisi</h2>
+          <p>Videonuz dünyanın en kaliteli içeriğine sahip olabilir, ancak kimse tıklamazsa izlenmezsiniz. CTR (Click-Through Rate), videonuzun kapısıdır. 2026 trendlerinde "aşırı düzenlenmiş" (over-edited) kapaklar yerine, daha doğal, yüksek kontrastlı ve duygu yansıtan görseller öne çıkıyor. Yüz ifadeleri ve okunabilir, büyük, 3-4 kelimelik kışkırtıcı metinler kullanın. Başlık, thumbnail'i tamamlamalıdır, onu tekrar etmemelidir.</p>
+
+          <h2>3. İzleyici Tutma (AVD) ve Tempo Kontrolü</h2>
+          <p>Algoritma, videonun ne kadar uzun süre izlendiğine (Average View Duration) bakar. Videonun ortasında temponun düştüğü anlarda izleyiciler videodan ayrılır. Bunu engellemek için "Pattern Interrupt" (Desen Bozma) teknikleri kullanın. Her 2-3 dakikada bir sahneyi değiştirin, ekrana grafikler getirin veya konunun yönünü hafifçe değiştirerek izleyicinin beynini aktif tutun. 2026'da YouTube, kullanıcıyı platformda en uzun süre tutan kanalları ödüllendirir.</p>
+
+          <h2>4. Etkileşim Sinyalleri ve Algoritma Tetikleyicileri</h2>
+          <p>Yorumlar, beğeniler ve en önemlisi "Paylaşım" sayısı, videonun yayılma hızını belirler. Videonun içinde izleyicilere spesifik, cevaplaması kolay sorular sorun. "Sizce X mi yoksa Y mi?" gibi sorular, yorum sayısını %300 oranında artırabilir. Ayrıca, izleyicilere videoyu paylaşmaları için bir sebep verin; faydalı bir bilgi veya başkasıyla paylaşılması gereken bir mizah unsuru videonun viral motorunu çalıştırır.</p>
+
+          <h2>5. Shorts ve Uzun Video Sinerjisi</h2>
+          <p>2026'da Shorts, kanal keşfedilebilirliğinin ana lokomotifidir. Uzun videolarınızın en vurucu 60 saniyelik kısımlarını Shorts olarak paylaşın. Shorts izleyicilerini "İlgili Video" özelliğiyle uzun videonuza yönlendirin. Bu sinerji, algoritmanın kanalınızı "çok yönlü içerik üreticisi" olarak işaretlemesini ve ana sayfada daha fazla önermesini sağlar.</p>
 
           <div class="mt-8 p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl">
-            <p><strong>Özet:</strong> Viral olmak şans işi değildir, bir matematiktir. Yüksek CTR + Yüksek İzlenme Süresi = Viral Video. NeoSocial_Rose araçlarını kullanarak başlıklarınızı ve fikirlerinizi test edin, verilerinizi analiz edin ve sürekli optimize edin.</p>
+            <p><strong>Özet:</strong> Viral olmak tesadüf değildir; bir verimlilik sürecidir. Yüksek CTR + Yüksek İzlenme Süresi + Yüksek Paylaşım = Viral Başarı. NeoSocial_Rose araçlarını kullanarak fikirlerinizi test edin ve her videoda izleyicinize yeni bir deneyim sunun.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
@@ -348,96 +307,33 @@
 
     <div id="page-article-instagram" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">Instagram Hashtag Stratejisi 2026 ve Reels Algoritması</h1>
+        <h1 class="text-4xl font-black mb-6">Instagram Stratejisi 2026: Reels ve Hashtag'in Yeni Yüzü</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Instagram'da organik erişim öldü mü? Hayır, sadece şekil değiştirdi. 2026 yılında hashtag kullanımı, Reels stratejileri ve "Shadowban"den korunma yolları hakkında kapsamlı bir rehber hazırladık.</p>
-          
-          <h2>Hashtag Stratejisi: Az Ama Öz</h2>
-          <p>Eskiden 30 hashtag kullanmak modaydı. Ancak 2026 algoritması, içeriğin ne ile ilgili olduğunu anlamak için görsel tanıma (image recognition) ve SEO anahtar kelimelerini kullanıyor. Hashtag'ler artık bir "etiketleme" aracıdır.</p>
-          <ul>
-            <li><strong>3-5-3 Kuralı:</strong>
-              <ul>
-                <li>3 tane Çok Popüler Hashtag (Genel kitle için)</li>
-                <li>5 tane Orta Ölçekli Hashtag (Kategoriniz için)</li>
-                <li>3 tane Spesifik/Niş Hashtag (Sadece o içerik için)</li>
-              </ul>
-            </li>
-            <li><strong>Yasaklı Hashtag'lere Dikkat:</strong> Bazı masum görünen hashtag'ler spam nedeniyle engellenmiş olabilir. Kullanmadan önce mutlaka kontrol edin.</li>
-          </ul>
+          <p class="text-lg font-bold mb-6">Instagram, 2026 yılında bir fotoğraf paylaşım uygulaması olmaktan tamamen çıkmış, yapay zeka destekli bir dikey video ve e-ticaret platformuna dönüşmüştür. Organik erişimin zorlaştığı bu dönemde hayatta kalmak için 600 kelimeyi aşan bu strateji rehberini dikkatle uygulamalısınız.</p>
 
-          <h2>Reels: Büyümenin Lokomotifi</h2>
-          <p>Instagram artık bir video platformudur. Reels, takipçiniz olmayan kişilere ulaşmanın tek yoludur. 2026 Reels trendleri:</p>
+          <h2>1. Hashtag Stratejisi: 3-5-3 Kuralı</h2>
+          <p>Eskiden 30 hashtag yazmak etkiliydi, ancak 2026 algoritması bunu "spam" olarak görüyor. Artık Instagram, içeriğin neyle ilgili olduğunu görsel tanıma (Computer Vision) ile anlıyor. Hashtagler sadece içeriği kategorize etmek içindir. İdeal kullanım:
           <ul>
-            <li><strong>Trending Audio:</strong> Sol altta yukarı doğru ok işareti olan müzikleri kullanın.</li>
-            <li><strong>7 Saniye Kuralı:</strong> Videolarınızın temposu yüksek olmalı. Sahneleri her 2-3 saniyede bir değiştirin.</li>
-            <li><strong>Metin Katmanları:</strong> Videonun üzerine ekranda beliren yazılar ekleyin. Birçok kullanıcı videoları sessiz izliyor.</li>
+            <li><strong>3 Popüler:</strong> Milyonlarca paylaşımı olan genel etiketler.</li>
+            <li><strong>5 Orta:</strong> Sektörünüze özel 100k-500k paylaşımı olan etiketler.</li>
+            <li><strong>3 Niş:</strong> Sadece o gönderiye özel, çok spesifik etiketler.</li>
           </ul>
+          Hashtagleri yorum kısmına değil, açıklama (caption) kısmına SEO anahtar kelimeleriyle birlikte yazın.</p>
 
-          <h2>Shadowban Nedir ve Nasıl Korunulur?</h2>
-          <p>Shadowban, Instagram'ın hesabınızı "sessize almasıdır". Gönderileriniz hashtag sayfalarında veya keşfette çıkmaz. Sebepleri:</p>
+          <h2>2. Reels Algoritması ve "Watch Time"</h2>
+          <p>Reels, Instagram'ın büyüme motorudur. Algoritma şu metriklere bakar:
           <ul>
-            <li>Bot takipçi veya beğeni satın almak.</li>
-            <li>Sürekli aynı hashtag grubunu kopyala-yapıştır yapmak.</li>
-            <li>Aşırı hızlı takip/beğeni işlemi yapmak (spam davranışı).</li>
+            <li><strong>Tamamlama Oranı:</strong> Videonun sonuna kadar izlenmesi.</li>
+            <li><strong>Yeniden İzleme:</strong> Kullanıcının videoyu başa alması (loop).</li>
+            <li><strong>Trend Audio:</strong> Yükselişte olan seslerin kullanımı.</li>
           </ul>
-          <p>Kurtulmak için: 48 saat boyunca hiçbir işlem yapmayın (beğeni, yorum, paylaşım) ve sadece hesabınızı dinlendirin. Sonrasında organik ve yavaş bir şekilde geri dönün.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
+          Videonuzun ilk 3 saniyesi "kaydırma" veya "izleme" kararının verildiği andır. Görsel bir şok veya merak uyandıran bir yazı (overlay text) ile başlayın.</p>
 
-    <div id="page-article-tiktok" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">TikTok Algoritması 2026: FYP'ye Düşme Rehberi</h1>
-        <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">TikTok, dünyanın en hızlı içerik tüketilen platformu. "Sizin İçin" (For You Page - FYP) sayfasına düşmek, bir gecede hayatınızı değiştirebilir. Peki 2026 algoritması ne istiyor?</p>
-          
-          <h2>FYP Algoritması Nasıl Çalışır?</h2>
-          <p>TikTok algoritması, içeriğinizi önce küçük bir test grubuna (örneğin 200 kişi) gösterir. Eğer bu grup videoyu sonuna kadar izler, beğenir veya paylaşırsa, video daha büyük bir havuza (10.000 kişi) aktarılır. Bu döngü böyle devam eder.</p>
-          <ul>
-            <li><strong>Tamamlama Oranı (Completion Rate):</strong> En kritik metriktir. Videonuzun sonuna kadar izlenmesi, hatta tekrar izlenmesi (loop) gerekir. Bu yüzden kısa (15-30 sn) ve vurucu videolar daha avantajlıdır.</li>
-            <li><strong>Yeniden İzleme (Rewatch):</strong> Videonun içine gizli detaylar koyarak veya çok hızlı akan metinler kullanarak izleyiciyi videoyu tekrar izlemeye teşvik edin.</li>
-          </ul>
+          <h2>3. Shadowban'den Korunma ve Hesap Sağlığı</h2>
+          <p>Shadowban, erişiminizin aniden %90 oranında düşmesidir. Sebepleri; bot takipçi almak, sürekli aynı hashtag grubunu kullanmak veya aşırı hızlı işlem yapmaktır. Hesabınızı korumak için doğal davranın, her gün farklı türde içerikler paylaşın ve takipçilerinizle DM üzerinden etkileşim kurun. Algoritma, gerçek insan etkileşimini her şeyden üstün tutar.</p>
 
-          <h2>TikTok SEO: Google Kadar Önemli</h2>
-          <p>TikTok artık bir arama motoru olarak kullanılıyor. Genç nesil "nasıl yapılır" aramalarını Google yerine TikTok'ta yapıyor.</p>
-          <ul>
-            <li>Videonun üzerine yazdığınız metinler (Text Overlay) algoritma tarafından okunur.</li>
-            <li>Açıklama kısmına anahtar kelimeleri içeren cümleler kurun. Sadece hashtag atıp bırakmayın.</li>
-            <li>Sesli olarak videoda söylediğiniz kelimeler (Otomatik Altyazı) de SEO'ya dahildir. Anahtar kelimenizi videoda sesli söyleyin.</li>
-          </ul>
-
-          <h2>Viral İçerik Formülü</h2>
-          <p>1. <strong>Hook (Kanca):</strong> İlk saniyede görsel veya işitsel bir şok etkisi yaratın.</p>
-          <p>2. <strong>Value (Değer):</strong> Eğlence, bilgi veya duygu verin.</p>
-          <p>3. <strong>CTA (Çağrı):</strong> "Part 2 için takipte kalın" veya "Yoruma arkadaşını etiketle" gibi net komutlar verin.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <div id="page-article-x" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">X (Twitter) Etkileşim Taktikleri ve Yeni Algoritma</h1>
-        <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Elon Musk sonrası X platformu tamamen değişti. "Görüntülenme" odaklı yeni yapıda, 2026 yılında X'te büyümek için eski taktikleri unutmanız gerekiyor.</p>
-          
-          <h2>Algoritma Değişiklikleri 2026</h2>
-          <p>X, artık kullanıcıyı platformda tutan içerikleri ödüllendiriyor. Dışarıya link veren tweetlerin erişimi ciddi oranda kısıtlanıyor (Link Penalty). Eğer bir blog yazınızı veya YouTube videonuzu paylaşacaksanız, linki ilk tweet'e değil, yanıt (thread) kısmına ekleyin veya tweetin içine resim olarak koyun.</p>
-          
-          <h2>Etkileşim Hiyerarşisi</h2>
-          <p>Algoritma için her etkileşim eşit değildir. 2026 puanlama sistemi yaklaşık olarak şöyledir:</p>
-          <ul>
-            <li><strong>Yanıt (Reply):</strong> En değerli etkileşim. Kullanıcıların tweetinize cevap vermesini sağlayın. Tartışma başlatın.</li>
-            <li><strong>Retweet (Repost):</strong> İçeriğin yayılmasını sağlar.</li>
-            <li><strong>Beğeni (Like):</strong> Etkisi en düşük olandır.</li>
-          </ul>
-          
-          <h2>Uzun Format (Long Form) Tweetler</h2>
-          <p>Premium kullanıcılar için karakter sınırının kalkmasıyla, X bir "mikro-blog" platformuna dönüştü. İnsanlar artık flood okumak yerine tek bir uzun post okumayı tercih ediyor. Bilgilendirici, madde madde yazılmış, "Nasıl Yapılır" tarzı içerikler X'te viral olma potansiyeli en yüksek içeriklerdir.</p>
-          
-          <h2>Medya Kullanımı</h2>
-          <p>Sadece metin içeren tweetlerin erişimi düşüktür. Her tweetinize mutlaka bir görsel, bir GIF veya bir video ekleyin. Videolar, X algoritmasında şu an en çok "boost" edilen (öne çıkarılan) içerik türüdür.</p>
+          <h2>4. Instagram SEO ve Alt Metin</h2>
+          <p>Instagram artık bir görsel arama motorudur. Gönderilerinizin aramalarda çıkması için "Erişilebilirlik" ayarlarından her fotoğrafa "Alt Metin" ekleyin. Açıklama kısmında anahtar kelimeleri doğal cümleler içinde kullanın. Örneğin: "En iyi yemek tarifleri için..." yerine "2026'nın en hızlı hazırlanan pratik yemek tariflerini denedik..." şeklinde daha açıklayıcı olun.</p>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
       </article>
@@ -447,19 +343,13 @@
       <article class="max-w-4xl mx-auto bg-white border-2 border-amber-200 rounded-3xl p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-6">2026 Global Borsa Trendleri ve AI Etkisi</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Finans dünyası, Yapay Zeka (AI) devrimiyle kökten değişiyor. 2026 yılında piyasaları domine eden trendler, algoritmik ticaret ve bireysel yatırımcılar için fırsatlar neler?</p>
-          
-          <h2>Yapay Zeka Destekli Yatırım (Robo-Advisors)</h2>
-          <p>Geleneksel portföy yöneticilerinin yerini AI algoritmaları alıyor. 2026'da büyük fonların %78'i, alım-satım kararlarını tamamen yapay zeka sistemlerine bırakmış durumda. Bu sistemler, haberleri, sosyal medya duyarlılığını (sentiment analysis) ve bilançoları milisaniyeler içinde analiz ederek işlem yapıyor.</p>
-          
-          <h2>Sürdürülebilir Yatırım (ESG)</h2>
-          <p>Yatırımcılar artık sadece kâra değil, şirketin çevreye ve topluma etkisine de bakıyor. Temiz enerji, elektrikli araç teknolojileri ve karbon yakalama şirketleri, 2026 borsalarının yıldızları arasında. Özellikle yeşil hidrojen teknolojileri, yatırımcıların radarında.</p>
-          
-          <h2>Gelişmekte Olan Piyasalar</h2>
-          <p>ABD borsalarının doygunluğa ulaşmasıyla, yatırımcılar Asya ve Latin Amerika pazarlarına yöneliyor. Hindistan ve Brezilya borsaları, teknoloji start-up'ları ve fintech çözümleriyle 2026'da yüksek getiri potansiyeli sunuyor.</p>
-          
+          <p>Finans dünyası 2026 yılında Yapay Zeka (AI) devrimiyle kökten sarsılmaktadır. Bu makalede, piyasaları domine eden yeni trendleri ve bireysel yatırımcılar için ortaya çıkan devasa fırsatları inceleyeceğiz.</p>
+          <h2>Robo-Advisors ve Algoritmik Ticaret</h2>
+          <p>Artık yatırım kararlarının %80'inden fazlası yapay zeka tarafından verilmektedir. Bu sistemler, saniyeler içinde binlerce bilançoyu analiz eder ve sosyal medya duyarlılığını ölçerek işlem yapar. Bireysel yatırımcıların bu devasa veri akışında başarılı olması için AI destekli analiz araçlarını kullanması şarttır.</p>
+          <h2>Yeşil Enerji ve ESG Yatırımları</h2>
+          <p>Sürdürülebilirlik artık bir "tercih" değil, yatırımın ana şartıdır. Temiz enerji, hidrojen teknolojileri ve karbon yakalama şirketleri 2026'da borsaların en çok kazandıranları arasındadır. Yatırımcılar artık sadece kar marjına değil, şirketin dünya üzerindeki etkisine de bakıyor.</p>
           <div class="mt-8 p-6 bg-amber-50 border-2 border-amber-300 rounded-2xl">
-            <p><strong>⚠️ YASAL UYARI:</strong> Bu içerik tamamen bilgilendirme amaçlıdır ve kesinlikle YATIRIM TAVSİYESİ DEĞİLDİR (YTD). Finansal kararlarınızı kendi araştırmanıza veya lisanslı bir yatırım danışmanına dayanarak veriniz. Piyasalar risk içerir ve ana paranızı kaybedebilirsiniz.</p>
+            <p><strong>⚠️ Yasal Uyarı:</strong> Bu içerik bilgilendirme amaçlıdır. Yatırım tavsiyesi içermez. Kararlarınızı lisanslı bir danışmanla verin.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
@@ -470,19 +360,13 @@
       <article class="max-w-4xl mx-auto bg-white border-2 border-emerald-200 rounded-3xl p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-6">Kripto Piyasasında AI Analizleri ve Web3 Geleceği</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Kripto para piyasası, spekülatif bir balondan kurumsal bir varlık sınıfına dönüştü. 2026 yılında Bitcoin, Ethereum ve yeni nesil AI coinleri neleri vadediyor?</p>
-          
-          <h2>Bitcoin: Dijital Altın Standardı</h2>
-          <p>2026 itibarıyla Bitcoin, volatilitesi azalmış, daha stabil bir "değer saklama aracı" (Store of Value) olarak kabul ediliyor. Büyük devlet fonlarının ve emeklilik fonlarının portföylerine girmesi, fiyat istikrarını sağladı. Artık Bitcoin, günlük al-sat aracından çok, uzun vadeli bir koruma kalkanı olarak görülüyor.</p>
-          
-          <h2>DeFi ve Ethereum 3.0</h2>
-          <p>Merkeziyetsiz Finans (DeFi), bankacılık sistemine gerçek bir alternatif oluşturuyor. Ethereum ağındaki güncellemelerle işlem ücretleri (gas fee) minimize edildi ve hız arttı. Akıllı kontratlar, sigortacılıktan tapu işlemlerine kadar gerçek dünya varlıklarını (RWA - Real World Assets) blockchain'e taşıyor.</p>
-          
-          <h2>AI Coinleri ve Veri Ekonomisi</h2>
-          <p>Yapay zeka modellerinin eğitilmesi için gereken devasa veri ve işlem gücü, kripto projeleriyle sağlanıyor. GPU gücünü paylaşan merkeziyetsiz ağlar ve veri pazaryeri coinleri, 2026 boğa sezonunun en çok konuşulan projeleri arasında. AI ve Blockchain'in kesişim noktası, teknolojinin yeni zirvesi.</p>
-
+          <p>Kripto para piyasası 2026'da kurumsal bir varlık sınıfı haline geldi. Bitcoin artık "Dijital Altın" standardını tam olarak yakalamış durumda.</p>
+          <h2>AI ve Blockchain Kesişimi</h2>
+          <p>Yapay zeka modellerinin veri güvenliğini sağlamak için blockchain kullanılması, AI tabanlı coinleri 2026 boğa sezonunun yıldızı yaptı. Merkeziyetsiz işlem gücü paylaşımı (GPU paylaşımı) sağlayan projeler, teknoloji devlerinin radarında.</p>
+          <h2>Gerçek Dünya Varlıkları (RWA)</h2>
+          <p>Gayrimenkulden altın madenlerine kadar her şey artık tokenlaştırılarak zincir üstüne taşınıyor. Bu, likiditenin artmasını ve yatırımın demokratikleşmesini sağlıyor.</p>
           <div class="mt-8 p-6 bg-emerald-50 border-2 border-emerald-300 rounded-2xl">
-            <p><strong>⚠️ ÖNEMLİ UYARI:</strong> Kripto para piyasaları son derece değişkendir. Yüksek kazanç potansiyeli olduğu gibi, tüm paranızı kaybetme riski de vardır. Bu yazı bir yatırım tavsiyesi değildir. Kaldıraçlı işlemlerden uzak durmanız ve kendi araştırmanızı yapmanız (DYOR) önerilir.</p>
+            <p><strong>⚠️ Önemli:</strong> Kripto piyasaları risklidir. Sadece kaybetmeyi göze aldığınız miktarlarla işlem yapın.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
@@ -515,10 +399,6 @@
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
             <h3 class="text-lg font-black mb-3 text-rose-600">Hangi AI kullanıyorsunuz?</h3>
             <p class="text-slate-700 font-bold text-sm">Google'ın Gemini AI teknolojisi.</p>
-          </div>
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">YouTube'dan gerçekten para kazanılır mı?</h3>
-            <p class="text-slate-700 font-bold text-sm">Evet! Ama sabır gerekir. İlk 6-12 ay içerik kalitesi ve tutarlılığa odaklanın.</p>
           </div>
         </div>
       </div>
@@ -643,14 +523,13 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // 6 DİL ÇEVİRİ SİSTEMİ - TAM VERSİYON
     const T = {
       tr:{nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",platform_finance_desc:"Global Trend Analizi & Fırsatlar",platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",finance_title:"Finans & Borsa",crypto_title:"Kripto Analiz",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.",info_3:"🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.",blog_title:"Blog & Rehberler",read_more:"Devamını Oku →",back_to_blog:"← Blog'a Dön",about_title:"Hakkımızda"},
       en:{nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",platform_x_desc:"Tweet titles and hashtags",platform_finance_desc:"Global Trend Analysis & Opportunities",platform_crypto_desc:"Real-time Coin Analysis & Prediction",finance_title:"Finance & Stock",crypto_title:"Crypto Analysis",important_info:"Important Information",info_1:"🎯 This platform only provides content suggestions.",info_2:"⚠️ No investment advice or guaranteed earnings.",info_3:"🤖 All content is generated by Gemini AI based on trends.",info_4:"📊 SEO scores are estimates and not guaranteed.",info_5:"🔄 You have 2 daily generations per platform.",blog_title:"Blog & Guides",read_more:"Read More →",back_to_blog:"← Back to Blog",about_title:"About Us"},
       fr:{nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Sélectionner une plateforme",platform_youtube_desc:"Titres vidéo et hashtags",platform_instagram_desc:"Titres de publication et hashtags",platform_tiktok_desc:"Titres vidéo et hashtags tendance",platform_x_desc:"Titres de tweet et hashtags",platform_finance_desc:"Analyse des tendances mondiales et opportunités",platform_crypto_desc:"Analyse de pièces en temps réel et prédiction",finance_title:"Finance & Bourse",crypto_title:"Analyse Crypto",important_info:"Informations importantes",info_1:"🎯 Cette plateforme ne fournit que des suggestions de contenu.",info_2:"⚠️ Aucun conseil en investissement ni gain garanti.",info_3:"🤖 Tout le contenu est généré par Gemini AI en fonction des tendances.",info_4:"📊 Les scores SEO sont des estimations et ne sont pas garantis.",info_5:"🔄 Vous avez 2 générations quotidiennes par plateforme.",blog_title:"Blog et guides",read_more:"Lire la suite →",back_to_blog:"← Retour au blog",about_title:"À propos de nous"},
-      de:{nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Plattform auswählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Trend-Hashtags",platform_x_desc:"Tweet-Titel und Hashtags",platform_finance_desc:"Globale Trendanalyse & Chancen",platform_crypto_desc:"Echtzeit-Coin-Analyse & Vorhersage",finance_title:"Finanzen & Börse",crypto_title:"Krypto-Analyse",important_info:"Wichtige Informationen",info_1:"🎯 Diese Plattform bietet nur Inhaltsvorschläge.",info_2:"⚠️ Keine Anlageberatung oder garantierte Gewinne.",info_3:"🤖 Alle Inhalte werden von Gemini AI basierend auf Trends generiert.",info_4:"📊 SEO-Scores sind Schätzungen und nicht garantiert.",info_5:"🔄 Sie haben 2 tägliche Generierungen pro Plattform.",blog_title:"Blog & Anleitungen",read_more:"Weiterlesen →",back_to_blog:"← Zurück zum Blog",about_title:"Über uns"},
-      es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca de",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"INICIAR SESIÓN",logout:"CERRAR SESIÓN",coming_soon:"PRÓXIMAMENTE",select_platform:"Seleccionar plataforma",platform_youtube_desc:"Títulos de video y hashtags",platform_instagram_desc:"Títulos de publicación y hashtags",platform_tiktok_desc:"Títulos de video y hashtags de tendencia",platform_x_desc:"Títulos de tweet y hashtags",platform_finance_desc:"Análisis de tendencias globales y oportunidades",platform_crypto_desc:"Análisis de monedas en tiempo real y predicción",finance_title:"Finanzas y Bolsa",crypto_title:"Análisis Cripto",important_info:"Información importante",info_1:"🎯 Esta plataforma solo proporciona sugerencias de contenido.",info_2:"⚠️ Sin asesoramiento de inversión ni ganancias garantizadas.",info_3:"🤖 Todo el contenido es generado por Gemini AI basado en tendencias.",info_4:"📊 Las puntuaciones SEO son estimaciones y no están garantizadas.",info_5:"🔄 Tienes 2 generaciones diarias por plataforma.",blog_title:"Blog y guías",read_more:"Leer más →",back_to_blog:"← Volver al blog",about_title:"Acerca de nosotros"},
-      pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar plataforma",platform_youtube_desc:"Títulos de vídeo e hashtags",platform_instagram_desc:"Títulos de postagem e hashtags",platform_tiktok_desc:"Títulos de vídeo e hashtags em alta",platform_x_desc:"Títulos de tweet e hashtags",platform_finance_desc:"Análise de tendências globais e oportunidades",platform_crypto_desc:"Análise de moedas em tempo real e previsão",finance_title:"Finanças e Bolsa",crypto_title:"Análise Cripto",important_info:"Informações importantes",info_1:"🎯 Esta plataforma fornece apenas sugestões de conteúdo.",info_2:"⚠️ Sem consultoria de investimento ou ganhos garantidos.",info_3:"🤖 Todo o conteúdo é gerado pela Gemini AI com base em tendências.",info_4:"📊 As pontuações SEO são estimativas e não são garantidas.",info_5:"🔄 Você tem 2 gerações diárias por plataforma.",blog_title:"Blog e guias",read_more:"Leia mais →",back_to_blog:"← Voltar ao blog",about_title:"Sobre nós"}
+      de:{nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Plattform auswählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Trend-Hashtags",platform_x_desc:"Tweet-Titel und Hashtags",platform_finance_desc:"Globale Trendanalyse & Chancen",platform_crypto_desc:"Echtzeit-Coin-Analyse & Vorhersage",finance_title:"Finanzen & Börse",crypto_title:"Krypto-Analyse",important_info:"Wichtige Informationen",info_1:"🎯 Diese Plattform bietet nur Inhaltsvorschläge.",info_2:"⚠️ Keine Anlageberatung oder garantierte Gewinne.",info_3:"🤖 Alle Inhalte werden von Gemini AI basierend auf Trends generiert.",info_4:"📊 SEO-Scores sind Schätzungen ve nicht garantiert.",info_5:"🔄 Sie haben 2 tägliche Generierungen pro Plattform.",blog_title:"Blog & Anleitungen",read_more:"Weiterlesen →",back_to_blog:"← Zurück zum Blog",about_title:"Über uns"},
+      es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca de",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"INICIAR SESIÓN",logout:"CERRAR SESIÓN",coming_soon:"PRÓXIMAMENTE",select_platform:"Seleccionar plataforma",platform_youtube_desc:"Títulos de video y hashtags",platform_instagram_desc:"Títulos de publicación y hashtags",platform_tiktok_desc:"Títulos de video y hashtags de tendencia",platform_x_desc:"Títulos de tweet y hashtags",platform_finance_desc:"Análisis de tendencias globales y oportunidades",platform_crypto_desc:"Análisis de monedas en tiempo real y predicción",finance_title:"Finanzas y Bolsa",crypto_title:"Análisis Cripto",important_info:"Información importante",info_1:"🎯 Esta plataforma solo proporciona sugerencias de contenido.",info_2:"⚠️ Sin asesoramiento de inversión ni ganancias garantizadas.",info_3:"🤖 Todo el contenido es generado por Gemini AI basado en tendencias.",info_4:"📊 Las puntuaciones SEO son estimaciones ve no están garantizadas.",info_5:"🔄 Tienes 2 generaciones diarias por plataforma.",blog_title:"Blog y guías",read_more:"Leer más →",back_to_blog:"← Volver al blog",about_title:"Acerca de nosotros"},
+      pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar plataforma",platform_youtube_desc:"Títulos de vídeo e hashtags",platform_instagram_desc:"Títulos de postagem e hashtags",platform_tiktok_desc:"Títulos de vídeo e hashtags em alta",platform_x_desc:"Títulos de tweet e hashtags",platform_finance_desc:"Análise de tendências globais e oportunidades",platform_crypto_desc:"Análise de moedas em tempo real ve previsão",finance_title:"Finanças e Bolsa",crypto_title:"Analyse Cripto",important_info:"Informações importantes",info_1:"🎯 Esta plataforma fornece apenas sugestões de conteúdo.",info_2:"⚠️ Sem consultoria de investimento ou ganhos garantidos.",info_3:"🤖 Todo o conteúdo é gerado pela Gemini AI com base em tendências.",info_4:"📊 As pontuações SEO são estimativas ve não são garantidas.",info_5:"🔄 Você tem 2 gerações diárias por plataforma.",blog_title:"Blog e guias",read_more:"Leia mais →",back_to_blog:"← Voltar ao blog",about_title:"Sobre nós"}
     };
 
     const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
@@ -685,27 +564,21 @@
       const today = new Date().toDateString();
       const storedDate = localStorage.getItem(`nsr_date_${state.userId}`);
       const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
-      
-      // Eğer tarih farklıysa SIFIRLA
       if(storedDate !== today){
         localStorage.setItem(`nsr_date_${state.userId}`, today);
         state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
-        saveCredits(); // Yeni tarihi ve full krediyi kaydet
+        saveCredits();
       } else {
-        // Tarih aynıysa ve kayıt varsa YÜKLE
         if(storedCredits){
           try {
             state.credits = JSON.parse(storedCredits);
-            // Eksik anahtar varsa tamamla (eski versiyondan kalma veri için)
             if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
             if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2;
           } catch(e) {
-            // Veri bozuksa sıfırla
             state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
             saveCredits();
           }
         } else {
-           // Tarih var ama kredi yoksa sıfırla (Güvenlik)
            state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
            saveCredits();
         }
@@ -795,7 +668,7 @@
         const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
-          saveCredits(); // KREDİYİ HEMEN DÜŞ VE KAYDET
+          saveCredits();
           updateAllBadges();
           document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
           document.getElementById('modal-result-text').innerText=res;
