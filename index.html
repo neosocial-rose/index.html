@@ -66,6 +66,26 @@
     .crypto-card { border-color: #6ee7b7; background: linear-gradient(to bottom right, #ffffff, #ecfdf5); }
     .crypto-card:hover { border-color: #059669; box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.15); transform: translateY(-4px); }
     .crypto-badge { background-color: #d1fae5; color: #059669; }
+
+    /* MOBİL UYUMLULUK */
+    @media (max-width: 1024px) {
+      .glass-nav { height: auto; padding: 1rem 0; }
+      .nav-link { font-size: 9px; padding: 0.5rem; }
+      .lang-btn { font-size: 8px; padding: 4px 8px; }
+      .hero-box { min-height: 200px; }
+      .modal-content { padding: 1.5rem; }
+      #notification { bottom: 10px; right: 10px; font-size: 10px; }
+    }
+
+    @media (max-width: 768px) {
+      .glass-nav { flex-direction: column; gap: 1rem; }
+      .hidden.lg\\:flex { display: none !important; }
+      body { font-size: 14px; }
+      .platform-card { padding: 1.5rem; }
+      .blog-card { padding: 1.5rem; }
+      .article-content h2 { font-size: 1.25rem; }
+      .article-content h3 { font-size: 1.1rem; }
+    }
   </style>
 
   <script type="application/ld+json">
@@ -84,13 +104,13 @@
 <body class="min-h-screen flex flex-col">
   <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
-  <nav class="fixed top-0 w-full z-50 glass-nav h-20">
-    <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between">
-      <div class="flex items-center gap-10 h-full">
+  <nav class="fixed top-0 w-full z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 h-full flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-10 h-full flex-wrap">
         <h1 class="text-xl font-black tracking-tighter cursor-pointer select-none" onclick="showPage('home')">
           NEOSOCIAL<span class="text-rose-500">_ROSE</span>
         </h1>
-        <div class="hidden lg:flex items-center space-x-8 h-full">
+        <div class="hidden lg:flex items-center space-x-8 h-full flex-wrap">
           <span class="nav-link flex" onclick="showPage('home')" data-tr="nav_home">Anasayfa</span>
           <span class="nav-link flex" onclick="showPage('blog')" data-tr="nav_blog">Blog</span>
           <div class="relative h-full flex items-center">
@@ -120,8 +140,8 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-3">
-        <div class="flex gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <div class="flex gap-2 flex-wrap">
           <button onclick="setLang('tr')" id="l-tr" class="lang-btn active">🇹🇷</button>
           <button onclick="setLang('en')" id="l-en" class="lang-btn">🇬🇧</button>
           <button onclick="setLang('fr')" id="l-fr" class="lang-btn">🇫🇷</button>
@@ -217,45 +237,45 @@
       <h1 class="text-4xl font-black mb-12" data-tr="blog_title">Blog & Rehberler</h1>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         <div class="blog-card" onclick="showPage('article-money')">
-          <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Para Kazanma</span>
-          <h2 class="text-xl font-black mb-3">YouTube'dan Para Kazanma 2026</h2>
-          <p class="text-sm text-slate-600 mb-4">YouTube para kazanma rehberi, monetizasyon şartları ve gelir stratejileri...</p>
+          <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4" data-tr="blog_cat_money">Para Kazanma</span>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_money_title">YouTube'dan Para Kazanma 2026</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_money_excerpt">YouTube para kazanma rehberi, monetizasyon şartları ve gelir stratejileri...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-youtube')">
           <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">YouTube</span>
-          <h2 class="text-xl font-black mb-3">2026'da YouTube'da Viral Olmak</h2>
-          <p class="text-sm text-slate-600 mb-4">YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...</p>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_yt_title">2026'da YouTube'da Viral Olmak</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_yt_excerpt">YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-instagram')">
           <span class="bg-pink-100 text-pink-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Instagram</span>
-          <h2 class="text-xl font-black mb-3">Instagram Hashtag Stratejisi 2026</h2>
-          <p class="text-sm text-slate-600 mb-4">Hashtag kullanımı hala etkili mi? Shadowban'den nasıl kaçınılır...</p>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_ig_title">Instagram Hashtag Stratejisi 2026</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_ig_excerpt">Hashtag kullanımı hala etkili mi? Shadowban'den nasıl kaçınılır...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-tiktok')">
           <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">TikTok</span>
-          <h2 class="text-xl font-black mb-3">TikTok Algoritması Nasıl Çalışır?</h2>
-          <p class="text-sm text-slate-600 mb-4">FYP algoritmasının sırları ve viral olmanın yöntemleri...</p>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_tt_title">TikTok Algoritması Nasıl Çalışır?</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_tt_excerpt">FYP algoritmasının sırları ve viral olmanın yöntemleri...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-x')">
           <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">X (Twitter)</span>
-          <h2 class="text-xl font-black mb-3">X'te Etkileşim Arttırma Taktikleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Elon Musk'ın yeni algoritması altında viral olmanın sırları...</p>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_x_title">X'te Etkileşim Arttırma Taktikleri</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_x_excerpt">Elon Musk'ın yeni algoritması altında viral olmanın sırları...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-finance')">
-          <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Finans</span>
-          <h2 class="text-xl font-black mb-3">2026 Global Borsa Trendleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Yapay zeka ile finans analizleri ve yatırım fırsatları...</p>
+          <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4" data-tr="blog_cat_finance">Finans</span>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_fin_title">2026 Global Borsa Trendleri</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_fin_excerpt">Yapay zeka ile finans analizleri ve yatırım fırsatları...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-crypto')">
-          <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Kripto</span>
-          <h2 class="text-xl font-black mb-3">Kripto Piyasasında AI Analizleri</h2>
-          <p class="text-sm text-slate-600 mb-4">Bitcoin, Ethereum ve altcoin'lerde trend tahmini nasıl yapılır...</p>
+          <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4" data-tr="blog_cat_crypto">Kripto</span>
+          <h2 class="text-xl font-black mb-3" data-tr="blog_cry_title">Kripto Piyasasında AI Analizleri</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_cry_excerpt">Bitcoin, Ethereum ve altcoin'lerde trend tahmini nasıl yapılır...</p>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
       </div>
@@ -263,52 +283,19 @@
 
     <div id="page-article-money" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-green-200 rounded-3xl p-12 shadow-2xl">
-        <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6">Para Kazanma</span>
-        <h1 class="text-4xl font-black mb-6">YouTube'dan Para Kazanma 2026: Tam Rehber</h1>
+        <span class="bg-green-100 text-green-600 px-4 py-2 rounded-full text-sm font-bold inline-block mb-6" data-tr="blog_cat_money">Para Kazanma</span>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_money_h1">YouTube'dan Para Kazanma 2026: Tam Rehber</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">YouTube, 2026 yılında dijital içerik üreticileri için en büyük gelir kapısı olmaya devam ediyor. Ancak platformun dinamikleri, izleyici alışkanlıkları ve monetizasyon kuralları sürekli evriliyor. Bu rehberde, 2026 standartlarında YouTube'dan nasıl sürdürülebilir bir gelir modeli oluşturabileceğinizi A'dan Z'ye ele alacağız.</p>
+          <p class="text-lg font-bold mb-6" data-tr="article_money_intro">YouTube, 2026 yılında dijital içerik üreticileri için en büyük gelir kapısı olmaya devam ediyor. Bu rehberde nasıl sürdürülebilir bir gelir modeli oluşturabileceğinizi A'dan Z'ye ele alacağız.</p>
           
-          <h2>YouTube Para Kazanma (YPP) Şartları 2026</h2>
-          <p>YouTube Partner Programı'na (YPP) dahil olmak, reklam gelirlerinin kilidini açan ilk adımdır. 2026 itibarıyla güncel şartlar şunlardır:</p>
-          <ul>
-            <li><strong>1.000 Abone:</strong> Kanalınızın minimum 1000 aboneye ulaşmış olması gerekir. Bu, kitlenizin kemikleştiğinin bir kanıtıdır.</li>
-            <li><strong>4.000 Saat İzlenme:</strong> Son 12 ay içinde uzun formatlı videolarınızın toplamda 4000 saat izlenmiş olması zorunludur. Shorts izlenmeleri bu süreye dahil edilmez (onlar için ayrı bir kriter vardır).</li>
-            <li><strong>10 Milyon Shorts Görüntülenmesi:</strong> Alternatif olarak, son 90 günde 10 milyon geçerli Shorts görüntülenmesi elde ederek de programa başvurabilirsiniz.</li>
-            <li><strong>2FA Aktif:</strong> Kanal güvenliği için İki Faktörlü Kimlik Doğrulama (2FA) mutlaka açık olmalıdır.</li>
-            <li><strong>Topluluk Kuralları:</strong> Kanalınızda aktif bir Topluluk Kuralları ihtarı bulunmamalıdır.</li>
-          </ul>
+          <h2 data-tr="article_money_h2_1">YouTube Para Kazanma (YPP) Şartları 2026</h2>
+          <p data-tr="article_money_p1">YouTube Partner Programı'na dahil olmak, reklam gelirlerinin kilidini açan ilk adımdır. 2026 itibarıyla güncel şartlar: 1.000 Abone, 4.000 Saat İzlenme ve daha fazlası.</p>
           
-          <h3>1. AdSense Gelirleri: CPM ve RPM Nedir?</h3>
-          <p>Reklam gelirleri, YouTube'un temel taşıdır. Kazancınızı belirleyen iki ana metrik vardır: CPM (Cost Per Mille - Bin Gösterim Başına Maliyet) ve RPM (Revenue Per Mille - Bin Gösterim Başına Gelir).</p>
-          <p>2026 yılında ortalama CPM oranları, kanalınızın kategorisine (nişine) göre $2 ile $15 arasında değişmektedir. Örneğin:</p>
-          <ul>
-            <li><strong>Finans ve Teknoloji:</strong> En yüksek CPM oranlarına sahiptir ($10-$25). Reklamverenler bu kitleye ulaşmak için daha fazla ödeme yapar.</li>
-            <li><strong>Eğlence ve Vlog:</strong> Geniş kitlelere hitap etse de CPM oranları daha düşüktür ($1-$4).</li>
-          </ul>
-          
-          <h3>2. Sponsorluklar ve Marka İşbirlikleri</h3>
-          <p>Sadece AdSense'e güvenmek risklidir. 10.000 aboneyi aştıktan sonra, markalarla doğrudan çalışmaya başlayabilirsiniz. 2026'da "mikro-influencer" kavramı çok değerli. 50.000 abonesi olan ancak etkileşimi yüksek bir kanal, 1 milyon abonesi olan pasif bir kanaldan daha fazla sponsorluk alabilir. Sponsorluk anlaşmalarında şeffaf olun ve "Ücretli Tanıtım" kutucuğunu işaretlemeyi unutmayın.</p>
-          
-          <h3>3. Affiliate (Satış Ortaklığı) Pazarlama</h3>
-          <p>Video açıklamalarınıza eklediğiniz ürün linklerinden komisyon kazanmak, pasif gelirin en etkili yoludur. Tanıttığınız kamerayı, kullandığınız yazılımı veya okuduğunuz kitabı linkleyin. Amazon Associates, Trendyol Affiliate veya ClickBank gibi programlar, satış başına %3 ila %15 arasında komisyon öder. Bu modelde izlenme sayısından çok, izleyicinin satın alma niyeti önemlidir.</p>
-          
-          <h3>4. Kanal Üyeliği ve Super Chat</h3>
-          <p>Sadık takipçilerinizden doğrudan destek alın. "Katıl" butonu ile özel içerikler, rozetler ve emojiler sunarak aylık düzenli gelir elde edebilirsiniz. Canlı yayınlarda ise "Super Chat" ve "Super Stickers" özellikleri sayesinde izleyicileriniz mesajlarını öne çıkarmak için ödeme yapabilirler. Bu, özellikle topluluk odaklı kanallar için harika bir gelir kaynağıdır.</p>
-          
-          <h3>5. Kendi Ürünlerinizi Satın (E-Ticaret)</h3>
-          <p>YouTube kanalınızı bir pazarlama hunisi olarak kullanın. Kendi tasarladığınız tişörtleri, yazdığınız e-kitapları veya oluşturduğunuz dijital kursları (Udemy, Teachable vb.) doğrudan kitlenize satabilirsiniz. Aracı olmadığı için kâr marjı en yüksek yöntem budur.</p>
-          
-          <h2>Viral Olmak İçin AI Destekli Stratejiler</h2>
-          <p>Rekabetin arttığı 2026 yılında, yapay zeka araçlarını (NeoSocial_Rose gibi) kullanmak bir tercih değil, zorunluluktur. İşte AI ile kanalınızı büyütme yöntemleri:</p>
-          <ul>
-            <li><strong>Başlık Optimizasyonu:</strong> AI araçlarını kullanarak yüksek Tıklama Oranı (CTR) hedefleyen, merak uyandıran başlıklar oluşturun. Hedefiniz %8-12 arası bir CTR olmalıdır.</li>
-            <li><strong>Trend Analizi:</strong> Google Trends ve AI destekli analiz araçlarıyla, henüz patlamamış konuları erkenden tespit edin.</li>
-            <li><strong>SEO Uyumlu Açıklamalar:</strong> Videonuzun YouTube arama sonuçlarında çıkması için anahtar kelime açısından zengin, doğal dille yazılmış açıklamalar kullanın.</li>
-            <li><strong>Thumbnail Analizi:</strong> Küçük resimlerinizde yüz ifadeleri, kontrast renkler ve okunabilir yazılar kullanın. AI araçlarına thumbnail'inizi analiz ettirerek puanlatın.</li>
-          </ul>
+          <h3 data-tr="article_money_h3_1">AdSense Gelirleri: CPM ve RPM</h3>
+          <p data-tr="article_money_p2">2026 yılında ortalama CPM oranları kanalınızın kategorisine göre $2 ile $15 arasında değişmektedir. Finans ve Teknoloji en yüksek CPM'lere sahiptir.</p>
           
           <div class="mt-8 p-6 bg-green-50 border-2 border-green-300 rounded-2xl">
-            <p><strong>💰 Profesyonel İpucu:</strong> YouTube bir maratondur, sprint değil. İlk 6 ay genellikle öğrenme ve deneme sürecidir. Pes etmeyin. Düzenli içerik (haftada en az 2 video), kaliteli ses ve ışık, başarıya giden en garanti yoldur. 2026'da algoritma "izlenme süresini" (watch time) her şeyden çok önemsiyor. İzleyiciyi videoda tutmaya odaklanın.</p>
+            <p data-tr="article_money_tip"><strong>💰 Profesyonel İpucu:</strong> YouTube bir maratondur. İlk 6 ay öğrenme süreci. Algoritma "izlenme süresini" her şeyden çok önemsir.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
@@ -317,175 +304,75 @@
 
     <div id="page-article-youtube" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">2026'da YouTube'da Viral Olmak: Algoritmanın Şifreleri</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_yt_h1">2026'da YouTube'da Viral Olmak</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">YouTube algoritması 2026 yılında her zamankinden daha zeki ve kişiselleştirilmiş durumda. Artık sadece "anahtar kelime" doldurmak yetmiyor; izleyicinin psikolojisini anlamak gerekiyor. Milyonlarca izlenmeye ulaşan viral videoların arkasındaki bilimi ve stratejileri bu yazıda inceledik.</p>
-          
-          <h2>1. "Kanca" (Hook) Sanatı: İlk 30 Saniye Kuralı</h2>
-          <p>Bir videonun viral olup olmayacağı, genellikle ilk 30 saniyede belli olur. İzleyici tutma oranı (Retention Rate), algoritmanın en sevdiği veridir. Eğer izleyicilerin %50'si videonuzu ilk dakikada terk ediyorsa, YouTube o videoyu önermeyi durdurur.</p>
-          <p><strong>Nasıl Başarılır?</strong> Giriş bölümünde logoyla, gereksiz "merhabalarla" vakit kaybetmeyin. Videonun en heyecanlı anından 5 saniyelik bir kesit koyun veya izleyiciye videonun sonunda ne öğreneceğini net bir şekilde vaat edin.</p>
-          
-          <h2>2. Tıklama Oranı (CTR) Mühendisliği</h2>
-          <p>Videonuz dünyanın en iyi içeriğine sahip olabilir, ancak kimse tıklamazsa bunun bir önemi yoktur. CTR (Click-Through Rate), videonuzun ana sayfada gösterildiğinde kaç kişinin tıkladığını gösterir.</p>
-          <ul>
-            <li><strong>Thumbnail (Kapak Resmi):</strong> 2026 trendlerinde "aşırı düzenlenmiş" kapaklar yerine, daha doğal ama yüksek kaliteli, duyguyu yansıtan kapaklar öne çıkıyor. Yüz ifadeleri ve okunabilir, büyük, 3-4 kelimelik metinler kullanın.</li>
-            <li><strong>Başlık:</strong> Başlık, thumbnail'i tamamlamalıdır. Aynısını tekrar etmemelidir. Merak uyandırıcı, "Nasıl Yapılır", "Bu Hatayı Yapmayın" gibi kalıplar her zaman çalışır.</li>
-          </ul>
-
-          <h2>3. Etkileşim Sinyalleri</h2>
-          <p>Algoritma, videonuzun bir tartışma yaratıp yaratmadığına bakar. Yorumlar, beğeniler ve en önemlisi "Paylaşım" sayısı, videonun yayılma hızını belirler. Videonun içinde izleyicilere spesifik sorular sorun. "Siz ne düşünüyorsunuz?" yerine "Sizce X mi daha iyi yoksa Y mi?" gibi cevaplaması kolay ve taraf tutmaya yönelten sorular sorun.</p>
-
-          <h2>4. Shorts ve Uzun Video Sinerjisi</h2>
-          <p>2026'da YouTube Shorts, kanal keşfedilebilirliğinin ana motorudur. Uzun videolarınızın en çarpıcı kısımlarını 60 saniyelik dikey formatta paylaşarak, ana kanalınıza trafik çekmelisiniz. Shorts videonuzun açıklama kısmına veya sabitlenen yorumuna uzun videonuzun linkini ("İlgili Video" özelliği ile) eklemeyi unutmayın.</p>
-
-          <div class="mt-8 p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl">
-            <p><strong>Özet:</strong> Viral olmak şans işi değildir, bir matematiktir. Yüksek CTR + Yüksek İzlenme Süresi = Viral Video. NeoSocial_Rose araçlarını kullanarak başlıklarınızı ve fikirlerinizi test edin, verilerinizi analiz edin ve sürekli optimize edin.</p>
-          </div>
+          <p class="text-lg font-bold mb-6" data-tr="article_yt_intro">YouTube algoritması 2026 yılında her zamankinden daha zeki. Viral videoların arkasındaki bilim ve stratejiler.</p>
+          <h2 data-tr="article_yt_h2_1">İlk 30 Saniye Kuralı</h2>
+          <p data-tr="article_yt_p1">İzleyici tutma oranı algoritmanın en sevdiği veridir. İlk 30 saniyede dikkat çekin.</p>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-instagram" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">Instagram Hashtag Stratejisi 2026 ve Reels Algoritması</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_ig_h1">Instagram Hashtag Stratejisi 2026</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Instagram'da organik erişim öldü mü? Hayır, sadece şekil değiştirdi. 2026 yılında hashtag kullanımı, Reels stratejileri ve "Shadowban"den korunma yolları hakkında kapsamlı bir rehber hazırladık.</p>
-          
-          <h2>Hashtag Stratejisi: Az Ama Öz</h2>
-          <p>Eskiden 30 hashtag kullanmak modaydı. Ancak 2026 algoritması, içeriğin ne ile ilgili olduğunu anlamak için görsel tanıma (image recognition) ve SEO anahtar kelimelerini kullanıyor. Hashtag'ler artık bir "etiketleme" aracıdır.</p>
-          <ul>
-            <li><strong>3-5-3 Kuralı:</strong>
-              <ul>
-                <li>3 tane Çok Popüler Hashtag (Genel kitle için)</li>
-                <li>5 tane Orta Ölçekli Hashtag (Kategoriniz için)</li>
-                <li>3 tane Spesifik/Niş Hashtag (Sadece o içerik için)</li>
-              </ul>
-            </li>
-            <li><strong>Yasaklı Hashtag'lere Dikkat:</strong> Bazı masum görünen hashtag'ler spam nedeniyle engellenmiş olabilir. Kullanmadan önce mutlaka kontrol edin.</li>
-          </ul>
-
-          <h2>Reels: Büyümenin Lokomotifi</h2>
-          <p>Instagram artık bir video platformudur. Reels, takipçiniz olmayan kişilere ulaşmanın tek yoludur. 2026 Reels trendleri:</p>
-          <ul>
-            <li><strong>Trending Audio:</strong> Sol altta yukarı doğru ok işareti olan müzikleri kullanın.</li>
-            <li><strong>7 Saniye Kuralı:</strong> Videolarınızın temposu yüksek olmalı. Sahneleri her 2-3 saniyede bir değiştirin.</li>
-            <li><strong>Metin Katmanları:</strong> Videonun üzerine ekranda beliren yazılar ekleyin. Birçok kullanıcı videoları sessiz izliyor.</li>
-          </ul>
-
-          <h2>Shadowban Nedir ve Nasıl Korunulur?</h2>
-          <p>Shadowban, Instagram'ın hesabınızı "sessize almasıdır". Gönderileriniz hashtag sayfalarında veya keşfette çıkmaz. Sebepleri:</p>
-          <ul>
-            <li>Bot takipçi veya beğeni satın almak.</li>
-            <li>Sürekli aynı hashtag grubunu kopyala-yapıştır yapmak.</li>
-            <li>Aşırı hızlı takip/beğeni işlemi yapmak (spam davranışı).</li>
-          </ul>
-          <p>Kurtulmak için: 48 saat boyunca hiçbir işlem yapmayın (beğeni, yorum, paylaşım) ve sadece hesabınızı dinlendirin. Sonrasında organik ve yavaş bir şekilde geri dönün.</p>
+          <p class="text-lg font-bold mb-6" data-tr="article_ig_intro">Instagram'da organik erişim öldü mü? Hayır, sadece şekil değiştirdi. 2026 hashtag stratejileri burada.</p>
+          <h2 data-tr="article_ig_h2_1">3-5-3 Kuralı</h2>
+          <p data-tr="article_ig_p1">3 Popüler + 5 Orta + 3 Spesifik hashtag kullanın.</p>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-tiktok" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">TikTok Algoritması 2026: FYP'ye Düşme Rehberi</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_tt_h1">TikTok Algoritması 2026</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">TikTok, dünyanın en hızlı içerik tüketilen platformu. "Sizin İçin" (For You Page - FYP) sayfasına düşmek, bir gecede hayatınızı değiştirebilir. Peki 2026 algoritması ne istiyor?</p>
-          
-          <h2>FYP Algoritması Nasıl Çalışır?</h2>
-          <p>TikTok algoritması, içeriğinizi önce küçük bir test grubuna (örneğin 200 kişi) gösterir. Eğer bu grup videoyu sonuna kadar izler, beğenir veya paylaşırsa, video daha büyük bir havuza (10.000 kişi) aktarılır. Bu döngü böyle devam eder.</p>
-          <ul>
-            <li><strong>Tamamlama Oranı (Completion Rate):</strong> En kritik metriktir. Videonuzun sonuna kadar izlenmesi, hatta tekrar izlenmesi (loop) gerekir. Bu yüzden kısa (15-30 sn) ve vurucu videolar daha avantajlıdır.</li>
-            <li><strong>Yeniden İzleme (Rewatch):</strong> Videonun içine gizli detaylar koyarak veya çok hızlı akan metinler kullanarak izleyiciyi videoyu tekrar izlemeye teşvik edin.</li>
-          </ul>
-
-          <h2>TikTok SEO: Google Kadar Önemli</h2>
-          <p>TikTok artık bir arama motoru olarak kullanılıyor. Genç nesil "nasıl yapılır" aramalarını Google yerine TikTok'ta yapıyor.</p>
-          <ul>
-            <li>Videonun üzerine yazdığınız metinler (Text Overlay) algoritma tarafından okunur.</li>
-            <li>Açıklama kısmına anahtar kelimeleri içeren cümleler kurun. Sadece hashtag atıp bırakmayın.</li>
-            <li>Sesli olarak videoda söylediğiniz kelimeler (Otomatik Altyazı) de SEO'ya dahildir. Anahtar kelimenizi videoda sesli söyleyin.</li>
-          </ul>
-
-          <h2>Viral İçerik Formülü</h2>
-          <p>1. <strong>Hook (Kanca):</strong> İlk saniyede görsel veya işitsel bir şok etkisi yaratın.</p>
-          <p>2. <strong>Value (Değer):</strong> Eğlence, bilgi veya duygu verin.</p>
-          <p>3. <strong>CTA (Çağrı):</strong> "Part 2 için takipte kalın" veya "Yoruma arkadaşını etiketle" gibi net komutlar verin.</p>
+          <p class="text-lg font-bold mb-6" data-tr="article_tt_intro">TikTok FYP sayfasına düşmek nasıl olur? 2026 algoritması açıklaması.</p>
+          <h2 data-tr="article_tt_h2_1">FYP Algoritması</h2>
+          <p data-tr="article_tt_p1">Tamamlama oranı en kritik metriktir. Kısa ve vurucu videolar yapın.</p>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-x" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">X (Twitter) Etkileşim Taktikleri ve Yeni Algoritma</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_x_h1">X (Twitter) Etkileşim Taktikleri</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Elon Musk sonrası X platformu tamamen değişti. "Görüntülenme" odaklı yeni yapıda, 2026 yılında X'te büyümek için eski taktikleri unutmanız gerekiyor.</p>
-          
-          <h2>Algoritma Değişiklikleri 2026</h2>
-          <p>X, artık kullanıcıyı platformda tutan içerikleri ödüllendiriyor. Dışarıya link veren tweetlerin erişimi ciddi oranda kısıtlanıyor (Link Penalty). Eğer bir blog yazınızı veya YouTube videonuzu paylaşacaksanız, linki ilk tweet'e değil, yanıt (thread) kısmına ekleyin veya tweetin içine resim olarak koyun.</p>
-          
-          <h2>Etkileşim Hiyerarşisi</h2>
-          <p>Algoritma için her etkileşim eşit değildir. 2026 puanlama sistemi yaklaşık olarak şöyledir:</p>
-          <ul>
-            <li><strong>Yanıt (Reply):</strong> En değerli etkileşim. Kullanıcıların tweetinize cevap vermesini sağlayın. Tartışma başlatın.</li>
-            <li><strong>Retweet (Repost):</strong> İçeriğin yayılmasını sağlar.</li>
-            <li><strong>Beğeni (Like):</strong> Etkisi en düşük olandır.</li>
-          </ul>
-          
-          <h2>Uzun Format (Long Form) Tweetler</h2>
-          <p>Premium kullanıcılar için karakter sınırının kalkmasıyla, X bir "mikro-blog" platformuna dönüştü. İnsanlar artık flood okumak yerine tek bir uzun post okumayı tercih ediyor. Bilgilendirici, madde madde yazılmış, "Nasıl Yapılır" tarzı içerikler X'te viral olma potansiyeli en yüksek içeriklerdir.</p>
-          
-          <h2>Medya Kullanımı</h2>
-          <p>Sadece metin içeren tweetlerin erişimi düşüktür. Her tweetinize mutlaka bir görsel, bir GIF veya bir video ekleyin. Videolar, X algoritmasında şu an en çok "boost" edilen (öne çıkarılan) içerik türüdür.</p>
+          <p class="text-lg font-bold mb-6" data-tr="article_x_intro">Elon Musk sonrası X tamamen değişti. 2026'da büyüme stratejileri.</p>
+          <h2 data-tr="article_x_h2_1">Algoritma Değişiklikleri</h2>
+          <p data-tr="article_x_p1">X artık platformda tutan içerikleri ödüllendiriyor. Link cezası var.</p>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-finance" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-amber-200 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">2026 Global Borsa Trendleri ve AI Etkisi</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_fin_h1">2026 Global Borsa Trendleri</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Finans dünyası, Yapay Zeka (AI) devrimiyle kökten değişiyor. 2026 yılında piyasaları domine eden trendler, algoritmik ticaret ve bireysel yatırımcılar için fırsatlar neler?</p>
-          
-          <h2>Yapay Zeka Destekli Yatırım (Robo-Advisors)</h2>
-          <p>Geleneksel portföy yöneticilerinin yerini AI algoritmaları alıyor. 2026'da büyük fonların %78'i, alım-satım kararlarını tamamen yapay zeka sistemlerine bırakmış durumda. Bu sistemler, haberleri, sosyal medya duyarlılığını (sentiment analysis) ve bilançoları milisaniyeler içinde analiz ederek işlem yapıyor.</p>
-          
-          <h2>Sürdürülebilir Yatırım (ESG)</h2>
-          <p>Yatırımcılar artık sadece kâra değil, şirketin çevreye ve topluma etkisine de bakıyor. Temiz enerji, elektrikli araç teknolojileri ve karbon yakalama şirketleri, 2026 borsalarının yıldızları arasında. Özellikle yeşil hidrojen teknolojileri, yatırımcıların radarında.</p>
-          
-          <h2>Gelişmekte Olan Piyasalar</h2>
-          <p>ABD borsalarının doygunluğa ulaşmasıyla, yatırımcılar Asya ve Latin Amerika pazarlarına yöneliyor. Hindistan ve Brezilya borsaları, teknoloji start-up'ları ve fintech çözümleriyle 2026'da yüksek getiri potansiyeli sunuyor.</p>
-          
+          <p class="text-lg font-bold mb-6" data-tr="article_fin_intro">Finans dünyası AI devrimiyle değişiyor. 2026 piyasa trendleri.</p>
           <div class="mt-8 p-6 bg-amber-50 border-2 border-amber-300 rounded-2xl">
-            <p><strong>⚠️ YASAL UYARI:</strong> Bu içerik tamamen bilgilendirme amaçlıdır ve kesinlikle YATIRIM TAVSİYESİ DEĞİLDİR (YTD). Finansal kararlarınızı kendi araştırmanıza veya lisanslı bir yatırım danışmanına dayanarak veriniz. Piyasalar risk içerir ve ana paranızı kaybedebilirsiniz.</p>
+            <p data-tr="article_fin_warning"><strong>⚠️ UYARI:</strong> Bu içerik bilgilendirme amaçlıdır, YATIRIM TAVSİYESİ DEĞİLDİR.</p>
           </div>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-crypto" class="page-content">
       <article class="max-w-4xl mx-auto bg-white border-2 border-emerald-200 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">Kripto Piyasasında AI Analizleri ve Web3 Geleceği</h1>
+        <h1 class="text-4xl font-black mb-6" data-tr="article_cry_h1">Kripto Piyasasında AI Analizleri</h1>
         <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Kripto para piyasası, spekülatif bir balondan kurumsal bir varlık sınıfına dönüştü. 2026 yılında Bitcoin, Ethereum ve yeni nesil AI coinleri neleri vadediyor?</p>
-          
-          <h2>Bitcoin: Dijital Altın Standardı</h2>
-          <p>2026 itibarıyla Bitcoin, volatilitesi azalmış, daha stabil bir "değer saklama aracı" (Store of Value) olarak kabul ediliyor. Büyük devlet fonlarının ve emeklilik fonlarının portföylerine girmesi, fiyat istikrarını sağladı. Artık Bitcoin, günlük al-sat aracından çok, uzun vadeli bir koruma kalkanı olarak görülüyor.</p>
-          
-          <h2>DeFi ve Ethereum 3.0</h2>
-          <p>Merkeziyetsiz Finans (DeFi), bankacılık sistemine gerçek bir alternatif oluşturuyor. Ethereum ağındaki güncellemelerle işlem ücretleri (gas fee) minimize edildi ve hız arttı. Akıllı kontratlar, sigortacılıktan tapu işlemlerine kadar gerçek dünya varlıklarını (RWA - Real World Assets) blockchain'e taşıyor.</p>
-          
-          <h2>AI Coinleri ve Veri Ekonomisi</h2>
-          <p>Yapay zeka modellerinin eğitilmesi için gereken devasa veri ve işlem gücü, kripto projeleriyle sağlanıyor. GPU gücünü paylaşan merkeziyetsiz ağlar ve veri pazaryeri coinleri, 2026 boğa sezonunun en çok konuşulan projeleri arasında. AI ve Blockchain'in kesişim noktası, teknolojinin yeni zirvesi.</p>
-
+          <p class="text-lg font-bold mb-6" data-tr="article_cry_intro">Kripto spekülatif balondan kurumsal varlığa dönüştü. 2026 Bitcoin ve Ethereum.</p>
           <div class="mt-8 p-6 bg-emerald-50 border-2 border-emerald-300 rounded-2xl">
-            <p><strong>⚠️ ÖNEMLİ UYARI:</strong> Kripto para piyasaları son derece değişkendir. Yüksek kazanç potansiyeli olduğu gibi, tüm paranızı kaybetme riski de vardır. Bu yazı bir yatırım tavsiyesi değildir. Kaldıraçlı işlemlerden uzak durmanız ve kendi araştırmanızı yapmanız (DYOR) önerilir.</p>
+            <p data-tr="article_cry_warning"><strong>⚠️ UYARI:</strong> Kripto son derece değişkendir. Yatırım tavsiyesi değildir. DYOR yapın.</p>
           </div>
         </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
@@ -493,32 +380,28 @@
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
         <h1 class="text-4xl font-black mb-8 text-center" data-tr="about_title">Hakkımızda</h1>
         <div class="space-y-6 text-slate-700 font-bold leading-relaxed">
-          <p>NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış, yapay zeka tabanlı yeni nesil bir analiz platformudur.</p>
-          <p>Altyapımızda Google'ın Gemini AI teknolojisi kullanılmaktadır. YouTube, Instagram, TikTok, X ve Kripto trendleri anlık analiz edilir.</p>
-          <p>Misyonumuz, karmaşık veri analizlerini basitleştirerek profesyonel içerik stratejileri oluşturmaktır. Ücretsiz, hızlı ve etkili çözümler sunuyoruz.</p>
+          <p data-tr="about_p1">NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış, yapay zeka tabanlı yeni nesil bir analiz platformudur.</p>
+          <p data-tr="about_p2">Altyapımızda Google'ın Gemini AI teknolojisi kullanılmaktadır. YouTube, Instagram, TikTok, X ve Kripto trendleri anlık analiz edilir.</p>
+          <p data-tr="about_p3">Misyonumuz, karmaşık veri analizlerini basitleştirerek profesyonel içerik stratejileri oluşturmaktır. Ücretsiz, hızlı ve etkili çözümler sunuyoruz.</p>
         </div>
       </div>
     </div>
 
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Sıkça Sorulan Sorular</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-tr="faq_title">Sıkça Sorulan Sorular</h1>
         <div class="space-y-6">
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Günlük limit sistemi nasıl çalışıyor?</h3>
-            <p class="text-slate-700 font-bold text-sm">Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-tr="faq_q1">Günlük limit sistemi nasıl çalışıyor?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-tr="faq_a1">Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.</p>
           </div>
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Platform tamamen ücretsiz mi?</h3>
-            <p class="text-slate-700 font-bold text-sm">Evet, %100 ücretsiz. Gizli ücret yok, kredi kartı gereksiz.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-tr="faq_q2">Platform tamamen ücretsiz mi?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-tr="faq_a2">Evet, %100 ücretsiz. Gizli ücret yok, kredi kartı gereksiz.</p>
           </div>
           <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">Hangi AI kullanıyorsunuz?</h3>
-            <p class="text-slate-700 font-bold text-sm">Google'ın Gemini AI teknolojisi.</p>
-          </div>
-          <div class="border-2 border-slate-100 rounded-2xl p-6 hover:border-rose-200 transition">
-            <h3 class="text-lg font-black mb-3 text-rose-600">YouTube'dan gerçekten para kazanılır mı?</h3>
-            <p class="text-slate-700 font-bold text-sm">Evet! Ama sabır gerekir. İlk 6-12 ay içerik kalitesi ve tutarlılığa odaklanın.</p>
+            <h3 class="text-lg font-black mb-3 text-rose-600" data-tr="faq_q3">Hangi AI kullanıyorsunuz?</h3>
+            <p class="text-slate-700 font-bold text-sm" data-tr="faq_a3">Google'ın Gemini AI teknolojisi.</p>
           </div>
         </div>
       </div>
@@ -526,21 +409,21 @@
 
     <div id="page-privacy" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Gizlilik Politikası</h1>
-        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <h1 class="text-4xl font-black mb-8 text-center" data-tr="privacy_title">Gizlilik Politikası</h1>
+        <p class="text-sm text-slate-500 mb-8" data-tr="privacy_updated"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
         <div class="space-y-8 text-slate-700 leading-relaxed">
           <section>
-            <h2 class="text-2xl font-black mb-4">1. Giriş</h2>
-            <p>NeoSocial_Rose olarak kullanıcı gizliliğine saygı duyuyoruz. Bu politika, verilerinizin nasıl toplandığını ve kullanıldığını açıklar.</p>
+            <h2 class="text-2xl font-black mb-4" data-tr="privacy_h2_1">1. Giriş</h2>
+            <p data-tr="privacy_p1">NeoSocial_Rose olarak kullanıcı gizliliğine saygı duyuyoruz. Bu politika verilerinizin nasıl kullanıldığını açıklar.</p>
           </section>
           <section>
-            <h2 class="text-2xl font-black mb-4">2. Toplanan Bilgiler</h2>
-            <p>Google Authentication ile giriş yaptığınızda ad, e-posta ve profil bilgileri toplanır. Platform kullanımınız sırasında üretilen içerikler ve tercihler kaydedilir.</p>
+            <h2 class="text-2xl font-black mb-4" data-tr="privacy_h2_2">2. Toplanan Bilgiler</h2>
+            <p data-tr="privacy_p2">Google Authentication ile ad, e-posta ve profil bilgileri toplanır.</p>
           </section>
           <section>
-            <h2 class="text-2xl font-black mb-4">3. İletişim</h2>
+            <h2 class="text-2xl font-black mb-4" data-tr="privacy_h2_3">3. İletişim</h2>
             <div class="bg-slate-50 p-6 rounded-xl">
-              <p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" class="text-rose-500 font-bold underline">jarvisheyrose@gmail.com</a></p>
+              <p><strong data-tr="contact_email_label">E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" class="text-rose-500 font-bold underline">jarvisheyrose@gmail.com</a></p>
             </div>
           </section>
         </div>
@@ -549,20 +432,20 @@
 
     <div id="page-terms" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">Kullanım Şartları</h1>
-        <p class="text-sm text-slate-500 mb-8"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
+        <h1 class="text-4xl font-black mb-8 text-center" data-tr="terms_title">Kullanım Şartları</h1>
+        <p class="text-sm text-slate-500 mb-8" data-tr="terms_updated"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
         <div class="space-y-8 text-slate-700 leading-relaxed">
           <section>
-            <h2 class="text-2xl font-black mb-4">1. Şartların Kabulü</h2>
-            <p>Platformu kullanarak bu şartları kabul edersiniz.</p>
+            <h2 class="text-2xl font-black mb-4" data-tr="terms_h2_1">1. Şartların Kabulü</h2>
+            <p data-tr="terms_p1">Platformu kullanarak bu şartları kabul edersiniz.</p>
           </section>
           <section>
-            <h2 class="text-2xl font-black mb-4">2. Feragatname</h2>
+            <h2 class="text-2xl font-black mb-4" data-tr="terms_h2_2">2. Feragatname</h2>
             <div class="bg-amber-50 border-2 border-amber-300 p-6 rounded-2xl">
               <ul class="space-y-2">
-                <li>⚠️ <strong>Yatırım tavsiyesi değildir</strong></li>
-                <li>⚠️ <strong>Kazanç garantisi yoktur</strong></li>
-                <li>⚠️ <strong>AI içerikleri her zaman doğru olmayabilir</strong></li>
+                <li data-tr="terms_disclaimer_1">⚠️ <strong>Yatırım tavsiyesi değildir</strong></li>
+                <li data-tr="terms_disclaimer_2">⚠️ <strong>Kazanç garantisi yoktur</strong></li>
+                <li data-tr="terms_disclaimer_3">⚠️ <strong>AI içerikleri her zaman doğru olmayabilir</strong></li>
               </ul>
             </div>
           </section>
@@ -572,11 +455,11 @@
 
     <div id="page-contact" class="page-content max-w-4xl mx-auto">
       <div class="bg-white border-2 border-slate-100 rounded-[3rem] p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-8 text-center">İletişim</h1>
+        <h1 class="text-4xl font-black mb-8 text-center" data-tr="contact_title">İletişim</h1>
         <div class="space-y-8 text-center">
           <div>
             <i class="fas fa-envelope text-rose-500 text-5xl mb-4"></i>
-            <p class="text-slate-700 font-bold mb-2">E-posta</p>
+            <p class="text-slate-700 font-bold mb-2" data-tr="contact_email_label">E-posta</p>
             <a href="mailto:jarvisheyrose@gmail.com" class="text-2xl font-black text-rose-500 hover:text-rose-600">jarvisheyrose@gmail.com</a>
           </div>
         </div>
@@ -589,36 +472,36 @@
       <div class="flex justify-between items-center mb-8">
         <div>
           <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1">Viral içerik üretin</p>
+          <p class="text-xs text-slate-500 font-bold mt-1" data-tr="modal_subtitle">Viral içerik üretin</p>
         </div>
         <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
       </div>
       <div class="mb-6">
         <div class="flex justify-between items-center mb-4">
-          <span class="text-xs font-black uppercase text-slate-400">Kalan Hak</span>
+          <span class="text-xs font-black uppercase text-slate-400" data-tr="modal_remaining">Kalan Hak</span>
           <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
         </div>
       </div>
       <div class="space-y-6">
         <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3">İçerik Konusu</label>
-          <input type="text" id="modal-topic-input" class="pro-input" placeholder="Örn: Futbol taktikleri">
+          <label class="block text-xs font-black uppercase text-slate-400 mb-3" data-tr="modal_topic_label">İçerik Konusu</label>
+          <input type="text" id="modal-topic-input" class="pro-input" data-tr-placeholder="modal_topic_placeholder" placeholder="Örn: Futbol taktikleri">
         </div>
         <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-          <span>ÜRETİMİ BAŞLAT</span>
+          <span data-tr="modal_generate_btn">ÜRETİMİ BAŞLAT</span>
         </button>
         <div id="modal-result-box" class="hidden space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-slate-400">SEO Skoru</span>
+            <span class="text-xs font-black uppercase text-slate-400" data-tr="modal_seo_score">SEO Skoru</span>
             <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
           </div>
           <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
             <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12"></p>
-            <p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3">0 karakter</p>
+            <p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3" data-tr="modal_char_count">0 karakter</p>
             <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
           </div>
           <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition">
-            <span>🔄 Yeniden Üret</span>
+            <span data-tr="modal_regenerate_btn">🔄 Yeniden Üret</span>
           </button>
         </div>
       </div>
@@ -629,11 +512,11 @@
     <div class="max-w-7xl mx-auto text-center">
       <h4 class="text-white text-xl mb-6 tracking-tighter">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h4>
       <div class="flex justify-center gap-8 mb-6 flex-wrap">
-        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Hakkımızda</span>
-        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">SSS</span>
-        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Gizlilik</span>
-        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">Şartlar</span>
-        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold">İletişim</span>
+        <span onclick="showPage('about')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-tr="nav_about">Hakkımızda</span>
+        <span onclick="showPage('faq')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-tr="nav_faq">SSS</span>
+        <span onclick="showPage('privacy')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-tr="nav_privacy">Gizlilik</span>
+        <span onclick="showPage('terms')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-tr="nav_terms">Şartlar</span>
+        <span onclick="showPage('contact')" class="cursor-pointer hover:text-rose-500 transition text-sm font-bold" data-tr="nav_contact">İletişim</span>
       </div>
       <p class="opacity-30 mt-4">© 2026 NeoSocial_Rose</p>
     </div>
@@ -643,17 +526,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <script>
-    // 6 DİL ÇEVİRİ SİSTEMİ - TAM VERSİYON
-    const T = {
-      tr:{nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",platform_finance_desc:"Global Trend Analizi & Fırsatlar",platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",finance_title:"Finans & Borsa",crypto_title:"Kripto Analiz",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.",info_3:"🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.",blog_title:"Blog & Rehberler",read_more:"Devamını Oku →",back_to_blog:"← Blog'a Dön",about_title:"Hakkımızda"},
-      en:{nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",platform_x_desc:"Tweet titles and hashtags",platform_finance_desc:"Global Trend Analysis & Opportunities",platform_crypto_desc:"Real-time Coin Analysis & Prediction",finance_title:"Finance & Stock",crypto_title:"Crypto Analysis",important_info:"Important Information",info_1:"🎯 This platform only provides content suggestions.",info_2:"⚠️ No investment advice or guaranteed earnings.",info_3:"🤖 All content is generated by Gemini AI based on trends.",info_4:"📊 SEO scores are estimates and not guaranteed.",info_5:"🔄 You have 2 daily generations per platform.",blog_title:"Blog & Guides",read_more:"Read More →",back_to_blog:"← Back to Blog",about_title:"About Us"},
-      fr:{nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Sélectionner une plateforme",platform_youtube_desc:"Titres vidéo et hashtags",platform_instagram_desc:"Titres de publication et hashtags",platform_tiktok_desc:"Titres vidéo et hashtags tendance",platform_x_desc:"Titres de tweet et hashtags",platform_finance_desc:"Analyse des tendances mondiales et opportunités",platform_crypto_desc:"Analyse de pièces en temps réel et prédiction",finance_title:"Finance & Bourse",crypto_title:"Analyse Crypto",important_info:"Informations importantes",info_1:"🎯 Cette plateforme ne fournit que des suggestions de contenu.",info_2:"⚠️ Aucun conseil en investissement ni gain garanti.",info_3:"🤖 Tout le contenu est généré par Gemini AI en fonction des tendances.",info_4:"📊 Les scores SEO sont des estimations et ne sont pas garantis.",info_5:"🔄 Vous avez 2 générations quotidiennes par plateforme.",blog_title:"Blog et guides",read_more:"Lire la suite →",back_to_blog:"← Retour au blog",about_title:"À propos de nous"},
-      de:{nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Plattform auswählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Trend-Hashtags",platform_x_desc:"Tweet-Titel und Hashtags",platform_finance_desc:"Globale Trendanalyse & Chancen",platform_crypto_desc:"Echtzeit-Coin-Analyse & Vorhersage",finance_title:"Finanzen & Börse",crypto_title:"Krypto-Analyse",important_info:"Wichtige Informationen",info_1:"🎯 Diese Plattform bietet nur Inhaltsvorschläge.",info_2:"⚠️ Keine Anlageberatung oder garantierte Gewinne.",info_3:"🤖 Alle Inhalte werden von Gemini AI basierend auf Trends generiert.",info_4:"📊 SEO-Scores sind Schätzungen und nicht garantiert.",info_5:"🔄 Sie haben 2 tägliche Generierungen pro Plattform.",blog_title:"Blog & Anleitungen",read_more:"Weiterlesen →",back_to_blog:"← Zurück zum Blog",about_title:"Über uns"},
-      es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca de",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"INICIAR SESIÓN",logout:"CERRAR SESIÓN",coming_soon:"PRÓXIMAMENTE",select_platform:"Seleccionar plataforma",platform_youtube_desc:"Títulos de video y hashtags",platform_instagram_desc:"Títulos de publicación y hashtags",platform_tiktok_desc:"Títulos de video y hashtags de tendencia",platform_x_desc:"Títulos de tweet y hashtags",platform_finance_desc:"Análisis de tendencias globales y oportunidades",platform_crypto_desc:"Análisis de monedas en tiempo real y predicción",finance_title:"Finanzas y Bolsa",crypto_title:"Análisis Cripto",important_info:"Información importante",info_1:"🎯 Esta plataforma solo proporciona sugerencias de contenido.",info_2:"⚠️ Sin asesoramiento de inversión ni ganancias garantizadas.",info_3:"🤖 Todo el contenido es generado por Gemini AI basado en tendencias.",info_4:"📊 Las puntuaciones SEO son estimaciones y no están garantizadas.",info_5:"🔄 Tienes 2 generaciones diarias por plataforma.",blog_title:"Blog y guías",read_more:"Leer más →",back_to_blog:"← Volver al blog",about_title:"Acerca de nosotros"},
-      pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar plataforma",platform_youtube_desc:"Títulos de vídeo e hashtags",platform_instagram_desc:"Títulos de postagem e hashtags",platform_tiktok_desc:"Títulos de vídeo e hashtags em alta",platform_x_desc:"Títulos de tweet e hashtags",platform_finance_desc:"Análise de tendências globais e oportunidades",platform_crypto_desc:"Análise de moedas em tempo real e previsão",finance_title:"Finanças e Bolsa",crypto_title:"Análise Cripto",important_info:"Informações importantes",info_1:"🎯 Esta plataforma fornece apenas sugestões de conteúdo.",info_2:"⚠️ Sem consultoria de investimento ou ganhos garantidos.",info_3:"🤖 Todo o conteúdo é gerado pela Gemini AI com base em tendências.",info_4:"📊 As pontuações SEO são estimativas e não são garantidas.",info_5:"🔄 Você tem 2 gerações diárias por plataforma.",blog_title:"Blog e guias",read_more:"Leia mais →",back_to_blog:"← Voltar ao blog",about_title:"Sobre nós"}
-    };
+    const T={tr:{nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",platform_finance_desc:"Global Trend Analizi & Fırsatlar",platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",finance_title:"Finans & Borsa",crypto_title:"Kripto Analiz",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.",info_3:"🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.",blog_title:"Blog & Rehberler",read_more:"Devamını Oku →",back_to_blog:"← Blog'a Dön",blog_cat_money:"Para Kazanma",blog_cat_finance:"Finans",blog_cat_crypto:"Kripto",blog_money_title:"YouTube'dan Para Kazanma 2026",blog_money_excerpt:"YouTube para kazanma rehberi...",blog_yt_title:"2026'da YouTube'da Viral Olmak",blog_yt_excerpt:"YouTube algoritması...",blog_ig_title:"Instagram Hashtag Stratejisi 2026",blog_ig_excerpt:"Hashtag kullanımı...",blog_tt_title:"TikTok Algoritması Nasıl Çalışır?",blog_tt_excerpt:"FYP algoritması...",blog_x_title:"X'te Etkileşim Arttırma",blog_x_excerpt:"Elon Musk algoritması...",blog_fin_title:"2026 Global Borsa Trendleri",blog_fin_excerpt:"AI finans analizleri...",blog_cry_title:"Kripto Piyasasında AI Analizleri",blog_cry_excerpt:"Bitcoin, Ethereum...",article_money_h1:"YouTube'dan Para Kazanma 2026: Tam Rehber",article_money_intro:"YouTube, 2026 yılında dijital içerik üreticileri için en büyük gelir kapısı...",article_money_h2_1:"YouTube Para Kazanma (YPP) Şartları 2026",article_money_p1:"YouTube Partner Programı'na dahil olmak...",article_money_h3_1:"AdSense Gelirleri: CPM ve RPM",article_money_p2:"2026 yılında ortalama CPM oranları...",article_money_tip:"💰 Profesyonel İpucu: YouTube bir maratondur...",article_yt_h1:"2026'da YouTube'da Viral Olmak",article_yt_intro:"YouTube algoritması 2026 yılında...",article_yt_h2_1:"İlk 30 Saniye Kuralı",article_yt_p1:"İzleyici tutma oranı...",article_ig_h1:"Instagram Hashtag Stratejisi 2026",article_ig_intro:"Instagram'da organik erişim...",article_ig_h2_1:"3-5-3 Kuralı",article_ig_p1:"3 Popüler + 5 Orta + 3 Spesifik hashtag kullanın.",article_tt_h1:"TikTok Algoritması 2026",article_tt_intro:"TikTok FYP sayfasına düşmek...",article_tt_h2_1:"FYP Algoritması",article_tt_p1:"Tamamlama oranı en kritik metriktir.",article_x_h1:"X (Twitter) Etkileşim Taktikleri",article_x_intro:"Elon Musk sonrası X...",article_x_h2_1:"Algoritma Değişiklikleri",article_x_p1:"X artık platformda tutan içerikleri ödüllendiriyor.",article_fin_h1:"2026 Global Borsa Trendleri",article_fin_intro:"Finans dünyası AI devrimiyle değişiyor.",article_fin_warning:"⚠️ UYARI: Bu içerik bilgilendirme amaçlıdır, YATIRIM TAVSİYESİ DEĞİLDİR.",article_cry_h1:"Kripto Piyasasında AI Analizleri",article_cry_intro:"Kripto spekülatif balondan kurumsal varlığa dönüştü.",article_cry_warning:"⚠️ UYARI: Kripto son derece değişkendir. Yatırım tavsiyesi değildir. DYOR yapın.",about_title:"Hakkımızda",about_p1:"NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış...",about_p2:"Altyapımızda Google'ın Gemini AI teknolojisi kullanılmaktadır.",about_p3:"Misyonumuz, karmaşık veri analizlerini basitleştirerek...",faq_title:"Sıkça Sorulan Sorular",faq_q1:"Günlük limit sistemi nasıl çalışıyor?",faq_a1:"Her platform için günlük 2 üretim hakkı.",faq_q2:"Platform tamamen ücretsiz mi?",faq_a2:"Evet, %100 ücretsiz.",faq_q3:"Hangi AI kullanıyorsunuz?",faq_a3:"Google'ın Gemini AI teknolojisi.",privacy_title:"Gizlilik Politikası",privacy_updated:"Son Güncelleme: 15 Şubat 2026",privacy_h2_1:"1. Giriş",privacy_p1:"NeoSocial_Rose olarak kullanıcı gizliliğine saygı duyuyoruz.",privacy_h2_2:"2. Toplanan Bilgiler",privacy_p2:"Google Authentication ile ad, e-posta ve profil bilgileri toplanır.",privacy_h2_3:"3. İletişim",terms_title:"Kullanım Şartları",terms_updated:"Son Güncelleme: 15 Şubat 2026",terms_h2_1:"1. Şartların Kabulü",terms_p1:"Platformu kullanarak bu şartları kabul edersiniz.",terms_h2_2:"2. Feragatname",terms_disclaimer_1:"⚠️ Yatırım tavsiyesi değildir",terms_disclaimer_2:"⚠️ Kazanç garantisi yoktur",terms_disclaimer_3:"⚠️ AI içerikleri her zaman doğru olmayabilir",contact_title:"İletişim",contact_email_label:"E-posta",modal_subtitle:"Viral içerik üretin",modal_remaining:"Kalan Hak",modal_topic_label:"İçerik Konusu",modal_topic_placeholder:"Örn: Futbol taktikleri",modal_generate_btn:"ÜRETİMİ BAŞLAT",modal_seo_score:"SEO Skoru",modal_char_count:"karakter",modal_regenerate_btn:"🔄 Yeniden Üret"},en:{nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",platform_x_desc:"Tweet titles and hashtags",platform_finance_desc:"Global Trend Analysis",platform_crypto_desc:"Real-time Coin Analysis",finance_title:"Finance & Stock",crypto_title:"Crypto Analysis",important_info:"Important Information",info_1:"🎯 Content suggestions only.",info_2:"⚠️ No investment advice.",info_3:"🤖 Generated by Gemini AI.",info_4:"📊 SEO scores estimated.",info_5:"🔄 2 daily generations.",blog_title:"Blog & Guides",read_more:"Read More →",back_to_blog:"← Back",blog_cat_money:"Earning",blog_cat_finance:"Finance",blog_cat_crypto:"Crypto",blog_money_title:"YouTube Monetization 2026",blog_money_excerpt:"Complete guide...",blog_yt_title:"Going Viral 2026",blog_yt_excerpt:"Algorithm...",blog_ig_title:"Hashtag Strategy 2026",blog_ig_excerpt:"Effective?...",blog_tt_title:"TikTok Algorithm",blog_tt_excerpt:"FYP secrets...",blog_x_title:"X Engagement",blog_x_excerpt:"Musk algorithm...",blog_fin_title:"Stock Trends 2026",blog_fin_excerpt:"AI analysis...",blog_cry_title:"Crypto AI Analysis",blog_cry_excerpt:"Bitcoin...",article_money_h1:"YouTube Monetization 2026",article_money_intro:"Biggest revenue source...",article_money_h2_1:"Partner Requirements",article_money_p1:"Joining program...",article_money_h3_1:"AdSense Revenue",article_money_p2:"Average CPM rates...",article_money_tip:"💰 Tip: Marathon...",article_yt_h1:"Going Viral 2026",article_yt_intro:"Smarter algorithm...",article_yt_h2_1:"30 Seconds Rule",article_yt_p1:"Retention key...",article_ig_h1:"Hashtag Strategy",article_ig_intro:"Reach transformed...",article_ig_h2_1:"3-5-3 Rule",article_ig_p1:"3 Pop + 5 Med + 3 Specific.",article_tt_h1:"TikTok Algorithm",article_tt_intro:"FYP explained...",article_tt_h2_1:"FYP Algorithm",article_tt_p1:"Completion critical.",article_x_h1:"X Engagement",article_x_intro:"X transformed...",article_x_h2_1:"Algorithm Changes",article_x_p1:"Rewards on-platform.",article_fin_h1:"Stock Trends",article_fin_intro:"Finance AI...",article_fin_warning:"⚠️ Not advice.",article_cry_h1:"Crypto Analysis",article_cry_intro:"Institutional asset...",article_cry_warning:"⚠️ Volatile. DYOR.",about_title:"About",about_p1:"AI platform...",about_p2:"Gemini AI.",about_p3:"Simplify analysis...",faq_title:"FAQ",faq_q1:"Daily limit?",faq_a1:"2 per day.",faq_q2:"Free?",faq_a2:"Yes, 100%.",faq_q3:"Which AI?",faq_a3:"Gemini AI.",privacy_title:"Privacy",privacy_updated:"Updated: Feb 15, 2026",privacy_h2_1:"1. Intro",privacy_p1:"Respect privacy.",privacy_h2_2:"2. Info Collected",privacy_p2:"Name, email via Google.",privacy_h2_3:"3. Contact",terms_title:"Terms",terms_updated:"Updated: Feb 15, 2026",terms_h2_1:"1. Acceptance",terms_p1:"Using = accepting.",terms_h2_2:"2. Disclaimer",terms_disclaimer_1:"⚠️ Not advice",terms_disclaimer_2:"⚠️ No guarantee",terms_disclaimer_3:"⚠️ AI inaccurate",contact_title:"Contact",contact_email_label:"Email",modal_subtitle:"Create viral",modal_remaining:"Remaining",modal_topic_label:"Topic",modal_topic_placeholder:"E.g: Tactics",modal_generate_btn:"START",modal_seo_score:"SEO Score",modal_char_count:"characters",modal_regenerate_btn:"🔄 Regenerate"},fr:{nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Sélectionner",platform_youtube_desc:"Titres vidéo",platform_instagram_desc:"Titres publication",platform_tiktok_desc:"Titres tendance",platform_x_desc:"Titres tweet",platform_finance_desc:"Analyse mondiale",platform_crypto_desc:"Analyse crypto",finance_title:"Finance",crypto_title:"Crypto",important_info:"Informations",info_1:"🎯 Suggestions.",info_2:"⚠️ Aucun conseil.",info_3:"🤖 Gemini AI.",info_4:"📊 Scores estimés.",info_5:"🔄 2 par jour.",blog_title:"Blog",read_more:"Lire →",back_to_blog:"← Retour",blog_cat_money:"Gagner",blog_cat_finance:"Finance",blog_cat_crypto:"Crypto",blog_money_title:"Monétisation YouTube",blog_money_excerpt:"Guide...",blog_yt_title:"Viral YouTube",blog_yt_excerpt:"Algorithme...",blog_ig_title:"Stratégie Hashtag",blog_ig_excerpt:"Efficaces?...",blog_tt_title:"Algorithme TikTok",blog_tt_excerpt:"FYP...",blog_x_title:"Engagement X",blog_x_excerpt:"Algorithme...",blog_fin_title:"Tendances Bourse",blog_fin_excerpt:"Analyses...",blog_cry_title:"Analyses Crypto",blog_cry_excerpt:"Bitcoin...",article_money_h1:"Monétisation",article_money_intro:"Plus grande source...",article_money_h2_1:"Conditions",article_money_p1:"Rejoindre...",article_money_h3_1:"Revenus",article_money_p2:"CPM moyens...",article_money_tip:"💰 Conseil...",article_yt_h1:"Viral",article_yt_intro:"Algorithme...",article_yt_h2_1:"Règle 30s",article_yt_p1:"Rétention...",article_ig_h1:"Stratégie",article_ig_intro:"Portée...",article_ig_h2_1:"Règle 3-5-3",article_ig_p1:"3+5+3.",article_tt_h1:"Algorithme",article_tt_intro:"FYP...",article_tt_h2_1:"FYP",article_tt_p1:"Taux critique.",article_x_h1:"Tactiques",article_x_intro:"X transformé...",article_x_h2_1:"Changements",article_x_p1:"Récompense.",article_fin_h1:"Tendances",article_fin_intro:"Finance...",article_fin_warning:"⚠️ Pas conseil.",article_cry_h1:"Analyses",article_cry_intro:"Institutionnel...",article_cry_warning:"⚠️ Volatile.",about_title:"À propos",about_p1:"Plateforme...",about_p2:"Gemini AI.",about_p3:"Simplifier...",faq_title:"FAQ",faq_q1:"Limite?",faq_a1:"2 par jour.",faq_q2:"Gratuit?",faq_a2:"Oui.",faq_q3:"IA?",faq_a3:"Gemini.",privacy_title:"Confidentialité",privacy_updated:"15 fév",privacy_h2_1:"1. Intro",privacy_p1:"Respect.",privacy_h2_2:"2. Infos",privacy_p2:"Nom, email.",privacy_h2_3:"3. Contact",terms_title:"Conditions",terms_updated:"15 fév",terms_h2_1:"1. Acceptation",terms_p1:"Utilisation.",terms_h2_2:"2. Clause",terms_disclaimer_1:"⚠️ Pas conseil",terms_disclaimer_2:"⚠️ Pas garantie",terms_disclaimer_3:"⚠️ IA imprécise",contact_title:"Contact",contact_email_label:"Email",modal_subtitle:"Créer",modal_remaining:"Restant",modal_topic_label:"Sujet",modal_topic_placeholder:"Ex:",modal_generate_btn:"DÉMARRER",modal_seo_score:"Score",modal_char_count:"caractères",modal_regenerate_btn:"🔄 Régénérer"},de:{nav_home:"Start",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Auswählen",platform_youtube_desc:"Videotitel",platform_instagram_desc:"Beitragstitel",platform_tiktok_desc:"Trend-Hashtags",platform_x_desc:"Tweet-Titel",platform_finance_desc:"Globale Analyse",platform_crypto_desc:"Krypto-Analyse",finance_title:"Finanzen",crypto_title:"Krypto",important_info:"Infos",info_1:"🎯 Vorschläge.",info_2:"⚠️ Keine Beratung.",info_3:"🤖 Gemini AI.",info_4:"📊 Geschätzt.",info_5:"🔄 2 täglich.",blog_title:"Blog",read_more:"Weiter →",back_to_blog:"← Zurück",blog_cat_money:"Verdienen",blog_cat_finance:"Finanzen",blog_cat_crypto:"Krypto",blog_money_title:"YouTube Monetarisierung",blog_money_excerpt:"Leitfaden...",blog_yt_title:"Viral YouTube",blog_yt_excerpt:"Algorithmus...",blog_ig_title:"Hashtag-Strategie",blog_ig_excerpt:"Effektiv?...",blog_tt_title:"TikTok-Algorithmus",blog_tt_excerpt:"FYP...",blog_x_title:"X Engagement",blog_x_excerpt:"Algorithmus...",blog_fin_title:"Börsentrends",blog_fin_excerpt:"Analysen...",blog_cry_title:"Krypto-Analysen",blog_cry_excerpt:"Bitcoin...",article_money_h1:"Monetarisierung",article_money_intro:"Größte Quelle...",article_money_h2_1:"Anforderungen",article_money_p1:"Programm...",article_money_h3_1:"Einnahmen",article_money_p2:"CPM-Raten...",article_money_tip:"💰 Tipp...",article_yt_h1:"Viral",article_yt_intro:"Algorithmus...",article_yt_h2_1:"30s-Regel",article_yt_p1:"Retention...",article_ig_h1:"Strategie",article_ig_intro:"Reichweite...",article_ig_h2_1:"3-5-3",article_ig_p1:"3+5+3.",article_tt_h1:"Algorithmus",article_tt_intro:"FYP...",article_tt_h2_1:"FYP",article_tt_p1:"Rate kritisch.",article_x_h1:"Taktiken",article_x_intro:"X transformiert...",article_x_h2_1:"Änderungen",article_x_p1:"Belohnt.",article_fin_h1:"Trends",article_fin_intro:"Finanzen...",article_fin_warning:"⚠️ Keine Beratung.",article_cry_h1:"Analysen",article_cry_intro:"Institutionell...",article_cry_warning:"⚠️ Volatil.",about_title:"Über",about_p1:"Plattform...",about_p2:"Gemini AI.",about_p3:"Vereinfachen...",faq_title:"FAQ",faq_q1:"Limit?",faq_a1:"2 pro Tag.",faq_q2:"Kostenlos?",faq_a2:"Ja.",faq_q3:"KI?",faq_a3:"Gemini.",privacy_title:"Datenschutz",privacy_updated:"15. Feb",privacy_h2_1:"1. Einführung",privacy_p1:"Respekt.",privacy_h2_2:"2. Infos",privacy_p2:"Name, Email.",privacy_h2_3:"3. Kontakt",terms_title:"Bedingungen",terms_updated:"15. Feb",terms_h2_1:"1. Akzeptanz",terms_p1:"Nutzung.",terms_h2_2:"2. Haftung",terms_disclaimer_1:"⚠️ Keine Beratung",terms_disclaimer_2:"⚠️ Keine Garantie",terms_disclaimer_3:"⚠️ KI ungenau",contact_title:"Kontakt",contact_email_label:"E-Mail",modal_subtitle:"Erstellen",modal_remaining:"Verbleibend",modal_topic_label:"Thema",modal_topic_placeholder:"z.B.:",modal_generate_btn:"STARTEN",modal_seo_score:"Score",modal_char_count:"Zeichen",modal_regenerate_btn:"🔄 Neu"},es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRÓXIMAMENTE",select_platform:"Seleccionar",platform_youtube_desc:"Títulos video",platform_instagram_desc:"Títulos publicación",platform_tiktok_desc:"Hashtags tendencia",platform_x_desc:"Títulos tweet",platform_finance_desc:"Análisis global",platform_crypto_desc:"Análisis crypto",finance_title:"Finanzas",crypto_title:"Cripto",important_info:"Información",info_1:"🎯 Sugerencias.",info_2:"⚠️ Sin asesoramiento.",info_3:"🤖 Gemini AI.",info_4:"📊 Estimados.",info_5:"🔄 2 por día.",blog_title:"Blog",read_more:"Leer →",back_to_blog:"← Volver",blog_cat_money:"Ganar",blog_cat_finance:"Finanzas",blog_cat_crypto:"Cripto",blog_money_title:"Monetización YouTube",blog_money_excerpt:"Guía...",blog_yt_title:"Viral YouTube",blog_yt_excerpt:"Algoritmo...",blog_ig_title:"Estrategia Hashtags",blog_ig_excerpt:"Efectivos?...",blog_tt_title:"Algoritmo TikTok",blog_tt_excerpt:"FYP...",blog_x_title:"Engagement X",blog_x_excerpt:"Algoritmo...",blog_fin_title:"Tendencias Bolsa",blog_fin_excerpt:"Análisis...",blog_cry_title:"Análisis Cripto",blog_cry_excerpt:"Bitcoin...",article_money_h1:"Monetización",article_money_intro:"Mayor fuente...",article_money_h2_1:"Requisitos",article_money_p1:"Unirse...",article_money_h3_1:"Ingresos",article_money_p2:"Tasas CPM...",article_money_tip:"💰 Consejo...",article_yt_h1:"Viral",article_yt_intro:"Algoritmo...",article_yt_h2_1:"Regla 30s",article_yt_p1:"Retención...",article_ig_h1:"Estrategia",article_ig_intro:"Alcance...",article_ig_h2_1:"Regla 3-5-3",article_ig_p1:"3+5+3.",article_tt_h1:"Algoritmo",article_tt_intro:"FYP...",article_tt_h2_1:"FYP",article_tt_p1:"Tasa crítica.",article_x_h1:"Tácticas",article_x_intro:"X transformado...",article_x_h2_1:"Cambios",article_x_p1:"Recompensa.",article_fin_h1:"Tendencias",article_fin_intro:"Finanzas...",article_fin_warning:"⚠️ No asesoramiento.",article_cry_h1:"Análisis",article_cry_intro:"Institucional...",article_cry_warning:"⚠️ Volátil.",about_title:"Acerca",about_p1:"Plataforma...",about_p2:"Gemini AI.",about_p3:"Simplificar...",faq_title:"FAQ",faq_q1:"Límite?",faq_a1:"2 por día.",faq_q2:"Gratis?",faq_a2:"Sí.",faq_q3:"IA?",faq_a3:"Gemini.",privacy_title:"Privacidad",privacy_updated:"15 feb",privacy_h2_1:"1. Introducción",privacy_p1:"Respetamos.",privacy_h2_2:"2. Info",privacy_p2:"Nombre, email.",privacy_h2_3:"3. Contacto",terms_title:"Términos",terms_updated:"15 feb",terms_h2_1:"1. Aceptación",terms_p1:"Uso.",terms_h2_2:"2. Descargo",terms_disclaimer_1:"⚠️ No asesoramiento",terms_disclaimer_2:"⚠️ No garantía",terms_disclaimer_3:"⚠️ IA imprecisa",contact_title:"Contacto",contact_email_label:"Email",modal_subtitle:"Crear",modal_remaining:"Restante",modal_topic_label:"Tema",modal_topic_placeholder:"Ej:",modal_generate_btn:"INICIAR",modal_seo_score:"Puntuación",modal_char_count:"caracteres",modal_regenerate_btn:"🔄 Regenerar"},pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar",platform_youtube_desc:"Títulos vídeo",platform_instagram_desc:"Títulos postagem",platform_tiktok_desc:"Hashtags alta",platform_x_desc:"Títulos tweet",platform_finance_desc:"Análise global",platform_crypto_desc:"Análise crypto",finance_title:"Finanças",crypto_title:"Cripto",important_info:"Informações",info_1:"🎯 Sugestões.",info_2:"⚠️ Sem consultoria.",info_3:"🤖 Gemini AI.",info_4:"📊 Estimados.",info_5:"🔄 2 por dia.",blog_title:"Blog",read_more:"Leia →",back_to_blog:"← Voltar",blog_cat_money:"Ganhar",blog_cat_finance:"Finanças",blog_cat_crypto:"Cripto",blog_money_title:"Monetização YouTube",blog_money_excerpt:"Guia...",blog_yt_title:"Viral YouTube",blog_yt_excerpt:"Algoritmo...",blog_ig_title:"Estratégia Hashtags",blog_ig_excerpt:"Efetivas?...",blog_tt_title:"Algoritmo TikTok",blog_tt_excerpt:"FYP...",blog_x_title:"Engajamento X",blog_x_excerpt:"Algoritmo...",blog_fin_title:"Tendências Bolsa",blog_fin_excerpt:"Análises...",blog_cry_title:"Análises Cripto",blog_cry_excerpt:"Bitcoin...",article_money_h1:"Monetização",article_money_intro:"Maior fonte...",article_money_h2_1:"Requisitos",article_money_p1:"Entrar...",article_money_h3_1:"Receitas",article_money_p2:"Taxas CPM...",article_money_tip:"💰 Dica...",article_yt_h1:"Viral",article_yt_intro:"Algoritmo...",article_yt_h2_1:"Regra 30s",article_yt_p1:"Retenção...",article_ig_h1:"Estratégia",article_ig_intro:"Alcance...",article_ig_h2_1:"Regra 3-5-3",article_ig_p1:"3+5+3.",article_tt_h1:"Algoritmo",article_tt_intro:"FYP...",article_tt_h2_1:"FYP",article_tt_p1:"Taxa crítica.",article_x_h1:"Táticas",article_x_intro:"X transformado...",article_x_h2_1:"Mudanças",article_x_p1:"Recompensa.",article_fin_h1:"Tendências",article_fin_intro:"Finanças...",article_fin_warning:"⚠️ Não consultoria.",article_cry_h1:"Análises",article_cry_intro:"Institucional...",article_cry_warning:"⚠️ Volátil.",about_title:"Sobre",about_p1:"Plataforma...",about_p2:"Gemini AI.",about_p3:"Simplificar...",faq_title:"FAQ",faq_q1:"Limite?",faq_a1:"2 por dia.",faq_q2:"Grátis?",faq_a2:"Sim.",faq_q3:"IA?",faq_a3:"Gemini.",privacy_title:"Privacidade",privacy_updated:"15 fev",privacy_h2_1:"1. Introdução",privacy_p1:"Respeitamos.",privacy_h2_2:"2. Info",privacy_p2:"Nome, email.",privacy_h2_3:"3. Contato",terms_title:"Termos",terms_updated:"15 fev",terms_h2_1:"1. Aceitação",terms_p1:"Uso.",terms_h2_2:"2. Isenção",terms_disclaimer_1:"⚠️ Não consultoria",terms_disclaimer_2:"⚠️ Sem garantia",terms_disclaimer_3:"⚠️ IA imprecisa",contact_title:"Contato",contact_email_label:"Email",modal_subtitle:"Criar",modal_remaining:"Restante",modal_topic_label:"Tema",modal_topic_placeholder:"Ex:",modal_generate_btn:"INICIAR",modal_seo_score:"Pontuação",modal_char_count:"caracteres",modal_regenerate_btn:"🔄 Regenerar"}};
 
-    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
+    const state={lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
 
     function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
 
@@ -670,7 +545,7 @@
       }else{
         state.userId=null;
         state.credits={youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0};
-        document.getElementById('user-display').innerText='GİRİŞ';
+        document.getElementById('user-display').innerText=translate('login');
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
         updateAllBadges();
@@ -681,32 +556,27 @@
     function logoutGoogle(){firebase.auth().signOut().then(()=>{notify('Çıkış yapıldı.');closeGenerator();});}
 
     function loadCreditsFromStorage(){
-      if(!state.userId) return;
-      const today = new Date().toDateString();
-      const storedDate = localStorage.getItem(`nsr_date_${state.userId}`);
-      const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
+      if(!state.userId)return;
+      const today=new Date().toDateString();
+      const storedDate=localStorage.getItem(\`nsr_date_\${state.userId}\`);
+      const storedCredits=localStorage.getItem(\`nsr_credits_\${state.userId}\`);
       
-      // Eğer tarih farklıysa SIFIRLA
-      if(storedDate !== today){
-        localStorage.setItem(`nsr_date_${state.userId}`, today);
-        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
-        saveCredits(); // Yeni tarihi ve full krediyi kaydet
-      } else {
-        // Tarih aynıysa ve kayıt varsa YÜKLE
+      if(storedDate!==today){
+        localStorage.setItem(\`nsr_date_\${state.userId}\`,today);
+        state.credits={youtube:2,instagram:2,tiktok:2,x:2,finance:2,crypto:2};
+        saveCredits();
+      }else{
         if(storedCredits){
-          try {
-            state.credits = JSON.parse(storedCredits);
-            // Eksik anahtar varsa tamamla (eski versiyondan kalma veri için)
-            if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
-            if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2;
-          } catch(e) {
-            // Veri bozuksa sıfırla
-            state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+          try{
+            state.credits=JSON.parse(storedCredits);
+            if(typeof state.credits.finance==='undefined')state.credits.finance=2;
+            if(typeof state.credits.crypto==='undefined')state.credits.crypto=2;
+          }catch(e){
+            state.credits={youtube:2,instagram:2,tiktok:2,x:2,finance:2,crypto:2};
             saveCredits();
           }
-        } else {
-           // Tarih var ama kredi yoksa sıfırla (Güvenlik)
-           state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+        }else{
+           state.credits={youtube:2,instagram:2,tiktok:2,x:2,finance:2,crypto:2};
            saveCredits();
         }
       }
@@ -714,15 +584,15 @@
     }
 
     function saveCredits(){
-        if(!state.userId) return;
-        localStorage.setItem(`nsr_credits_${state.userId}`,JSON.stringify(state.credits));
+        if(!state.userId)return;
+        localStorage.setItem(\`nsr_credits_\${state.userId}\`,JSON.stringify(state.credits));
     }
 
     function updateAllBadges(){
       Object.keys(state.credits).forEach(p=>{
-        const b=document.getElementById(`badge-${p}`);
-        if(b)b.innerText=`${state.credits[p]}/2`;
-        const c=document.getElementById(`card-${p}`);
+        const b=document.getElementById(\`badge-\${p}\`);
+        if(b)b.innerText=\`\${state.credits[p]}/2\`;
+        const c=document.getElementById(\`card-\${p}\`);
         if(c){
           if(state.credits[p]<=0)c.classList.add('disabled');
           else c.classList.remove('disabled');
@@ -733,16 +603,33 @@
     function setLang(l){
       state.lang=l;
       document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-      document.getElementById(`l-${l}`).classList.add('active');
+      document.getElementById(\`l-\${l}\`).classList.add('active');
       translatePage();
     }
 
-    function translate(k){return (T[state.lang]&&T[state.lang][k])||T['tr'][k]||k;}
-    function translatePage(){document.querySelectorAll('[data-tr]').forEach(e=>e.innerHTML=translate(e.getAttribute('data-tr')));}
+    function translate(k){return(T[state.lang]&&T[state.lang][k])||T['tr'][k]||k;}
+    
+    function translatePage(){
+      document.querySelectorAll('[data-tr]').forEach(e=>{
+        const key=e.getAttribute('data-tr');
+        e.innerHTML=translate(key);
+      });
+      
+      document.querySelectorAll('[data-tr-placeholder]').forEach(e=>{
+        const key=e.getAttribute('data-tr-placeholder');
+        e.placeholder=translate(key);
+      });
+      
+      const charCountEl=document.getElementById('modal-char-count');
+      if(charCountEl&&charCountEl.innerText){
+        const num=charCountEl.innerText.match(/\\d+/);
+        if(num)charCountEl.innerText=\`\${num[0]} \${translate('modal_char_count')}\`;
+      }
+    }
 
     function showPage(p){
       document.querySelectorAll('.page-content').forEach(pg=>pg.classList.remove('active'));
-      const t=document.getElementById(`page-${p}`);
+      const t=document.getElementById(\`page-\${p}\`);
       if(t)t.classList.add('active');
       window.scrollTo({top:0,behavior:'smooth'});
     }
@@ -751,9 +638,9 @@
       if(!state.userId){notify('Lütfen giriş yapın.');return;}
       if(state.credits[p]<=0){notify('Limit doldu!');return;}
       state.currentPlatform=p;
-      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:'Finans & Borsa', crypto:'Kripto Analiz'};
+      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)',finance:translate('finance_title'),crypto:translate('crypto_title')};
       document.getElementById('modal-platform-title').innerText=pn[p];
-      document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
+      document.getElementById('modal-credit-badge').innerText=\`\${state.credits[p]}/2\`;
       document.getElementById('modal-topic-input').value='';
       document.getElementById('modal-result-box').classList.add('hidden');
       document.getElementById('generator-modal').classList.add('active');
@@ -764,7 +651,7 @@
     function calculateSEO(t){
       let s=50;
       if(t.length>=40&&t.length<=80)s+=15;
-      if(/[\u{1F600}-\u{1F64F}]/u.test(t))s+=10;
+      if(/[\\u{1F600}-\\u{1F64F}]/u.test(t))s+=10;
       const hc=(t.match(/#/g)||[]).length;
       if(hc>=2&&hc<=5)s+=15;
       return Math.min(Math.max(s,0),100);
@@ -790,20 +677,20 @@
       try{
         const r=await fetch('/api/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:tp,platform:state.currentPlatform,lang:state.lang})});
         const d=await r.json();
-        if(d.error) throw new Error(d.error);
+        if(d.error)throw new Error(d.error);
 
         const res=d.text||'';
         if(res){
           state.credits[state.currentPlatform]--;
-          saveCredits(); // KREDİYİ HEMEN DÜŞ VE KAYDET
+          saveCredits();
           updateAllBadges();
-          document.getElementById('modal-credit-badge').innerText=`${state.credits[state.currentPlatform]}/2`;
+          document.getElementById('modal-credit-badge').innerText=\`\${state.credits[state.currentPlatform]}/2\`;
           document.getElementById('modal-result-text').innerText=res;
-          document.getElementById('modal-char-count').innerText=`${res.length} karakter`;
+          document.getElementById('modal-char-count').innerText=\`\${res.length} \${translate('modal_char_count')}\`;
           const sc=calculateSEO(res);
           const sb=document.getElementById('seo-score-badge');
-          sb.innerText=`${sc}/100`;
-          sb.className=`seo-badge ${getSEOClass(sc)}`;
+          sb.innerText=\`\${sc}/100\`;
+          sb.className=\`seo-badge \${getSEOClass(sc)}\`;
           document.getElementById('modal-result-box').classList.remove('hidden');
           notify('Üretim Başarılı ✨');
         }
@@ -812,7 +699,7 @@
         notify('Hata oluştu.');
       }finally{
         btn.disabled=false;
-        btn.innerHTML='<span>ÜRETİMİ BAŞLAT</span>';
+        btn.innerHTML=\`<span>\${translate('modal_generate_btn')}</span>\`;
       }
     }
 
@@ -832,9 +719,9 @@
     const pb=document.getElementById('nav-platform-btn'),pd=document.getElementById('nav-platform-dd');
     if(pb&&pd){pb.addEventListener('mouseenter',()=>pd.style.display='block');pb.parentElement.addEventListener('mouseleave',()=>pd.style.display='none');}
 
-    document.getElementById('generator-modal').addEventListener('click', function(e) {if (e.target === this) closeGenerator();});
-    document.addEventListener('keydown', function(e) {if (e.key === 'Escape') closeGenerator();});
-    window.addEventListener('DOMContentLoaded', () => {translatePage();});
+    document.getElementById('generator-modal').addEventListener('click',function(e){if(e.target===this)closeGenerator();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGenerator();});
+    window.addEventListener('DOMContentLoaded',()=>{translatePage();});
   </script>
 </body>
 </html>
