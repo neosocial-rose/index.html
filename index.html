@@ -714,7 +714,9 @@
         art_x_title:"X (Twitter) Etkileşim Taktikleri",
         art_fin_title:"2026 Borsa Trendleri",
         art_cry_title:"Kripto Piyasasında AI Analizleri",
-        gen_subtitle:"Viral içerik üretin", credits_rem:"Kalan Hak", content_topic:"İçerik Konusu", start_gen:"ÜRETİMİ BAŞLAT"
+        gen_subtitle:"Viral içerik üretin", credits_rem:"Kalan Hak", content_topic:"İçerik Konusu", start_gen:"ÜRETİMİ BAŞLAT",
+        // Uyarılar
+        login_req:"Giriş Yapın", input_req:"Konu Girin", no_credits:"Hakkınız Bitti"
       },
       en:{
         nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"SOON",
@@ -736,7 +738,8 @@
         art_x_title:"X (Twitter) Tactics",
         art_fin_title:"2026 Stock Trends",
         art_cry_title:"Crypto & AI Analysis",
-        gen_subtitle:"Generate viral content", credits_rem:"Credits Left", content_topic:"Topic", start_gen:"START GENERATION"
+        gen_subtitle:"Generate viral content", credits_rem:"Credits Left", content_topic:"Topic", start_gen:"START GENERATION",
+        login_req:"Login Required", input_req:"Input Required", no_credits:"No Credits Left"
       },
       fr:{
         nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",
@@ -758,7 +761,8 @@
         art_x_title:"Tactiques X",
         art_fin_title:"Tendances 2026",
         art_cry_title:"Crypto & IA",
-        gen_subtitle:"Contenu viral", credits_rem:"Crédits", content_topic:"Sujet", start_gen:"GÉNÉRER"
+        gen_subtitle:"Contenu viral", credits_rem:"Crédits", content_topic:"Sujet", start_gen:"GÉNÉRER",
+        login_req:"Connexion requise", input_req:"Sujet requis", no_credits:"Pas de crédits"
       },
       de:{
         nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"AGB",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"BALD",
@@ -780,7 +784,8 @@
         art_x_title:"X Taktiken",
         art_fin_title:"Trends 2026",
         art_cry_title:"Krypto & KI",
-        gen_subtitle:"Viraler Inhalt", credits_rem:"Credits", content_topic:"Thema", start_gen:"GENERIEREN"
+        gen_subtitle:"Viraler Inhalt", credits_rem:"Credits", content_topic:"Thema", start_gen:"GENERIEREN",
+        login_req:"Anmeldung erforderlich", input_req:"Thema erforderlich", no_credits:"Keine Credits"
       },
       es:{
         nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Nosotros",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRONTO",
@@ -802,7 +807,8 @@
         art_x_title:"Tácticas X",
         art_fin_title:"Tendencias 2026",
         art_cry_title:"Cripto & IA",
-        gen_subtitle:"Contenido viral", credits_rem:"Créditos", content_topic:"Tema", start_gen:"GENERAR"
+        gen_subtitle:"Contenido viral", credits_rem:"Créditos", content_topic:"Tema", start_gen:"GENERAR",
+        login_req:"Inicio de sesión obligatorio", input_req:"Tema obligatorio", no_credits:"Sin créditos"
       },
       pt:{
         nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"BREVE",
@@ -824,7 +830,8 @@
         art_x_title:"Táticas X",
         art_fin_title:"Tendências 2026",
         art_cry_title:"Cripto & IA",
-        gen_subtitle:"Conteúdo viral", credits_rem:"Créditos", content_topic:"Tópico", start_gen:"GERAR"
+        gen_subtitle:"Conteúdo viral", credits_rem:"Créditos", content_topic:"Tópico", start_gen:"GERAR",
+        login_req:"Login necessário", input_req:"Tópico necessário", no_credits:"Sem créditos"
       }
     };
 
@@ -945,8 +952,8 @@
     }
 
     function openGenerator(p){
-      if(!state.userId){notify(state.lang==='tr'?'Lütfen giriş yapın.':'Please login.');return;}
-      if(state.credits[p]<=0){notify(state.lang==='tr'?'Limit doldu!':'No credits left!');return;}
+      if(!state.userId){notify(translate('login_req') || 'Giriş Yapın');return;}
+      if(state.credits[p]<=0){notify(translate('no_credits') || 'Hakkınız Bitti');return;}
       state.currentPlatform=p;
       const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:translate('finance_title'), crypto:translate('crypto_title')};
       document.getElementById('modal-platform-title').innerText=pn[p];
@@ -975,19 +982,25 @@
     }
 
     async function generateContent(){
-      if(!state.userId){notify('Login required');return;}
+      if(!state.userId){
+          notify(translate('login_req') || 'Giriş Yapın');
+          return;
+      }
       const tp=document.getElementById('modal-topic-input').value.trim();
-      if(!tp){notify('Input required');return;}
-      if(state.credits[state.currentPlatform]<=0){notify('No credits');return;}
+      if(!tp){
+          notify(translate('input_req') || 'Konu Girin');
+          return;
+      }
+      if(state.credits[state.currentPlatform]<=0){
+          notify(translate('no_credits') || 'Hakkınız Bitti');
+          return;
+      }
 
       const btn=document.getElementById('modal-gen-btn');
       btn.disabled=true;
       btn.innerHTML='<i class="fas fa-spinner fa-spin mr-2"></i> ...';
 
       try{
-        // Not: Gerçek API olmadığı için simülasyon yapıyoruz.
-        // Normalde: await fetch('/api/generate'...)
-        // Simüle edilen cevap:
         await new Promise(r => setTimeout(r, 1500));
         const res = `🚀 ${tp} için AI tarafından üretilen viral başlık! #${tp.replace(/\s/g,'')} #trend #viral`;
         
@@ -1007,7 +1020,7 @@
         }
       }catch(e){
         console.error(e);
-        notify('Error');
+        notify('Hata oluştu');
       }finally{
         btn.disabled=false;
         btn.innerText=translate('start_gen');
