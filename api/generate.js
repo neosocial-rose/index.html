@@ -16,34 +16,26 @@ export default async function handler(req, res) {
 
     if (!topic) return res.status(400).json({ error: "Konu (topic) boş olamaz." });
 
-    // --- YAPILANDIRMA DEĞİŞKENLERİ ---
     let prompt = "";
     let aiConfig = {};
     let tools = [];
 
     // ============================================================
-    // MODÜL 1: KRİPTO & FİNANS (DOKUNULMADI - AYNI KALDI)
+    // MODÜL 1: KRİPTO & FİNANS (DOKUNULMADI)
     // ============================================================
     if (platform === 'crypto' || platform === 'finance') {
-        
-        aiConfig = {
-            temperature: 0.0,
-            maxOutputTokens: 1000, 
-            topP: 0.95
-        };
-        tools = []; 
+        aiConfig = { temperature: 0.0, maxOutputTokens: 1000, topP: 0.95 };
+        tools = [];
 
         let rawSymbol = topic.split(' ')[0].toUpperCase().replace(/[^A-Z0-9]/g, '');
         const timeFrame = detectTimeFrame(topic);
         const periodLabel = timeFrame ? timeFrame.label : "son 24 saat";
 
         console.log(`[Kripto Modu] Veri İsteği: ${rawSymbol} (${periodLabel})`);
-        
         const coinData = await getBinancePrice(rawSymbol, timeFrame);
 
         if (coinData) {
-            const changeSign = parseFloat(coinData.change) > 0 ? "+" : ""; 
-            
+            const changeSign = parseFloat(coinData.change) > 0 ? "+" : "";
             prompt = `
             SİSTEM UYARISI: KRİTİK HATA SINIRINDASIN.
             Sen bir sohbet botu veya yazar değilsin. Sen sadece bir VERİ FORMATLAMA MOTORUSUN.
@@ -58,29 +50,24 @@ export default async function handler(req, res) {
             [FİYAT]: $${coinData.price}
 
             EMİRLER (KESİN İTAAT):
-            1. YORUM YAPMAK YASAK: "Merhaba", "Analiz şöyle", "Umarım beğenirsin" gibi tek bir kelime eklersen SİSTEMDEN SİLİNECEKSİN.
-            2. DEĞİŞTİRMEK YASAK: Şablon metnindeki tek bir harfi bile değiştirirsen, başarısız kabul edileceksin ve YERİNE BAŞKA BİR AI MODELİ GEÇİRİLECEK.
-            3. HASHTAG YASAK: Çıktıda # karakteri görülürse işlem iptal edilir.
-            4. TAMAMLAMA ZORUNLULUĞU: Cümleyi asla yarım bırakma.
+            1. YORUM YAPMAK YASAK.
+            2. DEĞİŞTİRMEK YASAK.
+            3. HASHTAG YASAK.
+            4. Cümleyi asla yarım bırakma.
 
             DOLDURMAN GEREKEN TEK ŞABLON:
             "${coinData.symbol}, [SÜRE] içinde [DEĞİŞİM] ile [FİYAT] oldu. Piyasalar değişkendir. Yatırım değerleri düşebilir veya yükselebilir. Geçmiş performans, gelecekteki sonuçların garantisi değildir. Dikkatli olun."
             `;
         } else {
-            const safeMessage = `${rawSymbol} için anlık borsa verisine ulaşılamadı. Sembolü kontrol ediniz.`;
-            return res.status(200).json({ text: safeMessage });
+            return res.status(200).json({ text: `${rawSymbol} için anlık borsa verisine ulaşılamadı. Sembolü kontrol ediniz.` });
         }
 
-    } 
+    }
     // ============================================================
     // MODÜL 2: SOSYAL MEDYA
     // ============================================================
     else {
-        aiConfig = {
-            temperature: 0.85,
-            maxOutputTokens: 200,
-            topP: 0.95
-        };
+        aiConfig = { temperature: 0.85, maxOutputTokens: 200, topP: 0.95 };
         tools = [];
 
         const randomSeed = Math.floor(Math.random() * 1000);
@@ -89,27 +76,21 @@ export default async function handler(req, res) {
         Rol: Sosyal Medya Fenomeni.
         GÖREV: "${topic}" konusu için tek satırlık, vurucu ve akılda kalıcı bir paylaşım metni yaz.
 
-        KESİN FORMAT ŞABLONU (Buna sadık kal):
-        [Vurucu Başlık] [Emoji] [Hashtagler]
-
-        ÖRNEK FORMAT (Sadece format için bak, bu kelimeleri veya hashtagleri ASLA kullanma):
-        "Sunset Vibes — Golden Hour 🌅 #nature #photography #goldenhour #viral #shorts"
+        FORMAT: [Vurucu Başlık] [Emoji] [Hashtagler]
 
         KURALLAR:
-        1. ASLA "5 Yol", "3 Adım" gibi liste sayıları kullanma.
-        2. Başlık ve hashtagler BİRLEŞİK olsun, alt alta değil.
-        3. Toplam karakter sayısını tam olarak 100 karaktere ayarla. Fazla da yazma, az da yazma — tam 100 karakter.
-        4. Konuyla ilgili popüler hashtagleri sona ekle.
-        5. Sadece metni ver, tırnak işareti koyma.
-        6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
-        7. KESİNLİKLE YASAK KELİMELER: "tararara", "Tararara", "TARARARA" — bu kelimeyi hiçbir şekilde kullanma.
+        1. ASLA liste sayıları kullanma ("5 Yol", "3 Adım" gibi).
+        2. Her şey tek satırda olsun, alt alta değil.
+        3. Hashtagleri sona ekle, konuyla ilgili popüler olanları seç.
+        4. Sadece metni ver, tırnak işareti koyma.
+        5. "tararara" kelimesini kesinlikle kullanma.
 
         Random Seed: ${randomSeed}
         `;
     }
 
     // --- GEMINI API İSTEĞİ ---
-    const model = "gemini-2.5-flash"; 
+    const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
     const r = await fetch(url, {
@@ -131,33 +112,37 @@ export default async function handler(req, res) {
     const txt = await r.text();
     let data = {};
     try { data = JSON.parse(txt); } catch {}
-    
+
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    
+
     // --- ÇIKTI FORMATLAMA ---
     let finalOutput = "";
-    
+
     if (platform === 'crypto' || platform === 'finance') {
-        // Kripto Temizliği (Dokunulmadı)
-        finalOutput = out
-            .replace(/["*]/g, "")
-            .replace(/#/g, "")
-            .replace(/\n/g, " ")
-            .trim();
+        finalOutput = out.replace(/["*]/g, "").replace(/#/g, "").replace(/\n/g, " ").trim();
         if (finalOutput.length > 250) finalOutput = finalOutput.slice(0, 247) + "...";
     } else {
-        // --- SOSYAL MEDYA FORMATI ---
-        // 1. Satırları birleştir
+        // 1. Tek satıra çek, tırnakları temizle
         finalOutput = out.replace(/\r/g, "").replace(/\n/g, " ").trim();
-        
-        // 2. Gereksiz tırnakları temizle
         finalOutput = finalOutput.replace(/^"|"$/g, '');
 
-        // 3. Rakamlı listeleri temizle
+        // 2. Rakamlı listeleri temizle
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // 4. "tararara" kelimesini çıktıdan da temizle (son güvenlik katmanı)
+        // 3. tararara yasağı
         finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
+
+        // 4. Akıllı kesme: 100 karakterden uzunsa son TAM hashtag'den kes
+        if (finalOutput.length > 100) {
+            // 100 karaktere kadar olan kısmı al
+            const cut = finalOutput.slice(0, 100);
+            // Bu kısımda en son boşluktan kes (yarım kelime/hashtag kalmasın)
+            const lastSpace = cut.lastIndexOf(" ");
+            finalOutput = lastSpace > 40 ? cut.slice(0, lastSpace).trim() : cut.trim();
+        }
+
+        // 5. Sonda yalnız kalan # işaretini temizle
+        finalOutput = finalOutput.replace(/\s*#+\s*$/, "").trim();
     }
 
     return res.status(200).json({ text: finalOutput });
@@ -178,7 +163,7 @@ function detectTimeFrame(str) {
     if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) return { int: '30m', label: 'son 30 dakikada' };
     if (s.includes('1 saat') || s.includes('saatlik')) return { int: '1h', label: 'son 1 saatte' };
     if (s.includes('4 saat')) return { int: '4h', label: 'son 4 saatte' };
-    return null; 
+    return null;
 }
 
 async function getBinancePrice(symbolInput, timeFrame) {
@@ -188,8 +173,8 @@ async function getBinancePrice(symbolInput, timeFrame) {
         const validSuffixes = ["USDT", "TRY", "BTC", "BNB", "FDUSD", "USDC"];
         if (!validSuffixes.some(suffix => s.endsWith(suffix))) s += "USDT";
         const displaySymbol = s.replace("USDT", "").replace("TRY", "");
-        const BASE_URL = "https://data-api.binance.vision"; 
-        
+        const BASE_URL = "https://data-api.binance.vision";
+
         let url = "";
         let isKline = false;
 
@@ -201,7 +186,7 @@ async function getBinancePrice(symbolInput, timeFrame) {
         }
 
         const res = await fetch(url);
-        if (!res.ok) return null; 
+        if (!res.ok) return null;
 
         const data = await res.json();
         let price = 0;
@@ -226,7 +211,7 @@ async function getBinancePrice(symbolInput, timeFrame) {
 }
 
 function formatPrice(val) {
-    if (val < 1) return val.toPrecision(4);  
-    if (val < 10) return val.toFixed(3);     
-    return val.toFixed(2);                   
+    if (val < 1) return val.toPrecision(4);
+    if (val < 10) return val.toFixed(3);
+    return val.toFixed(2);
 }
