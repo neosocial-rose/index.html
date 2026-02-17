@@ -82,14 +82,15 @@ export default async function handler(req, res) {
             maxOutputTokens: 200,
             topP: 0.95
         };
-        tools = [{ google_search: {} }]; 
+        // =====================================================
+        // DÜZELTME: google_search kaldırıldı.
+        // Gemini web'den trend çektiği için her seferinde
+        // "#tararara" gibi o anki trending tag'leri getiriyordu.
+        // =====================================================
+        tools = [];
 
         const randomSeed = Math.floor(Math.random() * 1000);
 
-        // =====================================================
-        // DÜZELTME 1: Örnek çıktıdan "tararara" kaldırıldı,
-        // nötr bir örnek kullanıldı + körce kopyalama yasağı eklendi
-        // =====================================================
         prompt = `
         Rol: Sosyal Medya Fenomeni.
         GÖREV: "${topic}" konusu için tek satırlık, vurucu ve akılda kalıcı bir paylaşım metni yaz.
@@ -104,7 +105,7 @@ export default async function handler(req, res) {
         1. ASLA "5 Yol", "3 Adım" gibi liste sayıları kullanma.
         2. Başlık ve hashtagler BİRLEŞİK olsun, alt alta değil.
         3. Toplam uzunluğu KESİNLİKLE 100 karakter veya altında tut. 100 karakteri ASLA geçme.
-        4. Konuyla ilgili en popüler hashtagleri sona ekle.
+        4. Konuyla ilgili popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
         6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
 
@@ -160,9 +161,7 @@ export default async function handler(req, res) {
         // 3. Rakamlı listeleri temizle (Yedek güvenlik)
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // =====================================================
-        // DÜZELTME 2: Limit 130'dan 100'e düşürüldü
-        // =====================================================
+        // 4. KESME İŞLEMİ - 100 karakter limiti
         if (finalOutput.length > 100) {
             let cut = finalOutput.slice(0, 100);
             let lastSpace = cut.lastIndexOf(" ");
