@@ -1,42 +1,51 @@
 export default async function handler(req, res) {
+  // 1. CORS ve Başlıklar
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
+  // 2. Metod Kontrolü
   if (req.method !== "POST") {
     return res.status(405).json({ error: "POST only" });
   }
 
+  // 3. API Key Kontrolü
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_KEY) return res.status(500).json({ error: "GEMINI_API_KEY yok" });
+  if (!GEMINI_KEY) return res.status(500).json({ error: "GEMINI_API_KEY eksik" });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const topic = String(body.topic || "").trim();
     const platform = String(body.platform || "youtube");
 
-    if (!topic) return res.status(400).json({ error: "topic empty" });
+    if (!topic) return res.status(400).json({ error: "Topic boş" });
 
     let prompt = "";
-    let generationTemp = 0.5; // Varsayılan sıcaklık
-    
+    // Varsayılan sıcaklık (Yaratıcılık). Kriptoda 0.1 (Robot), Sosyal medyada 0.5 (Yazar)
+    let generationTemp = 0.5; 
+
     // ============================================================
-    // 1. KRİPTO VE FİNANS MODÜLÜ (STRICT / KATI MOD)
+    // MODÜL 1: KRİPTO & FİNANS (STRICT MODE - KATI KURALLAR)
     // ============================================================
     if (platform === 'crypto' || platform === 'finance') {
-        generationTemp = 0.1; // KRİTİK: Yaratıcılığı öldür, sadece veriyi işle.
+        generationTemp = 0.1; // Halüsinasyonu engellemek için minimum yaratıcılık
 
-        const symbol = topic.split(' ')[0].toUpperCase();
+        // Sembolü ilk kelimeden al (Örn: "ETH 15dk" -> "ETH")
+        let rawSymbol = topic.split(' ')[0].toUpperCase();
+        
+        // Zaman dilimini algıla
         const timeFrame = detectTimeFrame(topic);
         
-        // Binance verisi çek
-        const coinData = await getBinancePrice(symbol, timeFrame);
+        // --- VERİ ÇEKME ---
+        console.log(`Veri isteniyor: Sembol=${rawSymbol}, Aralık=${timeFrame ? timeFrame.int : '24h'}`);
+        const coinData = await getBinancePrice(rawSymbol, timeFrame);
 
         if (coinData) {
             const periodLabel = timeFrame ? timeFrame.label : "son 24 saat";
-            const changeSign = parseFloat(coinData.change) > 0 ? "+" : ""; // Artı işareti ekle
+            // Pozitif değişimler için "+" işareti ekle
+            const changeSign = parseFloat(coinData.change) > 0 ? "+" : ""; 
             
-            // AI Sadece bir "Template Filler" (Şablon Doldurucu) olarak çalışacak.
+            // AI PROMPT: Yazar değil, şablon doldurucu.
             prompt = `
-            GÖREV: Sen bir veritabanı botusun. Yorum yapma. Sohbet etme. Sadece sana verilen şablonu doldur.
+            GÖREV: Sen bir veritabanı botusun. Yorum yapma. Sohbet etme. Aşağıdaki verileri şablona yerleştir.
             
             VERİLER:
             SYMBOL: ${coinData.symbol}
@@ -48,42 +57,31 @@ export default async function handler(req, res) {
             "${coinData.symbol}, [SÜRE] içinde [DEĞİŞİM] ile [FİYAT] oldu. Kısa vadeli veriler yüksek oynaklık içerir; yatırım kararı için tek başına yeterli değildir, dikkatli olun."
 
             KURALLAR:
-            1. Şablondaki köşeli parantezli alanları VERİLER kısmındaki bilgilerle değiştir.
-            2. Başka HİÇBİR kelime, emoji veya hashtag ekleme.
-            3. Metin 160 karakteri asla geçmemeli.
+            1. Köşeli parantezleri VERİLER ile doldur.
+            2. ASLA yorum, emoji, hashtag ekleme.
+            3. Maksimum 160 karakter.
             `;
         } else {
-            // Veri çekilemezse güvenli mod
-            prompt = `GÖREV: "${symbol}" için veri alınamadı. Sadece şunu yaz: "${symbol} için anlık borsa verisine ulaşılamadı. Lütfen sembolü kontrol edip tekrar deneyin."`;
+            // Veri çekilemediyse kullanıcıya net bilgi ver
+            prompt = `GÖREV: Sadece şunu yaz: "${rawSymbol} için borsa verisi alınamadı. Sembolü veya ağ bağlantısını kontrol edin."`;
         }
 
     } else {
         // ============================================================
-        // 2. SOSYAL MEDYA (VİRAL MOD - Değişiklik Yok)
+        // MODÜL 2: SOSYAL MEDYA (VİRAL MOD)
         // ============================================================
         const randomSeed = Math.floor(Math.random() * 1000);
         prompt =
 `Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
-SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
+SADECE 2 SATIR YAZ.
 
-KURAL 1 - BAŞLIK (1. satır):
-- "${topic}" konusundaki GÜNCEL gelişmeleri kullan
-- Sayı kullan: 3, 5, 7, 10
-- 1-2 emoji
-- Max 60 karakter
-
-KURAL 2 - HASHTAG (2. satır):
-- 3-5 kısa hashtag
-- Max 40 karakter
-
+KURAL 1 - BAŞLIK: "${topic}" ile ilgili güncel gelişme, Sayı (3,5,10), 1 Emoji. Max 60 karakter.
+KURAL 2 - HASHTAG: 3-5 kısa hashtag. Max 40 karakter.
 Random Seed: ${randomSeed}
-
-ŞİMDİ YAZ:
-1. satır: Başlık
-2. satır: Hashtag`;
+`;
     }
 
-    // --- GEMINI İSTEĞİ ---
+    // --- GEMINI API İSTEĞİ ---
     const model = "gemini-2.5-flash"; 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
@@ -92,198 +90,170 @@ Random Seed: ${randomSeed}
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        // Kripto modunda Google Search'e gerek yok, veriyi biz veriyoruz.
-        // Sadece sosyal medya için search aracı açık kalsın.
+        // Kripto modunda Google Search KAPALI (Veriyi biz verdik), diğerlerinde AÇIK
         tools: (platform === 'crypto' || platform === 'finance') ? [] : [{ google_search: {} }],
         generationConfig: {
-          temperature: generationTemp, 
-          maxOutputTokens: 100, // Kripto için kısa cevap zorla
+          temperature: generationTemp,
+          maxOutputTokens: 150, // Token tasarrufu
         }
       })
     });
 
+    if (!r.ok) {
+        const errText = await r.text();
+        console.error("Gemini API Hatası:", errText);
+        return res.status(500).json({ error: "AI Error", detail: errText.slice(0, 200) });
+    }
+
     const txt = await r.text();
     let data = {};
     try { data = JSON.parse(txt); } catch {}
-
-    if (!r.ok) {
-      return res.status(500).json({ error: "Gemini error", detail: txt.slice(0, 300) });
-    }
-
+    
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
-    // --- ÇIKTI FORMATLAMA (SON KONTROL) ---
+    // --- ÇIKTI FORMATLAMA ---
     let finalOutput = "";
+    
     if (platform === 'crypto' || platform === 'finance') {
-        // 1. Temizle
+        // Kripto Temizliği
         finalOutput = formatCryptoAnalysis(out);
-        // 2. Zorla Kes (SMS Limiti)
-        if (finalOutput.length > 160) {
-            finalOutput = finalOutput.slice(0, 157) + "...";
-        }
+        // SMS Limiti (Kesin)
+        if (finalOutput.length > 160) finalOutput = finalOutput.slice(0, 157) + "...";
     } else {
+        // Sosyal Medya Temizliği
         finalOutput = enforceTwoLinesMax(out);
     }
 
     return res.status(200).json({ text: finalOutput });
 
   } catch (e) {
-    return res.status(500).json({ error: "server error", detail: String(e) });
+    console.error("Sunucu Hatası:", e);
+    return res.status(500).json({ error: "Server Error", detail: String(e) });
   }
 }
 
-// --- ZAMAN ARALIĞI TESPİT (Geliştirilmiş) ---
+// ============================================================
+// YARDIMCI FONKSİYONLAR
+// ============================================================
+
+// 1. ZAMAN ALGISI
 function detectTimeFrame(str) {
     const s = str.toLowerCase();
-    
-    // Kısa Vade (Öncelikli)
-    if (s.includes('15 dk') || s.includes('15 dakika') || s.includes('çeyrek')) {
-        return { int: '15m', label: 'son 15 dakikada' };
-    }
-    if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) {
-        return { int: '30m', label: 'son 30 dakikada' };
-    }
-    
-    // Orta Vade
-    if (s.includes('1 saat') || s.includes('saatlik')) {
-        return { int: '1h', label: 'son 1 saatte' };
-    }
-    if (s.includes('4 saat')) {
-        return { int: '4h', label: 'son 4 saatte' };
-    }
-    
-    // Uzun Vade
-    if (s.includes('günlük') || s.includes('24 saat') || s.includes('bugün')) {
-        return { int: '1d', label: 'son 24 saatte' }; // Kline yerine ticker kullanılacak ama label bu.
-    }
-    
-    return null; // Null dönerse varsayılan 24h ticker çalışır.
+    if (s.includes('15 dk') || s.includes('15 dakika') || s.includes('çeyrek')) return { int: '15m', label: 'son 15 dakikada' };
+    if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) return { int: '30m', label: 'son 30 dakikada' };
+    if (s.includes('1 saat') || s.includes('saatlik')) return { int: '1h', label: 'son 1 saatte' };
+    if (s.includes('4 saat')) return { int: '4h', label: 'son 4 saatte' };
+    // Varsayılan null (Bu durumda 24h ticker çalışır)
+    return null; 
 }
 
-// --- BİNANCE VERİ ÇEKME (Open/Close Hesabı) ---
+// 2. BİNANCE VERİ ÇEKME (DÜZELTİLMİŞ)
 async function getBinancePrice(symbolInput, timeFrame) {
     try {
-        // Sembol temizliği (ETH -> ETHUSDT)
-        let s = symbolInput.replace(/[^A-Z0-9]/g, '');
-        // Yaygın hataları düzelt veya varsayılan ata
-        if (!s || s.length < 2) return null; 
-        
-        // Türk Lirası veya USDT kontrolü
-        if (!s.endsWith("TRY") && !s.endsWith("USDT") && !s.endsWith("BTC") && !s.endsWith("BNB")) {
+        // Sembol Temizliği: " ETH " -> "ETH"
+        let s = symbolInput.replace(/[^A-Z0-9]/g, '').trim();
+        if (s.length < 2) return null;
+
+        // "BTC" girdiyse "BTCUSDT" yap. Ama zaten "BTCUSDT" girdiyse dokunma.
+        // Ayrıca TRY paritelerine izin ver.
+        if (!s.endsWith("USDT") && !s.endsWith("TRY") && !s.endsWith("BTC") && !s.endsWith("BNB") && !s.endsWith("FDUSD")) {
             s += "USDT";
         }
 
-        const finalSymbol = s.replace("USDT", "").replace("TRY", "");
-        let price = "0";
-        let change = "0";
+        // Görünen sembol (Kullanıcıya gösterilecek)
+        const displaySymbol = s.replace("USDT", "").replace("TRY", "");
 
-        if (timeFrame && timeFrame.int !== '1d') {
-            // KLINES (Mum verisi) - Belirtilen aralık için
-            // limit=1 bize en son (şu anki) mumu verir.
-            const klineRes = await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=${timeFrame.int}&limit=1`);
-            
-            if (!klineRes.ok) throw new Error("Binance Kline Error");
-            
-            const data = await klineRes.json();
-            if (data && data.length > 0) {
-                const candle = data[0];
-                const openPrice = parseFloat(candle[1]); // Açılış
-                const closePrice = parseFloat(candle[4]); // O anki güncel fiyat (Kapanış henüz olmadı ama güncel bu)
-                
-                price = formatPrice(closePrice);
-                // Yüzde değişimi hesapla: ((Son - İlk) / İlk) * 100
-                change = (((closePrice - openPrice) / openPrice) * 100).toFixed(2);
-            }
-        } else {
-            // VARSAYILAN (24 Saatlik Ticker)
-            const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
-            if (!res.ok) throw new Error("Binance Ticker Error");
-            
-            const d = await res.json();
-            price = formatPrice(parseFloat(d.lastPrice));
-            change = parseFloat(d.priceChangePercent).toFixed(2);
-        }
+        // KRİTİK DÜZELTME: "api.binance.com" YERİNE "data-api.binance.vision" KULLANIYORUZ.
+        // Bu endpoint bulut sunucularından gelen isteklere daha az blok koyar.
+        const BASE_URL = "https://data-api.binance.vision"; 
         
-        return { symbol: finalSymbol, price, change };
+        let url = "";
+        let isKline = false;
+
+        if (timeFrame) {
+            // Mum Verisi (Kline)
+            // limit=1 -> En son (güncel) mumu getirir.
+            url = `${BASE_URL}/api/v3/klines?symbol=${s}&interval=${timeFrame.int}&limit=1`;
+            isKline = true;
+        } else {
+            // 24 Saatlik Özet
+            url = `${BASE_URL}/api/v3/ticker/24hr?symbol=${s}`;
+        }
+
+        console.log("Binance İstek:", url); // Hata ayıklama için log
+
+        const res = await fetch(url);
+        
+        if (!res.ok) {
+            // Hata detayını logla
+            const errBody = await res.text();
+            console.error(`Binance Fetch Hatası (${res.status}):`, errBody);
+            return null; 
+        }
+
+        const data = await res.json();
+        let price = 0;
+        let change = 0;
+
+        if (isKline) {
+            // data formatı: [[open_time, open, high, low, close, volume, ...], ...]
+            if (!Array.isArray(data) || data.length === 0) return null;
+            const candle = data[0];
+            const openPrice = parseFloat(candle[1]);
+            const closePrice = parseFloat(candle[4]);
+            
+            price = closePrice;
+            change = ((closePrice - openPrice) / openPrice) * 100;
+        } else {
+            // data formatı: { symbol: "...", priceChangePercent: "...", lastPrice: "..." }
+            if (!data.lastPrice) return null;
+            price = parseFloat(data.lastPrice);
+            change = parseFloat(data.priceChangePercent);
+        }
+
+        return {
+            symbol: displaySymbol,
+            price: formatPrice(price),
+            change: change.toFixed(2)
+        };
+
     } catch (e) {
-        console.error("Binance data error:", e);
+        console.error("Binance catch bloğu:", e);
         return null;
     }
 }
 
-// Yardımcı: Fiyat formatlama (küsürat ayarı)
+// 3. FİYAT FORMATLAMA
 function formatPrice(val) {
-    if (val < 1) return val.toPrecision(4);
-    if (val < 10) return val.toFixed(3);
-    return val.toFixed(2);
+    if (val < 1) return val.toPrecision(4);  // Örn: 0.004532
+    if (val < 10) return val.toFixed(3);     // Örn: 5.123
+    return val.toFixed(2);                   // Örn: 65000.50
 }
 
-// --- FORMATLAYICILAR ---
-
+// 4. METİN TEMİZLEME (KRİPTO)
 function formatCryptoAnalysis(text) {
     let clean = String(text || "")
-        .replace(/"/g, "") // Tırnak işaretlerini kaldır
+        .replace(/["*]/g, "") // Tırnak ve yıldızları temizle
         .replace(/\r/g, "")
-        .replace(/\n/g, " ") // Satır sonlarını boşluğa çevir
-        .replace(/#\w+/g, "") // Hashtagleri sil
-        .replace(/\*/g, "") // Markdown'ı temizle
+        .replace(/\n/g, " ")
         .trim();
-        
-    // Eğer AI "Şablon:" gibi prefixler eklediyse temizle
+    
+    // AI bazen "Şablon:" kelimesini de çıktının başına ekleyebilir, silelim.
     if (clean.toLowerCase().startsWith("şablon:")) {
         clean = clean.substring(7).trim();
     }
     return clean;
 }
 
-// Sosyal Medya için (Eski fonksiyon korundu)
+// 5. SOSYAL MEDYA FORMATI (Değişmedi)
 function enforceTwoLinesMax(text) {
-  const lines = String(text || "")
-    .replace(/\r/g, "")
-    .split("\n")
-    .map(s => s.trim())
-    .filter(Boolean);
-
+  const lines = String(text || "").replace(/\r/g, "").split("\n").map(s => s.trim()).filter(Boolean);
   let title = lines[0] || "";
   let tags = lines[1] || "";
-
   if (!tags && title.includes("#")) {
     const idx = title.indexOf("#");
     tags = title.slice(idx).trim();
     title = title.slice(0, idx).trim();
   }
-
-  title = smartTrim(title, 65);
-  tags = normalizeTags(tags);
-  tags = smartTrim(tags, 40);
-  if (!tags) tags = "#shorts";
-
-  const total = Array.from(title).length + Array.from(tags).length + 1;
-  if (total > 110) {
-    const maxTagLen = 110 - Array.from(title).length - 1;
-    if (maxTagLen > 10) {
-      tags = smartTrim(tags, maxTagLen);
-    } else {
-      title = smartTrim(title, 55);
-      tags = smartTrim(tags, 50);
-    }
-  }
-  return `${title}\n${tags}`;
-}
-
-function normalizeTags(s) {
-  let t = String(s || "").trim();
-  if (!t) return "";
-  if (!t.startsWith("#")) t = "#" + t;
-  t = t.replace(/[，,;]+/g, " ").replace(/\s+/g, " ").trim();
-  return t;
-}
-
-function smartTrim(str, maxLen) {
-  const arr = Array.from(String(str || ""));
-  if (arr.length <= maxLen) return arr.join("").trim();
-  const cut = arr.slice(0, maxLen).join("");
-  const lastSpace = cut.lastIndexOf(" ");
-  if (lastSpace > 0) return cut.slice(0, lastSpace).trim();
-  return cut.trim();
+  return `${title.slice(0, 65)}\n${tags.slice(0, 40) || "#shorts"}`;
 }
