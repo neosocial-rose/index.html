@@ -68,7 +68,8 @@ export default async function handler(req, res) {
     // ============================================================
     else {
         aiConfig = { temperature: 0.85, maxOutputTokens: 200, topP: 0.95 };
-        tools = [];
+        // google_search: güncel trend hashtagler için kullanılıyor
+        tools = [{ google_search: {} }];
 
         const randomSeed = Math.floor(Math.random() * 1000);
 
@@ -81,9 +82,10 @@ export default async function handler(req, res) {
         KURALLAR:
         1. ASLA liste sayıları kullanma ("5 Yol", "3 Adım" gibi).
         2. Her şey tek satırda olsun, alt alta değil.
-        3. Hashtagleri sona ekle, konuyla ilgili popüler olanları seç.
-        4. Sadece metni ver, tırnak işareti koyma.
-        5. "tararara" kelimesini kesinlikle kullanma.
+        3. Başlık konuyla ilgili özgün ve yaratıcı olsun. İnternetten trend olan kelimeleri BAŞLIĞA sokma.
+        4. Google Search'ten bulduğun güncel trend hashtagleri sadece HASHTAG bölümüne ekle.
+        5. Sadece metni ver, tırnak işareti koyma.
+        6. "tararara" kelimesini başlıkta da hashtag'de de kesinlikle kullanma.
 
         Random Seed: ${randomSeed}
         `;
@@ -129,7 +131,7 @@ export default async function handler(req, res) {
         // 2. Rakamlı listeleri temizle
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // 3. tararara yasağı
+        // 3. tararara yasağı (son güvenlik katmanı)
         finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
 
         // 4. Akıllı kesme: 120 karakterden uzunsa son boşluktan kes
