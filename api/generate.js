@@ -19,49 +19,59 @@ export default async function handler(req, res) {
     const randomSeed = Math.floor(Math.random() * 1000);
     let prompt = "";
     
-    // --- 1. KRİPTO VE FİNANS İÇİN ÖZEL AKIŞ (Mini Teknik Analiz) ---
+    // ============================================================
+    // 1. KRİPTO VE FİNANS MODÜLÜ (PROFESYONEL ANALİST MODU)
+    // ============================================================
     if (platform === 'crypto' || platform === 'finance') {
-        const symbol = topic.split(' ')[0].toUpperCase(); // "BTC 15 dk" -> "BTC"
-        const timeFrame = detectTimeFrame(topic); // Zaman aralığını bul
+        const symbol = topic.split(' ')[0].toUpperCase(); // Örn: "ETH yarım saat" -> "ETH"
+        const timeFrame = detectTimeFrame(topic); // Zaman aralığını algıla (15m, 30m, 1h...)
         
-        // Binance'den mum (kline) veya ticker verisi çek
+        // Binance'den veriyi çek (Mum/Kline verisi)
         const coinData = await getBinancePrice(symbol, timeFrame);
 
         if (coinData) {
             const periodLabel = timeFrame ? timeFrame.label : "Son 24 Saat";
-            const direction = parseFloat(coinData.change) > 0 ? "Yükseliş Eğilimi" : "Düşüş Eğilimi";
+            
+            // Eğer süre çok kısaysa (15dk, 30dk) AI'ya risk uyarısı yapmasını söyle
+            let warningInstruction = "";
+            if (timeFrame && (timeFrame.int === '15m' || timeFrame.int === '30m')) {
+                warningInstruction = "ÖNEMLİ: Bu veri çok kısa vadeli (15-30dk) olduğu için, analizinde mutlaka 'yüksek volatilite (oynaklık)' riskinden veya 'trend teyidi için daha uzun vadeye bakılması gerektiğinden' bahset. Yatırımcıyı gaza getirme, uyar.";
+            } else {
+                warningInstruction = "Yatırımcıya piyasa yönü hakkında teknik ve temel seviyeleri (destek/direnç mantığıyla) özetle.";
+            }
 
             prompt = `
             Rol: Kıdemli Finansal Piyasa Analisti.
             Dil: ${lang}
             Konu: ${coinData.symbol} Teknik Analizi.
             
-            CANLI PİYASA VERİSİ:
+            CANLI PİYASA VERİLERİ:
             - Fiyat: $${coinData.price}
-            - Periyot: ${periodLabel}
-            - Değişim: %${coinData.change}
-            - Yön: ${direction}
+            - Zaman Dilimi: ${periodLabel}
+            - Değişim Oranı: %${coinData.change}
             
             GÖREV:
-            Yatırımcılar için 2-3 cümleden oluşan profesyonel, kısa bir teknik analiz özeti yaz.
+            Yatırımcılar için 1-2 cümleden oluşan, FOMO yaratmayan, profesyonel ve temkinli bir piyasa notu yaz.
             
             KESİN KURALLAR:
-            1. ASLA HASHTAG (#BTC vb.) KULLANMA.
-            2. ASLA "Uçtu, fırladı, aya gidiyor" gibi amatör tabirler kullanma.
-            3. Bunun yerine "Direnci test ediyor", "Satış baskısı hakim", "Hacimli kırılım", "Konsolidasyon süreci" gibi FİNANSAL JARGON kullan.
-            4. Metin içinde fiyattan ($${coinData.price}) ve değişim oranından (%${coinData.change}) mutlaka bahset.
-            5. Maksimum 200 karakter (yaklaşık 2 cümle).
+            1. ASLA HASHTAG KULLANMA.
+            2. ASLA "Uçuyor, kaçıyor, fırladı" gibi amatör/heyecanlı kelimeler kullanma.
+            3. Fiyatı ($${coinData.price}) ve değişimi (%${coinData.change}) metnin içine doğal bir şekilde yedir.
+            4. ${warningInstruction}
+            5. Maksimum 200 karakter. Tek bir paragraf olsun.
             
-            Örnek Çıktı Formatı:
-            Bitcoin son 15 dakikada %0.45 değer kazanarak 98.200$ seviyesindeki ara direnci test ediyor. Alıcıların bu seviyeyi koruması kısa vadeli trendin devamı için kritik.
+            REFERANS ÇIKTI TONU (Buna benzesin):
+            "${coinData.symbol} ${periodLabel} içinde %${coinData.change} hareketle $${coinData.price} seviyesini test ediyor. Kısa vadeli oynaklık devam ettiğinden, işlem yapmadan önce hacim teyidi ve kapanış beklenmeli."
             `;
         } else {
-            // Veri çekilemezse fallback
-            prompt = `Rol: Finans Analisti. "${topic}" hakkında 2 cümlelik genel piyasa yorumu yap. Hashtag kullanma.`;
+            // Veri çekilemezse genel yorum
+            prompt = `Rol: Finans Uzmanı. "${topic}" hakkında 2 cümlelik, risk uyarısı içeren, profesyonel ve genel bir piyasa yorumu yap. Hashtag kullanma.`;
         }
 
     } else {
-        // --- 2. DİĞER PLATFORMLAR (YouTube, Insta, TikTok) İÇİN VİRAL AKIŞ ---
+        // ============================================================
+        // 2. SOSYAL MEDYA (YOUTUBE, INSTA VB.) - VİRAL MOD
+        // ============================================================
         prompt =
 `Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
 SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
@@ -94,8 +104,8 @@ Random Seed: ${randomSeed}
         contents: [{ parts: [{ text: prompt }] }],
         tools: [{ google_search: {} }],
         generationConfig: {
-          temperature: 0.7, // Analiz için yaratıcılığı biraz kıstık (daha tutarlı olması için)
-          topP: 0.95,
+          temperature: 0.5, // Analiz için tutarlılığı artırdık (Daha az halüsinasyon)
+          topP: 0.90,
           topK: 40
         }
       })
@@ -111,13 +121,13 @@ Random Seed: ${randomSeed}
 
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
-    // --- ÇIKTI FORMATLAMA (PLATFORMA GÖRE AYRILDI) ---
+    // --- ÇIKTI FORMATLAMA ---
     let finalOutput = "";
     if (platform === 'crypto' || platform === 'finance') {
-        // Kripto için analiz formatı (Hashtag yok, cümle var)
+        // Kripto için: Hashtag temizle, cümle yapısını koru
         finalOutput = formatCryptoAnalysis(out);
     } else {
-        // Sosyal medya için başlık + hashtag formatı
+        // Sosyal medya için: Başlık + Hashtag yapısını koru
         finalOutput = enforceTwoLinesMax(out);
     }
 
@@ -128,20 +138,36 @@ Random Seed: ${randomSeed}
   }
 }
 
-// --- YARDIMCI: ZAMAN ARALIĞI TESPİT ---
+// --- ZAMAN ARALIĞI TESPİT FONKSİYONU ---
 function detectTimeFrame(str) {
     const s = str.toLowerCase();
-    // Binance API kodları: 15m, 30m, 1h, 4h, 1d, 1w
-    if (s.includes('15 dk') || s.includes('15 dakika') || s.includes('çeyrek')) return { int: '15m', label: 'son 15 dakikada' };
-    if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) return { int: '30m', label: 'son 30 dakikada' };
-    if (s.includes('1 saat') || s.includes('saatlik')) return { int: '1h', label: 'son 1 saatte' };
-    if (s.includes('4 saat')) return { int: '4h', label: 'son 4 saatte' };
-    if (s.includes('günlük') || s.includes('24 saat')) return { int: '1d', label: 'son 24 saatte' };
-    if (s.includes('haftalık')) return { int: '1w', label: 'bu hafta' };
-    return null; 
+    
+    // Kısa Vade (Risk Uyarısı Tetikler)
+    if (s.includes('15 dk') || s.includes('15 dakika') || s.includes('çeyrek')) {
+        return { int: '15m', label: 'son 15 dakikada' };
+    }
+    if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) {
+        return { int: '30m', label: 'son 30 dakikada' };
+    }
+    
+    // Orta/Uzun Vade
+    if (s.includes('1 saat') || s.includes('saatlik')) {
+        return { int: '1h', label: 'son 1 saatte' };
+    }
+    if (s.includes('4 saat')) {
+        return { int: '4h', label: 'son 4 saatte' };
+    }
+    if (s.includes('günlük') || s.includes('24 saat')) {
+        return { int: '1d', label: 'son 24 saatte' };
+    }
+    if (s.includes('haftalık') || s.includes('1 hafta')) {
+        return { int: '1w', label: 'bu hafta' };
+    }
+    
+    return null; // Varsayılan (24 saat)
 }
 
-// --- YARDIMCI: BİNANCE VERİ ÇEKME (TICKER & KLINES) ---
+// --- BİNANCE VERİ ÇEKME FONKSİYONU ---
 async function getBinancePrice(symbolInput, timeFrame) {
     try {
         let s = symbolInput.replace(/[^A-Z0-9]/g, '');
@@ -153,24 +179,21 @@ async function getBinancePrice(symbolInput, timeFrame) {
         const finalSymbol = s.replace("USDT", "");
 
         if (timeFrame) {
-            // ÖZEL ZAMAN ARALIĞI: Mum (Kline) Verisi Çek
-            // limit=1 son mumu getirir (henüz kapanmamış olabilir), limit=2 son kapananı garantiler.
-            // Burada anlık durumu istediğimiz için son mumu alıyoruz.
+            // ÖZEL ZAMAN ARALIĞI (Klines)
             const klineRes = await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=${timeFrame.int}&limit=1`);
             if (!klineRes.ok) return null;
             const data = await klineRes.json();
             
             if (data && data.length > 0) {
                 const candle = data[0];
-                const openPrice = parseFloat(candle[1]); // Açılış
-                const currentPrice = parseFloat(candle[4]); // O anki fiyat (Kapanış)
+                const openPrice = parseFloat(candle[1]);
+                const closePrice = parseFloat(candle[4]); // O anki güncel fiyat
                 
-                price = currentPrice < 1 ? currentPrice.toPrecision(4) : currentPrice.toFixed(2);
-                // Yüzdelik hesapla
-                change = (((currentPrice - openPrice) / openPrice) * 100).toFixed(2);
+                price = closePrice < 1 ? closePrice.toPrecision(4) : closePrice.toFixed(2);
+                change = (((closePrice - openPrice) / openPrice) * 100).toFixed(2);
             }
         } else {
-            // VARSAYILAN: 24 Saatlik Ticker
+            // VARSAYILAN (24h Ticker)
             const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
             if (!res.ok) return null;
             const d = await res.json();
@@ -185,32 +208,18 @@ async function getBinancePrice(symbolInput, timeFrame) {
     }
 }
 
-// --- YENİ: KRİPTO ANALİZ FORMATLAYICI ---
+// --- FORMATLAYICILAR ---
+
+// Yeni: Kripto metni temizleyici
 function formatCryptoAnalysis(text) {
-    // 1. Gereksiz satır başlarını ve boşlukları temizle
     let clean = String(text || "").replace(/\r/g, "").replace(/\n/g, " ").trim();
-    
-    // 2. Hashtag'leri temizle (Prompt yasaklasa da AI bazen ekleyebilir, biz silelim)
-    clean = clean.replace(/#\w+/g, "").trim();
-    
-    // 3. Çift boşlukları teke indir
-    clean = clean.replace(/\s+/g, " ");
-    
-    // 4. Uzunluk kontrolü (Max 220 karaktere izin verelim, cümle bölünmesin diye)
-    if (clean.length > 220) {
-        // Son noktadan kesmeye çalış
-        const cutIndex = clean.lastIndexOf(".", 220);
-        if (cutIndex > 50) {
-            clean = clean.substring(0, cutIndex + 1);
-        } else {
-            // Nokta yoksa sert kes
-            clean = clean.substring(0, 217) + "...";
-        }
-    }
+    clean = clean.replace(/#\w+/g, "").trim(); // Hashtag sil
+    clean = clean.replace(/\*/g, ""); // Markdown yıldızlarını sil
+    clean = clean.replace(/\s+/g, " "); // Fazla boşlukları sil
     return clean;
 }
 
-// --- ESKİ: SOSYAL MEDYA FORMATLAYICI (Aynen kaldı) ---
+// Eski: Sosyal Medya (Korunuyor)
 function enforceTwoLinesMax(text) {
   const lines = String(text || "")
     .replace(/\r/g, "")
