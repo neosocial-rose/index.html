@@ -73,20 +73,23 @@ export default async function handler(req, res) {
 
     } 
     // ============================================================
-    // MODÜL 2: SOSYAL MEDYA (GÜNCELLENDİ - KESİLMEYEN FORMAT)
+    // MODÜL 2: SOSYAL MEDYA
     // ============================================================
     else {
         // A. KOD AYARLARI
         aiConfig = {
-            temperature: 0.85, // Doğallık için yüksek
-            maxOutputTokens: 200, // Token limitini artırdım ki AI cümleyi bitirebilsin
+            temperature: 0.85,
+            maxOutputTokens: 200,
             topP: 0.95
         };
         tools = [{ google_search: {} }]; 
 
         const randomSeed = Math.floor(Math.random() * 1000);
 
-        // B. PROMPT (DÜZELTİLDİ - Örnek çıktı nötr hale getirildi)
+        // =====================================================
+        // DÜZELTME 1: Örnek çıktıdan "tararara" kaldırıldı,
+        // nötr bir örnek kullanıldı + körce kopyalama yasağı eklendi
+        // =====================================================
         prompt = `
         Rol: Sosyal Medya Fenomeni.
         GÖREV: "${topic}" konusu için tek satırlık, vurucu ve akılda kalıcı bir paylaşım metni yaz.
@@ -94,7 +97,7 @@ export default async function handler(req, res) {
         KESİN FORMAT ŞABLONU (Buna sadık kal):
         [Vurucu Başlık] [Emoji] [Hashtagler]
 
-        ÖRNEK ÇIKTI FORMAT (Sadece format için bak, içeriği körce kopyalama):
+        ÖRNEK FORMAT (Sadece format için bak, bu kelimeleri veya hashtagleri ASLA kullanma):
         "Sunset Vibes — Golden Hour 🌅 #nature #photography #goldenhour #viral #shorts"
 
         KURALLAR:
@@ -103,7 +106,7 @@ export default async function handler(req, res) {
         3. Toplam uzunluğu KESİNLİKLE 100 karakter veya altında tut. 100 karakteri ASLA geçme.
         4. Konuyla ilgili en popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
-        6. Örnek çıktıdaki konuyu, kelimeleri veya hashtagleri KULLANMA. Sadece formatı örnek al.
+        6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
 
         Random Seed: ${randomSeed}
         `;
@@ -147,8 +150,8 @@ export default async function handler(req, res) {
             .trim();
         if (finalOutput.length > 250) finalOutput = finalOutput.slice(0, 247) + "...";
     } else {
-        // --- SOSYAL MEDYA FORMATI (DÜZELTİLDİ) ---
-        // 1. Satırları birleştir (Alt alta yazarsa tek satıra çek)
+        // --- SOSYAL MEDYA FORMATI ---
+        // 1. Satırları birleştir
         finalOutput = out.replace(/\r/g, "").replace(/\n/g, " ").trim();
         
         // 2. Gereksiz tırnakları temizle
@@ -157,9 +160,10 @@ export default async function handler(req, res) {
         // 3. Rakamlı listeleri temizle (Yedek güvenlik)
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // 4. KESME İŞLEMİ (DÜZELTİLDİ - 100 karakter limiti)
+        // =====================================================
+        // DÜZELTME 2: Limit 130'dan 100'e düşürüldü
+        // =====================================================
         if (finalOutput.length > 100) {
-            // Hashtag başlangıcını bul, son hashtag'i at
             let cut = finalOutput.slice(0, 100);
             let lastSpace = cut.lastIndexOf(" ");
             if (lastSpace > 60) {
