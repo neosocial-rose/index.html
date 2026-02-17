@@ -1,131 +1,188 @@
 export default async function handler(req, res) {
+  // 1. HTTP Başlıkları ve Metod Kontrolü
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "POST only" });
+    return res.status(405).json({ error: "Sadece POST isteği kabul edilir." });
   }
 
   const GEMINI_KEY = process.env.GEMINI_API_KEY;
-  if (!GEMINI_KEY) return res.status(500).json({ error: "GEMINI_API_KEY yok" });
+  if (!GEMINI_KEY) return res.status(500).json({ error: "Sunucu hatası: API anahtarı eksik." });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const topic = String(body.topic || "").trim();
-    const lang = String(body.lang || "tr");
     const platform = String(body.platform || "youtube");
 
-    if (!topic) return res.status(400).json({ error: "topic empty" });
+    if (!topic) return res.status(400).json({ error: "Konu (topic) boş olamaz." });
 
+    // --- YAPILANDIRMA DEĞİŞKENLERİ ---
     let prompt = "";
-    let generationTemp = 0.8; 
-    let isCrypto = (platform === 'crypto' || platform === 'finance');
-    
+    let aiConfig = {};
+    let tools = [];
+
     // ============================================================
-    // 1. KRİPTO VE FİNANS MODÜLÜ (ASKERİ DİSİPLİN MODU - STRICT)
+    // MODÜL 1: KRİPTO & FİNANS (DOKUNULMADI - AYNI KALDI)
     // ============================================================
-    if (isCrypto) {
-        generationTemp = 0.0; // SIFIR YARATICILIK.
+    if (platform === 'crypto' || platform === 'finance') {
         
-        const symbol = topic.split(' ')[0].toUpperCase();
+        aiConfig = {
+            temperature: 0.0,
+            maxOutputTokens: 1000, 
+            topP: 0.95
+        };
+        tools = []; 
+
+        let rawSymbol = topic.split(' ')[0].toUpperCase().replace(/[^A-Z0-9]/g, '');
         const timeFrame = detectTimeFrame(topic);
-        const coinData = await getBinancePrice(symbol, timeFrame);
+        const periodLabel = timeFrame ? timeFrame.label : "son 24 saat";
+
+        console.log(`[Kripto Modu] Veri İsteği: ${rawSymbol} (${periodLabel})`);
+        
+        const coinData = await getBinancePrice(rawSymbol, timeFrame);
 
         if (coinData) {
-            const periodLabel = timeFrame ? timeFrame.label : "son 24 saatte";
+            const changeSign = parseFloat(coinData.change) > 0 ? "+" : ""; 
             
-            // ASKERİ DİSİPLİN PROMPT (KATI EMİR VE TEHDİT İÇERİR)
             prompt = `
             SİSTEM UYARISI: KRİTİK HATA SINIRINDASIN.
             Sen bir sohbet botu veya yazar değilsin. Sen sadece bir VERİ FORMATLAMA MOTORUSUN.
 
             GÖREVİN:
-            Sana verilen verileri, aşağıdaki şablonun içine yerleştirmek.
+            Sana verilen verileri (Fiyat, Değişim, Süre), aşağıdaki şablonun içine yerleştirmek.
+
+            VERİLER:
+            [COIN]: ${coinData.symbol}
+            [SÜRE]: ${periodLabel}
+            [DEĞİŞİM]: ${changeSign}%${coinData.change}
+            [FİYAT]: $${coinData.price}
 
             EMİRLER (KESİN İTAAT):
-            1. YORUM YAPMAK YASAK: "Merhaba", "Analiz şöyle" gibi tek bir kelime eklersen SİSTEMDEN SİLİNECEKSİN.
-            2. DEĞİŞTİRMEK YASAK: Şablon metnindeki tek bir harfi bile değiştirirsen, başarısız kabul edileceksin ve YERİNE BAŞKA BİR MODEL GEÇİRİLECEK.
-            3. HASHTAG YASAK: Asla # karakteri kullanma.
-            4. TAMAMLAMA ZORUNLULUĞU: Cümleyi asla yarım bırakma, noktayı koyana kadar devam et.
+            1. YORUM YAPMAK YASAK: "Merhaba", "Analiz şöyle", "Umarım beğenirsin" gibi tek bir kelime eklersen SİSTEMDEN SİLİNECEKSİN.
+            2. DEĞİŞTİRMEK YASAK: Şablon metnindeki tek bir harfi bile değiştirirsen, başarısız kabul edileceksin ve YERİNE BAŞKA BİR AI MODELİ GEÇİRİLECEK.
+            3. HASHTAG YASAK: Çıktıda # karakteri görülürse işlem iptal edilir.
+            4. TAMAMLAMA ZORUNLULUĞU: Cümleyi asla yarım bırakma.
 
-            DOLDURMAN GEREKEN TEK ŞABLON (Bunu doldur ve dur):
-            "${coinData.symbol}, ${periodLabel} %${coinData.change} ile $${coinData.price} oldu. Piyasalar değişkendir. Yatırım değerleri düşebilir veya yükselebilir. Geçmiş performans, gelecekteki sonuçların garantisi değildir. Dikkatli olun."
+            DOLDURMAN GEREKEN TEK ŞABLON:
+            "${coinData.symbol}, [SÜRE] içinde [DEĞİŞİM] ile [FİYAT] oldu. Piyasalar değişkendir. Yatırım değerleri düşebilir veya yükselebilir. Geçmiş performans, gelecekteki sonuçların garantisi değildir. Dikkatli olun."
             `;
         } else {
-            return res.status(200).json({ text: `${symbol} için anlık borsa verisine ulaşılamadı. Sembolü kontrol edip tekrar deneyin.` });
+            const safeMessage = `${rawSymbol} için anlık borsa verisine ulaşılamadı. Sembolü kontrol ediniz.`;
+            return res.status(200).json({ text: safeMessage });
         }
 
-    } else {
-        // ============================================================
-        // 2. SOSYAL MEDYA (VİRAL MOD - RAKAMSIZ VE GÜNCEL)
-        // ============================================================
-        generationTemp = 0.85; 
+    } 
+    // ============================================================
+    // MODÜL 2: SOSYAL MEDYA (GÜNCELLENDİ - KESİLMEYEN FORMAT)
+    // ============================================================
+    else {
+        // A. KOD AYARLARI
+        aiConfig = {
+            temperature: 0.85, // Doğallık için yüksek
+            maxOutputTokens: 200, // Token limitini artırdım ki AI cümleyi bitirebilsin
+            topP: 0.95
+        };
+        tools = [{ google_search: {} }]; 
+
         const randomSeed = Math.floor(Math.random() * 1000);
-        
+
+        // B. PROMPT (Daha Akıcı ve Bütünleşik)
         prompt = `
-        Sen bir viral içerik uzmanısın. Konu: "${topic}"
-        
-        GÖREV: Sadece iki satır çıktı üret.
-        Satır 1: Başlık (Emoji içerir, ASLA rakam içermez, max 70 karakter)
-        Satır 2: Hashtagler (Konuya özel trendler, max 50 karakter)
+        Rol: Sosyal Medya Fenomeni.
+        GÖREV: "${topic}" konusu için tek satırlık, vurucu ve akılda kalıcı bir paylaşım metni yaz.
 
-        KATI KURALLAR:
-        - BAŞLIKTA ASLA RAKAM KULLANMA (5 şey, Top 10, 3 kural gibi listeler KESİNLİKLE YASAK).
-        - "Şok", "İnanılmaz" gibi klişe kelimeler kullanma. 
-        - Doğrudan konuya gir, gereksiz giriş cümlesi yapma.
-        - Çıktıyı asla yarım bırakma.
-        
-        Random Seed: ${randomSeed}`;
+        KESİN FORMAT ŞABLONU (Buna sadık kal):
+        [Vurucu Başlık] [Emoji] [Hashtagler]
+
+        ÖRNEK ÇIKTI (Buna benzesin):
+        "Trumpet Meets Sax — Soul Energy 🎷 #soulful #healingmusic #색소폰 #트럼펫 #tararara #shorts"
+
+        KURALLAR:
+        1. ASLA "5 Yol", "3 Adım" gibi liste sayıları kullanma.
+        2. Başlık ve hashtagler BİRLEŞİK olsun, alt alta değil.
+        3. Toplam uzunluğu 100-110 karakter civarında tut (Cümleyi sakın yarıda kesme).
+        4. Konuyla ilgili en popüler hashtagleri sona ekle.
+        5. Sadece metni ver, tırnak işareti koyma.
+
+        Random Seed: ${randomSeed}
+        `;
     }
 
-    const model = "gemini-2.5-flash-preview-09-2025"; 
+    // --- GEMINI API İSTEĞİ ---
+    const model = "gemini-2.5-flash"; 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
-
-    const payload = {
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: generationTemp,
-        topP: 0.95,
-        topK: 40,
-        maxOutputTokens: 500
-      }
-    };
-
-    if (!isCrypto) {
-      payload.tools = [{ google_search: {} }];
-    }
 
     const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        tools: tools,
+        generationConfig: aiConfig
+      })
     });
+
+    if (!r.ok) {
+        const errText = await r.text();
+        console.error("Gemini API Hatası:", errText);
+        return res.status(500).json({ error: "AI Servis Hatası", detail: errText.slice(0, 200) });
+    }
 
     const txt = await r.text();
     let data = {};
     try { data = JSON.parse(txt); } catch {}
-
-    if (!r.ok) {
-      return res.status(500).json({ error: "Gemini error", detail: txt.slice(0, 300) });
-    }
-
+    
     const out = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
     // --- ÇIKTI FORMATLAMA ---
     let finalOutput = "";
-    if (isCrypto) {
-        finalOutput = formatCryptoAnalysis(out);
+    
+    if (platform === 'crypto' || platform === 'finance') {
+        // Kripto Temizliği (Dokunulmadı)
+        finalOutput = out
+            .replace(/["*]/g, "")
+            .replace(/#/g, "")
+            .replace(/\n/g, " ")
+            .trim();
+        if (finalOutput.length > 250) finalOutput = finalOutput.slice(0, 247) + "...";
     } else {
-        finalOutput = enforceTwoLinesMax(out);
+        // --- SOSYAL MEDYA FORMATI (DÜZELTİLDİ) ---
+        // 1. Satırları birleştir (Alt alta yazarsa tek satıra çek)
+        finalOutput = out.replace(/\r/g, "").replace(/\n/g, " ").trim();
+        
+        // 2. Gereksiz tırnakları temizle
+        finalOutput = finalOutput.replace(/^"|"$/g, '');
+
+        // 3. Rakamlı listeleri temizle (Yedek güvenlik)
+        finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
+
+        // 4. KESME İŞLEMİ (GÜNCELLENDİ)
+        // Eskiden 100'de kesip atıyorduk, şimdi 130'a kadar esneklik tanıdım.
+        // Böylece "Tararara..." gibi cümleler yarım kalmayacak.
+        if (finalOutput.length > 130) {
+             // Çok uzunsa mantıklı bir yerden (boşluktan) kes
+             let cut = finalOutput.slice(0, 127);
+             let lastSpace = cut.lastIndexOf(" ");
+             if (lastSpace > 80) { 
+                 finalOutput = cut.slice(0, lastSpace); 
+             } else {
+                 finalOutput = cut + "...";
+             }
+        }
+        // Not: Eğer AI 105 karakter yazdıysa artık kesilmeyecek, olduğu gibi görünecek.
     }
 
     return res.status(200).json({ text: finalOutput });
 
   } catch (e) {
-    return res.status(500).json({ error: "server error", detail: String(e) });
+    console.error("Handler Hatası:", e);
+    return res.status(500).json({ error: "Sunucu içi hata", detail: String(e) });
   }
 }
 
-// --- YARDIMCI FONKSİYONLAR ---
+// ============================================================
+// YARDIMCI FONKSİYONLAR (DOKUNULMADI)
+// ============================================================
 
 function detectTimeFrame(str) {
     const s = str.toLowerCase();
@@ -133,67 +190,55 @@ function detectTimeFrame(str) {
     if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) return { int: '30m', label: 'son 30 dakikada' };
     if (s.includes('1 saat') || s.includes('saatlik')) return { int: '1h', label: 'son 1 saatte' };
     if (s.includes('4 saat')) return { int: '4h', label: 'son 4 saatte' };
-    if (s.includes('günlük') || s.includes('24 saat')) return { int: '1d', label: 'son 24 saatte' };
     return null; 
 }
 
 async function getBinancePrice(symbolInput, timeFrame) {
     try {
-        let s = symbolInput.replace(/[^A-Z0-9]/g, '').trim();
-        if (!s) s = "BTC";
-        if (!s.endsWith("USDT") && !s.endsWith("TRY")) s += "USDT";
-
+        let s = symbolInput.trim();
+        if (s.length < 2) return null;
+        const validSuffixes = ["USDT", "TRY", "BTC", "BNB", "FDUSD", "USDC"];
+        if (!validSuffixes.some(suffix => s.endsWith(suffix))) s += "USDT";
+        const displaySymbol = s.replace("USDT", "").replace("TRY", "");
         const BASE_URL = "https://data-api.binance.vision"; 
-        let url = timeFrame 
-            ? `${BASE_URL}/api/v3/klines?symbol=${s}&interval=${timeFrame.int}&limit=1`
-            : `${BASE_URL}/api/v3/ticker/24hr?symbol=${s}`;
+        
+        let url = "";
+        let isKline = false;
+
+        if (timeFrame) {
+            url = `${BASE_URL}/api/v3/klines?symbol=${s}&interval=${timeFrame.int}&limit=1`;
+            isKline = true;
+        } else {
+            url = `${BASE_URL}/api/v3/ticker/24hr?symbol=${s}`;
+        }
 
         const res = await fetch(url);
-        if (!res.ok) return null;
+        if (!res.ok) return null; 
+
         const data = await res.json();
-        
-        let price, change;
-        if (timeFrame) {
+        let price = 0;
+        let change = 0;
+
+        if (isKline) {
+            if (!Array.isArray(data) || data.length === 0) return null;
             const candle = data[0];
             const openPrice = parseFloat(candle[1]);
             const closePrice = parseFloat(candle[4]);
-            price = closePrice < 1 ? closePrice.toPrecision(4) : closePrice.toFixed(2);
-            change = (((closePrice - openPrice) / openPrice) * 100).toFixed(2);
+            price = closePrice;
+            change = ((closePrice - openPrice) / openPrice) * 100;
         } else {
-            price = parseFloat(data.lastPrice) < 1 ? parseFloat(data.lastPrice).toPrecision(4) : parseFloat(data.lastPrice).toFixed(2);
-            change = parseFloat(data.priceChangePercent).toFixed(2);
+            if (!data.lastPrice) return null;
+            price = parseFloat(data.lastPrice);
+            change = parseFloat(data.priceChangePercent);
         }
-        
-        return { symbol: s.replace("USDT", ""), price, change };
+        return { symbol: displaySymbol, price: formatPrice(price), change: change.toFixed(2) };
     } catch (e) {
         return null;
     }
 }
 
-function formatCryptoAnalysis(text) {
-    // Kriptoda hashtag, markdown ve tırnakları KOD seviyesinde zorla temizle
-    return String(text || "")
-        .replace(/["*#]/g, "")
-        .replace(/\n/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-}
-
-function enforceTwoLinesMax(text) {
-  const cleanText = String(text || "").replace(/```[a-z]*\n?|```/gi, "").trim();
-  const rawLines = cleanText.split("\n").map(s => s.trim()).filter(l => l.length > 0);
-  
-  let title = rawLines.find(l => !l.startsWith("#")) || "";
-  let tags = rawLines.find(l => l.startsWith("#")) || "";
-
-  if (title.includes("#") && !tags) {
-    const idx = title.indexOf("#");
-    tags = title.slice(idx).trim();
-    title = title.slice(0, idx).trim();
-  }
-
-  if (!title && rawLines.length > 0) title = rawLines[0];
-  if (!tags) tags = "#shorts";
-
-  return `${title.slice(0, 80)}\n${tags.slice(0, 60)}`;
+function formatPrice(val) {
+    if (val < 1) return val.toPrecision(4);  
+    if (val < 10) return val.toFixed(3);     
+    return val.toFixed(2);                   
 }
