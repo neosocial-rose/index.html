@@ -132,11 +132,9 @@ export default async function handler(req, res) {
         // 3. tararara yasağı
         finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
 
-        // 4. Akıllı kesme: 100 karakterden uzunsa son TAM hashtag'den kes
-        if (finalOutput.length > 100) {
-            // 100 karaktere kadar olan kısmı al
-            const cut = finalOutput.slice(0, 100);
-            // Bu kısımda en son boşluktan kes (yarım kelime/hashtag kalmasın)
+        // 4. Akıllı kesme: 120 karakterden uzunsa son boşluktan kes
+        if (finalOutput.length > 120) {
+            const cut = finalOutput.slice(0, 120);
             const lastSpace = cut.lastIndexOf(" ");
             finalOutput = lastSpace > 40 ? cut.slice(0, lastSpace).trim() : cut.trim();
         }
