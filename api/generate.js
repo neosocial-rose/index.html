@@ -102,7 +102,7 @@ export default async function handler(req, res) {
         4. Konuyla ilgili popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
         6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
-        7. KESİNLİKLE YASAK KELİMELER: "tararara", "Tararara", "TARARARA" — bu kelimeyi hiçbir şekilde kullanma, başlıkta da hashtag'de de.
+        7. KESİNLİKLE YASAK KELİMELER: "tararara", "Tararara", "TARARARA" — bu kelimeyi hiçbir şekilde kullanma.
 
         Random Seed: ${randomSeed}
         `;
@@ -160,15 +160,24 @@ export default async function handler(req, res) {
         finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
 
         // 5. KESME İŞLEMİ - 100 karakter limiti
+        // Yarım kalan hashtag'leri önle: # işaretinden önce kes
         if (finalOutput.length > 100) {
             let cut = finalOutput.slice(0, 100);
+            // Eğer kesim noktasında yarım hashtag varsa, son tam hashtag'den kes
+            let lastHash = cut.lastIndexOf(" #");
             let lastSpace = cut.lastIndexOf(" ");
-            if (lastSpace > 60) {
+            if (lastHash > 50) {
+                // Son # işaretinden önce kes (o hashtag'i dahil etme)
+                finalOutput = cut.slice(0, lastHash).trim();
+            } else if (lastSpace > 60) {
                 finalOutput = cut.slice(0, lastSpace).trim();
             } else {
                 finalOutput = cut.trim();
             }
         }
+
+        // 6. Sonda yalnız kalan # işaretini temizle
+        finalOutput = finalOutput.replace(/\s*#\s*$/, "").trim();
     }
 
     return res.status(200).json({ text: finalOutput });
