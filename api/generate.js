@@ -98,7 +98,7 @@ export default async function handler(req, res) {
         KURALLAR:
         1. ASLA "5 Yol", "3 Adım" gibi liste sayıları kullanma.
         2. Başlık ve hashtagler BİRLEŞİK olsun, alt alta değil.
-        3. Toplam uzunluğu KESİNLİKLE 100 karakter veya altında tut. 100 karakteri ASLA geçme.
+        3. Toplam karakter sayısını tam olarak 100 karaktere ayarla. Fazla da yazma, az da yazma — tam 100 karakter.
         4. Konuyla ilgili popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
         6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
@@ -158,26 +158,6 @@ export default async function handler(req, res) {
 
         // 4. "tararara" kelimesini çıktıdan da temizle (son güvenlik katmanı)
         finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
-
-        // 5. KESME İŞLEMİ - 100 karakter limiti
-        // Yarım kalan hashtag'leri önle: # işaretinden önce kes
-        if (finalOutput.length > 100) {
-            let cut = finalOutput.slice(0, 100);
-            // Eğer kesim noktasında yarım hashtag varsa, son tam hashtag'den kes
-            let lastHash = cut.lastIndexOf(" #");
-            let lastSpace = cut.lastIndexOf(" ");
-            if (lastHash > 50) {
-                // Son # işaretinden önce kes (o hashtag'i dahil etme)
-                finalOutput = cut.slice(0, lastHash).trim();
-            } else if (lastSpace > 60) {
-                finalOutput = cut.slice(0, lastSpace).trim();
-            } else {
-                finalOutput = cut.trim();
-            }
-        }
-
-        // 6. Sonda yalnız kalan # işaretini temizle
-        finalOutput = finalOutput.replace(/\s*#\s*$/, "").trim();
     }
 
     return res.status(200).json({ text: finalOutput });
