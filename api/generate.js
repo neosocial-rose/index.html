@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     const randomSeed = Math.floor(Math.random() * 1000);
 
-    // --- 1. VARSAYILAN PROMPT (YouTube, Insta vb. için) ---
+    // --- 1. VARSAYILAN PROMPT (Diğer platformlar için) ---
     let prompt =
 `Sen viral sosyal medya içerik uzmanısın. İNTERNETTEN "${topic}" konusundaki EN GÜNCEL trendleri araştır.
 SADECE 2 SATIR YAZ. HİÇBİR AÇIKLAMA YAPMA.
@@ -39,49 +39,54 @@ Random Seed: ${randomSeed}
 1. satır: Başlık
 2. satır: Hashtag`;
 
-    // --- 2. KRİPTO/FİNANS İSE GERÇEK VERİYİ DEVREYE SOK ---
+    // --- 2. KRİPTO/FİNANS İSE GERÇEK VERİYİ VE ZAMANI DEVREYE SOK ---
     if (platform === 'crypto' || platform === 'finance') {
-        // Konunun ilk kelimesini coin sembolü olarak al (Örn: "BTC ne olur" -> "BTC")
+        // Konunun ilk kelimesini coin sembolü olarak al (Örn: "BTC 15 dk" -> "BTC")
         const symbol = topic.split(' ')[0].toUpperCase();
         
-        // Binance'den gerçek fiyatı çek
-        const coinData = await getBinancePrice(symbol);
+        // YENİ: Zaman aralığını tespit et (15m, 1h, 4h vb.)
+        const timeFrame = detectTimeFrame(topic);
+
+        // Binance'den veriyi çek (Zaman aralığı varsa ona göre çeker)
+        const coinData = await getBinancePrice(symbol, timeFrame);
 
         if (coinData) {
             // VERİ BULUNDU! Prompt'u tamamen değiştiriyoruz.
             const trendIcon = parseFloat(coinData.change) > 0 ? "🚀" : "🔻";
-            const trendText = parseFloat(coinData.change) > 0 ? "YÜKSELİYOR" : "DÜŞÜYOR";
+            const changeDirection = parseFloat(coinData.change) > 0 ? "YÜKSELİŞTE" : "DÜŞÜŞTE";
+            
+            // Kullanıcıya gösterilecek zaman etiketi (Örn: "Son 15 Dakika" veya "Son 24 Saat")
+            const periodLabel = timeFrame ? timeFrame.label : "Son 24 Saat";
 
             prompt = `
             Rol: Kripto Para Analisti.
             Dil: ${lang}
-            Konu: ${topic}
+            Coin: ${coinData.symbol}
+            Zaman Aralığı: ${periodLabel}
             
             GERÇEK PİYASA VERİLERİ (Şu an Canlı):
-            - Coin: ${coinData.symbol}
             - Fiyat: $${coinData.price}
-            - Değişim: %${coinData.change}
-            - Durum: ${trendText}
+            - Değişim (${periodLabel}): %${coinData.change}
+            - Yön: ${changeDirection}
             
             GÖREV:
-            Bu verileri kullanarak viral bir başlık at.
+            Bu verilere dayalı, yatırımcıyı heyecanlandıran viral bir başlık at.
             
             KURALLAR:
-            1. BAŞLIKTA MUTLAKA FİYATI ($${coinData.price}) VEYA DEĞİŞİMİ (%${coinData.change}) KULLAN.
-            2. Asla "Yükseliş mi düşüş mü?" diye sorma. Veriye bakarak yorum yap.
-            3. Eğer %${coinData.change} pozitifse "Fırladı, Rekor, Hedef" gibi kelimeler kullan.
-            4. Eğer %${coinData.change} negatifse "Çakıldı, Destek, Kritik" gibi kelimeler kullan.
-            5. Sadece 2 satır yaz.
+            1. BAŞLIKTA MUTLAKA "${periodLabel}" İFADESİNİ VE DEĞİŞİMİ (%${coinData.change}) KULLAN.
+            2. Asla soru sorma (Örn: "Yükselir mi?"). Veriye bakarak durumu bildir (Örn: "Fırladı", "Çakıldı", "Patlama Yaptı").
+            3. Fiyatı ($${coinData.price}) başlığa dahil et.
+            4. Sadece 2 satır yaz.
             
             ÖRNEK ÇIKTI FORMATI:
-            ${coinData.symbol} $${coinData.price} Oldu! ${trendIcon} Sırada Ne Var?
-            #${coinData.symbol} #Kripto #Analiz
+            ${coinData.symbol} ${periodLabel}da %${coinData.change} Fırladı! $${coinData.price} Seviyesinde! ${trendIcon}
+            #${coinData.symbol} #Bitcoin #Kripto
             `;
         }
     }
     // --- BİTİŞ ---
 
-    const model = "gemini-2.5-flash"; // Veya 1.5-flash
+    const model = "gemini-2.5-flash"; 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
     const r = await fetch(url, {
@@ -89,7 +94,7 @@ Random Seed: ${randomSeed}
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ google_search: {} }], // Google araması da açık kalsın
+        tools: [{ google_search: {} }], // Google araması açık
         generationConfig: {
           temperature: 0.9,
           topP: 0.95,
@@ -116,29 +121,85 @@ Random Seed: ${randomSeed}
   }
 }
 
-// --- BİNANCE FİYAT ÇEKME FONKSİYONU ---
-async function getBinancePrice(symbolInput) {
+// --- YENİ: ZAMAN ARALIĞI TESPİT FONKSİYONU ---
+function detectTimeFrame(str) {
+    const s = str.toLowerCase();
+    
+    // 15 Dakika
+    if (s.includes('15 dk') || s.includes('15 dakika') || s.includes('çeyrek')) {
+        return { interval: '15m', label: 'Son 15 Dakika' };
+    }
+    // 30 Dakika
+    if (s.includes('30 dk') || s.includes('30 dakika') || s.includes('yarım saat')) {
+        return { interval: '30m', label: 'Son 30 Dakika' };
+    }
+    // 1 Saat
+    if (s.includes('1 saat') || s.includes('saatlik')) {
+        return { interval: '1h', label: 'Son 1 Saat' };
+    }
+    // 4 Saat
+    if (s.includes('4 saat')) {
+        return { interval: '4h', label: 'Son 4 Saat' };
+    }
+    // 1 Hafta
+    if (s.includes('haftalık') || s.includes('1 hafta')) {
+        return { interval: '1w', label: 'Bu Hafta' };
+    }
+    
+    return null; // Hiçbiri yoksa varsayılan (24 saat) çalışır
+}
+
+// --- GÜNCELLENMİŞ BİNANCE FİYAT ÇEKME ---
+async function getBinancePrice(symbolInput, timeFrame) {
     try {
         // Sembol temizliği (BTC -> BTCUSDT)
         let s = symbolInput.replace(/[^A-Z0-9]/g, '');
         if (!s) s = "BTC";
         
-        // Çoğu coin USDT paritesindedir, eğer USDT yazmıyorsa ekle
         if (!s.endsWith("USDT") && !s.endsWith("TRY")) {
             s += "USDT";
         }
 
-        const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
-        
-        if (!res.ok) return null; // Coin bulunamadı
+        let price = "0";
+        let change = "0";
+        let finalSymbol = s.replace("USDT", "");
 
-        const d = await res.json();
+        // EĞER ÖZEL ZAMAN ARALIĞI VARSA (Mum Grafiği Çek)
+        if (timeFrame) {
+            const klineRes = await fetch(`https://api.binance.com/api/v3/klines?symbol=${s}&interval=${timeFrame.interval}&limit=1`);
+            
+            if (!klineRes.ok) return null;
+
+            const data = await klineRes.json();
+            // Data formatı: [ [OpenTime, Open, High, Low, Close, Volume...], ... ]
+            if (data && data.length > 0) {
+                const candle = data[0];
+                const openPrice = parseFloat(candle[1]);
+                const closePrice = parseFloat(candle[4]);
+                
+                price = closePrice < 1 ? closePrice.toPrecision(4) : closePrice.toFixed(2);
+                
+                // Yüzdelik Değişim Hesapla: ((Kapanış - Açılış) / Açılış) * 100
+                const percentChange = ((closePrice - openPrice) / openPrice) * 100;
+                change = percentChange.toFixed(2);
+            }
+
+        } else {
+            // ZAMAN ARALIĞI YOKSA (Klasik 24 Saatlik Veri)
+            const res = await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`);
+            if (!res.ok) return null;
+            
+            const d = await res.json();
+            price = parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2);
+            change = parseFloat(d.priceChangePercent).toFixed(2);
+        }
         
         return {
-            symbol: s.replace("USDT", ""), // BTC
-            price: parseFloat(d.lastPrice) < 1 ? parseFloat(d.lastPrice).toPrecision(4) : parseFloat(d.lastPrice).toFixed(2), // 0.0045 veya 98500.20
-            change: parseFloat(d.priceChangePercent).toFixed(2) // -2.50
+            symbol: finalSymbol,
+            price: price,
+            change: change
         };
+
     } catch (e) {
         console.error("Binance error:", e);
         return null;
@@ -162,19 +223,19 @@ function enforceTwoLinesMax(text) {
     title = title.slice(0, idx).trim();
   }
 
-  title = smartTrim(title, 60);
+  title = smartTrim(title, 65); // Başlık için biraz daha yer açtım
   tags = normalizeTags(tags);
   tags = smartTrim(tags, 40);
   if (!tags) tags = "#shorts";
 
   const total = Array.from(title).length + Array.from(tags).length + 1;
-  if (total > 100) {
-    const maxTagLen = 100 - Array.from(title).length - 1;
+  if (total > 110) {
+    const maxTagLen = 110 - Array.from(title).length - 1;
     if (maxTagLen > 10) {
       tags = smartTrim(tags, maxTagLen);
     } else {
-      title = smartTrim(title, 50);
-      tags = smartTrim(tags, 49);
+      title = smartTrim(title, 55);
+      tags = smartTrim(tags, 50);
     }
   }
   return `${title}\n${tags}`;
