@@ -282,11 +282,7 @@
             <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
             <p class="text-xs text-slate-500 font-bold" data-tr="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
           </div>
-          <div class="platform-card finance-card" id="card-finance" onclick="openGenerator('finance')">
-            <div class="flex items-center justify-between mb-4"><i class="fas fa-chart-line text-amber-500 text-4xl"></i><span id="badge-finance" class="finance-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-            <h3 class="text-lg font-black mb-2 text-amber-600" data-tr="finance_title">Finans & Borsa</h3>
-            <p class="text-xs text-slate-500 font-bold" data-tr="platform_finance_desc">Global Trend Analizi & Fırsatlar</p>
-          </div>
+          
           <div class="platform-card crypto-card" id="card-crypto" onclick="openGenerator('crypto')">
             <div class="flex items-center justify-between mb-4"><i class="fab fa-bitcoin text-emerald-500 text-4xl"></i><span id="badge-crypto" class="crypto-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
             <h3 class="text-lg font-black mb-2 text-emerald-600" data-tr="crypto_title">Kripto Analiz</h3>
@@ -314,7 +310,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- 1. EKSİK OLAN YER: PLATFORM (GEMINI) BÖLÜMÜ  -->
+      <!-- PLATFORM (GEMINI) BÖLÜMÜ  -->
       <!-- ============================================== -->
       <section class="mb-14">
         <div class="bg-white border-2 border-slate-100 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden">
@@ -360,7 +356,7 @@
       </section>
 
       <!-- ============================================== -->
-      <!-- 2. EKSİK OLAN YER: UYGULAMALAR (APPS) BÖLÜMÜ -->
+      <!-- UYGULAMALAR (APPS) BÖLÜMÜ -->
       <!-- ============================================== -->
       <section class="mb-14">
         <div class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2.5rem] p-10 text-center">
@@ -442,14 +438,7 @@
           </div>
           <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
         </div>
-        <div class="blog-card" onclick="showPage('article-finance')">
-          <div>
-            <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Finans</span>
-            <h2 class="text-xl font-black mb-3" data-tr="blog_finance_title">2026 Global Borsa Trendleri</h2>
-            <p class="text-sm text-slate-600 mb-4" data-tr="blog_finance_desc">Yapay zeka ile finans analizleri ve yatırım fırsatları...</p>
-          </div>
-          <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
-        </div>
+        
         <div class="blog-card" onclick="showPage('article-crypto')">
           <div>
             <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Kripto</span>
@@ -639,29 +628,6 @@
           
           <h2>Medya Kullanımı</h2>
           <p>Sadece metin içeren tweetlerin erişimi düşüktür. Her tweetinize mutlaka bir görsel, bir GIF veya bir video ekleyin. Videolar, X algoritmasında şu an en çok "boost" edilen (öne çıkarılan) içerik türüdür.</p>
-        </div>
-        <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
-      </article>
-    </div>
-
-    <div id="page-article-finance" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white border-2 border-amber-200 rounded-3xl p-12 shadow-2xl">
-        <h1 class="text-4xl font-black mb-6">2026 Global Borsa Trendleri ve AI Etkisi</h1>
-        <div class="article-content text-slate-700">
-          <p class="text-lg font-bold mb-6">Finans dünyası, Yapay Zeka (AI) devrimiyle kökten değişiyor. 2026 yılında piyasaları domine eden trendler, algoritmik ticaret ve bireysel yatırımcılar için fırsatlar neler?</p>
-          
-          <h2>Yapay Zeka Destekli Yatırım (Robo-Advisors)</h2>
-          <p>Geleneksel portföy yöneticilerinin yerini AI algoritmaları alıyor. 2026'da büyük fonların %78'i, alım-satım kararlarını tamamen yapay zeka sistemlerine bırakmış durumda. Bu sistemler, haberleri, sosyal medya duyarlılığını (sentiment analysis) ve bilançoları milisaniyeler içinde analiz ederek işlem yapıyor.</p>
-          
-          <h2>Sürdürülebilir Yatırım (ESG)</h2>
-          <p>Yatırımcılar artık sadece kâra değil, şirketin çevreye ve topluma etkisine de bakıyor. Temiz enerji, elektrikli araç teknolojileri ve karbon yakalama şirketleri, 2026 borsalarının yıldızları arasında. Özellikle yeşil hidrojen teknolojileri, yatırımcıların radarında.</p>
-          
-          <h2>Gelişmekte Olan Piyasalar</h2>
-          <p>ABD borsalarının doygunluğa ulaşmasıyla, yatırımcılar Asya ve Latin Amerika pazarlarına yöneliyor. Hindistan ve Brezilya borsaları, teknoloji start-up'ları ve fintech çözümleriyle 2026'da yüksek getiri potansiyeli sunuyor.</p>
-          
-          <div class="mt-8 p-6 bg-amber-50 border-2 border-amber-300 rounded-2xl">
-            <p><strong>⚠️ YASAL UYARI:</strong> Bu içerik tamamen bilgilendirme amaçlıdır ve kesinlikle YATIRIM TAVSİYESİ DEĞİLDİR (YTD). Finansal kararlarınızı kendi araştırmanıza veya lisanslı bir yatırım danışmanına dayanarak veriniz. Piyasalar risk içerir ve ana paranızı kaybedebilirsiniz.</p>
-          </div>
         </div>
         <button onclick="showPage('blog')" class="mt-12 text-rose-500 font-bold hover:underline">← Blog'a Dön</button>
       </article>
@@ -956,7 +922,7 @@
       }
     };
 
-    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0}};
+    const state = {lang:'tr',currentPlatform:'youtube',userId:null,credits:{youtube:0,instagram:0,tiktok:0,x:0,crypto:0}};
 
     function notify(m){const e=document.getElementById('notification');e.innerText=m;e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
 
@@ -972,7 +938,7 @@
         loadCreditsFromStorage();
       }else{
         state.userId=null;
-        state.credits={youtube:0,instagram:0,tiktok:0,x:0,finance:0,crypto:0};
+        state.credits={youtube:0,instagram:0,tiktok:0,x:0,crypto:0};
         document.getElementById('user-display').innerText='GİRİŞ';
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('logout-btn').classList.add('hidden');
@@ -991,20 +957,19 @@
       
       if(storedDate !== today){
         localStorage.setItem(`nsr_date_${state.userId}`, today);
-        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2};
         saveCredits();
       } else {
         if(storedCredits){
           try {
             state.credits = JSON.parse(storedCredits);
-            if(typeof state.credits.finance === 'undefined') state.credits.finance = 2;
             if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2;
           } catch(e) {
-            state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+            state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2};
             saveCredits();
           }
         } else {
-           state.credits = {youtube:2, instagram:2, tiktok:2, x:2, finance:2, crypto:2};
+           state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2};
            saveCredits();
         }
       }
@@ -1068,7 +1033,7 @@
       if(!state.userId){notify('Lütfen giriş yapın.');return;}
       if(state.credits[p]<=0){notify('Limit doldu!');return;}
       state.currentPlatform=p;
-      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', finance:'Finans & Borsa', crypto:'Kripto Analiz'};
+      const pn={youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok',x:'X (Twitter)', crypto:'Kripto Analiz'};
       document.getElementById('modal-platform-title').innerText=pn[p];
       document.getElementById('modal-credit-badge').innerText=`${state.credits[p]}/2`;
       document.getElementById('modal-topic-input').value='';
