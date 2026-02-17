@@ -35,8 +35,6 @@ export default async function handler(req, res) {
                 ? '"Direnci zorluyor", "Alıcılar devrede", "Kırılım geldi"'
                 : '"Desteğe çekildi", "Satış baskısı var", "Kritik seviye"';
 
-            // DÜZELTME 1: Limit 100 karaktere düşürüldü
-            // DÜZELTME 2: Analiz yapmaya zorlayan daha güçlü prompt
             prompt = `
             Rol: Kıdemli Kripto Teknik Analisti.
             Dil: ${lang}
@@ -197,6 +195,15 @@ async function getBinancePrice(symbolInput, timeFrame) {
 
 // --- FORMATLAYICILAR ---
 
+function filterBannedWords(text) {
+    // Tararara ve benzeri istenmeyen kelimeleri temizle
+    return text
+        .replace(/tararara/gi, "")
+        .replace(/gao\s*yifei/gi, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+}
+
 function formatCryptoAnalysis(text) {
     let clean = String(text || "").replace(/\r/g, "").replace(/\n/g, " ").trim();
     clean = clean.replace(/#\w+/g, "").trim();
@@ -226,6 +233,10 @@ function enforceTwoLinesMax(text) {
     tags = title.slice(idx).trim();
     title = title.slice(0, idx).trim();
   }
+
+  // Yasaklı kelimeleri temizle
+  title = filterBannedWords(title);
+  tags = filterBannedWords(tags);
 
   title = smartTrim(title, 65);
   tags = normalizeTags(tags);
