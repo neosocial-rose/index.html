@@ -76,17 +76,11 @@ export default async function handler(req, res) {
     // MODÜL 2: SOSYAL MEDYA
     // ============================================================
     else {
-        // A. KOD AYARLARI
         aiConfig = {
             temperature: 0.85,
             maxOutputTokens: 200,
             topP: 0.95
         };
-        // =====================================================
-        // DÜZELTME: google_search kaldırıldı.
-        // Gemini web'den trend çektiği için her seferinde
-        // "#tararara" gibi o anki trending tag'leri getiriyordu.
-        // =====================================================
         tools = [];
 
         const randomSeed = Math.floor(Math.random() * 1000);
@@ -108,6 +102,7 @@ export default async function handler(req, res) {
         4. Konuyla ilgili popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
         6. Örnek formattaki kelimeleri, isimleri veya hashtagleri KULLANMA. Tamamen farklı yaz.
+        7. KESİNLİKLE YASAK KELİMELER: "tararara", "Tararara", "TARARARA" — bu kelimeyi hiçbir şekilde kullanma, başlıkta da hashtag'de de.
 
         Random Seed: ${randomSeed}
         `;
@@ -158,10 +153,13 @@ export default async function handler(req, res) {
         // 2. Gereksiz tırnakları temizle
         finalOutput = finalOutput.replace(/^"|"$/g, '');
 
-        // 3. Rakamlı listeleri temizle (Yedek güvenlik)
+        // 3. Rakamlı listeleri temizle
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // 4. KESME İŞLEMİ - 100 karakter limiti
+        // 4. "tararara" kelimesini çıktıdan da temizle (son güvenlik katmanı)
+        finalOutput = finalOutput.replace(/tararara/gi, "").replace(/\s{2,}/g, " ").trim();
+
+        // 5. KESME İŞLEMİ - 100 karakter limiti
         if (finalOutput.length > 100) {
             let cut = finalOutput.slice(0, 100);
             let lastSpace = cut.lastIndexOf(" ");
