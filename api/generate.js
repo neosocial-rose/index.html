@@ -86,7 +86,7 @@ export default async function handler(req, res) {
 
         const randomSeed = Math.floor(Math.random() * 1000);
 
-        // B. PROMPT (Daha Akıcı ve Bütünleşik)
+        // B. PROMPT (DÜZELTİLDİ - Örnek çıktı nötr hale getirildi)
         prompt = `
         Rol: Sosyal Medya Fenomeni.
         GÖREV: "${topic}" konusu için tek satırlık, vurucu ve akılda kalıcı bir paylaşım metni yaz.
@@ -94,15 +94,16 @@ export default async function handler(req, res) {
         KESİN FORMAT ŞABLONU (Buna sadık kal):
         [Vurucu Başlık] [Emoji] [Hashtagler]
 
-        ÖRNEK ÇIKTI (Buna benzesin):
-        "Trumpet Meets Sax — Soul Energy 🎷 #soulful #healingmusic #색소폰 #트럼펫 #tararara #shorts"
+        ÖRNEK ÇIKTI FORMAT (Sadece format için bak, içeriği körce kopyalama):
+        "Sunset Vibes — Golden Hour 🌅 #nature #photography #goldenhour #viral #shorts"
 
         KURALLAR:
         1. ASLA "5 Yol", "3 Adım" gibi liste sayıları kullanma.
         2. Başlık ve hashtagler BİRLEŞİK olsun, alt alta değil.
-        3. Toplam uzunluğu 100-110 karakter civarında tut (Cümleyi sakın yarıda kesme).
+        3. Toplam uzunluğu KESİNLİKLE 100 karakter veya altında tut. 100 karakteri ASLA geçme.
         4. Konuyla ilgili en popüler hashtagleri sona ekle.
         5. Sadece metni ver, tırnak işareti koyma.
+        6. Örnek çıktıdaki konuyu, kelimeleri veya hashtagleri KULLANMA. Sadece formatı örnek al.
 
         Random Seed: ${randomSeed}
         `;
@@ -156,20 +157,17 @@ export default async function handler(req, res) {
         // 3. Rakamlı listeleri temizle (Yedek güvenlik)
         finalOutput = finalOutput.replace(/\b\d+\s+(tane|şey|yol|adım)\b/gi, "").trim();
 
-        // 4. KESME İŞLEMİ (GÜNCELLENDİ)
-        // Eskiden 100'de kesip atıyorduk, şimdi 130'a kadar esneklik tanıdım.
-        // Böylece "Tararara..." gibi cümleler yarım kalmayacak.
-        if (finalOutput.length > 130) {
-             // Çok uzunsa mantıklı bir yerden (boşluktan) kes
-             let cut = finalOutput.slice(0, 127);
-             let lastSpace = cut.lastIndexOf(" ");
-             if (lastSpace > 80) { 
-                 finalOutput = cut.slice(0, lastSpace); 
-             } else {
-                 finalOutput = cut + "...";
-             }
+        // 4. KESME İŞLEMİ (DÜZELTİLDİ - 100 karakter limiti)
+        if (finalOutput.length > 100) {
+            // Hashtag başlangıcını bul, son hashtag'i at
+            let cut = finalOutput.slice(0, 100);
+            let lastSpace = cut.lastIndexOf(" ");
+            if (lastSpace > 60) {
+                finalOutput = cut.slice(0, lastSpace).trim();
+            } else {
+                finalOutput = cut.trim();
+            }
         }
-        // Not: Eğer AI 105 karakter yazdıysa artık kesilmeyecek, olduğu gibi görünecek.
     }
 
     return res.status(200).json({ text: finalOutput });
