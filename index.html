@@ -3,68 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>NeoSocial_Rose | YouTube Para Kazanma 2026 - AI ile Viral İçerik Üret</title>
-
-  <meta name="description" content="🚀 YouTube'dan para kazanma 2026 rehberi! Ücretsiz AI sosyal medya başlık ve hashtag üretici.">
-  <meta name="keywords" content="youtube para kazanma, ai içerik üretici, sosyal medya başlık, kripto analiz">
-  <meta name="author" content="NeoSocial_Rose">
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
-
+  <title>Blog & Rehberler | NeoSocial_Rose</title>
+  <meta name="description" content="YouTube para kazanma, sosyal medya algoritmaları ve finans trendleri hakkında en güncel AI analiz rehberleri.">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
     
-    html, body { 
-        width: 100%; max-width: 100%; overflow-x: hidden; 
-        font-family: 'Plus Jakarta Sans', sans-serif; 
-        background:#fff; color:#0f172a; 
-    }
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; }
     
     .glass-nav { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; transition: all 0.3s; z-index: 50; }
     .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; align-items:center; height:100%; user-select:none; display:flex; text-decoration: none; }
     .nav-link:hover { color:#f43f5e; }
     
+    /* Açılır Menü Stilleri */
     .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; pointer-events:auto; }
     
     .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; flex-shrink: 0; }
     .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
     
-    .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:300px; }
-    .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
+    .blog-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; transition: all 0.3s; background: #fff; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; }
+    .blog-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
     
-    #notification { display:none; position:fixed; bottom:20px; right:20px; z-index:9000; }
-    
-    .pro-input { background: #f8fafc; border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 1.5rem; width: 100%; font-weight: 700; color: #0f172a; outline: none; transition: 0.3s; }
-    .pro-input:focus { border-color: #f43f5e; background: #fff; box-shadow: 0 10px 15px -3px rgba(244, 63, 94, 0.1); }
-    
-    .platform-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; cursor: pointer; transition: all 0.3s; background: #fff; }
-    .platform-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
-    .platform-card.disabled { opacity: 0.4; cursor: not-allowed; }
-    .platform-card.disabled:hover { transform: none; border-color: #f1f5f9; }
-    
-    .crypto-card { border-color: #6ee7b7; background: linear-gradient(to bottom right, #ffffff, #ecfdf5); }
-    .crypto-card:hover { border-color: #059669; box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.15); transform: translateY(-4px); }
-    .crypto-badge { background-color: #d1fae5; color: #059669; }
-
-    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
-    .modal.active { display:flex; }
-    .modal-content { background:#fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
-    
-    .seo-badge { display:inline-block; padding: 4px 12px; border-radius: 8px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-    .seo-excellent { background:#dcfce7; color:#166534; }
-    .seo-good { background:#dbeafe; color:#1e40af; }
-    .seo-average { background:#fef3c7; color:#92400e; }
-    .seo-poor { background:#fee2e2; color:#991b1b; }
-    
-    .gemini-gradient-text { background: linear-gradient(90deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: shine 5s linear infinite; }
-    @keyframes shine { to { background-position: 200% center; } }
-
-    .store-btn-new { background: #0f172a; color: white; padding: 12px 24px; border-radius: 16px; display: flex; align-items: center; gap: 12px; transition: all 0.3s ease; border: 2px solid transparent; text-decoration: none; }
-    .store-btn-new:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); border-color: #f43f5e; }
-
     #mobile-menu-overlay { display: none; position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px); background: #fff; z-index: 49; overflow-y: auto; border-top: 1px solid #f1f5f9; padding-bottom: 2rem; }
     #mobile-menu-overlay.active { display: block; }
     .mobile-nav-item { display: block; padding: 1.25rem; font-size: 14px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #f1f5f9; text-align: center; text-decoration: none; }
@@ -74,18 +36,10 @@
       .desktop-menu { display: none !important; } 
       .mobile-menu-btn { display: block !important; }
       .desktop-lang-container { display: none !important; }
-      .hero-box { min-height: 200px; }
-      .modal-content { padding: 1.5rem; width: 95%; max-width: 95%; }
-      #notification { bottom: 10px; right: 10px; font-size: 10px; left: 10px; text-align: center; width: auto; }
-      h1 { font-size: 1.5rem !important; }
-      h2 { font-size: 1.25rem !important; }
-      #login-btn, #logout-btn { padding: 8px 12px; font-size: 9px; }
     }
   </style>
 </head>
-
 <body class="min-h-screen flex flex-col pt-32">
-  <div id="notification" class="bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase tracking-widest"></div>
 
   <nav class="fixed top-0 w-full z-50 glass-nav h-20 flex items-center">
     <div class="max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
@@ -95,7 +49,8 @@
         </a>
         <div class="desktop-menu hidden lg:flex items-center space-x-8 h-full ml-6">
           <a href="index.html" class="nav-link" data-tr="nav_home">Anasayfa</a>
-          <a href="blog.html" class="nav-link" data-tr="nav_blog">Blog</a>
+          <a href="blog.html" class="nav-link text-rose-500" data-tr="nav_blog">Blog</a>
+          
           <div class="relative h-full flex items-center group">
             <span class="nav-link flex" id="nav-apps-btn" data-tr="nav_apps">Uygulamalar</span>
             <div class="menu-dropdown group-hover:block" id="nav-apps-dd">
@@ -106,6 +61,7 @@
               </div>
             </div>
           </div>
+          
           <div class="relative h-full flex items-center group">
             <span class="nav-link flex" id="nav-platform-btn" data-tr="nav_platform">Platform</span>
             <div class="menu-dropdown text-center group-hover:block" id="nav-platform-dd">
@@ -115,6 +71,7 @@
               </div>
             </div>
           </div>
+          
           <a href="hakkimizda.html" class="nav-link" data-tr="nav_about">Hakkımızda</a>
           <a href="sss.html" class="nav-link" data-tr="nav_faq">SSS</a>
           <a href="gizlilik.html" class="nav-link" data-tr="nav_privacy">Gizlilik</a>
@@ -127,13 +84,8 @@
         <div class="flex gap-1 desktop-lang-container hidden lg:flex">
           <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">🇹🇷</button>
           <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
-          <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
-          <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
-          <button onclick="setLang('es')" class="lang-btn" data-lang="es">🇪🇸</button>
-          <button onclick="setLang('pt')" class="lang-btn" data-lang="pt">🇵🇹</button>
         </div>
-        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg whitespace-nowrap flex-shrink-0"><span id="user-display" data-tr="login">GİRİŞ</span></button>
-        <button onclick="logoutGoogle()" id="logout-btn" class="hidden bg-white text-slate-900 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 hover:border-rose-500 hover:text-rose-500 transition shadow-lg whitespace-nowrap flex-shrink-0"><span data-tr="logout">ÇIKIŞ</span></button>
+        <a href="index.html" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg whitespace-nowrap flex-shrink-0" style="text-decoration:none;">UYGULAMAYA GİT</a>
         <button class="mobile-menu-btn hidden text-2xl ml-2 text-slate-800 p-2 flex-shrink-0" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
       </div>
     </div>
@@ -143,153 +95,49 @@
     <div class="flex justify-center gap-2 p-4 border-b border-slate-100 mb-2">
        <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">🇹🇷</button>
        <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
-       <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
-       <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
-       <button onclick="setLang('es')" class="lang-btn" data-lang="es">🇪🇸</button>
-       <button onclick="setLang('pt')" class="lang-btn" data-lang="pt">🇵🇹</button>
     </div>
     <a href="index.html" class="mobile-nav-item" data-tr="nav_home">Anasayfa</a>
-    <a href="blog.html" class="mobile-nav-item" data-tr="nav_blog">Blog</a>
+    <a href="blog.html" class="mobile-nav-item text-rose-500" data-tr="nav_blog">Blog</a>
     <a href="hakkimizda.html" class="mobile-nav-item" data-tr="nav_about">Hakkımızda</a>
     <a href="sss.html" class="mobile-nav-item" data-tr="nav_faq">SSS</a>
+    <a href="gizlilik.html" class="mobile-nav-item" data-tr="nav_privacy">Gizlilik</a>
+    <a href="sartlar.html" class="mobile-nav-item" data-tr="nav_terms">Şartlar</a>
     <a href="iletisim.html" class="mobile-nav-item" data-tr="nav_contact">İletişim</a>
   </div>
 
   <main class="flex-grow max-w-7xl mx-auto w-full px-4 pb-20">
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
-      <div class="hero-box"><img src="hero.jpeg" alt="Hero Image 1" class="hero-img"></div>
-      <div class="ad-box flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-[1.5rem] border border-slate-100">
-        <span class="text-[9px] font-black text-amber-500 uppercase tracking-widest mb-4">Google AdSense</span>
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-      <div class="hero-box"><img src="hero1.jpeg" alt="Hero Image 2" class="hero-img"></div>
-    </section>
-
-    <section class="mb-14">
-      <h2 class="text-2xl font-black text-center mb-8 uppercase tracking-wider" data-tr="select_platform">Platform Seçin</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="platform-card" id="card-youtube" onclick="openGenerator('youtube')">
-          <div class="flex items-center justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-          <h3 class="text-lg font-black mb-2">YouTube</h3>
-          <p class="text-xs text-slate-500 font-bold" data-tr="platform_youtube_desc">Video başlıkları ve hashtag'ler</p>
-        </div>
-        <div class="platform-card" id="card-instagram" onclick="openGenerator('instagram')">
-          <div class="flex items-center justify-between mb-4"><i class="fab fa-instagram text-pink-600 text-4xl"></i><span id="badge-instagram" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-          <h3 class="text-lg font-black mb-2">Instagram</h3>
-          <p class="text-xs text-slate-500 font-bold" data-tr="platform_instagram_desc">Gönderi başlıkları ve hashtag'ler</p>
-        </div>
-        <div class="platform-card" id="card-tiktok" onclick="openGenerator('tiktok')">
-          <div class="flex items-center justify-between mb-4"><i class="fab fa-tiktok text-slate-900 text-4xl"></i><span id="badge-tiktok" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-          <h3 class="text-lg font-black mb-2">TikTok</h3>
-          <p class="text-xs text-slate-500 font-bold" data-tr="platform_tiktok_desc">Video başlıkları ve trend hashtag'ler</p>
-        </div>
-        <div class="platform-card" id="card-x" onclick="openGenerator('x')">
-          <div class="flex items-center justify-between mb-4"><i class="fab fa-twitter text-blue-400 text-4xl"></i><span id="badge-x" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-          <h3 class="text-lg font-black mb-2">X (Twitter)</h3>
-          <p class="text-xs text-slate-500 font-bold" data-tr="platform_x_desc">Tweet başlıkları ve hashtag'ler</p>
-        </div>
-        <div class="platform-card crypto-card" id="card-crypto" onclick="openGenerator('crypto')">
-          <div class="flex items-center justify-between mb-4"><i class="fab fa-bitcoin text-emerald-500 text-4xl"></i><span id="badge-crypto" class="crypto-badge px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
-          <h3 class="text-lg font-black mb-2 text-emerald-600" data-tr="crypto_title">Kripto Analiz</h3>
-          <p class="text-xs text-slate-500 font-bold" data-tr="platform_crypto_desc">Anlık Coin Yorumu & Tahmin</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-3xl mx-auto mb-14">
-      <div class="bg-gradient-to-br from-rose-50 to-purple-50 border-2 border-rose-100 rounded-[2rem] p-8">
-        <div class="flex items-start gap-4 mb-6">
-          <i class="fas fa-info-circle text-rose-500 text-2xl mt-1"></i>
-          <div>
-            <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-tr="important_info">Önemli Bilgiler</h3>
-            <div class="space-y-3 text-sm font-bold text-slate-700">
-              <p data-tr="info_1">🎯 Bu platform sadece içerik önerisi sunar.</p>
-              <p data-tr="info_2">⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.</p>
-              <p data-tr="info_3">🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.</p>
-              <p data-tr="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
-              <p data-tr="info_5">🔄 Her platform için günlük 2 üretim hakkınız vardır.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="mb-14">
-      <div class="bg-white border-2 border-slate-100 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-64 h-64 bg-rose-100 rounded-full blur-[100px] opacity-50 -mr-16 -mt-16 pointer-events-none"></div>
-          <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12">
-              <div class="lg:w-2/3">
-                  <div class="inline-block bg-slate-900 text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest mb-6"><i class="fas fa-microchip mr-2"></i>Infrastructure</div>
-                  <h2 class="text-3xl lg:text-4xl font-black mb-6 leading-tight">Gücümüzü <span class="gemini-gradient-text">Google Gemini AI</span> Teknolojisinden Alıyoruz</h2>
-                  <p class="text-slate-600 font-medium leading-relaxed mb-6">NeoSocial_Rose, Google'ın geliştirdiği en gelişmiş yapay zeka modeli olan <strong>Gemini 1.5 Pro</strong> mimarisi üzerine inşa edilmiştir. Multimodal prensiple metin ve trendleri milisaniyeler içinde analiz eder.</p>
-              </div>
-              <div class="lg:w-1/3 flex justify-center">
-                  <div class="w-48 h-48 bg-gradient-to-tr from-blue-500 via-purple-500 to-rose-500 rounded-[2rem] flex items-center justify-center shadow-2xl rotate-3 hover:rotate-0 transition duration-500">
-                      <i class="fas fa-star text-6xl text-white animate-pulse"></i>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </section>
-
-    <section class="mb-14">
-      <div class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-[2.5rem] p-10 text-center">
-          <h2 class="text-3xl font-black mb-4">Cebinizdeki Stüdyo</h2>
-          <p class="text-slate-500 font-bold mb-8 max-w-xl mx-auto">Platformumuzun tüm özelliklerine her an her yerden erişin. Mobil uygulamamızı indirerek bildirimleri açın, trendleri kaçırmayın.</p>
-          <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <a href="#" class="store-btn-new group"><i class="fab fa-apple text-3xl group-hover:text-slate-200"></i><div class="text-left"><div class="text-[9px] uppercase font-bold text-slate-400">Download on the</div><div class="text-lg font-bold leading-none">App Store</div></div></a>
-              <a href="#" class="store-btn-new group"><i class="fab fa-google-play text-2xl group-hover:text-slate-200"></i><div class="text-left"><div class="text-[9px] uppercase font-bold text-slate-400">GET IT ON</div><div class="text-lg font-bold leading-none">Google Play</div></div></a>
-          </div>
-          <p class="text-[10px] font-black text-rose-400 mt-6 uppercase tracking-widest">ÇOK YAKINDA MAĞAZALARDA</p>
-      </div>
-    </section>
-
-    <section class="mb-14">
-      <div class="hero-box w-full"><img src="hero2.jpeg" alt="Sosyal Medya Para Kazanma" class="hero-img"></div>
-    </section>
-  </main>
-
-  <div id="generator-modal" class="modal">
-    <div class="modal-content">
-      <div class="flex justify-between items-center mb-8">
+    <h1 class="text-4xl font-black mb-12" data-tr="blog_title">Blog & Rehberler</h1>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      
+      <a href="blog-youtube-para-kazanma.html" class="blog-card">
         <div>
-          <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
-          <p class="text-xs text-slate-500 font-bold mt-1">Viral içerik üretin</p>
+          <span class="bg-green-100 text-green-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Para Kazanma</span>
+          <h2 class="text-xl font-black mb-3 text-slate-900" data-tr="blog_money_title">YouTube Para Kazanma 2026</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_money_desc">YouTube para kazanma rehberi, monetizasyon şartları ve gelir stratejileri...</p>
         </div>
-        <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="mb-6">
-        <div class="flex justify-between items-center mb-4">
-          <span class="text-xs font-black uppercase text-slate-400">Kalan Hak</span>
-          <span id="modal-credit-badge" class="bg-rose-50 text-rose-500 px-4 py-1.5 rounded-full text-[10px] font-black">2/2</span>
-        </div>
-      </div>
-      <div class="space-y-6">
+        <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
+      </a>
+
+      <a href="blog-youtube-viral.html" class="blog-card">
         <div>
-          <label class="block text-xs font-black uppercase text-slate-400 mb-3">İçerik Konusu</label>
-          <input type="text" id="modal-topic-input" class="pro-input" placeholder="Örn: Futbol taktikleri">
+          <span class="bg-rose-100 text-rose-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">YouTube</span>
+          <h2 class="text-xl font-black mb-3 text-slate-900" data-tr="blog_yt_viral_title">2026'da YouTube'da Viral Olmak</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_yt_viral_desc">YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...</p>
         </div>
-        <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black uppercase tracking-[0.25em] hover:bg-rose-500 transition shadow-xl active:scale-[0.98]">
-          <span>ÜRETİMİ BAŞLAT</span>
-        </button>
-        <div id="modal-result-box" class="hidden space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-slate-400">SEO Skoru</span>
-            <span id="seo-score-badge" class="seo-badge seo-excellent">85/100</span>
-          </div>
-          <div class="bg-slate-50 border-2 border-slate-100 rounded-[2rem] p-6 relative group">
-            <p id="modal-result-text" class="text-base font-bold text-slate-800 leading-relaxed pr-12"></p>
-            <p id="modal-char-count" class="text-xs text-slate-400 font-bold mt-3">0 karakter</p>
-            <button onclick="copyModalContent()" class="absolute top-6 right-6 text-slate-400 hover:text-rose-500 transition text-xl"><i class="far fa-copy"></i></button>
-          </div>
-          <button onclick="generateContent()" class="w-full border-2 border-slate-200 text-slate-700 py-4 rounded-xl font-black uppercase text-sm hover:border-rose-500 hover:text-rose-500 transition">
-            <span>🔄 Yeniden Üret</span>
-          </button>
+        <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
+      </a>
+
+      <a href="blog-kripto-analiz.html" class="blog-card">
+        <div>
+          <span class="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-xs font-bold inline-block mb-4">Kripto</span>
+          <h2 class="text-xl font-black mb-3 text-slate-900" data-tr="blog_crypto_title">Kripto Piyasasında AI Analizleri 2026</h2>
+          <p class="text-sm text-slate-600 mb-4" data-tr="blog_crypto_desc">Bitcoin, Ethereum ve altcoin'lerde trend tahmini nasıl yapılır...</p>
         </div>
-      </div>
+        <span class="text-rose-500 text-sm font-bold" data-tr="read_more">Devamını Oku →</span>
+      </a>
+
     </div>
-  </div>
+  </main>
 
   <footer class="bg-slate-900 text-slate-500 py-16 px-4 mt-auto">
     <div class="max-w-7xl mx-auto text-center">
@@ -305,187 +153,38 @@
     </div>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script>
     const T = {
-      tr:{ nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",platform_x_desc:"Tweet başlıkları ve hashtag'ler",crypto_title:"Kripto Analiz",platform_crypto_desc:"Anlık Coin Yorumu & Tahmin",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.",info_3:"🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.",info_4:"📊 SEO skorları tahminidir ve garanti edilmez.",info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır." },
-      en:{ nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",platform_x_desc:"Tweet titles and hashtags",crypto_title:"Crypto Analysis",platform_crypto_desc:"Real-time Coin Analysis & Prediction",important_info:"Important Information",info_1:"🎯 This platform only provides content suggestions.",info_2:"⚠️ No investment advice or guaranteed earnings.",info_3:"🤖 All content is generated by Gemini AI based on trends.",info_4:"📊 SEO scores are estimates and not guaranteed.",info_5:"🔄 You have 2 daily generations per platform." },
-      fr:{ nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Sélectionner une plateforme",platform_youtube_desc:"Titres vidéo et hashtags",platform_instagram_desc:"Titres de publication et hashtags",platform_tiktok_desc:"Titres vidéo et hashtags tendance",platform_x_desc:"Titres de tweet et hashtags",crypto_title:"Analyse Crypto",platform_crypto_desc:"Analyse de pièces en temps réel",important_info:"Informations importantes",info_1:"🎯 Cette plateforme ne fournit que des suggestions de contenu.",info_2:"⚠️ Aucun conseil en investissement ni gain garanti.",info_3:"🤖 Tout le contenu est généré par Gemini AI.",info_4:"📊 Les scores SEO sont des estimations.",info_5:"🔄 Vous avez 2 générations quotidiennes par plateforme." },
-      de:{ nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Plattform auswählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Trend-Hashtags",platform_x_desc:"Tweet-Titel und Hashtags",crypto_title:"Krypto-Analyse",platform_crypto_desc:"Echtzeit-Coin-Analyse",important_info:"Wichtige Informationen",info_1:"🎯 Diese Plattform bietet nur Inhaltsvorschläge.",info_2:"⚠️ Keine Anlageberatung oder garantierte Gewinne.",info_3:"🤖 Alle Inhalte werden von Gemini AI generiert.",info_4:"📊 SEO-Scores sind Schätzungen.",info_5:"🔄 Sie haben 2 tägliche Generierungen pro Plattform." },
-      es:{ nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca de",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"INICIAR SESIÓN",logout:"CERRAR SESIÓN",coming_soon:"PRÓXIMAMENTE",select_platform:"Seleccionar plataforma",platform_youtube_desc:"Títulos de video y hashtags",platform_instagram_desc:"Títulos de publicación y hashtags",platform_tiktok_desc:"Títulos de video y hashtags",platform_x_desc:"Títulos de tweet y hashtags",crypto_title:"Análisis Cripto",platform_crypto_desc:"Análisis de monedas en tiempo real",important_info:"Información importante",info_1:"🎯 Esta plataforma solo proporciona sugerencias.",info_2:"⚠️ Sin asesoramiento de inversión.",info_3:"🤖 Todo el contenido es generado por Gemini AI.",info_4:"📊 Las puntuaciones SEO son estimaciones.",info_5:"🔄 Tienes 2 generaciones diarias por plataforma." },
-      pt:{ nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar plataforma",platform_youtube_desc:"Títulos de vídeo e hashtags",platform_instagram_desc:"Títulos de postagem e hashtags",platform_tiktok_desc:"Títulos de vídeo e hashtags",platform_x_desc:"Títulos de tweet e hashtags",crypto_title:"Análise Cripto",platform_crypto_desc:"Análise de moedas em tempo real",important_info:"Informações importantes",info_1:"🎯 Esta plataforma fornece apenas sugestões.",info_2:"⚠️ Sem consultoria de investimento.",info_3:"🤖 Todo o conteúdo é gerado pela Gemini AI.",info_4:"📊 As pontuações SEO são estimativas.",info_5:"🔄 Você tem 2 gerações diárias por plataforma." }
+      tr: { nav_home:"Anasayfa", nav_blog:"Blog", nav_apps:"Uygulamalar", nav_platform:"Platform", nav_about:"Hakkımızda", nav_faq:"SSS", nav_privacy:"Gizlilik", nav_terms:"Şartlar", nav_contact:"İletişim", coming_soon:"YAKINDA", blog_title:"Blog & Rehberler", read_more:"Devamını Oku →", blog_money_title:"YouTube Para Kazanma 2026", blog_money_desc:"YouTube para kazanma rehberi, monetizasyon şartları ve gelir stratejileri...", blog_yt_viral_title:"2026'da YouTube'da Viral Olmak", blog_yt_viral_desc:"YouTube algoritması sürekli değişiyor. 2026'da viral olmak için tüm stratejiler...", blog_crypto_title:"Kripto Piyasasında AI Analizleri 2026", blog_crypto_desc:"Bitcoin, Ethereum ve altcoin'lerde trend tahmini nasıl yapılır..." },
+      en: { nav_home:"Home", nav_blog:"Blog", nav_apps:"Apps", nav_platform:"Platform", nav_about:"About", nav_faq:"FAQ", nav_privacy:"Privacy", nav_terms:"Terms", nav_contact:"Contact", coming_soon:"COMING SOON", blog_title:"Blog & Guides", read_more:"Read More →", blog_money_title:"Monetization on YouTube 2026", blog_money_desc:"YouTube monetization guide, requirements and income strategies...", blog_yt_viral_title:"Going Viral on YouTube in 2026", blog_yt_viral_desc:"YouTube algorithm is changing. Strategies to go viral in 2026...", blog_crypto_title:"AI Analysis in Crypto Market", blog_crypto_desc:"Trend prediction for Bitcoin, Ethereum and altcoins..." }
     };
 
-    const state = { lang: localStorage.getItem('nsr_lang') || 'tr', currentPlatform: 'youtube', userId: null, credits: {youtube:0, instagram:0, tiktok:0, x:0, crypto:0} };
+    let currentLang = localStorage.getItem('nsr_lang') || 'tr';
 
-    function notify(m){ const e = document.getElementById('notification'); e.innerText = m; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 3500); }
-
-    const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
-    firebase.initializeApp(firebaseConfig);
-
-    firebase.auth().onAuthStateChanged(u => {
-      if(u){
-        state.userId = u.uid;
-        document.getElementById('user-display').innerText = u.displayName ? u.displayName.split(' ')[0].toUpperCase() : 'USER';
-        document.getElementById('login-btn').classList.add('hidden');
-        document.getElementById('logout-btn').classList.remove('hidden');
-        loadCreditsFromStorage();
-      } else {
-        state.userId = null;
-        state.credits = {youtube:0, instagram:0, tiktok:0, x:0, crypto:0};
-        document.getElementById('user-display').innerText = T[state.lang]['login'] || 'GİRİŞ';
-        document.getElementById('login-btn').classList.remove('hidden');
-        document.getElementById('logout-btn').classList.add('hidden');
-        updateAllBadges();
-      }
-    });
-
-    function loginWithGoogle(){ const p = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(p).catch(e => notify('Giriş başarısız.')); }
-    function logoutGoogle(){ firebase.auth().signOut().then(() => { notify('Çıkış yapıldı.'); closeGenerator(); }); }
-
-    function loadCreditsFromStorage(){
-      if(!state.userId) return;
-      const today = new Date().toDateString();
-      const storedDate = localStorage.getItem(`nsr_date_${state.userId}`);
-      const storedCredits = localStorage.getItem(`nsr_credits_${state.userId}`);
-      if(storedDate !== today){
-        localStorage.setItem(`nsr_date_${state.userId}`, today);
-        state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2};
-        saveCredits();
-      } else {
-        if(storedCredits){
-          try { state.credits = JSON.parse(storedCredits); if(typeof state.credits.crypto === 'undefined') state.credits.crypto = 2; } 
-          catch(e) { state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2}; saveCredits(); }
-        } else { state.credits = {youtube:2, instagram:2, tiktok:2, x:2, crypto:2}; saveCredits(); }
-      }
-      updateAllBadges();
-    }
-
-    function saveCredits(){ if(state.userId) localStorage.setItem(`nsr_credits_${state.userId}`, JSON.stringify(state.credits)); }
-
-    function updateAllBadges(){
-      Object.keys(state.credits).forEach(p => {
-        const b = document.getElementById(`badge-${p}`);
-        if(b) b.innerText = `${state.credits[p]}/2`;
-        const c = document.getElementById(`card-${p}`);
-        if(c){
-          if(state.credits[p] <= 0) c.classList.add('disabled');
-          else c.classList.remove('disabled');
-        }
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('nsr_lang', lang);
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      document.querySelectorAll('[data-tr]').forEach(el => {
+        const key = el.getAttribute('data-tr');
+        if(T[lang] && T[lang][key]) el.innerHTML = T[lang][key];
       });
     }
 
-    function setLang(l) {
-      state.lang = l;
-      localStorage.setItem('nsr_lang', l);
-      document.querySelectorAll('.lang-btn').forEach(b => {
-        b.classList.remove('active');
-        if(b.getAttribute('data-lang') === l) b.classList.add('active');
-      });
-      translatePage();
-    }
-
-    function translatePage() {
-      document.querySelectorAll('[data-tr]').forEach(e => {
-        const key = e.getAttribute('data-tr');
-        if (T[state.lang] && T[state.lang][key]) e.innerHTML = T[state.lang][key];
-      });
-      if(!state.userId) document.getElementById('user-display').innerText = T[state.lang]['login'] || 'GİRİŞ';
-    }
-
-    function toggleMobileMenu(){ document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
-
-    function openGenerator(p){
-      if(!state.userId){ notify('Lütfen giriş yapın.'); return; }
-      if(state.credits[p] <= 0){ notify('Limit doldu!'); return; }
-      state.currentPlatform = p;
-      const pn = {youtube:'YouTube', instagram:'Instagram', tiktok:'TikTok', x:'X (Twitter)', crypto:'Kripto Analiz'};
-      document.getElementById('modal-platform-title').innerText = pn[p];
-      document.getElementById('modal-credit-badge').innerText = `${state.credits[p]}/2`;
-      document.getElementById('modal-topic-input').value = '';
-      document.getElementById('modal-result-box').classList.add('hidden');
-      document.getElementById('generator-modal').classList.add('active');
-    }
-
-    function closeGenerator(){ document.getElementById('generator-modal').classList.remove('active'); }
-
-    function calculateSEO(t){
-      let s = 50;
-      if(t.length >= 40 && t.length <= 80) s += 15;
-      if(/[\u{1F600}-\u{1F64F}]/u.test(t)) s += 10;
-      const hc = (t.match(/#/g) || []).length;
-      if(hc >= 2 && hc <= 5) s += 15;
-      return Math.min(Math.max(s, 0), 100);
-    }
-    
-    function getSEOClass(s){
-      if(s >= 80) return 'seo-excellent';
-      if(s >= 60) return 'seo-good';
-      if(s >= 40) return 'seo-average';
-      return 'seo-poor';
-    }
-
-    async function generateContent(){
-      if(!state.userId){ notify('Lütfen giriş yapın.'); return; }
-      const tp = document.getElementById('modal-topic-input').value.trim();
-      if(!tp){ notify('Lütfen konu girin.'); return; }
-      if(state.credits[state.currentPlatform] <= 0){ notify('Limit doldu!'); return; }
-
-      const btn = document.getElementById('modal-gen-btn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> ÜRETİLİYOR...';
-
-      try {
-        const r = await fetch('/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic:tp, platform:state.currentPlatform, lang:state.lang}) });
-        const d = await r.json();
-        if(d.error) throw new Error(d.error);
-
-        const res = d.text || '';
-        if(res){
-          state.credits[state.currentPlatform]--;
-          saveCredits();
-          updateAllBadges();
-          document.getElementById('modal-credit-badge').innerText = `${state.credits[state.currentPlatform]}/2`;
-          document.getElementById('modal-result-text').innerText = res;
-          document.getElementById('modal-char-count').innerText = `${res.length} karakter`;
-          const sc = calculateSEO(res);
-          const sb = document.getElementById('seo-score-badge');
-          sb.innerText = `${sc}/100`;
-          sb.className = `seo-badge ${getSEOClass(sc)}`;
-          document.getElementById('modal-result-box').classList.remove('hidden');
-          notify('Üretim Başarılı ✨');
-        }
-      } catch(e) {
-        console.error(e);
-        notify('Hata oluştu.');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<span>ÜRETİMİ BAŞLAT</span>';
-      }
-    }
-
-    function copyModalContent(){
-      const t = document.getElementById('modal-result-text').innerText;
-      const e = document.createElement('textarea');
-      e.value = t;
-      document.body.appendChild(e);
-      e.select();
-      document.execCommand('copy');
-      document.body.removeChild(e);
-      notify('Kopyalandı ✨');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        setLang(state.lang);
+    window.addEventListener('DOMContentLoaded', () => {
+        setLang(currentLang);
+        
+        // Açılır Menü (Hover) Tetikleyicileri
         const ab = document.getElementById('nav-apps-btn'), ad = document.getElementById('nav-apps-dd');
         if(ab && ad){ ab.addEventListener('mouseenter', () => ad.style.display = 'block'); ab.parentElement.addEventListener('mouseleave', () => ad.style.display = 'none'); }
+        
         const pb = document.getElementById('nav-platform-btn'), pd = document.getElementById('nav-platform-dd');
         if(pb && pd){ pb.addEventListener('mouseenter', () => pd.style.display = 'block'); pb.parentElement.addEventListener('mouseleave', () => pd.style.display = 'none'); }
     });
-
-    document.getElementById('generator-modal').addEventListener('click', function(e) { if(e.target === this) closeGenerator(); });
-    document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeGenerator(); });
+    
+    function toggleMobileMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
   </script>
 </body>
 </html>
