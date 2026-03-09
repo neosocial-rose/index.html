@@ -3,76 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>NeoSocial_Rose | YouTube Para Kazanma 2026</title>
-  
-  <meta name="description" content="YouTube para kazanma 2026 rehberi ve ücretsiz AI içerik üretici.">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
+  <title>NeoSocial_Rose | YouTube Para Kazanma 2026 - AI ile Viral İçerik Üret</title>
 
+  <meta name="description" content="🚀 YouTube'dan para kazanma 2026 rehberi! Ücretsiz AI sosyal medya başlık ve hashtag üretici.">
+  <meta name="keywords" content="youtube para kazanma, ai içerik üretici, sosyal medya başlık, kripto analiz">
+  <meta name="author" content="NeoSocial_Rose">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-    html, body { width: 100%; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; }
-    
-    /* Menü & Navigasyon */
-    .glass-nav { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; z-index: 50; }
-    .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; transition:0.2s; text-decoration: none; display: flex; align-items: center; }
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; font-family: 'Plus Jakarta Sans', sans-serif; background:#fff; color:#0f172a; }
+    .glass-nav { background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid #f1f5f9; transition: all 0.3s; z-index: 50; }
+    .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; color:#64748b; cursor:pointer; transition:0.2s; align-items:center; height:100%; display:flex; }
     .nav-link:hover { color:#f43f5e; }
-    
-    /* Açılır Menüler (Hover Efekti) */
-    .dropdown-trigger:hover .menu-dropdown { display: block; }
-    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 100; }
-    
-    /* Tasarım Elemanları */
+    .menu-dropdown { display:none; position:absolute; top:100%; left:50%; transform: translateX(-50%); background:#fff; border:1px solid #f1f5f9; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-radius: 12px; padding: 16px; min-width: 240px; z-index: 5000; }
+    .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 8px; cursor:pointer; border:1px solid #e2e8f0; transition: all 0.2s; background:#fff; }
+    .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
     .hero-box { border:2px dashed #e2e8f0; border-radius: 1.5rem; background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:300px; }
     .hero-img { width:100%; height:100%; object-fit:cover; display:block; }
     .platform-card { border: 2px solid #f1f5f9; border-radius: 1.5rem; padding: 2rem; cursor: pointer; transition: all 0.3s; background: #fff; }
     .platform-card:hover { border-color:#f43f5e; transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(244, 63, 94, 0.1); }
     .crypto-card { border-color: #6ee7b7; background: linear-gradient(to bottom right, #ffffff, #ecfdf5); }
-    
-    /* Mobil Menü */
-    #mobile-menu { display: none; position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px); background: #fff; z-index: 49; overflow-y: auto; border-top: 1px solid #f1f5f9; }
-    #mobile-menu.active { display: block; }
-
-    .lang-btn { font-size: 10px; font-weight: 800; padding: 6px 10px; border-radius: 8px; border:1px solid #e2e8f0; cursor:pointer; background:#fff; }
-    .lang-btn.active { background:#f43f5e; color:#fff; border-color:#f43f5e; }
-    
-    .gemini-gradient-text { background: linear-gradient(90deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
-    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
     .modal.active { display:flex; }
+    .modal-content { background:#fff; border-radius: 2rem; padding: 3rem; max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto; }
+    .page-content { display:none; }
+    .page-content.active { display:block; }
+    .gemini-gradient-text { background: linear-gradient(90deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 5s linear infinite; background-size: 200% auto; }
+    @keyframes shine { to { background-position: 200% center; } }
+    #mobile-menu-overlay { display: none; position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px); background: #fff; z-index: 49; overflow-y: auto; border-top: 1px solid #f1f5f9; }
+    #mobile-menu-overlay.active { display: block; }
+    .mobile-nav-item { display: block; padding: 1.25rem; font-size: 14px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #f1f5f9; text-align: center; cursor: pointer; }
+    @media (max-width: 1024px) { .glass-nav { height: 70px; } .desktop-menu, .desktop-lang-container { display: none !important; } .mobile-menu-btn { display: block !important; } }
   </style>
 </head>
-<body class="pt-32">
-  <div id="notification" class="fixed bottom-5 right-5 bg-slate-900 text-white px-6 py-3 rounded-xl z-[10000] hidden font-bold text-xs uppercase"></div>
+<body class="min-h-screen flex flex-col pt-32">
+  <div id="notification" class="fixed bottom-5 right-5 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl text-xs font-bold uppercase hidden z-[10000]"></div>
 
-  <nav class="fixed top-0 w-full glass-nav h-20 flex items-center">
+  <nav class="fixed top-0 w-full z-50 glass-nav h-20 flex items-center">
     <div class="max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
-      <div class="flex items-center gap-6">
-        <a href="index.html" class="text-xl font-black tracking-tighter text-slate-900 no-underline">NEOSOCIAL<span class="text-rose-500">_ROSE</span></a>
-        <div class="hidden lg:flex items-center space-x-6">
-          <a href="index.html" class="nav-link" data-tr="nav_home">Anasayfa</a>
-          <a href="blog.html" class="nav-link" data-tr="nav_blog">Blog</a>
-          <div class="relative dropdown-trigger h-20 flex items-center">
-            <span class="nav-link cursor-pointer" data-tr="nav_apps">Uygulamalar</span>
-            <div class="menu-dropdown">
-              <p class="text-[10px] font-black text-rose-500 text-center mb-3">COMING SOON</p>
-              <div class="flex justify-around"><i class="fab fa-apple text-2xl"></i><i class="fab fa-google-play text-2xl"></i></div>
-            </div>
-          </div>
-          <div class="relative dropdown-trigger h-20 flex items-center">
-            <span class="nav-link cursor-pointer" data-tr="nav_platform">Platform</span>
-            <div class="menu-dropdown text-center">
-              <p class="text-[10px] font-black mb-1 uppercase">Powered By</p>
-              <p class="gemini-gradient-text">GEMINI 1.5 PRO</p>
-            </div>
-          </div>
-          <a href="hakkimizda.html" class="nav-link" data-tr="nav_about">Hakkımızda</a>
+      <div class="flex items-center h-full">
+        <h1 class="text-xl font-black tracking-tighter cursor-pointer" onclick="showPage('home')">NEOSOCIAL<span class="text-rose-500">_ROSE</span></h1>
+        <div class="desktop-menu hidden lg:flex items-center space-x-8 h-full ml-6">
+          <span class="nav-link" onclick="showPage('home')" data-tr="nav_home">Anasayfa</span>
+          <span class="nav-link" onclick="showPage('blog')" data-tr="nav_blog">Blog</span>
+          <span class="nav-link" onclick="showPage('about')" data-tr="nav_about">Hakkımızda</span>
+          <span class="nav-link" onclick="showPage('contact')" data-tr="nav_contact">İletişim</span>
         </div>
       </div>
-
-      <div class="flex items-center gap-3">
-        <div class="hidden lg:flex gap-1">
+      <div class="flex items-center gap-2">
+        <div class="flex gap-1 desktop-lang-container hidden lg:flex">
           <button onclick="setLang('tr')" class="lang-btn" data-lang="tr">🇹🇷</button>
           <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
           <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
@@ -80,61 +63,87 @@
           <button onclick="setLang('es')" class="lang-btn" data-lang="es">🇪🇸</button>
           <button onclick="setLang('pt')" class="lang-btn" data-lang="pt">🇵🇹</button>
         </div>
-        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">GİRİŞ</button>
-        <button onclick="logoutGoogle()" id="logout-btn" class="hidden border px-4 py-2 rounded-xl text-[10px] font-black uppercase">ÇIKIŞ</button>
-        <button class="lg:hidden text-2xl" onclick="toggleMobile()"><i class="fas fa-bars"></i></button>
+        <button onclick="loginWithGoogle()" id="login-btn" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest"><span id="user-display" data-tr="login">GİRİŞ</span></button>
+        <button onclick="logoutGoogle()" id="logout-btn" class="hidden border border-slate-200 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest"><span data-tr="logout">ÇIKIŞ</span></button>
+        <button class="mobile-menu-btn hidden text-2xl ml-2" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
       </div>
     </div>
   </nav>
 
-  <div id="mobile-menu">
-    <div class="flex flex-wrap justify-center gap-2 p-4 border-b">
-      <button onclick="setLang('tr')" class="lang-btn" data-lang="tr">🇹🇷</button>
-      <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
-      <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
-      <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
+  <div id="mobile-menu-overlay">
+    <div class="flex justify-center gap-2 p-4 border-b">
+       <button onclick="setLang('tr')" class="lang-btn" data-lang="tr">🇹🇷</button>
+       <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
+       <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
     </div>
-    <a href="index.html" class="block p-5 text-center font-bold border-b no-underline text-slate-900">Anasayfa</a>
-    <a href="blog.html" class="block p-5 text-center font-bold border-b no-underline text-slate-900">Blog</a>
-    <a href="hakkimizda.html" class="block p-5 text-center font-bold border-b no-underline text-slate-900">Hakkımızda</a>
+    <span class="mobile-nav-item" onclick="showPage('home'); toggleMobileMenu()" data-tr="nav_home">Anasayfa</span>
+    <span class="mobile-nav-item" onclick="showPage('blog'); toggleMobileMenu()" data-tr="nav_blog">Blog</span>
+    <span class="mobile-nav-item" onclick="showPage('about'); toggleMobileMenu()" data-tr="nav_about">Hakkımızda</span>
+    <span class="mobile-nav-item" onclick="showPage('contact'); toggleMobileMenu()" data-tr="nav_contact">İletişim</span>
   </div>
 
-  <main class="max-w-7xl mx-auto px-4">
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-      <div class="hero-box"><img src="hero.jpeg" alt="YouTube" class="hero-img"></div>
-      <div class="ad-box bg-slate-50 rounded-[1.5rem] border flex items-center justify-center p-4">
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-      <div class="hero-box"><img src="hero1.jpeg" alt="AI Content" class="hero-img"></div>
-    </section>
+  <main class="flex-grow max-w-7xl mx-auto w-full px-4 pb-20">
+    <div id="page-home" class="page-content active">
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-14">
+        <div class="hero-box"><img src="hero.jpeg" alt="Hero 1" class="hero-img"></div>
+        <div class="ad-box flex items-center justify-center p-8 bg-slate-50 rounded-[1.5rem] border border-slate-100">
+          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        </div>
+        <div class="hero-box"><img src="hero1.jpeg" alt="Hero 2" class="hero-img"></div>
+      </section>
 
-    <h2 class="text-2xl font-black text-center mb-8 uppercase" data-tr="select_platform">Platform Seçin</h2>
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-      <div class="platform-card" onclick="openGen('youtube')">
-        <div class="flex justify-between items-center mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="text-[10px] font-bold bg-rose-50 text-rose-500 px-2 py-1 rounded">2/2</span></div>
-        <h3 class="font-black">YouTube</h3>
-        <p class="text-xs text-slate-500 font-bold" data-tr="platform_youtube_desc">Başlık ve Hashtag Üretici</p>
-      </div>
-      <div class="platform-card crypto-card" onclick="openGen('crypto')">
-        <div class="flex justify-between items-center mb-4"><i class="fab fa-bitcoin text-emerald-500 text-4xl"></i><span id="badge-crypto" class="text-[10px] font-bold bg-emerald-50 text-emerald-600 px-2 py-1 rounded">2/2</span></div>
-        <h3 class="font-black text-emerald-600">Kripto Analiz</h3>
-        <p class="text-xs text-slate-500 font-bold" data-tr="platform_crypto_desc">Anlık Trend & Tahminler</p>
-      </div>
-    </section>
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+        <div class="platform-card" onclick="openGenerator('youtube')">
+          <div class="flex justify-between mb-4"><i class="fab fa-youtube text-red-600 text-4xl"></i><span id="badge-youtube" class="bg-rose-50 text-rose-500 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+          <h3 class="text-lg font-black mb-2">YouTube</h3>
+          <p class="text-xs text-slate-500 font-bold" data-tr="platform_youtube_desc">Başlık ve Hashtag Üretici</p>
+        </div>
+        <div class="platform-card crypto-card" onclick="openGenerator('crypto')">
+          <div class="flex justify-between mb-4"><i class="fab fa-bitcoin text-emerald-500 text-4xl"></i><span id="badge-crypto" class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[9px] font-black">2/2</span></div>
+          <h3 class="text-lg font-black mb-2 text-emerald-600" data-tr="crypto_title">Kripto Analiz</h3>
+          <p class="text-xs text-slate-500 font-bold" data-tr="platform_crypto_desc">Anlık Trend & Tahminler</p>
+        </div>
+      </section>
+      
+      <section class="mb-14 bg-white border-2 border-slate-100 rounded-[2.5rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden">
+          <h2 class="text-3xl font-black mb-6 leading-tight">Gücümüzü <span class="gemini-gradient-text">Google Gemini AI</span> Teknolojisinden Alıyoruz</h2>
+          <p class="text-slate-600 font-bold leading-relaxed mb-6">NeoSocial_Rose, en gelişmiş yapay zeka modellerini kullanarak içeriklerinizi saniyeler içinde analiz eder.</p>
+      </section>
+    </div>
 
-    <section class="mb-20">
-      <div class="hero-box w-full h-64"><img src="hero2.jpeg" alt="Social Media" class="hero-img"></div>
-    </section>
+    <div id="page-blog" class="page-content">
+      <h1 class="text-4xl font-black mb-12 text-center" data-tr="blog_title">Blog & Rehberler</h1>
+      <div class="max-w-4xl mx-auto bg-white border-2 border-slate-100 rounded-3xl p-8 lg:p-12 shadow-xl mb-8">
+        <h2 class="text-2xl font-black mb-4">YouTube Para Kazanma Stratejileri 2026</h2>
+        <p class="text-slate-600 font-bold leading-relaxed mb-6">YouTube'da başarılı olmanın anahtarı tutarlılık ve doğru veri analizidir. Shorts içeriklerinde viral olma potansiyelini artırmak için ilk 3 saniyelik "Hook" kalıplarına odaklanmalısınız. NeoSocial_Rose, Gemini AI altyapısı ile bu kancaları sizin için üretir.</p>
+        <p class="text-slate-600 font-bold leading-relaxed">Özellikle $CTR$ oranınızı %10'un üzerine çıkarmak için kapak fotoğraflarınızla başlıklarınızın tam uyumlu olması gerekir. 2026 algoritmaları izleyicinin ilgi süresine göre içeriği öne çıkarıyor.</p>
+      </div>
+      <div class="text-center"><button onclick="showPage('home')" class="text-rose-500 font-bold uppercase text-xs tracking-widest">← Geri Dön</button></div>
+    </div>
+
+    <div id="page-about" class="page-content">
+      <h1 class="text-4xl font-black mb-12 text-center" data-tr="about_title">Hakkımızda</h1>
+      <div class="max-w-4xl mx-auto text-center">
+        <p class="text-slate-700 font-bold text-lg leading-relaxed mb-6">NeoSocial_Rose, Kemal Akkuş liderliğindeki Veri Stratejisi ekibi tarafından, yapay zekanın gücünü sosyal medya üreticileriyle buluşturmak için kurulmuştur.</p>
+      </div>
+    </div>
+
+    <div id="page-contact" class="page-content text-center">
+      <h1 class="text-4xl font-black mb-12">İletişim</h1>
+      <p class="text-slate-600 font-bold text-xl">jarvisheyrose@gmail.com</p>
+    </div>
   </main>
 
-  <div id="gen-modal" class="modal">
-    <div class="modal-content bg-white p-10 rounded-[2rem] max-w-lg w-full">
-      <div class="flex justify-between mb-6"><h2 id="modal-title" class="font-black uppercase"></h2><button onclick="closeGen()" class="text-2xl">&times;</button></div>
-      <input type="text" id="topic-input" class="pro-input mb-4" placeholder="Konu girin...">
-      <button onclick="generate()" id="gen-btn" class="w-full bg-slate-900 text-white py-4 rounded-xl font-black">ÜRETİMİ BAŞLAT</button>
-      <div id="result-box" class="mt-6 hidden bg-slate-50 p-6 rounded-2xl border">
-        <p id="result-text" class="font-bold text-sm"></p>
+  <div id="generator-modal" class="modal">
+    <div class="modal-content">
+      <div class="flex justify-between items-center mb-8">
+        <h2 id="modal-platform-title" class="text-2xl font-black uppercase"></h2>
+        <button onclick="closeGenerator()" class="text-slate-400 hover:text-rose-500 text-2xl"><i class="fas fa-times"></i></button>
+      </div>
+      <input type="text" id="modal-topic-input" class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 font-bold mb-6 outline-none" placeholder="Konu girin...">
+      <button onclick="generateContent()" id="modal-gen-btn" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-rose-500 transition">ÜRETİMİ BAŞLAT</button>
+      <div id="modal-result-box" class="hidden mt-8 p-6 bg-slate-50 rounded-2xl border-2 border-slate-100">
+        <p id="modal-result-text" class="font-bold text-slate-800"></p>
       </div>
     </div>
   </div>
@@ -142,60 +151,76 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
   <script>
-    const firebaseConfig = { apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I", authDomain: "neosocial-rose.firebaseapp.com", projectId: "neosocial-rose", storageBucket: "neosocial-rose.firebasestorage.app", messagingSenderId: "909069196756", appId: "1:909069196756:web:db488838badee276f0ca41" };
-    firebase.initializeApp(firebaseConfig);
-
     const T = {
-      tr: { nav_home: "Anasayfa", nav_blog: "Blog", nav_apps: "Uygulamalar", nav_platform: "Platform", nav_about: "Hakkımızda", select_platform: "Platform Seçin", platform_youtube_desc: "Başlık ve Hashtag Üretici", platform_crypto_desc: "Anlık Trend & Tahminler" },
-      en: { nav_home: "Home", nav_blog: "Blog", nav_apps: "Apps", nav_platform: "Platform", nav_about: "About", select_platform: "Select Platform", platform_youtube_desc: "Title & Hashtag Generator", platform_crypto_desc: "Real-time Crypto Analysis" },
-      fr: { nav_home: "Accueil", nav_blog: "Blog", nav_apps: "Apps", nav_platform: "Plateforme", nav_about: "À propos", select_platform: "Plateforme", platform_youtube_desc: "Titres et Hashtags", platform_crypto_desc: "Analyse Crypto" },
-      de: { nav_home: "Start", nav_blog: "Blog", nav_apps: "Apps", nav_platform: "Plattform", nav_about: "Über uns", select_platform: "Plattform wählen", platform_youtube_desc: "Titel & Hashtags", platform_crypto_desc: "Krypto-Analyse" },
-      es: { nav_home: "Inicio", nav_blog: "Blog", nav_apps: "Apps", nav_platform: "Plataforma", nav_about: "Sobre", select_platform: "Plataforma", platform_youtube_desc: "Títulos y Hashtags", platform_crypto_desc: "Análisis Cripto" },
-      pt: { nav_home: "Início", nav_blog: "Blog", nav_apps: "Apps", nav_platform: "Plataforma", nav_about: "Sobre", select_platform: "Selecionar", platform_youtube_desc: "Títulos e Hashtags", platform_crypto_desc: "Análise Cripto" }
+      tr:{ nav_home:"Anasayfa", nav_blog:"Blog", nav_about:"Hakkımızda", nav_contact:"İletişim", login:"GİRİŞ", logout:"ÇIKIŞ", platform_youtube_desc:"Başlık ve Hashtag Üretici", crypto_title:"Kripto Analiz", platform_crypto_desc:"Anlık Trend & Tahminler", blog_title:"Blog & Rehberler", about_title:"Hakkımızda" },
+      en:{ nav_home:"Home", nav_blog:"Blog", nav_about:"About", nav_contact:"Contact", login:"LOGIN", logout:"LOGOUT", platform_youtube_desc:"Title & Hashtag Generator", crypto_title:"Crypto Analysis", platform_crypto_desc:"Real-time Analysis", blog_title:"Blog & Guides", about_title:"About Us" },
+      fr:{ nav_home:"Accueil", nav_blog:"Blog", nav_about:"À propos", nav_contact:"Contact", login:"CONNEXION", logout:"DECONNEXION", platform_youtube_desc:"Titres et hashtags", blog_title:"Blog & Guides", about_title:"À propos" },
+      de:{ nav_home:"Start", nav_blog:"Blog", nav_about:"Über", nav_contact:"Kontakt", login:"ANMELDEN", logout:"ABMELDEN", platform_youtube_desc:"Titel & Hashtags", blog_title:"Blog & Guides", about_title:"Über uns" },
+      es:{ nav_home:"Inicio", nav_blog:"Blog", nav_about:"Sobre", nav_contact:"Contacto", login:"INICIAR", logout:"CERRAR", platform_youtube_desc:"Títulos y hashtags", blog_title:"Blog y guías", about_title:"Sobre nosotros" },
+      pt:{ nav_home:"Início", nav_blog:"Blog", nav_about:"Sobre", nav_contact:"Contato", login:"ENTRAR", logout:"SAIR", platform_youtube_desc:"Títulos e hashtags", blog_title:"Blog e guias", about_title:"Sobre nós" }
     };
 
-    let state = { lang: localStorage.getItem('nsr_lang') || 'tr', user: null, credits: {youtube:2, crypto:2} };
+    let state = { lang: localStorage.getItem('user_lang') || 'tr', user: null, credits: {youtube:2, crypto:2} };
 
     function setLang(l) {
-      state.lang = l; localStorage.setItem('nsr_lang', l);
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-      document.querySelectorAll('[data-tr]').forEach(e => { const k = e.dataset.tr; if(T[l][k]) e.innerText = T[l][k]; });
+      state.lang = l; localStorage.setItem('user_lang', l);
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.getAttribute('data-lang') === l));
+      translatePage();
     }
 
+    function translatePage() {
+      document.querySelectorAll('[data-tr]').forEach(el => {
+        const k = el.getAttribute('data-tr');
+        if(T[state.lang][k]) el.innerHTML = T[state.lang][k];
+      });
+    }
+
+    function showPage(p) {
+      document.querySelectorAll('.page-content').forEach(pg => pg.classList.remove('active'));
+      const target = document.getElementById('page-' + p);
+      if(target) target.classList.add('active');
+      window.scrollTo(0,0);
+    }
+
+    function toggleMobileMenu() { document.getElementById('mobile-menu-overlay').classList.toggle('active'); }
+    function openGenerator(p) { if(!state.user){ alert('Giriş yapmalısın dostum!'); return; } state.activeP = p; document.getElementById('modal-platform-title').innerText = p; document.getElementById('generator-modal').classList.add('active'); }
+    function closeGenerator() { document.getElementById('generator-modal').classList.remove('active'); }
+
+    // FIREBASE INITIALIZATION
+    const firebaseConfig={apiKey:"AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",authDomain:"neosocial-rose.firebaseapp.com",projectId:"neosocial-rose",storageBucket:"neosocial-rose.firebasestorage.app",messagingSenderId:"909069196756",appId:"1:909069196756:web:db488838badee276f0ca41"};
+    firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged(u => {
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
       if(u) {
         state.user = u;
-        document.getElementById('login-btn').classList.add('hidden');
-        document.getElementById('logout-btn').classList.remove('hidden');
-        document.getElementById('login-btn').innerText = u.displayName.split(' ')[0].toUpperCase();
+        document.getElementById('user-display').innerText = u.displayName.split(' ')[0].toUpperCase();
+        loginBtn.classList.add('hidden'); logoutBtn.classList.remove('hidden');
       } else {
         state.user = null;
-        document.getElementById('login-btn').classList.remove('hidden');
-        document.getElementById('logout-btn').classList.add('hidden');
+        document.getElementById('user-display').innerText = T[state.lang].login;
+        loginBtn.classList.remove('hidden'); logoutBtn.classList.add('hidden');
       }
     });
 
-    function loginWithGoogle() { const p = new firebase.auth.GoogleAuthProvider(); firebase.auth().signInWithPopup(p); }
-    function logoutGoogle() { firebase.auth().signOut(); }
-    function toggleMobile() { document.getElementById('mobile-menu').classList.toggle('active'); }
-    function openGen(p) { if(!state.user){ alert('Giriş yapmalısın dostum!'); return; } state.activeP = p; document.getElementById('modal-title').innerText = p; document.getElementById('gen-modal').classList.add('active'); }
-    function closeGen() { document.getElementById('gen-modal').classList.remove('active'); }
-    
-    async function generate() {
-        const input = document.getElementById('topic-input').value;
-        if(!input) return;
-        const btn = document.getElementById('gen-btn');
-        btn.innerText = "ÜRETİLİYOR...";
-        try {
-            const r = await fetch('/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic:input, platform:state.activeP, lang:state.lang}) });
-            const d = await r.json();
-            document.getElementById('result-text').innerText = d.text;
-            document.getElementById('result-box').classList.remove('hidden');
-        } catch(e) { alert('Hata oluştu dostum.'); }
-        btn.innerText = "ÜRETİMİ BAŞLAT";
+    function loginWithGoogle() { firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+    function logoutGoogle() { firebase.auth().signOut().then(() => { location.reload(); }); }
+
+    async function generateContent() {
+      const input = document.getElementById('modal-topic-input').value;
+      if(!input) return;
+      const btn = document.getElementById('modal-gen-btn');
+      btn.innerText = "ÜRETİLİYOR...";
+      try {
+        const r = await fetch('/api/generate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic:input, platform:state.activeP, lang:state.lang}) });
+        const d = await r.json();
+        document.getElementById('modal-result-text').innerText = d.text;
+        document.getElementById('modal-result-box').classList.remove('hidden');
+      } catch(e) { alert('Hata oluştu dostum.'); }
+      btn.innerText = "ÜRETİMİ BAŞLAT";
     }
 
-    window.onload = () => setLang(state.lang);
+    window.addEventListener('DOMContentLoaded', () => { setLang(state.lang); });
   </script>
 </body>
 </html>
