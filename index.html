@@ -120,12 +120,12 @@
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
         <div class="desktop-lang-container hidden lg:flex gap-1">
-          <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr"></button>
-          <button onclick="setLang('en')" class="lang-btn" data-lang="en"></button>
-          <button onclick="setLang('fr')" class="lang-btn" data-lang="fr"></button>
-          <button onclick="setLang('de')" class="lang-btn" data-lang="de"></button>
-          <button onclick="setLang('es')" class="lang-btn" data-lang="es"></button>
-          <button onclick="setLang('pt')" class="lang-btn" data-lang="pt"></button>
+          <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">TR</button>
+          <button onclick="setLang('en')" class="lang-btn" data-lang="en">EN</button>
+          <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">FR</button>
+          <button onclick="setLang('de')" class="lang-btn" data-lang="de">DE</button>
+          <button onclick="setLang('es')" class="lang-btn" data-lang="es">ES</button>
+          <button onclick="setLang('pt')" class="lang-btn" data-lang="pt">PT</button>
         </div>
         <button onclick="loginWithGoogle()" id="login-btn" style="background:#0f172a;color:#fff;padding:8px 16px;border-radius:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;border:none;cursor:pointer;white-space:nowrap;"><span id="user-display" data-tr="login">GİRİŞ</span></button>
         <button onclick="logoutGoogle()" id="logout-btn" class="hidden" style="background:#fff;color:#0f172a;padding:8px 16px;border-radius:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;border:1px solid #e2e8f0;cursor:pointer;white-space:nowrap;" data-tr="logout">ÇIKIŞ</button>
@@ -137,11 +137,11 @@
   <!-- MOBİL MENÜ -->
   <div id="mobile-menu-overlay">
     <div style="display:flex;justify-content:center;gap:8px;padding:16px;border-bottom:1px solid #f1f5f9;margin-bottom:8px;">
-      <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr"></button>
-      <button onclick="setLang('en')" class="lang-btn" data-lang="en"></button>
-      <button onclick="setLang('fr')" class="lang-btn" data-lang="fr"></button>
-      <button onclick="setLang('de')" class="lang-btn" data-lang="de"></button>
-      <button onclick="setLang('es')" class="lang-btn" data-lang="es"></button>
+      <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">TR</button>
+      <button onclick="setLang('en')" class="lang-btn" data-lang="en">EN</button>
+      <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">FR</button>
+      <button onclick="setLang('de')" class="lang-btn" data-lang="de">DE</button>
+      <button onclick="setLang('es')" class="lang-btn" data-lang="es">ES</button>
     </div>
     <span class="mobile-nav-item" onclick="showPage('home');toggleMobileMenu()" data-tr="nav_home">Anasayfa</span>
     <span class="mobile-nav-item" onclick="showPage('blog');toggleMobileMenu()" data-tr="nav_blog">Blog</span>
@@ -269,16 +269,16 @@
     <div id="page-blog" class="page-content">
       <h1 class="text-4xl font-black mb-12" data-tr="blog_title">Blog & Rehberler</h1>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        <div class="blog-card" onclick="showPage('article-money')">
-          <div><span style="background:#dcfce7;color:#166534;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:16px;">Para Kazanma</span>
-          <h2 class="text-xl font-black mb-3" data-tr="blog_money_title">YouTube Para Kazanma 2026</h2>
-          <p class="text-sm mb-4" style="color:#475569;" data-tr="blog_money_desc">YouTube para kazanma rehberi...</p></div>
-          <span style="color:#f43f5e;font-size:14px;font-weight:700;" data-tr="read_more">Devamını Oku →</span>
-        </div>
         <div class="blog-card" onclick="showPage('article-youtube')">
           <div><span style="background:#ffe4e6;color:#be123c;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:16px;">YouTube</span>
-          <h2 class="text-xl font-black mb-3" data-tr="blog_yt_viral_title">2026'da YouTube'da Viral Olmak</h2>
-          <p class="text-sm mb-4" style="color:#475569;" data-tr="blog_yt_viral_desc">YouTube algoritması stratejileri...</p></div>
+          <h2 class="text-xl font-black mb-3">YouTube Algoritma Mühendisliği 2026</h2>
+          <p class="text-sm mb-4" style="color:#475569;">CTR formülü, Hook stratejisi ve thumbnail psikolojisi...</p></div>
+          <span style="color:#f43f5e;font-size:14px;font-weight:700;" data-tr="read_more">Devamını Oku →</span>
+        </div>
+        <div class="blog-card" onclick="showPage('article-crypto')">
+          <div><span style="background:#fef9c3;color:#854d0e;padding:4px 12px;border-radius:9999px;font-size:12px;font-weight:700;display:inline-block;margin-bottom:16px;">Kripto AI</span>
+          <h2 class="text-xl font-black mb-3">Kripto Piyasasında AI Duyarlılık Analizi</h2>
+          <p class="text-sm mb-4" style="color:#475569;">Fear & Greed endeksi, Social Volume ve Gemini AI analizi...</p></div>
           <span style="color:#f43f5e;font-size:14px;font-weight:700;" data-tr="read_more">Devamını Oku →</span>
         </div>
         <div class="blog-card" onclick="showPage('article-instagram')">
@@ -297,66 +297,84 @@
     </div>
 
     <!-- MAKALELER -->
-    <div id="page-article-money" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #bbf7d0;">
-        <span style="background:#dcfce7;color:#166534;padding:6px 16px;border-radius:9999px;font-size:14px;font-weight:700;display:inline-block;margin-bottom:24px;">Para Kazanma</span>
-        <h1 class="text-4xl font-black mb-6">YouTube Para Kazanma 2026</h1>
-        <div class="article-content" style="color:#334155;">
-          <p class="text-lg font-bold mb-6">YouTube'da gelir elde etmek için iki ana yol var:</p>
-          <h3>Shorts Geliri</h3>
-          <p>Önce 500 abone ve 3 milyon Shorts izlenmesine ulaşın. Super Chat ve bağışlar devreye girer. İlk kazançlar buradan başlar.</p>
-          <h3>Reklam ve Sponsor Geliri</h3>
-          <p>Daha yüksek gelir için 1.000 abone ve 4.000 izlenme saati şartını tamamlayın. Bu aşamadan sonra reklam ve sponsor fırsatları açılır.</p>
+    <div id="page-article-youtube" class="page-content">
+      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #ffe4e6;">
+        <span style="background:#ffe4e6;color:#be123c;padding:6px 16px;border-radius:9999px;font-size:14px;font-weight:700;display:inline-block;margin-bottom:24px;">YouTube</span>
+        <h1 class="text-4xl font-black mb-6">YouTube Algoritma Mühendisliği 2026</h1>
+        <div class="article-content" style="color:#334155;font-weight:600;line-height:1.9;">
+          <p class="text-lg font-bold mb-6">Bir videonun başarısı <strong>Tıklama Oranı (CTR)</strong> ve <strong>Görsel Psikoloji</strong>'ye bağlıdır.</p>
+          <h2>CTR: Videonuzun Kapı Eşiği</h2>
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:1rem;padding:20px;margin-bottom:20px;">
+            <p style="font-family:monospace;font-size:16px;font-weight:800;color:#f43f5e;">CTR = (Tıklama / Gösterim) × 100</p>
+            <p style="margin-top:8px;">Bu formül videonuzun algoritma tarafından ne kadar önerildiğini belirler. 2026 trendlerinde <strong>doğal ama yüksek kontrastlı görseller</strong> öne çıkmaktadır.</p>
+          </div>
+          <h2>Hook (Kanca) Stratejisi</h2>
+          <p>NeoSocial_Rose araçları, bu kancaları <strong>algoritmanın en sevdiği anahtar kelimelerle</strong> harmanlayarak üretmek için optimize edilmiştir. İlk 30 saniye izleyicinin kalıp kalmayacağını belirler.</p>
+          <h2>Thumbnail Psikolojisi</h2>
+          <p>2026'da yapay zeka destekli thumbnail analizi hangi görselin daha fazla tıklama aldığını milisaniyeler içinde tahmin edebilmektedir. Yüz ifadeleri ve büyük okunabilir metin kombinasyonu en yüksek CTR'ı sağlıyor.</p>
           <div style="margin-top:2rem;padding:1.5rem;background:#f0fdf4;border:2px solid #86efac;border-radius:1rem;">
-            <p><strong>⚠️ Bilgilendirme:</strong> Bilgilendirme amaçlıdır; kazanç garantisi yoktur.</p>
+            <p><strong>Özet:</strong> Yüksek CTR + Yüksek İzlenme Süresi = Viral Video. NeoSocial_Rose araçlarıyla başlıklarınızı optimize edin.</p>
           </div>
         </div>
         <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
-    <div id="page-article-youtube" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-6">2026'da YouTube'da Viral Olmak</h1>
-        <div class="article-content" style="color:#334155;">
-          <p class="text-lg font-bold mb-6">YouTube algoritması 2026'da çok daha kişiselleştirilmiş. Sadece anahtar kelime doldurmak yetmiyor.</p>
-          <h2>1. İlk 30 Saniye Kuralı</h2>
-          <p>İzleyici tutma oranı algoritmanın en sevdiği veridir. Giriş bölümünde gereksiz "merhabalarla" vakit kaybetmeyin.</p>
-          <h2>2. Tıklama Oranı (CTR)</h2>
-          <p>Thumbnail ve başlık birbirini tamamlamalı. Merak uyandırıcı kalıplar her zaman çalışır.</p>
-          <h2>3. Shorts Sinerjisi</h2>
-          <p>Uzun videolarınızın en çarpıcı kısımlarını Shorts olarak paylaşarak ana kanalınıza trafik çekin.</p>
-          <div style="margin-top:2rem;padding:1.5rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:1rem;">
-            <p><strong>Özet:</strong> Yüksek CTR + Yüksek İzlenme Süresi = Viral Video.</p>
+    <div id="page-article-crypto" class="page-content">
+      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #fef08a;">
+        <span style="background:#fef9c3;color:#854d0e;padding:6px 16px;border-radius:9999px;font-size:14px;font-weight:700;display:inline-block;margin-bottom:24px;">Kripto AI</span>
+        <h1 class="text-4xl font-black mb-6">Kripto Piyasasında AI Duyarlılık Analizi</h1>
+        <div class="article-content" style="color:#334155;font-weight:600;line-height:1.9;">
+          <p class="text-lg font-bold mb-6">2026 yılında bir varlığın fiyat hareketini tahmin etmek için <strong>saniyede binlerce sosyal medya verisini</strong> işlemek zorunluluktur.</p>
+          <h2>Fear & Greed Endeksi</h2>
+          <p>NeoSocial_Rose, piyasadaki <strong>"Korku ve Açgözlülük" (Fear & Greed)</strong> endeksini Gemini AI üzerinden süzerek rasyonel veriler sunar. Panik satışları ile çılgın alımları önceden tespit etmek artık mümkün.</p>
+          <h2>Social Volume Analizi</h2>
+          <div style="background:#fffbeb;border:2px solid #fde68a;border-radius:1rem;padding:20px;margin-bottom:20px;">
+            <p>Bir varlığın sadece yükselip düşeceği değil, <strong>topluluklar tarafından ne kadar konuşulduğu (Social Volume)</strong> başarının asıl anahtarıdır.</p>
+          </div>
+          <h2>Gemini AI Entegrasyonu</h2>
+          <p>Platformumuz Twitter/X, Reddit ve Telegram gibi kaynaklardan gelen verileri eş zamanlı işleyerek <strong>duyarlılık skoru (Sentiment Score)</strong> üretir.</p>
+          <div style="margin-top:2rem;padding:1.5rem;background:#fffbeb;border:2px solid #fcd34d;border-radius:1rem;">
+            <p>⚠️ <strong>Feragatname:</strong> Bu analizler yatırım tavsiyesi değildir. Oluşabilecek kayıplardan NeoSocial_Rose sorumlu tutulamaz.</p>
           </div>
         </div>
-        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-instagram" class="page-content">
-      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-6">Instagram Hashtag ve Etkileşim Stratejisi 2026</h1>
-        <div class="article-content" style="color:#334155;">
+      <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #fce7f3;">
+        <span style="background:#fce7f3;color:#9d174d;padding:6px 16px;border-radius:9999px;font-size:14px;font-weight:700;display:inline-block;margin-bottom:24px;">Instagram</span>
+        <h1 class="text-4xl font-black mb-6">Instagram Hashtag Stratejisi 2026</h1>
+        <div class="article-content" style="color:#334155;font-weight:600;line-height:1.9;">
           <p class="text-lg font-bold mb-6">Instagram'da görünürlüğünüzü artırmak için doğru hashtag kullanımı ve etkileşim taktiklerini öğrenin.</p>
-          <div style="margin-top:2rem;padding:1.5rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:1rem;">
-            <p><strong>Örnek:</strong> 5–10 etkili hashtag kullanın, kitlenizin en aktif olduğu saatlerde paylaşın.</p>
+          <h2>Shadowban'den Nasıl Kaçınılır?</h2>
+          <p>Aynı hashtagleri tekrar tekrar kullanmak shadowban'e yol açar. Her gönderi için farklı, nişe uygun hashtagler seçin.</p>
+          <h2>Hashtag Kombinasyonu</h2>
+          <p>5–10 büyük, 5–10 orta, 5–10 küçük hashtag kombinasyonu kullanın. NeoSocial_Rose bu kombinasyonları AI ile otomatik üretir.</p>
+          <div style="margin-top:2rem;padding:1.5rem;background:#fdf2f8;border:2px solid #f9a8d4;border-radius:1rem;">
+            <p><strong>İpucu:</strong> Kitlenizin en aktif olduğu saatlerde paylaşın ve Reels içeriklerini önceliklendirin.</p>
           </div>
         </div>
-        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
     <div id="page-article-tiktok" class="page-content">
       <article class="max-w-4xl mx-auto bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-6">TikTok Viral ve Etkileşim Stratejisi 2026</h1>
-        <div class="article-content" style="color:#334155;">
+        <span style="background:#f1f5f9;color:#334155;padding:6px 16px;border-radius:9999px;font-size:14px;font-weight:700;display:inline-block;margin-bottom:24px;">TikTok</span>
+        <h1 class="text-4xl font-black mb-6">TikTok Viral Stratejisi 2026</h1>
+        <div class="article-content" style="color:#334155;font-weight:600;line-height:1.9;">
           <p class="text-lg font-bold mb-6">TikTok FYP algoritmasının sırları ve viral olmanın yöntemlerini öğrenin.</p>
+          <h2>FYP Algoritması Nasıl Çalışır?</h2>
+          <p>TikTok, ilk 500 izleyiciye videonuzu test eder. Tamamlanma oranı ve etkileşim yüksekse milyonlara ulaştırır.</p>
+          <h2>Trend Müzik & Efekt Kullanımı</h2>
+          <p>Trend sesleri kullanan videolar algoritmada %300 daha fazla gösterilir. NeoSocial_Rose günlük trend hashtagleri AI ile tespit eder.</p>
           <div style="margin-top:2rem;padding:1.5rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:1rem;">
-            <p><strong>Örnek:</strong> Trend müzikleri ve efektleri kullanın, en aktif saatlerde paylaşın.</p>
+            <p><strong>İpucu:</strong> İlk 3 saniyede dikkat çekin, trend ses kullanın ve en aktif saatlerde paylaşın.</p>
           </div>
         </div>
-        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;">← Blog'a Dön</button>
+        <button onclick="showPage('blog')" style="margin-top:3rem;color:#f43f5e;font-weight:700;background:none;border:none;cursor:pointer;" data-tr="back_to_blog">← Blog'a Dön</button>
       </article>
     </div>
 
@@ -455,7 +473,7 @@
           <section>
             <h2 class="text-2xl font-black mb-4">4. İletişim</h2>
             <div style="background:#f8fafc;padding:24px;border-radius:12px;">
-              <p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" style="color:#f43f5e;font-weight:700;">jarvisheyrose@gmail.com</a></p>
+              <p><strong>E-posta:</strong> <a href="/cdn-cgi/l/email-protection#3953584b4f504a515c404b564a5c795e54585055175a5654" style="color:#f43f5e;font-weight:700;"><span class="__cf_email__" data-cfemail="7a101b080c1309121f030815091f3a1d171b131654191517">[email&#160;protected]</span></a></p>
             </div>
           </section>
         </div>
@@ -497,7 +515,7 @@
         <div style="text-align:center;">
           <i class="fas fa-envelope text-5xl" style="color:#f43f5e;margin-bottom:16px;display:block;"></i>
           <p style="color:#334155;font-weight:700;margin-bottom:8px;">E-posta</p>
-          <a href="mailto:jarvisheyrose@gmail.com" style="font-size:24px;font-weight:900;color:#f43f5e;">jarvisheyrose@gmail.com</a>
+          <a href="/cdn-cgi/l/email-protection#bfd5decdc9d6ccd7dac6cdd0ccdaffd8d2ded6d391dcd0d2" style="font-size:24px;font-weight:900;color:#f43f5e;"><span class="__cf_email__" data-cfemail="dfb5beada9b6acb7baa6adb0acba9fb8b2beb6b3f1bcb0b2">[email&#160;protected]</span></a>
         </div>
       </div>
     </div>
@@ -557,7 +575,7 @@
   </footer>
 
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script>
     // ══════════════════════════════════════════
@@ -706,15 +724,17 @@
       var btn = document.getElementById('modal-gen-btn');
       btn.disabled = true;
       btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i> ÜRETİLİYOR...';
+      var platformNames = {youtube:'YouTube',instagram:'Instagram',tiktok:'TikTok'};
+      var langNames = {tr:'Türkçe',en:'İngilizce',fr:'Fransızca',de:'Almanca',es:'İspanyolca',pt:'Portekizce'};
+      var prompt = platformNames[state.currentPlatform]+' platformu için "'+tp+'" konusunda '+langNames[state.lang]+' dilinde viral bir başlık, açıklama ve 10 hashtag üret. SEO odaklı, dikkat çekici yaz.';
       try {
-        var r = await fetch('/api/generate', {
+        var r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I', {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({topic:tp, platform:state.currentPlatform, lang:state.lang})
+          body: JSON.stringify({contents:[{parts:[{text:prompt}]}]})
         });
         var d = await r.json();
-        if(d.error) throw new Error(d.error);
-        var res = d.text || '';
+        var res = d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts && d.candidates[0].content.parts[0].text || '';
         if(res){
           state.credits[state.currentPlatform]--;
           saveCredits(); updateAllBadges();
@@ -729,8 +749,8 @@
           rb.classList.remove('hidden');
           rb.style.display = 'flex';
           notify('Üretim Başarılı ✨');
-        }
-      } catch(e) { console.error(e); notify('Hata oluştu.'); }
+        } else { notify('Sonuç alınamadı, tekrar deneyin.'); }
+      } catch(e) { console.error(e); notify('Hata oluştu, tekrar deneyin.'); }
       finally { btn.disabled = false; btn.innerHTML = '<span>ÜRETİMİ BAŞLAT</span>'; }
     }
 
@@ -813,7 +833,6 @@
       platformWrap.addEventListener('mouseleave', function(){ platformDD.style.display='none'; });
     }
 
-    // Sayfa yüklendiğinde çeviriyi uygula
     translatePage();
   </script>
 </body>
