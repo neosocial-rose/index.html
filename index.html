@@ -106,7 +106,7 @@
             <span class="nav-link" id="nav-platform-btn" data-tr="nav_platform">Platform</span>
             <div class="menu-dropdown text-center" id="nav-platform-dd">
               <div style="background:linear-gradient(to right,#fff1f2,#f5f3ff);padding:12px;border-radius:8px;">
-                <p class="text-xs font-black mb-1" style="color:#334155;">🤖 POWERED BY</p>
+                <p class="text-xs font-black mb-1" style="color:#334155;"> POWERED BY</p>
                 <p class="text-lg font-black" style="background:linear-gradient(to right,#f43f5e,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">GEMINI AI</p>
               </div>
             </div>
@@ -120,12 +120,12 @@
       </div>
       <div class="flex items-center gap-2 flex-shrink-0">
         <div class="desktop-lang-container hidden lg:flex gap-1">
-          <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">🇹🇷</button>
-          <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
-          <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
-          <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
-          <button onclick="setLang('es')" class="lang-btn" data-lang="es">🇪🇸</button>
-          <button onclick="setLang('pt')" class="lang-btn" data-lang="pt">🇵🇹</button>
+          <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr"></button>
+          <button onclick="setLang('en')" class="lang-btn" data-lang="en"></button>
+          <button onclick="setLang('fr')" class="lang-btn" data-lang="fr"></button>
+          <button onclick="setLang('de')" class="lang-btn" data-lang="de"></button>
+          <button onclick="setLang('es')" class="lang-btn" data-lang="es"></button>
+          <button onclick="setLang('pt')" class="lang-btn" data-lang="pt"></button>
         </div>
         <button onclick="loginWithGoogle()" id="login-btn" style="background:#0f172a;color:#fff;padding:8px 16px;border-radius:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;border:none;cursor:pointer;white-space:nowrap;"><span id="user-display" data-tr="login">GİRİŞ</span></button>
         <button onclick="logoutGoogle()" id="logout-btn" class="hidden" style="background:#fff;color:#0f172a;padding:8px 16px;border-radius:12px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;border:1px solid #e2e8f0;cursor:pointer;white-space:nowrap;" data-tr="logout">ÇIKIŞ</button>
@@ -137,11 +137,11 @@
   <!-- MOBİL MENÜ -->
   <div id="mobile-menu-overlay">
     <div style="display:flex;justify-content:center;gap:8px;padding:16px;border-bottom:1px solid #f1f5f9;margin-bottom:8px;">
-      <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr">🇹🇷</button>
-      <button onclick="setLang('en')" class="lang-btn" data-lang="en">🇬🇧</button>
-      <button onclick="setLang('fr')" class="lang-btn" data-lang="fr">🇫🇷</button>
-      <button onclick="setLang('de')" class="lang-btn" data-lang="de">🇩🇪</button>
-      <button onclick="setLang('es')" class="lang-btn" data-lang="es">🇪🇸</button>
+      <button onclick="setLang('tr')" class="lang-btn active" data-lang="tr"></button>
+      <button onclick="setLang('en')" class="lang-btn" data-lang="en"></button>
+      <button onclick="setLang('fr')" class="lang-btn" data-lang="fr"></button>
+      <button onclick="setLang('de')" class="lang-btn" data-lang="de"></button>
+      <button onclick="setLang('es')" class="lang-btn" data-lang="es"></button>
     </div>
     <span class="mobile-nav-item" onclick="showPage('home');toggleMobileMenu()" data-tr="nav_home">Anasayfa</span>
     <span class="mobile-nav-item" onclick="showPage('blog');toggleMobileMenu()" data-tr="nav_blog">Blog</span>
@@ -201,11 +201,11 @@
             <div>
               <h3 class="text-lg font-black mb-3 uppercase tracking-wider" data-tr="important_info">Önemli Bilgiler</h3>
               <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;font-weight:700;color:#334155;">
-                <p data-tr="info_1">🎯 Bu platform sadece içerik önerisi sunar.</p>
+                <p data-tr="info_1"> Bu platform sadece içerik önerisi sunar.</p>
                 <p data-tr="info_2">⚠️ Yatırım tavsiyesi veya kesin kazanç garantisi verilmemektedir.</p>
-                <p data-tr="info_3">🤖 Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.</p>
-                <p data-tr="info_4">📊 SEO skorları tahminidir ve garanti edilmez.</p>
-                <p data-tr="info_5">🔄 Her platform için günlük 2 üretim hakkınız vardır.</p>
+                <p data-tr="info_3"> Tüm içerikler Gemini AI tarafından trendlere göre üretilmektedir.</p>
+                <p data-tr="info_4"> SEO skorları tahminidir ve garanti edilmez.</p>
+                <p data-tr="info_5"> Her platform için günlük 2 üretim hakkınız vardır.</p>
               </div>
             </div>
           </div>
@@ -363,11 +363,40 @@
     <!-- HAKKIMIZDA -->
     <div id="page-about" class="page-content max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-8 text-center" data-tr="about_title">Hakkımızda</h1>
-        <div style="display:flex;flex-direction:column;gap:24px;color:#334155;font-weight:700;line-height:1.8;">
-          <p>NeoSocial_Rose, içerik üreticilerinin sosyal medya performansını artırmak için tasarlanmış yapay zeka tabanlı bir platformdur.</p>
-          <p>Altyapımızda Google'ın Gemini AI teknolojisi kullanılmaktadır. YouTube, Instagram ve TikTok trendleri anlık analiz edilir.</p>
-          <p>Misyonumuz, ücretsiz, hızlı ve etkili çözümler sunmaktır.</p>
+        <h1 class="text-4xl font-black mb-4 text-center" data-tr="about_title">Hakkımızda</h1>
+        <p class="text-center font-bold mb-10" style="color:#f43f5e;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;">NeoSocial_Rose: Veri Stratejisi ve Yapay Zekanın Yeni Nesil Buluşma Noktası</p>
+        <div style="display:flex;flex-direction:column;gap:28px;color:#334155;line-height:1.8;font-weight:600;">
+          <p>NeoSocial_Rose, 2026 yılının dinamik dijital ekosisteminde, içerik üreticilerinin ve finansal yatırımcıların en büyük ihtiyacı olan <strong>"anlamlandırılmış veri"</strong> boşluğunu doldurmak amacıyla kurulmuş, yapay zeka tabanlı bir analiz platformudur. Geleneksel yöntemlerin ve yüzeysel tahminlerin ötesine geçerek, büyük veriyi (Big Data) eyleme dönüştürülebilir stratejilere dönüştürüyoruz.</p>
+
+          <div style="background:linear-gradient(135deg,#fff1f2,#f5f3ff);border-radius:1.5rem;padding:2rem;">
+            <h2 class="text-2xl font-black mb-4">Misyonumuz ve Vizyonumuz</h2>
+            <p>Dijital dünyada herkes içerik üretebilir, ancak sadece veriyi doğru okuyanlar kalıcı bir başarı elde edebilir. <strong>Veri Stratejisti Kemal Akkuş</strong> liderliğinde geliştirilen platformumuzun temel misyonu; karmaşık sosyal medya algoritmalarını ve volatil finans piyasalarını, her kullanıcının anlayabileceği şeffaf ve uygulanabilir raporlara indirgemektir.</p>
+            <p style="margin-top:12px;">Vizyonumuz ise, bireysel içerik üreticilerini kurumsal düzeyde veri analitiği imkânlarıyla donatarak, dijital ekonomideki rekabet güçlerini maksimize etmektir.</p>
+          </div>
+
+          <div style="background:#f8fafc;border-radius:1.5rem;padding:2rem;border:2px solid #e2e8f0;">
+            <h2 class="text-2xl font-black mb-4">Teknolojik Altyapımız: Gemini AI Gücü</h2>
+            <p>Platformumuzun kalbinde, Google'ın geliştirdiği en gelişmiş çok modlu (multimodal) yapay zeka mimarisi olan <strong>Gemini 1.5 Pro</strong> teknolojisi yer almaktadır. Bu güçlü entegrasyon sayesinde YouTube algoritma analizleri ve finansal duyarlılık (sentiment) analizleri milisaniyeler içinde gerçekleştirilir.</p>
+            <p style="margin-top:12px;">6 farklı dilde (TR, EN, FR, DE, ES, PT) sunduğumuz analizlerle, global pazara açılmak isteyen üreticilere yerelleştirilmiş stratejik destek sağlıyoruz.</p>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:180px;background:#fff;border:2px solid #f1f5f9;border-radius:1rem;padding:1.5rem;text-align:center;">
+              <i class="fas fa-bolt text-3xl mb-3" style="color:#f43f5e;display:block;"></i>
+              <h4 class="font-black">Anlık Hız</h4>
+              <p style="font-size:13px;color:#64748b;font-weight:600;">Milisaniyeler içinde analiz</p>
+            </div>
+            <div style="flex:1;min-width:180px;background:#fff;border:2px solid #f1f5f9;border-radius:1rem;padding:1.5rem;text-align:center;">
+              <i class="fas fa-globe text-3xl mb-3" style="color:#3b82f6;display:block;"></i>
+              <h4 class="font-black">6 Dil Desteği</h4>
+              <p style="font-size:13px;color:#64748b;font-weight:600;">Global stratejik destek</p>
+            </div>
+            <div style="flex:1;min-width:180px;background:#fff;border:2px solid #f1f5f9;border-radius:1rem;padding:1.5rem;text-align:center;">
+              <i class="fas fa-brain text-3xl mb-3" style="color:#9333ea;display:block;"></i>
+              <h4 class="font-black">Gemini 1.5 Pro</h4>
+              <p style="font-size:13px;color:#64748b;font-weight:600;">Multimodal AI mimarisi</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -376,22 +405,26 @@
     <div id="page-faq" class="page-content max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
         <h1 class="text-4xl font-black mb-8 text-center">Sıkça Sorulan Sorular</h1>
-        <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;flex-direction:column;gap:16px;">
           <div style="border:2px solid #f1f5f9;border-radius:1rem;padding:24px;">
-            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Günlük limit nasıl çalışıyor?</h3>
-            <p style="color:#334155;font-weight:700;font-size:14px;">Her platform için günlük 2 üretim hakkı. Her gece 00:00'da yenilenir.</p>
+            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">NeoSocial_Rose nedir?</h3>
+            <p style="color:#334155;font-weight:600;font-size:14px;line-height:1.7;">Yapay zeka ve büyük veri analitiğini birleştiren hibrit bir içerik strateji platformudur.</p>
           </div>
           <div style="border:2px solid #f1f5f9;border-radius:1rem;padding:24px;">
-            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Platform ücretsiz mi?</h3>
-            <p style="color:#334155;font-weight:700;font-size:14px;">Evet, %100 ücretsiz.</p>
+            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Günlük limitler neden var?</h3>
+            <p style="color:#334155;font-weight:600;font-size:14px;line-height:1.7;">Gemini 1.5 Pro mimarisi üzerinden sunulan yüksek işlem gücünü adil paylaştırmak için her platforma günlük 2 üretim hakkı tanımlanmıştır.</p>
           </div>
           <div style="border:2px solid #f1f5f9;border-radius:1rem;padding:24px;">
-            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Hangi AI kullanıyorsunuz?</h3>
-            <p style="color:#334155;font-weight:700;font-size:14px;">Google'ın Gemini AI teknolojisi.</p>
+            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Veriler ne kadar güncel?</h3>
+            <p style="color:#334155;font-weight:600;font-size:14px;line-height:1.7;">Kripto ve sosyal medya trendleri Gemini AI altyapısı ile anlık olarak taranır.</p>
           </div>
           <div style="border:2px solid #f1f5f9;border-radius:1rem;padding:24px;">
-            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">YouTube'dan gerçekten para kazanılır mı?</h3>
-            <p style="color:#334155;font-weight:700;font-size:14px;">Evet! Ama sabır gerekir. İlk 6-12 ay içerik kalitesine odaklanın.</p>
+            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Ücretli mi?</h3>
+            <p style="color:#334155;font-weight:600;font-size:14px;line-height:1.7;">Hayır, tüm temel analiz özellikleri tamamen ücretsizdir.</p>
+          </div>
+          <div style="border:2px solid #f1f5f9;border-radius:1rem;padding:24px;">
+            <h3 class="text-lg font-black mb-3" style="color:#f43f5e;">Mobil uygulama var mı?</h3>
+            <p style="color:#334155;font-weight:600;font-size:14px;line-height:1.7;">NeoSocial_Rose yerel iOS ve Android uygulamaları 2026 yılının ikinci çeyreğinde yayına girecektir. Gerçek zamanlı algoritma uyarıları ve akıllı bildirimler içerecektir.</p>
           </div>
         </div>
       </div>
@@ -400,13 +433,30 @@
     <!-- GİZLİLİK -->
     <div id="page-privacy" class="page-content max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-8 text-center">Gizlilik Politikası</h1>
-        <p style="font-size:14px;color:#94a3b8;margin-bottom:32px;"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
-        <div style="display:flex;flex-direction:column;gap:32px;color:#334155;line-height:1.8;">
-          <section><h2 class="text-2xl font-black mb-4">1. Giriş</h2><p>NeoSocial_Rose olarak kullanıcı gizliliğine saygı duyuyoruz.</p></section>
-          <section><h2 class="text-2xl font-black mb-4">2. Toplanan Bilgiler</h2><p>Google Authentication ile giriş yaptığınızda ad, e-posta ve profil bilgileri toplanır.</p></section>
-          <section><h2 class="text-2xl font-black mb-4">3. İletişim</h2>
-            <div style="background:#f8fafc;padding:24px;border-radius:12px;"><p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" style="color:#f43f5e;font-weight:700;">jarvisheyrose@gmail.com</a></p></div>
+        <h1 class="text-4xl font-black mb-4 text-center">Gizlilik Politikası</h1>
+        <p style="font-size:14px;color:#94a3b8;margin-bottom:32px;text-align:center;"><strong>Son Güncelleme:</strong> 9 Mart 2026</p>
+        <div style="display:flex;flex-direction:column;gap:28px;color:#334155;line-height:1.8;font-weight:600;">
+          <p>NeoSocial_Rose olarak, kullanıcılarımızın gizliliğine ve veri güvenliğine en üst düzeyde önem veriyoruz. Bu politika, platformumuzu kullandığınızda hangi verilerin toplandığını ve nasıl işlendiğini açıklar.</p>
+          <section>
+            <h2 class="text-2xl font-black mb-4">1. Toplanan Veriler</h2>
+            <p>Google Authentication (Firebase) ile giriş yaptığınızda, yalnızca temel profil bilgileriniz (ad, soyad, e-posta) sistemimize tanımlanır. Bu veriler, günlük üretim haklarınızı takip etmek ve size özel bir kullanıcı deneyimi sunmak için kullanılır.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">2. Çerezler ve Reklamcılık</h2>
+            <p>Sitemiz, reklam sunumu için üçüncü taraf satıcı olan <strong>Google AdSense</strong>'i kullanmaktadır. Google, sitemizi ziyaretinize dayalı olarak size reklam sunmak için çerezleri kullanır.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">3. Veri Güvenliği</h2>
+            <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:1rem;padding:20px;">
+              <p>✅ Verileriniz asla üçüncü şahıslarla paylaşılmaz ve satılmaz.</p>
+              <p style="margin-top:8px;">✅ Tüm işlemler SSL sertifikalı güvenli bağlantılar üzerinden gerçekleştirilir.</p>
+            </div>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">4. İletişim</h2>
+            <div style="background:#f8fafc;padding:24px;border-radius:12px;">
+              <p><strong>E-posta:</strong> <a href="mailto:jarvisheyrose@gmail.com" style="color:#f43f5e;font-weight:700;">jarvisheyrose@gmail.com</a></p>
+            </div>
           </section>
         </div>
       </div>
@@ -415,17 +465,27 @@
     <!-- ŞARTLAR -->
     <div id="page-terms" class="page-content max-w-4xl mx-auto">
       <div class="bg-white rounded-3xl p-12 shadow-2xl" style="border:2px solid #f1f5f9;">
-        <h1 class="text-4xl font-black mb-8 text-center">Kullanım Şartları</h1>
-        <p style="font-size:14px;color:#94a3b8;margin-bottom:32px;"><strong>Son Güncelleme:</strong> 15 Şubat 2026</p>
-        <div style="display:flex;flex-direction:column;gap:32px;color:#334155;line-height:1.8;">
-          <section><h2 class="text-2xl font-black mb-4">1. Şartların Kabulü</h2><p>Platformu kullanarak bu şartları kabul edersiniz.</p></section>
-          <section><h2 class="text-2xl font-black mb-4">2. Feragatname</h2>
-            <div style="background:#fffbeb;border:2px solid #fcd34d;padding:24px;border-radius:1rem;">
-              <p>⚠️ <strong>Yatırım tavsiyesi değildir</strong></p>
-              <p style="margin-top:8px;">⚠️ <strong>Kazanç garantisi yoktur</strong></p>
-              <p style="margin-top:8px;">⚠️ <strong>AI içerikleri her zaman doğru olmayabilir</strong></p>
-            </div>
+        <h1 class="text-4xl font-black mb-4 text-center">Kullanım Şartları ve Sorumluluk Reddi</h1>
+        <p style="font-size:14px;color:#94a3b8;margin-bottom:32px;text-align:center;"><strong>Son Güncelleme:</strong> 9 Mart 2026</p>
+        <p style="color:#334155;line-height:1.8;margin-bottom:28px;font-weight:600;">NeoSocial_Rose platformuna erişerek aşağıdaki şartları kabul etmiş sayılırsınız:</p>
+        <div style="display:flex;flex-direction:column;gap:24px;color:#334155;line-height:1.8;font-weight:600;">
+          <section>
+            <h2 class="text-2xl font-black mb-4">1. İçerik Doğruluğu</h2>
+            <p>Platform tarafından üretilen tüm başlıklar, hashtagler ve analizler Google Gemini AI tarafından sağlanmaktadır. Bu içerikler öneri niteliğindedir; doğruluğu veya viral olma garantisi verilmez.</p>
           </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">2. Finansal Feragatname</h2>
+            <p>Platformda sunulan veriler yatırım tavsiyesi değildir. Piyasa volatilitesi nedeniyle oluşabilecek kayıplardan NeoSocial_Rose sorumlu tutulamaz.</p>
+          </section>
+          <section>
+            <h2 class="text-2xl font-black mb-4">3. Kullanım Limiti</h2>
+            <p>Ücretsiz kullanıcılar için tanımlanan günlük 2/2 üretim hakkı, sistem kaynaklarının adil dağılımı içindir.</p>
+          </section>
+          <div style="background:#fffbeb;border:2px solid #fcd34d;padding:24px;border-radius:1rem;">
+            <p>⚠️ <strong>İçerikler öneri niteliğindedir, viral olma garantisi yoktur.</strong></p>
+            <p style="margin-top:8px;">⚠️ <strong>AI içerikleri her zaman %100 doğru olmayabilir.</strong></p>
+            <p style="margin-top:8px;">⚠️ <strong>Platform üzerinden verilen bilgiler yatırım tavsiyesi değildir.</strong></p>
+          </div>
         </div>
       </div>
     </div>
@@ -476,7 +536,7 @@
             <p id="modal-char-count" style="font-size:12px;color:#94a3b8;font-weight:700;margin-top:12px;">0 karakter</p>
             <button onclick="copyModalContent()" style="position:absolute;top:24px;right:24px;color:#94a3b8;font-size:20px;background:none;border:none;cursor:pointer;"><i class="far fa-copy"></i></button>
           </div>
-          <button onclick="generateContent()" style="width:100%;border:2px solid #e2e8f0;color:#334155;padding:16px;border-radius:12px;font-weight:800;text-transform:uppercase;font-size:14px;background:#fff;cursor:pointer;">🔄 Yeniden Üret</button>
+          <button onclick="generateContent()" style="width:100%;border:2px solid #e2e8f0;color:#334155;padding:16px;border-radius:12px;font-weight:800;text-transform:uppercase;font-size:14px;background:#fff;cursor:pointer;"> Yeniden Üret</button>
         </div>
       </div>
     </div>
@@ -496,21 +556,20 @@
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
+
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-
   <script>
     // ══════════════════════════════════════════
     // ÇEVİRİ SİSTEMİ
     // ══════════════════════════════════════════
     var T = {
-      tr:{nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",important_info:"Önemli Bilgiler",info_1:"🎯 Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Kazanç garantisi verilmemektedir.",info_3:"🤖 Tüm içerikler Gemini AI tarafından üretilmektedir.",info_4:"📊 SEO skorları tahminidir.",info_5:"🔄 Her platform için günlük 2 üretim hakkınız vardır.",blog_title:"Blog & Rehberler",read_more:"Devamını Oku →",back_to_blog:"← Blog'a Dön",about_title:"Hakkımızda",blog_money_title:"YouTube Para Kazanma 2026",blog_money_desc:"Monetizasyon şartları ve gelir stratejileri...",blog_yt_viral_title:"2026'da YouTube'da Viral Olmak",blog_yt_viral_desc:"Algoritma stratejileri...",blog_insta_title:"Instagram Hashtag Stratejisi 2026",blog_insta_desc:"Shadowban'den nasıl kaçınılır...",blog_tiktok_title:"TikTok Viral Stratejisi 2026",blog_tiktok_desc:"FYP algoritmasının sırları..."},
-      en:{nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",important_info:"Important Info",info_1:"🎯 Content suggestions only.",info_2:"⚠️ No guaranteed earnings.",info_3:"🤖 All content generated by Gemini AI.",info_4:"📊 SEO scores are estimates.",info_5:"🔄 2 daily generations per platform.",blog_title:"Blog & Guides",read_more:"Read More →",back_to_blog:"← Back to Blog",about_title:"About Us",blog_money_title:"YouTube Monetization 2026",blog_money_desc:"Monetization guide...",blog_yt_viral_title:"Going Viral on YouTube 2026",blog_yt_viral_desc:"Algorithm strategies...",blog_insta_title:"Instagram Hashtag Strategy 2026",blog_insta_desc:"How to avoid shadowban...",blog_tiktok_title:"TikTok Viral Strategy 2026",blog_tiktok_desc:"FYP algorithm secrets..."},
-      fr:{nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Choisir",platform_youtube_desc:"Titres et hashtags",platform_instagram_desc:"Titres et hashtags",platform_tiktok_desc:"Titres tendance",important_info:"Infos importantes",info_1:"🎯 Suggestions uniquement.",info_2:"⚠️ Aucun gain garanti.",info_3:"🤖 Contenu par Gemini AI.",info_4:"📊 Scores estimatifs.",info_5:"🔄 2 générations/jour.",blog_title:"Blog & Guides",read_more:"Lire →",back_to_blog:"← Retour",about_title:"À propos",blog_money_title:"Monétisation YouTube 2026",blog_money_desc:"Guide...",blog_yt_viral_title:"Viral sur YouTube",blog_yt_viral_desc:"Algorithme...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
-      de:{nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Wählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Hashtags",important_info:"Wichtige Infos",info_1:"🎯 Nur Vorschläge.",info_2:"⚠️ Keine Garantie.",info_3:"🤖 Inhalte von Gemini AI.",info_4:"📊 SEO-Schätzungen.",info_5:"🔄 2 täglich.",blog_title:"Blog & Guides",read_more:"Mehr →",back_to_blog:"← Zurück",about_title:"Über uns",blog_money_title:"YouTube Monetarisierung",blog_money_desc:"Guide...",blog_yt_viral_title:"Viral auf YouTube",blog_yt_viral_desc:"Algorithmus...",blog_insta_title:"Instagram Hashtags",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
-      es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRÓXIMO",select_platform:"Seleccionar",platform_youtube_desc:"Títulos y hashtags",platform_instagram_desc:"Títulos y hashtags",platform_tiktok_desc:"Títulos tendencia",important_info:"Información",info_1:"🎯 Solo sugerencias.",info_2:"⚠️ Sin garantías.",info_3:"🤖 Contenido Gemini AI.",info_4:"📊 Scores estimados.",info_5:"🔄 2 por día.",blog_title:"Blog y Guías",read_more:"Leer →",back_to_blog:"← Volver",about_title:"Acerca",blog_money_title:"Monetización YouTube",blog_money_desc:"Guía...",blog_yt_viral_title:"Viral en YouTube",blog_yt_viral_desc:"Algoritmo...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
-      pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar",platform_youtube_desc:"Títulos e hashtags",platform_instagram_desc:"Títulos e hashtags",platform_tiktok_desc:"Títulos tendência",important_info:"Informações",info_1:"🎯 Apenas sugestões.",info_2:"⚠️ Sem garantias.",info_3:"🤖 Conteúdo Gemini AI.",info_4:"📊 Scores estimados.",info_5:"🔄 2 por dia.",blog_title:"Blog e Guias",read_more:"Ler →",back_to_blog:"← Voltar",about_title:"Sobre",blog_money_title:"Monetização YouTube",blog_money_desc:"Guia...",blog_yt_viral_title:"Viral no YouTube",blog_yt_viral_desc:"Algoritmo...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."}
+      tr:{nav_home:"Anasayfa",nav_blog:"Blog",nav_apps:"Uygulamalar",nav_platform:"Platform",nav_about:"Hakkımızda",nav_faq:"SSS",nav_privacy:"Gizlilik",nav_terms:"Şartlar",nav_contact:"İletişim",login:"GİRİŞ",logout:"ÇIKIŞ",coming_soon:"YAKINDA",select_platform:"Platform Seçin",platform_youtube_desc:"Video başlıkları ve hashtag'ler",platform_instagram_desc:"Gönderi başlıkları ve hashtag'ler",platform_tiktok_desc:"Video başlıkları ve trend hashtag'ler",important_info:"Önemli Bilgiler",info_1:" Bu platform sadece içerik önerisi sunar.",info_2:"⚠️ Kazanç garantisi verilmemektedir.",info_3:" Tüm içerikler Gemini AI tarafından üretilmektedir.",info_4:" SEO skorları tahminidir.",info_5:" Her platform için günlük 2 üretim hakkınız vardır.",blog_title:"Blog & Rehberler",read_more:"Devamını Oku →",back_to_blog:"← Blog'a Dön",about_title:"Hakkımızda",blog_money_title:"YouTube Para Kazanma 2026",blog_money_desc:"Monetizasyon şartları ve gelir stratejileri...",blog_yt_viral_title:"2026'da YouTube'da Viral Olmak",blog_yt_viral_desc:"Algoritma stratejileri...",blog_insta_title:"Instagram Hashtag Stratejisi 2026",blog_insta_desc:"Shadowban'den nasıl kaçınılır...",blog_tiktok_title:"TikTok Viral Stratejisi 2026",blog_tiktok_desc:"FYP algoritmasının sırları..."},
+      en:{nav_home:"Home",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Platform",nav_about:"About",nav_faq:"FAQ",nav_privacy:"Privacy",nav_terms:"Terms",nav_contact:"Contact",login:"LOGIN",logout:"LOGOUT",coming_soon:"COMING SOON",select_platform:"Select Platform",platform_youtube_desc:"Video titles and hashtags",platform_instagram_desc:"Post titles and hashtags",platform_tiktok_desc:"Video titles and trending hashtags",important_info:"Important Info",info_1:" Content suggestions only.",info_2:"⚠️ No guaranteed earnings.",info_3:" All content generated by Gemini AI.",info_4:" SEO scores are estimates.",info_5:" 2 daily generations per platform.",blog_title:"Blog & Guides",read_more:"Read More →",back_to_blog:"← Back to Blog",about_title:"About Us",blog_money_title:"YouTube Monetization 2026",blog_money_desc:"Monetization guide...",blog_yt_viral_title:"Going Viral on YouTube 2026",blog_yt_viral_desc:"Algorithm strategies...",blog_insta_title:"Instagram Hashtag Strategy 2026",blog_insta_desc:"How to avoid shadowban...",blog_tiktok_title:"TikTok Viral Strategy 2026",blog_tiktok_desc:"FYP algorithm secrets..."},
+      fr:{nav_home:"Accueil",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plateforme",nav_about:"À propos",nav_faq:"FAQ",nav_privacy:"Confidentialité",nav_terms:"Conditions",nav_contact:"Contact",login:"CONNEXION",logout:"DÉCONNEXION",coming_soon:"BIENTÔT",select_platform:"Choisir",platform_youtube_desc:"Titres et hashtags",platform_instagram_desc:"Titres et hashtags",platform_tiktok_desc:"Titres tendance",important_info:"Infos importantes",info_1:" Suggestions uniquement.",info_2:"⚠️ Aucun gain garanti.",info_3:" Contenu par Gemini AI.",info_4:" Scores estimatifs.",info_5:" 2 générations/jour.",blog_title:"Blog & Guides",read_more:"Lire →",back_to_blog:"← Retour",about_title:"À propos",blog_money_title:"Monétisation YouTube 2026",blog_money_desc:"Guide...",blog_yt_viral_title:"Viral sur YouTube",blog_yt_viral_desc:"Algorithme...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
+      de:{nav_home:"Startseite",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plattform",nav_about:"Über uns",nav_faq:"FAQ",nav_privacy:"Datenschutz",nav_terms:"Bedingungen",nav_contact:"Kontakt",login:"ANMELDEN",logout:"ABMELDEN",coming_soon:"DEMNÄCHST",select_platform:"Wählen",platform_youtube_desc:"Videotitel und Hashtags",platform_instagram_desc:"Beitragstitel und Hashtags",platform_tiktok_desc:"Videotitel und Hashtags",important_info:"Wichtige Infos",info_1:" Nur Vorschläge.",info_2:"⚠️ Keine Garantie.",info_3:" Inhalte von Gemini AI.",info_4:" SEO-Schätzungen.",info_5:" 2 täglich.",blog_title:"Blog & Guides",read_more:"Mehr →",back_to_blog:"← Zurück",about_title:"Über uns",blog_money_title:"YouTube Monetarisierung",blog_money_desc:"Guide...",blog_yt_viral_title:"Viral auf YouTube",blog_yt_viral_desc:"Algorithmus...",blog_insta_title:"Instagram Hashtags",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
+      es:{nav_home:"Inicio",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Acerca",nav_faq:"FAQ",nav_privacy:"Privacidad",nav_terms:"Términos",nav_contact:"Contacto",login:"ENTRAR",logout:"SALIR",coming_soon:"PRÓXIMO",select_platform:"Seleccionar",platform_youtube_desc:"Títulos y hashtags",platform_instagram_desc:"Títulos y hashtags",platform_tiktok_desc:"Títulos tendencia",important_info:"Información",info_1:" Solo sugerencias.",info_2:"⚠️ Sin garantías.",info_3:" Contenido Gemini AI.",info_4:" Scores estimados.",info_5:" 2 por día.",blog_title:"Blog y Guías",read_more:"Leer →",back_to_blog:"← Volver",about_title:"Acerca",blog_money_title:"Monetización YouTube",blog_money_desc:"Guía...",blog_yt_viral_title:"Viral en YouTube",blog_yt_viral_desc:"Algoritmo...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."},
+      pt:{nav_home:"Início",nav_blog:"Blog",nav_apps:"Apps",nav_platform:"Plataforma",nav_about:"Sobre",nav_faq:"FAQ",nav_privacy:"Privacidade",nav_terms:"Termos",nav_contact:"Contato",login:"ENTRAR",logout:"SAIR",coming_soon:"EM BREVE",select_platform:"Selecionar",platform_youtube_desc:"Títulos e hashtags",platform_instagram_desc:"Títulos e hashtags",platform_tiktok_desc:"Títulos tendência",important_info:"Informações",info_1:" Apenas sugestões.",info_2:"⚠️ Sem garantias.",info_3:" Conteúdo Gemini AI.",info_4:" Scores estimados.",info_5:" 2 por dia.",blog_title:"Blog e Guias",read_more:"Ler →",back_to_blog:"← Voltar",about_title:"Sobre",blog_money_title:"Monetização YouTube",blog_money_desc:"Guia...",blog_yt_viral_title:"Viral no YouTube",blog_yt_viral_desc:"Algoritmo...",blog_insta_title:"Hashtags Instagram",blog_insta_desc:"Shadowban...",blog_tiktok_title:"TikTok Viral",blog_tiktok_desc:"FYP..."}
     };
 
     // ══════════════════════════════════════════
