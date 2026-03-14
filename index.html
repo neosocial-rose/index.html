@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>KaloriRose | AI Destekli Kalori Hesaplayıcı - Sağlıklı Yaşam</title>
+  <meta name="description" content="Yemek fotoğrafı yükle, kalori hesapla, spor tavsiyesi al. AI destekli ücretsiz kalori takip platformu. BMR, TDEE hesaplama, beslenme rehberi.">
+  <meta name="keywords" content="kalori hesaplayıcı, yemek kalori, bmr hesaplama, tdee, diyet takip, spor tavsiyesi, kilo verme, sağlıklı beslenme, kalori sayma">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://jarvisheyrose.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jarvisheyrose.com/">
+  <meta property="og:title" content="KaloriRose | AI Destekli Kalori Hesaplayıcı">
+  <meta property="og:description" content="Yemek fotoğrafı yükle, kalori hesapla, spor tavsiyesi al.">
+  <meta property="og:image" content="https://jarvisheyrose.com/og-image.jpg">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0d0f12; --bg2:#151820; --bg3:#1e2230; --bg4:#252a3a;
+      --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.12);
+      --text:#f0f2f8; --text2:#8b92a8; --text3:#5a6278;
+      --accent:#4ade80; --accent2:#22c55e;
+      --rose:#f43f5e; --blue:#60a5fa; --orange:#fb923c; --purple:#a78bfa;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{width:100%;height:100%;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;}
+
+    /* Masaüstünde body sola yer açar */
+    @media(min-width:769px){
+      body{ padding-left:240px !important; }
+    }
+    /* Mobilde sidebar kapalıyken padding olmasın */
+    @media(max-width:768px){
+      body{ padding-left:0 !important; }
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar{
+      position:fixed;top:0;left:0;width:240px;height:100vh;
+      background:var(--bg2);border-right:1px solid var(--border);
+      display:flex;flex-direction:column;z-index:300;overflow-y:auto;
+      transition:transform 0.3s ease;
+    }
+    @media(min-width:769px){
+      .sidebar{transform:none !important;}
+      .sidebar-overlay{display:none !important;}
+      .mobile-menu-btn{display:none !important;}
+    }
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%);}
+      .sidebar.open{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,0.6);}
+    }
+    .sidebar-overlay{
+      display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:299;
+    }
+    .sidebar-overlay.open{display:block;}
+
+    .sidebar-logo{
+      font-family:'Sora',sans-serif;font-weight:800;font-size:18px;
+      letter-spacing:-0.03em;padding:1.4rem 1.2rem 1rem;
+      border-bottom:1px solid var(--border);cursor:pointer;flex-shrink:0;
+    }
+    .sidebar-logo span{color:var(--accent);}
+
+    .sidebar-nav{flex:1;padding:0.8rem 0.7rem;display:flex;flex-direction:column;gap:2px;}
+
+    .sb-group{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;
+      letter-spacing:0.08em;padding:0.8rem 0.6rem 0.3rem;}
+
+    .sb-item{
+      display:flex;align-items:center;gap:10px;padding:10px 12px;
+      border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;
+      color:var(--text2);transition:all 0.18s;
+    }
+    .sb-item:hover{background:var(--bg3);color:var(--text);}
+    .sb-item.active{background:rgba(74,222,128,0.12);color:var(--accent);}
+    .sb-item .s-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0;}
+    .sb-item .s-badge{margin-left:auto;background:var(--bg4);color:var(--text3);
+      font-size:10px;font-weight:800;padding:1px 6px;border-radius:20px;}
+    .sb-item .s-badge.new{background:var(--accent);color:#000;}
+
+    .sb-divider{height:1px;background:var(--border);margin:0.5rem 0.7rem;}
+
+    .sidebar-auth{
+      padding:0.8rem 0.7rem 1.2rem;display:flex;flex-direction:column;
+      gap:6px;border-top:1px solid var(--border);flex-shrink:0;
+    }
+    .sb-auth-btn{
+      display:flex;align-items:center;gap:10px;padding:10px 12px;
+      border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;
+      transition:all 0.18s;border:none;font-family:'DM Sans',sans-serif;width:100%;
+    }
+    .sb-auth-btn.register{background:var(--accent);color:#000;}
+    .sb-auth-btn.register:hover{background:var(--accent2);}
+    .sb-auth-btn.login-s{background:var(--bg3);color:var(--text2);border:1px solid var(--border2);}
+    .sb-auth-btn.login-s:hover{color:var(--text);border-color:var(--accent);}
+    .sb-auth-btn.logout-s{background:var(--bg3);color:var(--rose);border:1px solid rgba(244,63,94,0.2);}
+
+    /* ========== NAV ========== */
+    nav{
+      height:56px;background:rgba(13,15,18,0.95);backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);display:flex;align-items:center;
+      padding:0 1.5rem;position:fixed;top:0;
+      left:0;right:0;z-index:100;
+      justify-content:space-between;
+    }
+
+    .nav-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:18px;
+      cursor:pointer;letter-spacing:-0.03em;color:var(--text);}
+    .nav-logo span{color:var(--accent);}
+    .nav-right{display:flex;align-items:center;gap:12px;}
+    .lang-select{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+      padding:6px 10px;border-radius:8px;font-size:12px;font-family:'DM Sans',sans-serif;
+      cursor:pointer;outline:none;}
+    .nav-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+      padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
+      font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;}
+    .nav-btn:hover{border-color:var(--accent);color:var(--accent);}
+    .nav-btn.primary{background:var(--accent);color:#000;border-color:var(--accent);}
+    .nav-btn.primary:hover{background:var(--accent2);}
+    .mobile-menu-btn{display:none;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;}
+    @media(max-width:768px){.mobile-menu-btn{display:block;}}
+
+    /* ========== MAIN WRAPPER ========== */
+    .main-wrap{ /* body padding-left ile halledildi */ }
+
+    /* ========== COOKIE ========== */
+    #cookie-banner{
+      position:fixed;bottom:0;left:0;right:0;background:var(--bg3);
+      border-top:1px solid var(--border2);padding:1rem 2rem;
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;z-index:9999;flex-wrap:wrap;
+    }
+    #cookie-banner p{font-size:12px;color:var(--text2);flex:1;min-width:200px;}
+    #cookie-banner a{color:var(--accent);text-decoration:underline;}
+    .cookie-btn{background:var(--accent);color:#000;border:none;padding:8px 20px;
+      border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;
+      font-size:12px;cursor:pointer;white-space:nowrap;}
+    .cookie-btn.decline{background:transparent;color:var(--text2);border:1px solid var(--border2);}
+
+    /* ========== DISCLAIMER TOP ========== */
+    #disclaimer-top{background:rgba(251,146,60,0.1);border-bottom:1px solid rgba(251,146,60,0.2);
+      padding:8px 1rem;text-align:center;font-size:11px;color:var(--orange);
+      font-weight:600;letter-spacing:0.02em;}
+
+    /* ========== PAGES ========== */
+    .page{display:none;min-height:calc(100vh - 56px);padding-top:56px;}
+    .page.active{display:block;}
+    #page-chat{display:none;flex-direction:column;height:100vh;padding-top:56px;}
+    #page-chat.active{display:flex;}
+
+    /* ========== CHAT ========== */
+    .chat-main{flex:1;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;padding:2rem 1rem;overflow-y:auto;transition:all 0.3s;}
+    .chat-main.has-messages{justify-content:flex-start;padding-top:2rem;}
+
+    .welcome-screen{text-align:center;max-width:700px;width:100%;}
+    .welcome-title{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);
+      font-weight:800;color:var(--text);margin-bottom:0.5rem;letter-spacing:-0.03em;}
+    .welcome-title span{color:var(--accent);}
+    .welcome-sub{font-size:14px;color:var(--text3);margin-bottom:2.5rem;font-weight:500;}
+
+    .quick-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2rem;width:100%;}
+    @media(min-width:600px){.quick-cards{grid-template-columns:repeat(4,1fr);}}
+    .quick-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+      padding:1.2rem 1rem;cursor:pointer;transition:all 0.25s;text-align:left;
+      position:relative;overflow:hidden;}
+    .quick-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+    .qc-icon{font-size:22px;margin-bottom:10px;display:block;}
+    .qc-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;}
+    .qc-desc{font-size:11px;color:var(--text3);line-height:1.4;}
+    .qc-arrow{position:absolute;bottom:12px;right:12px;color:var(--text3);font-size:11px;transition:transform 0.2s;}
+    .quick-card:hover .qc-arrow{transform:translateX(3px);color:var(--accent);}
+
+    .chat-messages{width:100%;max-width:700px;margin:0 auto;}
+    .msg-row{display:flex;gap:12px;margin-bottom:20px;animation:msgIn 0.3s ease;}
+    @keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .msg-row.user{flex-direction:row-reverse;}
+    .msg-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;
+      align-items:center;justify-content:center;font-size:14px;
+      background:var(--bg3);border:1px solid var(--border2);}
+    .msg-row.user .msg-avatar{background:var(--accent);color:#000;font-weight:700;font-size:12px;}
+    .msg-bubble{max-width:75%;background:var(--bg2);border:1px solid var(--border);
+      border-radius:16px;padding:14px 18px;font-size:14px;line-height:1.6;color:var(--text);}
+    .msg-row.user .msg-bubble{background:var(--bg3);border-color:var(--border2);}
+    .msg-bubble img{max-width:100%;border-radius:10px;margin-bottom:10px;display:block;}
+    .msg-disclaimer{font-size:10px;color:var(--text3);margin-top:10px;padding-top:10px;
+      border-top:1px solid var(--border);font-style:italic;}
+
+    .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0;}
+    .result-item{background:var(--bg3);border-radius:10px;padding:10px 12px;text-align:center;}
+    .result-item .val{font-size:20px;font-weight:800;}
+    .result-item .lbl{font-size:10px;color:var(--text3);margin-top:2px;}
+    .result-item.kcal .val{color:var(--rose);}
+    .result-item.protein .val{color:var(--accent);}
+    .result-item.carb .val{color:var(--blue);}
+    .result-item.fat .val{color:var(--orange);}
+
+    .sport-list{margin-top:12px;}
+    .sport-item{display:flex;align-items:center;justify-content:space-between;
+      padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;}
+    .sport-item:last-child{border-bottom:none;}
+    .sport-item .sport-name{color:var(--text2);}
+    .sport-item .sport-time{color:var(--accent);font-weight:700;}
+
+    .typing-indicator{display:flex;gap:4px;align-items:center;padding:4px 0;}
+    .typing-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);
+      animation:typingPulse 1.4s infinite ease-in-out;}
+    .typing-dot:nth-child(2){animation-delay:0.2s;}
+    .typing-dot:nth-child(3){animation-delay:0.4s;}
+    @keyframes typingPulse{0%,60%,100%{transform:translateY(0);opacity:0.4;}30%{transform:translateY(-6px);opacity:1;}}
+
+    .chat-input-area{background:var(--bg);border-top:1px solid var(--border);
+      padding:1rem 1rem 1.2rem;position:sticky;bottom:0;}
+    .chat-input-inner{max-width:700px;margin:0 auto;}
+
+    #image-preview-box{display:none;background:var(--bg2);border:1px solid var(--border2);
+      border-radius:12px;padding:10px 14px;margin-bottom:8px;align-items:center;gap:12px;}
+    #image-preview-box.show{display:flex;}
+    #image-preview-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;}
+    #image-preview-name{font-size:12px;color:var(--text2);flex:1;}
+    #image-preview-remove{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:4px;}
+    #image-preview-remove:hover{color:var(--rose);}
+
+    .input-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;
+      display:flex;align-items:flex-end;gap:8px;padding:10px 10px 10px 16px;transition:border-color 0.2s;}
+    .input-box:focus-within{border-color:rgba(74,222,128,0.4);}
+    #chat-textarea{flex:1;background:none;border:none;outline:none;color:var(--text);
+      font-family:'DM Sans',sans-serif;font-size:14px;resize:none;max-height:120px;
+      min-height:24px;line-height:1.5;}
+    #chat-textarea::placeholder{color:var(--text3);}
+    .input-actions{display:flex;align-items:center;gap:6px;}
+
+    .tools-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
+      padding:8px 12px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;
+      font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:6px;
+      transition:all 0.2s;white-space:nowrap;position:relative;}
+    .tools-btn:hover{color:var(--text);}
+    .tools-btn.open{border-color:var(--accent);color:var(--accent);}
+    .tools-dropdown{position:absolute;bottom:calc(100% + 8px);left:0;background:var(--bg2);
+      border:1px solid var(--border2);border-radius:14px;padding:8px;min-width:240px;
+      z-index:500;display:none;box-shadow:0 20px 40px rgba(0,0,0,0.5);}
+    .tools-dropdown.open{display:block;}
+    .tool-item{display:flex;align-items:center;gap:12px;padding:10px 12px;
+      border-radius:10px;cursor:pointer;transition:background 0.15s;}
+    .tool-item:hover{background:var(--bg3);}
+    .tool-icon{width:36px;height:36px;border-radius:10px;background:var(--bg3);
+      display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+    .tool-text .tool-name{font-size:13px;font-weight:700;color:var(--text);}
+    .tool-text .tool-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+    .send-btn{width:40px;height:40px;border-radius:10px;background:var(--accent);border:none;
+      cursor:pointer;display:flex;align-items:center;justify-content:center;
+      color:#000;font-size:16px;transition:all 0.2s;flex-shrink:0;}
+    .send-btn:hover{background:var(--accent2);transform:scale(1.05);}
+    .send-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+    .input-footer{text-align:center;font-size:10px;color:var(--text3);margin-top:8px;line-height:1.5;}
+
+    /* ========== HESAPLA SAYFASI ========== */
+    .calc-page{max-width:800px;margin:0 auto;padding:3rem 1.5rem;}
+    .calc-page-title{font-family:'Sora',sans-serif;font-size:2rem;font-weight:800;
+      margin-bottom:0.5rem;letter-spacing:-0.03em;}
+    .calc-page-sub{font-size:14px;color:var(--text3);margin-bottom:2rem;}
+    .calc-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;
+      padding:2rem;margin-bottom:1.5rem;}
+    .calc-card h3{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;
+      margin-bottom:1.5rem;color:var(--text);display:flex;align-items:center;gap:10px;}
+    .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:1.5rem;}
+    @media(max-width:540px){.calc-grid{grid-template-columns:1fr;}}
+    .calc-group{display:flex;flex-direction:column;gap:6px;}
+    .calc-group label{font-size:12px;font-weight:700;color:var(--text2);
+      text-transform:uppercase;letter-spacing:0.05em;}
+    .calc-group input,.calc-group select{background:var(--bg3);border:1px solid var(--border2);
+      color:var(--text);padding:10px 14px;border-radius:10px;font-size:14px;
+      font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%;}
+    .calc-group input:focus,.calc-group select:focus{border-color:rgba(74,222,128,0.4);}
+    .calc-group select option{background:var(--bg3);}
+    .calc-group.full{grid-column:span 2;}
+    @media(max-width:540px){.calc-group.full{grid-column:span 1;}}
+    .calc-btn{width:100%;padding:14px;border-radius:12px;background:var(--accent);color:#000;
+      border:none;font-size:15px;font-weight:800;font-family:'DM Sans',sans-serif;
+      cursor:pointer;transition:all 0.2s;}
+    .calc-btn:hover{background:var(--accent2);transform:translateY(-1px);}
+    .calc-results{display:none;margin-top:1.5rem;}
+    .calc-results.show{display:block;}
+    .calc-results-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:1rem;}
+    @media(min-width:600px){.calc-results-grid{grid-template-columns:repeat(4,1fr);}}
+    .calc-result-item{background:var(--bg3);border:1px solid var(--border);
+      border-radius:14px;padding:16px 12px;text-align:center;}
+    .calc-result-item .r-val{font-size:22px;font-weight:800;margin-bottom:4px;}
+    .calc-result-item .r-lbl{font-size:11px;color:var(--text3);line-height:1.3;}
+    .c-bmr .r-val{color:var(--accent);}
+    .c-tdee .r-val{color:var(--blue);}
+    .c-vki .r-val{color:var(--orange);}
+    .c-ideal .r-val{color:var(--purple);}
+    .bmi-bar-wrap{margin:1rem 0;}
+    .bmi-bar-label{font-size:12px;color:var(--text3);margin-bottom:6px;display:flex;justify-content:space-between;}
+    .bmi-bar{height:8px;border-radius:4px;width:100%;
+      background:linear-gradient(to right,#60a5fa 0%,#4ade80 25%,#fb923c 60%,#f43f5e 100%);position:relative;}
+    .bmi-marker{position:absolute;top:-4px;width:16px;height:16px;border-radius:50%;
+      background:#fff;border:3px solid var(--bg);transform:translateX(-50%);transition:left 0.5s ease;}
+    .bmi-category{text-align:center;margin-top:8px;font-weight:700;font-size:14px;}
+    .macro-suggestion{background:var(--bg3);border-radius:14px;padding:1.2rem;margin-top:1rem;}
+    .macro-suggestion h4{font-size:13px;font-weight:700;color:var(--text2);
+      margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;}
+    .macro-bars{display:flex;flex-direction:column;gap:10px;}
+    .macro-bar-item{display:flex;align-items:center;gap:10px;}
+    .macro-bar-item .m-lbl{font-size:12px;color:var(--text2);width:80px;flex-shrink:0;}
+    .macro-bar-item .m-bar{flex:1;height:6px;border-radius:3px;background:var(--bg4);overflow:hidden;}
+    .macro-bar-item .m-fill{height:100%;border-radius:3px;transition:width 0.6s ease;}
+    .macro-bar-item .m-val{font-size:12px;font-weight:700;width:50px;text-align:right;}
+    .calc-disclaimer{font-size:11px;color:var(--text3);margin-top:1rem;line-height:1.6;font-style:italic;}
+
+    /* ========== DİĞER SAYFALAR ========== */
+    .page-inner{max-width:900px;margin:0 auto;padding:3rem 1.5rem;}
+    .page-title{font-family:'Sora',sans-serif;font-size:2rem;font-weight:800;
+      margin-bottom:2rem;letter-spacing:-0.03em;}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+    .blog-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+      padding:1.5rem;cursor:pointer;transition:all 0.25s;display:flex;flex-direction:column;gap:10px;}
+    .blog-card:hover{border-color:var(--border2);transform:translateY(-3px);}
+    .blog-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;
+      font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+    .blog-card h3{font-size:15px;font-weight:700;color:var(--text);line-height:1.4;}
+    .blog-card p{font-size:12px;color:var(--text3);line-height:1.6;flex:1;}
+    .blog-read{font-size:12px;color:var(--accent);font-weight:600;}
+    .article-wrap{max-width:700px;margin:0 auto;padding:3rem 1.5rem;}
+    .article-wrap h1{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;
+      margin-bottom:1.5rem;letter-spacing:-0.03em;}
+    .article-content{color:var(--text2);line-height:1.8;font-size:14px;}
+    .article-content h2{font-size:1.2rem;font-weight:700;color:var(--text);margin:2rem 0 0.75rem;}
+    .article-content p{margin-bottom:1rem;}
+    .article-content ul{margin-left:1.5rem;margin-bottom:1rem;}
+    .article-content li{margin-bottom:0.5rem;}
+    .article-disclaimer{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.3);
+      border-radius:12px;padding:1rem 1.2rem;margin-top:2rem;font-size:12px;color:var(--orange);line-height:1.6;}
+    .back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--accent);
+      font-size:13px;font-weight:600;cursor:pointer;margin-bottom:2rem;}
+    .back-btn:hover{text-decoration:underline;}
+    .prose-page{max-width:700px;margin:0 auto;padding:3rem 1.5rem;}
+    .prose-page h1{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:2rem;}
+    .prose-section{margin-bottom:2rem;}
+    .prose-section h2{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem;}
+    .prose-section p,.prose-section li{font-size:14px;color:var(--text2);line-height:1.8;}
+    .prose-section ul{margin-left:1.5rem;}
+    .faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+      padding:1.2rem;margin-bottom:12px;}
+    .faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;}
+    .faq-a{font-size:13px;color:var(--text2);line-height:1.6;}
+    .coming-soon-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+      padding:3rem;text-align:center;}
+
+    /* ========== FOOTER ========== */
+    footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 1.5rem;text-align:center;}
+    .footer-logo{font-family:'Sora',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:1rem;}
+    .footer-logo span{color:var(--accent);}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-bottom:1rem;}
+    .footer-link{font-size:12px;color:var(--text3);cursor:pointer;transition:color 0.2s;}
+    .footer-link:hover{color:var(--accent);}
+    .footer-disclaimer{font-size:11px;color:var(--text3);max-width:600px;margin:0 auto 1rem;line-height:1.6;}
+    .footer-copy{font-size:11px;color:var(--text3);opacity:0.5;}
+
+    .ad-slot{background:var(--bg2);border:1px dashed var(--border2);border-radius:12px;
+      padding:1rem;text-align:center;margin:1rem 0;}
+    .ad-label{font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:8px;}
+    ::-webkit-scrollbar{width:6px;}
+    ::-webkit-scrollbar-track{background:var(--bg);}
+    ::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
+    .hidden{display:none !important;}
+
+    /* ========== LOGIN MODAL ========== */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9998;
+      display:none;align-items:center;justify-content:center;}
+    .modal-overlay.open{display:flex;}
+    .modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;
+      padding:2.5rem;max-width:400px;width:90%;text-align:center;}
+    .modal-box h2{font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:0.75rem;}
+    .modal-box p{font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+    .google-btn{background:#fff;color:#000;border:none;padding:12px 24px;border-radius:12px;
+      font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;
+      gap:10px;font-family:'DM Sans',sans-serif;transition:opacity 0.2s;width:100%;justify-content:center;}
+    .google-btn:hover{opacity:0.9;}
+    .modal-close{margin-top:12px;font-size:12px;color:var(--text3);cursor:pointer;}
+    .modal-close:hover{color:var(--text);}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"KaloriRose",
+  "description":"AI destekli kalori hesaplayıcı","url":"https://jarvisheyrose.com",
+  "applicationCategory":"HealthApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "author":{"@type":"Organization","name":"KaloriRose","email":"jarvisheyrose@gmail.com"}}
+  </script>
+</head>
+<body>
+
+<!-- DISCLAIMER TOP -->
+<div id="disclaimer-top">⚠️ Bu platform yalnızca bilgi ve veri amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.</div>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <p>Bu site çerezler kullanmaktadır. Daha fazla bilgi için <a href="#" onclick="showPage('cookie')">Çerez Politikası</a>'nı inceleyin.</p>
+  <button class="cookie-btn decline" onclick="closeCookie()">Reddet</button>
+  <button class="cookie-btn" onclick="acceptCookie()">Kabul Et</button>
+</div>
+
+<!-- LOGIN MODAL -->
+<div id="login-modal" class="modal-overlay">
+  <div class="modal-box">
+    <div style="font-size:40px;margin-bottom:1rem">🔐</div>
+    <h2>Giriş Yapın</h2>
+    <p>Kalori analizi için günlük 3 sorgu hakkınız vardır. Google hesabınızla ücretsiz giriş yapın.</p>
+    <button class="google-btn" onclick="loginWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google ile Devam Et
+    </button>
+    <div class="modal-close" onclick="closeLoginModal()">Şimdi değil</div>
+  </div>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo" onclick="showPage('chat');closeSidebar()">KALORİ<span>ROSE</span></div>
+  <nav class="sidebar-nav">
+    <div class="sb-group">Menü</div>
+    <div class="sb-item active" id="sb-chat" onclick="showPage('chat');closeSidebar()"><span class="s-icon">🏠</span> Ana Sayfa</div>
+    <div class="sb-item" id="sb-besinler" onclick="showPage('besinler');closeSidebar()"><span class="s-icon">🥗</span> Besinler ve Egzersizler<span class="s-badge">Yakında</span></div>
+    <div class="sb-item" id="sb-arkadaslar" onclick="showPage('arkadaslar');closeSidebar()"><span class="s-icon">🤝</span> Diyet Arkadaşlarım<span class="s-badge">Yakında</span></div>
+    <div class="sb-item" id="sb-basari" onclick="showPage('basari');closeSidebar()"><span class="s-icon">🌟</span> Başarı Hikayeleri<span class="s-badge">Yakında</span></div>
+    <div class="sb-item" id="sb-mesaj" onclick="showPage('mesaj');closeSidebar()"><span class="s-icon">💬</span> Mesaj Panosu<span class="s-badge">Yakında</span></div>
+    <div class="sb-divider"></div>
+    <div class="sb-group">Araçlar</div>
+    <div class="sb-item" id="sb-hesapla" onclick="showPage('hesapla');closeSidebar()"><span class="s-icon">🧮</span> Hesapla</div>
+    <div class="sb-item" id="sb-blog" onclick="showPage('blog');closeSidebar()"><span class="s-icon">📝</span> Blog</div>
+    <div class="sb-divider"></div>
+    <div class="sb-group">Diğer</div>
+    <div class="sb-item" onclick="showPage('about');closeSidebar()"><span class="s-icon">ℹ️</span> Hakkımızda</div>
+    <div class="sb-item" onclick="showPage('faq');closeSidebar()"><span class="s-icon">❓</span> SSS</div>
+    <div class="sb-item" onclick="showPage('contact');closeSidebar()"><span class="s-icon">✉️</span> İletişim</div>
+  </nav>
+  <div class="sidebar-auth">
+    <select class="lang-select" style="width:100%;margin-bottom:4px" onchange="setLang(this.value)" id="lang-sidebar">
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="pt">🇵🇹 Português</option>
+    </select>
+    <button class="sb-auth-btn register" id="sb-register-btn" onclick="showLoginModal()"><i class="fas fa-user-plus"></i> Kayıt Ol</button>
+    <button class="sb-auth-btn login-s" id="sb-login-btn" onclick="showLoginModal()"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
+    <button class="sb-auth-btn logout-s hidden" id="sb-logout-btn" onclick="logoutGoogle()"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</button>
+  </div>
+</aside>
+
+<!-- MAIN WRAPPER -->
+<div class="main-wrap">
+
+<!-- NAV -->
+<nav>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button class="mobile-menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="nav-logo" onclick="showPage('chat')" id="nav-logo-mob" style="display:none">KALORİ<span>ROSE</span></div>
+  </div>
+  <div class="nav-right">
+    <select class="lang-select" onchange="setLang(this.value)" id="lang-selector">
+      <option value="tr">🇹🇷 TR</option>
+      <option value="en">🇬🇧 EN</option>
+      <option value="es">🇪🇸 ES</option>
+      <option value="fr">🇫🇷 FR</option>
+      <option value="de">🇩🇪 DE</option>
+      <option value="pt">🇵🇹 PT</option>
+    </select>
+    <button class="nav-btn" id="login-btn" onclick="showLoginModal()">Giriş</button>
+    <button class="nav-btn primary hidden" id="logout-btn" onclick="logoutGoogle()">Çıkış</button>
+  </div>
+</nav>
+
+<!-- ===== CHAT PAGE ===== -->
+<div id="page-chat" class="page active">
+  <div class="chat-main" id="chat-main">
+    <div class="welcome-screen" id="welcome-screen">
+      <h1 class="welcome-title">Sağlıklı bir yaşama<br><span>hoş geldiniz</span></h1>
+      <p class="welcome-sub">Yemek fotoğrafı yükleyin veya bir şey sorun</p>
+      <div class="ad-slot" style="margin-bottom:1.5rem">
+        <div class="ad-label">Reklam</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+      <div class="quick-cards">
+        <div class="quick-card" onclick="triggerTool('photo')"><span class="qc-icon">📸</span><div class="qc-title">Fotoğraf Yükle</div><div class="qc-desc">Yemeğin fotoğrafını çek, kalori hesaplansın</div><span class="qc-arrow">→</span></div>
+        <div class="quick-card" onclick="showPage('hesapla')"><span class="qc-icon">⚖️</span><div class="qc-title">BMR Hesapla</div><div class="qc-desc">Günlük kalori ihtiyacını öğren</div><span class="qc-arrow">→</span></div>
+        <div class="quick-card" onclick="triggerTool('sport')"><span class="qc-icon">🔥</span><div class="qc-title">Spor Tavsiyesi</div><div class="qc-desc">Kalorini hangi sporla yakabilirsin?</div><span class="qc-arrow">→</span></div>
+        <div class="quick-card" onclick="triggerTool('calorie')"><span class="qc-icon">🥗</span><div class="qc-title">Kalori Sorgula</div><div class="qc-desc">Herhangi bir yiyeceğin kalorisini öğren</div><span class="qc-arrow">→</span></div>
+      </div>
+    </div>
+    <div class="chat-messages hidden" id="chat-messages"></div>
+  </div>
+  <div class="chat-input-area">
+    <div class="chat-input-inner">
+      <div id="image-preview-box">
+        <img id="image-preview-thumb" src="" alt="">
+        <span id="image-preview-name"></span>
+        <button id="image-preview-remove" onclick="removeImage()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="input-box">
+        <textarea id="chat-textarea" rows="1" placeholder="Ne yediniz? Fotoğraf yükleyin veya yazın..."></textarea>
+        <div class="input-actions">
+          <div style="position:relative">
+            <button class="tools-btn" id="tools-btn" onclick="toggleToolsDropdown()">
+              <i class="fas fa-sliders"></i> Araçlar <i class="fas fa-chevron-up" style="font-size:9px"></i>
+            </button>
+            <div class="tools-dropdown" id="tools-dropdown">
+              <div class="tool-item" onclick="triggerTool('photo')"><div class="tool-icon">📸</div><div class="tool-text"><div class="tool-name">Fotoğraf Yükle</div><div class="tool-sub">Yemek fotoğrafından kalori</div></div></div>
+              <div class="tool-item" onclick="showPage('hesapla');closeToolsDropdown()"><div class="tool-icon">⚖️</div><div class="tool-text"><div class="tool-name">BMR Hesapla</div><div class="tool-sub">Günlük kalori ihtiyacın</div></div></div>
+              <div class="tool-item" onclick="triggerTool('sport')"><div class="tool-icon">🔥</div><div class="tool-text"><div class="tool-name">Spor Tavsiyesi</div><div class="tool-sub">Kalori yakma programı</div></div></div>
+              <div class="tool-item" onclick="triggerTool('calorie')"><div class="tool-icon">🥗</div><div class="tool-text"><div class="tool-name">Kalori Sorgula</div><div class="tool-sub">Yiyecek besin değerleri</div></div></div>
+            </div>
+          </div>
+          <button class="send-btn" onclick="sendMessage()"><i class="fas fa-arrow-up"></i></button>
+        </div>
+      </div>
+      <div class="input-footer">Bu platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.</div>
+    </div>
+  </div>
+</div>
+<input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+
+<!-- ===== HESAPLA ===== -->
+<div id="page-hesapla" class="page">
+  <div class="calc-page">
+    <h1 class="calc-page-title">🧮 Vücut Analizi & Hesapla</h1>
+    <p class="calc-page-sub">BMR, TDEE, VKİ ve İdeal Kilo hesaplamalarınızı anında öğrenin.</p>
+    <div class="calc-card">
+      <h3>Bilgilerinizi Girin</h3>
+      <div class="calc-grid">
+        <div class="calc-group"><label>Cinsiyet</label><select id="calc-gender"><option value="erkek">Erkek</option><option value="kadin">Kadın</option></select></div>
+        <div class="calc-group"><label>Yaş</label><input type="number" id="calc-age" placeholder="25" min="10" max="100"></div>
+        <div class="calc-group"><label>Boy (cm)</label><input type="number" id="calc-height" placeholder="175"></div>
+        <div class="calc-group"><label>Kilo (kg)</label><input type="number" id="calc-weight" placeholder="70"></div>
+        <div class="calc-group full"><label>Yaşam Tarzı</label>
+          <select id="calc-activity">
+            <option value="1.2">Hareketsiz (Egzersiz yok)</option>
+            <option value="1.375">Az Hareketli (Haftada 1-3 gün)</option>
+            <option value="1.55">Orta Hareketli (Haftada 3-5 gün)</option>
+            <option value="1.725">Çok Hareketli (Haftada 6-7 gün)</option>
+            <option value="1.9">Sporcu / Fiziksel İş</option>
+          </select>
+        </div>
+        <div class="calc-group full"><label>Hedefiniz</label>
+          <select id="calc-goal">
+            <option value="lose">Kilo Vermek</option>
+            <option value="maintain">Kiloyu Korumak</option>
+            <option value="gain">Kilo Almak / Kas Kazanmak</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calculateAll()">ANALİZ ET VE HESAPLA</button>
+      <div id="calc-results" class="calc-results">
+        <div class="calc-results-grid">
+          <div class="calc-result-item c-bmr"><div class="r-val" id="res-bmr">—</div><div class="r-lbl">BMR<br><span style="font-size:10px;opacity:0.7">kcal/gün</span></div></div>
+          <div class="calc-result-item c-tdee"><div class="r-val" id="res-tdee">—</div><div class="r-lbl">TDEE<br><span style="font-size:10px;opacity:0.7">kcal/gün</span></div></div>
+          <div class="calc-result-item c-vki"><div class="r-val" id="res-vki">—</div><div class="r-lbl">VKİ<br><span style="font-size:10px;opacity:0.7">kg/m²</span></div></div>
+          <div class="calc-result-item c-ideal"><div class="r-val" id="res-ideal">—</div><div class="r-lbl">İdeal Kilo<br><span style="font-size:10px;opacity:0.7">kg</span></div></div>
+        </div>
+        <div class="bmi-bar-wrap">
+          <div class="bmi-bar-label"><span>Zayıf</span><span>Normal</span><span>Fazla</span><span>Obez</span></div>
+          <div class="bmi-bar"><div class="bmi-marker" id="bmi-marker" style="left:0%"></div></div>
+          <div class="bmi-category" id="bmi-category"></div>
+        </div>
+        <div style="background:var(--bg3);border-radius:14px;padding:1.2rem;margin-top:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Hedefiniz İçin Günlük Kalori</div>
+            <div style="font-size:28px;font-weight:800;color:var(--accent)" id="res-goal-cal">—</div>
+          </div>
+          <div style="font-size:13px;color:var(--text2);max-width:260px;line-height:1.5" id="res-goal-desc"></div>
+        </div>
+        <div class="macro-suggestion">
+          <h4>Günlük Makro Önerisi</h4>
+          <div class="macro-bars">
+            <div class="macro-bar-item"><span class="m-lbl">Protein</span><div class="m-bar"><div class="m-fill" id="macro-protein-bar" style="width:30%;background:var(--accent)"></div></div><span class="m-val" id="macro-protein-val" style="color:var(--accent)">—</span></div>
+            <div class="macro-bar-item"><span class="m-lbl">Karbonhidrat</span><div class="m-bar"><div class="m-fill" id="macro-carb-bar" style="width:40%;background:var(--blue)"></div></div><span class="m-val" id="macro-carb-val" style="color:var(--blue)">—</span></div>
+            <div class="macro-bar-item"><span class="m-lbl">Yağ</span><div class="m-bar"><div class="m-fill" id="macro-fat-bar" style="width:30%;background:var(--orange)"></div></div><span class="m-val" id="macro-fat-val" style="color:var(--orange)">—</span></div>
+          </div>
+        </div>
+        <p class="calc-disclaimer">⚠️ Bu hesaplamalar Harris-Benedict ve Devine formülleri kullanılarak yapılmıştır. Sonuçlar tahminidir ve tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BLOG ===== -->
+<div id="page-blog" class="page">
+  <div class="page-inner">
+    <div class="ad-slot"><div class="ad-label">Reklam</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+    <h1 class="page-title">Blog & Beslenme Rehberleri</h1>
+    <div class="blog-grid">
+      <div class="blog-card" onclick="showPage('article-calorie')"><span class="blog-tag" style="background:rgba(244,63,94,0.15);color:#f43f5e">Kalori</span><h3>Kalori Nedir? Neden Bu Kadar Önemlidir?</h3><p>Kalori hesaplamayı anlamak, sağlıklı beslenmenin temeli. Vücudunuzun enerji ihtiyacını keşfedin.</p><span class="blog-read">Devamını Oku →</span></div>
+      <div class="blog-card" onclick="showPage('article-bmr')"><span class="blog-tag" style="background:rgba(74,222,128,0.15);color:#4ade80">BMR & TDEE</span><h3>BMR ve TDEE: Fark Ne?</h3><p>Bazal metabolizma hızı ve toplam günlük enerji tüketiminizi doğru hesaplayın.</p><span class="blog-read">Devamını Oku →</span></div>
+      <div class="blog-card" onclick="showPage('article-macro')"><span class="blog-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa">Beslenme</span><h3>Makro Besinler: Protein, Karb, Yağ</h3><p>Her makro besinin rolü, doğru oranlar ve kişisel beslenme planı nasıl oluşturulur.</p><span class="blog-read">Devamını Oku →</span></div>
+      <div class="blog-card" onclick="showPage('article-diet')"><span class="blog-tag" style="background:rgba(251,146,60,0.15);color:#fb923c">Diyet</span><h3>Sağlıklı Kilo Vermenin Bilimsel Yolu</h3><p>Hızlı diyet değil, kalıcı kilo kaybı. Bilimin söyledikleri ve sürdürülebilir yöntemler.</p><span class="blog-read">Devamını Oku →</span></div>
+      <div class="blog-card" onclick="showPage('article-sport')"><span class="blog-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa">Spor</span><h3>Egzersiz ve Kalori Yakımı</h3><p>Hangi spor ne kadar kalori yakar? Egzersiz planı ve diyet nasıl birleştirilir.</p><span class="blog-read">Devamını Oku →</span></div>
+      <div class="blog-card" onclick="showPage('article-water')"><span class="blog-tag" style="background:rgba(34,211,238,0.15);color:#22d3ee">Sağlık</span><h3>Su İçmenin Metabolizmaya Etkisi</h3><p>Günlük ne kadar su içmeli? Su ve kilo kaybı arasındaki bilimsel ilişki.</p><span class="blog-read">Devamını Oku →</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div id="page-article-calorie" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(244,63,94,0.15);color:#f43f5e;display:inline-block;margin-bottom:1rem">Kalori</span><h1>Kalori Nedir? Neden Bu Kadar Önemlidir?</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 5 dk okuma</p><div class="article-content"><p>Kalori, besinlerin içerdiği enerji miktarını ifade eden bir ölçü birimidir. Günlük konuşmalarda kullandığımız "kalori" aslında kilokaloridir (kcal).</p><h2>Kalori Dengesi Nedir?</h2><p>Aldığınız kalori harcadığınızdan fazlaysa kilo alırsınız. Harcadığınız fazlaysa kilo verirsiniz.</p><h2>Günlük Ne Kadar Kaloriye İhtiyacınız Var?</h2><p>Kesin değeri öğrenmek için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">BMR hesaplayıcımızı</span> kullanabilirsiniz.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-bmr" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(74,222,128,0.15);color:#4ade80;display:inline-block;margin-bottom:1rem">BMR & TDEE</span><h1>BMR ve TDEE: Aralarındaki Fark Ne?</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dk okuma</p><div class="article-content"><p>BMR vücudunuzun dinlenme halindeyken harcadığı kaloridir. TDEE ise aktivitelerinizi de hesaba katar.</p><h2>BMR Nasıl Hesaplanır?</h2><p>Harris-Benedict denklemi kullanılır. Kendi değerleriniz için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">Hesapla sayfamızı</span> ziyaret edin.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi amaçlıdır, tıbbi tavsiye değildir. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-macro" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa;display:inline-block;margin-bottom:1rem">Beslenme</span><h1>Makro Besinler: Protein, Karbonhidrat ve Yağ</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dk okuma</p><div class="article-content"><p>Protein 4 kcal/g, Karbonhidrat 4 kcal/g, Yağ 9 kcal/g enerji sağlar.</p><h2>Doğru Makro Oranı</h2><p>Genel öneri: %25-30 Protein, %45-50 Karbonhidrat, %25-30 Yağ.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi amaçlıdır, tıbbi tavsiye değildir. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-diet" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(251,146,60,0.15);color:#fb923c;display:inline-block;margin-bottom:1rem">Diyet</span><h1>Sağlıklı Kilo Vermenin Bilimsel Yolu</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dk okuma</p><div class="article-content"><p>Günlük 500 kcal açık haftada ~0.5 kg kilo kaybı sağlar. Bu güvenli ve sürdürülebilir bir hızdır.</p><h2>Hızlı Diyetler Neden İşe Yaramaz?</h2><p>Vücut metabolizma hızını düşürür, diyet bittikten sonra kilo hızla geri gelir.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi amaçlıdır, tıbbi tavsiye değildir. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-sport" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa;display:inline-block;margin-bottom:1rem">Spor</span><h1>Egzersiz ve Kalori Yakımı</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dk okuma</p><div class="article-content"><p>Yürüyüş ~280 kcal, Koşu ~590 kcal, Bisiklet ~450 kcal saatlik yakım (70 kg için).</p><h2>Beslenme mi, Egzersiz mi?</h2><p>Kilo yönetiminde %80 beslenme, %20 egzersiz belirleyicidir.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi amaçlıdır, tıbbi tavsiye değildir. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-water" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><span class="blog-tag" style="background:rgba(34,211,238,0.15);color:#22d3ee;display:inline-block;margin-bottom:1rem">Sağlık</span><h1>Su İçmenin Metabolizmaya Etkisi</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dk okuma</p><div class="article-content"><p>Vücut ağırlığının her kg'ı için 30-35 ml su gerekir. 500 ml su içmek metabolizmayı %24-30 hızlandırır.</p><h2>Su ve İştah Kontrolü</h2><p>Yemekten 30 dk önce su içmek öğünde yaklaşık %13 daha az kalori tüketmenizi sağlar.</p><div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi amaçlıdır, tıbbi tavsiye değildir. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+
+<!-- YAKINDA SAYFALAR -->
+<div id="page-besinler" class="page"><div class="prose-page"><h1>🥗 Besinler ve Egzersizler</h1><div class="coming-soon-card"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-size:15px;font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Bu bölüm üzerinde çalışıyoruz.</p></div></div></div>
+<div id="page-arkadaslar" class="page"><div class="prose-page"><h1>🤝 Diyet Arkadaşlarım</h1><div class="coming-soon-card"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-size:15px;font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Diyet arkadaşı bul, birlikte ilerleme takip et özelliği geliyor.</p></div></div></div>
+<div id="page-basari" class="page"><div class="prose-page"><h1>🌟 Başarı Hikayeleri</h1><div class="coming-soon-card"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-size:15px;font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Kullanıcı başarı hikayeleri çok yakında burada.</p></div></div></div>
+<div id="page-mesaj" class="page"><div class="prose-page"><h1>💬 Mesaj Panosu</h1><div class="coming-soon-card"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-size:15px;font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Topluluk mesaj panosu geliştirme aşamasında.</p></div></div></div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page"><div class="prose-page"><h1>Hakkımızda</h1><div class="prose-section"><h2>KaloriRose Nedir?</h2><p>KaloriRose, sağlıklı bir yaşam sürdürmek isteyen herkese ücretsiz, kolay ve güvenilir beslenme bilgisi sunmak amacıyla kurulmuş bir dijital sağlık platformudur.</p></div><div class="prose-section"><h2>Misyonumuz</h2><p>Karmaşık beslenme bilimini herkesin anlayabileceği araçlara dönüştürmek.</p></div><div class="prose-section"><h2>Önemli Uyarı</h2><p>KaloriRose tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><p><strong>İletişim:</strong> <a href="/cdn-cgi/l/email-protection#02686370746b716a677b706d716742656f636b6e2c616d6f" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="3b515a494d5248535e424954485e7b5c565a525715585456">[email&#160;protected]</span></a></p></div></div></div>
+
+<!-- FAQ -->
+<div id="page-faq" class="page"><div class="prose-page"><h1>Sıkça Sorulan Sorular</h1>
+<div class="faq-item"><div class="faq-q">Kalori verileri ne kadar güvenilir?</div><div class="faq-a">Genel ortalama değerlerdir. Kesin sonuç garanti edilmez. Tüm sorumluluk kullanıcıya aittir.</div></div>
+<div class="faq-item"><div class="faq-q">Günlük kaç sorgu hakkım var?</div><div class="faq-a">Giriş yapmış kullanıcılara günlük 3 sorgu hakkı tanınır.</div></div>
+<div class="faq-item"><div class="faq-q">Platform tamamen ücretsiz mi?</div><div class="faq-a">Evet, Google AdSense reklam sistemiyle sürdürülmektedir.</div></div>
+<div class="faq-item"><div class="faq-q">Bu platform tıbbi tavsiye veriyor mu?</div><div class="faq-a">Kesinlikle hayır. Tüm sorumluluk kullanıcıya aittir.</div></div>
+<div class="faq-item"><div class="faq-q">BMR hesaplaması nasıl yapılıyor?</div><div class="faq-a">Harris-Benedict denklemi kullanılmaktadır. Sonuçlar tahminidir.</div></div>
+</div></div>
+
+<!-- PRIVACY -->
+<div id="page-privacy" class="page"><div class="prose-page"><h1>Gizlilik Politikası</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p><div class="prose-section"><h2>Toplanan Veriler</h2><p>Google Authentication ile giriş bilgileriniz işlenir. Görseller analiz sonrası silinir.</p></div><div class="prose-section"><h2>Google AdSense</h2><p>Platformumuz Google AdSense reklam ağını kullanmaktadır.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#2e444f5c58475d464b575c415d4b6e49434f4742004d4143" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="d7bdb6a5a1bea4bfb2aea5b8a4b297b0bab6bebbf9b4b8ba">[email&#160;protected]</span></a></p></div></div></div>
+
+<!-- COOKIE -->
+<div id="page-cookie" class="page"><div class="prose-page"><h1>Çerez Politikası</h1><p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p><div class="prose-section"><h2>Çerezler Hakkında</h2><p>Sitemizi ziyaret ettiğinizde daha iyi bir kullanıcı deneyimi için çerezler kullanılmaktadır.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#f3999281859a809b968a819c8096b3949e929a9fdd909c9e" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="b4ded5c6c2ddc7dcd1cdc6dbc7d1f4d3d9d5ddd89ad7dbd9">[email&#160;protected]</span></a></p></div></div></div>
+
+<!-- DISCLAIMER -->
+<div id="page-disclaimer" class="page"><div class="prose-page"><h1>Sorumluluk Reddi</h1><div class="prose-section"><h2>Genel Bilgilendirme</h2><p>Tüm içerikler yalnızca genel bilgi ve eğitim amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><h2>Tıbbi Sorumluluk Reddi</h2><p>KaloriRose tıbbi tavsiye, teşhis veya tedavi sunmamaktadır.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#c5afa4b7b3acb6ada0bcb7aab6a085a2a8a4aca9eba6aaa8" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="2a404b585c4359424f535845594f6a4d474b434604494547">[email&#160;protected]</span></a></p></div></div></div>
+
+<!-- TERMS -->
+<div id="page-terms" class="page"><div class="prose-page"><h1>Kullanım Şartları</h1><div class="prose-section"><h2>Şartların Kabulü</h2><p>Platformu kullanarak bu şartları kabul etmiş sayılırsınız.</p></div><div class="prose-section"><h2>Sorumluluk Reddi</h2><p>Platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#4923283b3f203a212c303b263a2c092e24282025672a2624" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="cca6adbebaa5bfa4a9b5bea3bfa98caba1ada5a0e2afa3a1">[email&#160;protected]</span></a></p></div></div></div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page"><div class="prose-page"><h1>İletişim</h1><div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem"><div style="font-size:32px;margin-bottom:1rem">✉️</div><p style="font-size:13px;color:var(--text3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">E-posta</p><a href="/cdn-cgi/l/email-protection#315b5043475842595448435e425471565c50585d1f525e5c" style="color:var(--accent);font-size:1.1rem;font-weight:700"><span class="__cf_email__" data-cfemail="ddb7bcafabb4aeb5b8a4afb2aeb89dbab0bcb4b1f3beb2b0">[email&#160;protected]</span></a></div></div></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">KALORİ<span>ROSE</span></div>
+  <div class="footer-links">
+    <span class="footer-link" onclick="showPage('about')">Hakkımızda</span>
+    <span class="footer-link" onclick="showPage('blog')">Blog</span>
+    <span class="footer-link" onclick="showPage('hesapla')">Hesapla</span>
+    <span class="footer-link" onclick="showPage('faq')">SSS</span>
+    <span class="footer-link" onclick="showPage('privacy')">Gizlilik</span>
+    <span class="footer-link" onclick="showPage('cookie')">Çerez Politikası</span>
+    <span class="footer-link" onclick="showPage('disclaimer')">Sorumluluk Reddi</span>
+    <span class="footer-link" onclick="showPage('terms')">Şartlar</span>
+    <span class="footer-link" onclick="showPage('contact')">İletişim</span>
+  </div>
+  <p class="footer-disclaimer">Bu platform yalnızca bilgi ve veri amaçlıdır. Sunulan içerikler tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</p>
+  <p class="footer-copy">© 2026 KaloriRose · jarvisheyrose.com</p>
+</footer>
+
+</div><!-- /main-wrap -->
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  lang: 'tr', userId: null, userName: '',
+  queries: 0, maxQueries: 3,
+  pendingImage: null, pendingImageBase64: null,
+  queryCache: {}
+};
+
+// ============================================================
+// FIREBASE
+// ============================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
+  authDomain: "neosocial-rose.firebaseapp.com",
+  projectId: "neosocial-rose",
+  storageBucket: "neosocial-rose.firebasestorage.app",
+  messagingSenderId: "909069196756",
+  appId: "1:909069196756:web:db488838badee276f0ca41"
+};
+firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(u => {
+  if(u) {
+    state.userId = u.uid;
+    state.userName = u.displayName ? u.displayName.split(' ')[0] : 'U';
+    document.getElementById('login-btn').classList.add('hidden');
+    document.getElementById('logout-btn').classList.remove('hidden');
+    document.getElementById('sb-login-btn').classList.add('hidden');
+    document.getElementById('sb-register-btn').classList.add('hidden');
+    document.getElementById('sb-logout-btn').classList.remove('hidden');
+    loadQueryCount();
+  } else {
+    state.userId = null; state.userName = '';
+    document.getElementById('login-btn').classList.remove('hidden');
+    document.getElementById('logout-btn').classList.add('hidden');
+    document.getElementById('sb-login-btn').classList.remove('hidden');
+    document.getElementById('sb-register-btn').classList.remove('hidden');
+    document.getElementById('sb-logout-btn').classList.add('hidden');
+  }
+});
+
+function loginWithGoogle() {
+  firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(() => closeLoginModal()).catch(() => {});
+}
+function logoutGoogle() { firebase.auth().signOut(); }
+function loadQueryCount() {
+  const key = `kr_queries_${state.userId}_${new Date().toDateString()}`;
+  state.queries = parseInt(localStorage.getItem(key) || '0');
+}
+function saveQueryCount() {
+  const key = `kr_queries_${state.userId}_${new Date().toDateString()}`;
+  localStorage.setItem(key, state.queries);
+}
+function canQuery() { return state.userId && state.queries < state.maxQueries; }
+
+// ============================================================
+// SAYFA YÖNETİMİ
+// ============================================================
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+  const target = document.getElementById('page-' + p);
+  if(target) target.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  closeToolsDropdown();
+  if(p === 'chat') {
+    showWelcome(true);
+    document.getElementById('chat-messages').innerHTML = '';
+  }
+  // Sidebar aktif item
+  document.querySelectorAll('.sb-item').forEach(el => el.classList.remove('active'));
+  const sbItem = document.getElementById('sb-' + p);
+  if(sbItem) sbItem.classList.add('active');
+}
+
+// ============================================================
+// SIDEBAR
+// ============================================================
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+// ============================================================
+// COOKIE
+// ============================================================
+function acceptCookie() { localStorage.setItem('kr_cookie','accepted'); document.getElementById('cookie-banner').style.display='none'; }
+function closeCookie() { localStorage.setItem('kr_cookie','declined'); document.getElementById('cookie-banner').style.display='none'; }
+function checkCookie() { if(localStorage.getItem('kr_cookie')) document.getElementById('cookie-banner').style.display='none'; }
+
+// ============================================================
+// LOGIN MODAL
+// ============================================================
+function showLoginModal() { document.getElementById('login-modal').classList.add('open'); }
+function closeLoginModal() { document.getElementById('login-modal').classList.remove('open'); }
+
+// ============================================================
+// TOOLS DROPDOWN
+// ============================================================
+function toggleToolsDropdown() {
+  document.getElementById('tools-dropdown').classList.toggle('open');
+  document.getElementById('tools-btn').classList.toggle('open');
+}
+function closeToolsDropdown() {
+  document.getElementById('tools-dropdown').classList.remove('open');
+  document.getElementById('tools-btn').classList.remove('open');
+}
+document.addEventListener('click', e => {
+  const btn = document.getElementById('tools-btn');
+  const dd = document.getElementById('tools-dropdown');
+  if(btn && !btn.contains(e.target) && dd && !dd.contains(e.target)) closeToolsDropdown();
+});
+
+// ============================================================
+// TOOL TETİKLEME
+// ============================================================
+function triggerTool(tool) {
+  closeToolsDropdown();
+  if(!state.userId) { showLoginModal(); return; }
+  const ta = document.getElementById('chat-textarea');
+  if(tool === 'photo') { document.getElementById('file-input').click(); }
+  else if(tool === 'sport') { ta.value = 'Kaç kalori yedim, bunun için spor tavsiyesi ver:'; ta.focus(); }
+  else if(tool === 'calorie') { ta.value = ''; ta.placeholder = 'Hangi yiyeceğin kalorisini öğrenmek istiyorsunuz?'; ta.focus(); }
+}
+
+// ============================================================
+// GÖRSEL YÜKLEME
+// ============================================================
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  if(!state.userId) { showLoginModal(); return; }
+  state.pendingImage = file;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    state.pendingImageBase64 = ev.target.result.split(',')[1];
+    document.getElementById('image-preview-thumb').src = ev.target.result;
+    document.getElementById('image-preview-name').textContent = file.name;
+    document.getElementById('image-preview-box').classList.add('show');
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+function removeImage() {
+  state.pendingImage = null; state.pendingImageBase64 = null;
+  document.getElementById('image-preview-box').classList.remove('show');
+}
+
+// ============================================================
+// CHAT GÖNDERİM
+// ============================================================
+function sendMessage() {
+  if(!state.userId) { showLoginModal(); return; }
+  const text = document.getElementById('chat-textarea').value.trim();
+  const hasImage = !!state.pendingImageBase64;
+  if(!text && !hasImage) return;
+  if(!canQuery()) { addBotMessage('Günlük 3 sorgu hakkınız doldu. Yarın tekrar gelin.'); return; }
+  const cacheKey = (text + (hasImage ? '_img' : '')).toLowerCase().trim();
+  if(state.queryCache[cacheKey]) {
+    showWelcome(false);
+    addUserMessage(text, hasImage ? document.getElementById('image-preview-thumb').src : null);
+    addBotMessageHTML(state.queryCache[cacheKey]);
+    clearInput(); return;
+  }
+  showWelcome(false);
+  addUserMessage(text, hasImage ? document.getElementById('image-preview-thumb').src : null);
+  clearInput();
+  const typingId = addTypingIndicator();
+  processQuery(text, hasImage).then(result => {
+    removeTypingIndicator(typingId);
+    state.queryCache[cacheKey] = result;
+    addBotMessageHTML(result);
+    state.queries++; saveQueryCount();
+  }).catch(() => {
+    removeTypingIndicator(typingId);
+    addBotMessage('Bir hata oluştu, lütfen tekrar deneyin.');
+  });
+}
+function clearInput() {
+  document.getElementById('chat-textarea').value = '';
+  removeImage();
+}
+
+async function processQuery(text, hasImage) {
+  const isSport = /spor|sport|burn|yak/i.test(text);
+  let messages;
+  if(hasImage) {
+    const prompt = `Sen bir beslenme uzmanısın. Bu yemek fotoğrafını analiz et.
+JSON formatında ver, başka hiçbir şey yazma:
+{"name":"yemek adı","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı,"sports":[{"name":"Yürüyüş","emoji":"🚶","minutes":sayı},{"name":"Koşu","emoji":"🏃","minutes":sayı},{"name":"Bisiklet","emoji":"🚴","minutes":sayı},{"name":"Şınav/Mekik","emoji":"💪","minutes":sayı}],"disclaimer":"Bu veriler tahminidir."}`;
+    messages = [{role:'user',content:[
+      {type:'image',source:{type:'base64',media_type:state.pendingImage?.type||'image/jpeg',data:state.pendingImageBase64}},
+      {type:'text',text:prompt}
+    ]}];
+  } else {
+    const prompt = `Sen bir beslenme uzmanısın. Kullanıcı: "${text}"
+${isSport ? 'Kalori yakımı için spor önerisi de ver.' : 'Yiyeceğin besin değerlerini ver.'}
+Sadece JSON döndür:
+{"name":"ad","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı${isSport?',"sports":[{"name":"spor","emoji":"🏃","minutes":sayı}]':''},"info":"kısa bilgi","disclaimer":"Bu veriler tahminidir."}`;
+    messages = [{role:'user',content:prompt}];
+  }
+  const response = await fetch('/api/analyze', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({messages, lang: state.lang})
+  });
+  if(!response.ok) throw new Error('API error');
+  const data = await response.json();
+  const raw = (data.content||[]).map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
+  try {
+    return buildResultHTML(JSON.parse(raw), hasImage);
+  } catch(e) {
+    return `<p>${raw}</p><p class="msg-disclaimer">⚠️ Bu veriler yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p>`;
+  }
+}
+
+function buildResultHTML(json, isImage) {
+  let html = `<div style="font-weight:800;font-size:15px;margin-bottom:6px">${json.name||''}</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:12px">${json.portion||''}</div>
+    <div class="result-grid">
+      <div class="result-item kcal"><div class="val">${json.kcal||0}</div><div class="lbl">kcal</div></div>
+      <div class="result-item protein"><div class="val">${json.protein||0}g</div><div class="lbl">Protein</div></div>
+      <div class="result-item carb"><div class="val">${json.carb||0}g</div><div class="lbl">Karb.</div></div>
+      <div class="result-item fat"><div class="val">${json.fat||0}g</div><div class="lbl">Yağ</div></div>
+    </div>`;
+  if(json.info) html += `<p style="font-size:13px;color:var(--text2);margin-top:10px">${json.info}</p>`;
+  if(json.sports && json.sports.length) {
+    html += `<div style="margin-top:14px;font-weight:700;font-size:13px">Bu kaloriyi yakmak için:</div><div class="sport-list">`;
+    json.sports.forEach(s => { html += `<div class="sport-item"><span class="sport-name">${s.emoji} ${s.name}</span><span class="sport-time">${s.minutes} dk</span></div>`; });
+    html += `</div>`;
+  }
+  html += `<div class="msg-disclaimer">⚠️ Bu veriler yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div>`;
+  return html;
+}
+
+// ============================================================
+// HESAPLAMA MOTORU
+// ============================================================
+function calculateAll() {
+  const gender = document.getElementById('calc-gender').value;
+  const age = parseFloat(document.getElementById('calc-age').value);
+  const height = parseFloat(document.getElementById('calc-height').value);
+  const weight = parseFloat(document.getElementById('calc-weight').value);
+  const activity = parseFloat(document.getElementById('calc-activity').value);
+  const goal = document.getElementById('calc-goal').value;
+  if(!age || !height || !weight) { alert('Lütfen tüm alanları doldurun.'); return; }
+
+  const bmr = gender === 'erkek'
+    ? 88.362 + (13.397*weight) + (4.799*height) - (5.677*age)
+    : 447.593 + (9.247*weight) + (3.098*height) - (4.330*age);
+  const tdee = bmr * activity;
+  const vki = weight / ((height/100) ** 2);
+  const ideal = Math.max(gender === 'erkek' ? 50 + 2.3*((height/2.54)-60) : 45.5 + 2.3*((height/2.54)-60), 40);
+
+  let goalCal, goalDesc;
+  if(goal === 'lose') { goalCal = Math.round(tdee-500); goalDesc = 'Haftada ~0.5 kg kilo kaybı için günlük 500 kcal açık oluşturuldu.'; }
+  else if(goal === 'gain') { goalCal = Math.round(tdee+300); goalDesc = 'Kas kazanımı için günlük 300 kcal fazlası önerilir.'; }
+  else { goalCal = Math.round(tdee); goalDesc = 'Mevcut kilonuzu korumak için TDEE değerinize eşit kalori alın.'; }
+
+  const pPct = goal==='lose'?0.35:goal==='gain'?0.30:0.25;
+  const cPct = goal==='lose'?0.40:goal==='gain'?0.45:0.50;
+  const fPct = 0.25;
+
+  let bmiCat, bmiColor, bmiPct;
+  if(vki < 18.5) { bmiCat='🔵 Zayıf'; bmiColor='#60a5fa'; bmiPct=Math.min(vki/18.5*15,15); }
+  else if(vki < 25) { bmiCat='🟢 Normal Kilo'; bmiColor='#4ade80'; bmiPct=15+((vki-18.5)/6.5)*30; }
+  else if(vki < 30) { bmiCat='🟠 Fazla Kilolu'; bmiColor='#fb923c'; bmiPct=45+((vki-25)/5)*25; }
+  else { bmiCat='🔴 Obez'; bmiColor='#f43f5e'; bmiPct=Math.min(70+((vki-30)/10)*30,95); }
+
+  document.getElementById('res-bmr').textContent = Math.round(bmr);
+  document.getElementById('res-tdee').textContent = Math.round(tdee);
+  document.getElementById('res-vki').textContent = vki.toFixed(1);
+  document.getElementById('res-ideal').textContent = Math.round(ideal);
+  document.getElementById('res-goal-cal').textContent = goalCal;
+  document.getElementById('res-goal-desc').textContent = goalDesc;
+  document.getElementById('bmi-category').textContent = bmiCat;
+  document.getElementById('bmi-category').style.color = bmiColor;
+  document.getElementById('bmi-marker').style.left = bmiPct + '%';
+  document.getElementById('macro-protein-val').textContent = Math.round((goalCal*pPct)/4)+'g';
+  document.getElementById('macro-carb-val').textContent = Math.round((goalCal*cPct)/4)+'g';
+  document.getElementById('macro-fat-val').textContent = Math.round((goalCal*fPct)/9)+'g';
+  document.getElementById('macro-protein-bar').style.width = (pPct*100)+'%';
+  document.getElementById('macro-carb-bar').style.width = (cPct*100)+'%';
+  document.getElementById('macro-fat-bar').style.width = (fPct*100)+'%';
+
+  const res = document.getElementById('calc-results');
+  res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+// CHAT UI
+// ============================================================
+function showWelcome(show) {
+  const ws = document.getElementById('welcome-screen');
+  const msgs = document.getElementById('chat-messages');
+  const main = document.getElementById('chat-main');
+  if(show) { ws.style.display='block'; msgs.classList.add('hidden'); main.classList.remove('has-messages'); }
+  else { ws.style.display='none'; msgs.classList.remove('hidden'); main.classList.add('has-messages'); }
+}
+function addUserMessage(text, imgSrc) {
+  const msgs = document.getElementById('chat-messages');
+  const init = state.userName ? state.userName[0].toUpperCase() : 'U';
+  msgs.innerHTML += `<div class="msg-row user"><div class="msg-avatar">${init}</div><div class="msg-bubble">${imgSrc?`<img src="${imgSrc}" alt="yemek">`:''}${text?`<p>${text}</p>`:''}</div></div>`;
+  scrollChat();
+}
+function addBotMessage(text) {
+  document.getElementById('chat-messages').innerHTML += `<div class="msg-row"><div class="msg-avatar">🌿</div><div class="msg-bubble"><p>${text}</p></div></div>`;
+  scrollChat();
+}
+function addBotMessageHTML(html) {
+  document.getElementById('chat-messages').innerHTML += `<div class="msg-row"><div class="msg-avatar">🌿</div><div class="msg-bubble">${html}</div></div>`;
+  scrollChat();
+}
+function addTypingIndicator() {
+  const id = 'typing-' + Date.now();
+  document.getElementById('chat-messages').innerHTML += `<div class="msg-row" id="${id}"><div class="msg-avatar">🌿</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div></div>`;
+  scrollChat(); return id;
+}
+function removeTypingIndicator(id) { const el = document.getElementById(id); if(el) el.remove(); }
+function scrollChat() { const m = document.getElementById('chat-main'); m.scrollTop = m.scrollHeight; }
+
+// Textarea
+const textarea = document.getElementById('chat-textarea');
+textarea.addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+});
+textarea.addEventListener('keydown', function(e) {
+  if(e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+// ============================================================
+// DİL SİSTEMİ (basit)
+// ============================================================
+function setLang(lang) {
+  state.lang = lang;
+  localStorage.setItem('kr_lang', lang)
