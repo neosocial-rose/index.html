@@ -16,7 +16,6 @@
   <meta property="og:description" content="Yemek fotoğrafı yükle, kalori hesapla, spor tavsiyesi al.">
   <meta property="og:image" content="https://jarvisheyrose.com/og-image.jpg">
 
-  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1842835786064419" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -169,6 +168,19 @@
       transition: all 0.3s;
     }
 
+    /* GÖRSEL BANNER */
+    .hero-banner {
+      width: 100%;
+      max-width: 900px;
+      height: 250px;
+      background-image: url('https://googleusercontent.com/image_generation_content/2');
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border2);
+    }
+
     .chat-main.has-messages {
       justify-content: flex-start;
       padding-top: 2rem;
@@ -219,12 +231,6 @@
     .qc-icon { font-size: 22px; margin-bottom: 10px; display: block; }
     .qc-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .qc-desc { font-size: 11px; color: var(--text3); line-height: 1.4; }
-    .qc-arrow {
-      position: absolute; bottom: 12px; right: 12px;
-      color: var(--text3); font-size: 11px;
-      transition: transform 0.2s;
-    }
-    .quick-card:hover .qc-arrow { transform: translateX(3px); color: var(--accent); }
 
     .chat-messages { width: 100%; max-width: 700px; margin: 0 auto; }
     
@@ -252,22 +258,6 @@
       font-size: 14px; line-height: 1.6;
       color: var(--text);
     }
-    .msg-row.user .msg-bubble {
-      background: var(--bg3);
-      border-color: var(--border2);
-    }
-
-    .msg-bubble img {
-      max-width: 100%; border-radius: 10px;
-      margin-bottom: 10px; display: block;
-    }
-
-    .msg-disclaimer {
-      font-size: 10px; color: var(--text3);
-      margin-top: 10px; padding-top: 10px;
-      border-top: 1px solid var(--border);
-      font-style: italic;
-    }
 
     .result-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
@@ -279,35 +269,6 @@
     }
     .result-item .val { font-size: 20px; font-weight: 800; }
     .result-item .lbl { font-size: 10px; color: var(--text3); margin-top: 2px; }
-    .result-item.kcal .val { color: var(--rose); }
-    .result-item.protein .val { color: var(--accent); }
-    .result-item.carb .val { color: var(--blue); }
-    .result-item.fat .val { color: var(--orange); }
-
-    .sport-list { margin-top: 12px; }
-    .sport-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 0; border-bottom: 1px solid var(--border);
-      font-size: 13px;
-    }
-    .sport-item:last-child { border-bottom: none; }
-    .sport-item .sport-name { color: var(--text2); }
-    .sport-item .sport-time { color: var(--accent); font-weight: 700; }
-
-    .typing-indicator {
-      display: flex; gap: 4px; align-items: center; padding: 4px 0;
-    }
-    .typing-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--text3);
-      animation: typingPulse 1.4s infinite ease-in-out;
-    }
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typingPulse {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-      30% { transform: translateY(-6px); opacity: 1; }
-    }
 
     .chat-input-area {
       background: var(--bg);
@@ -320,34 +281,13 @@
       max-width: 700px; margin: 0 auto;
     }
 
-    #image-preview-box {
-      display: none;
-      background: var(--bg2); border: 1px solid var(--border2);
-      border-radius: 12px; padding: 10px 14px;
-      margin-bottom: 8px;
-      align-items: center; gap: 12px;
-    }
-    #image-preview-box.show { display: flex; }
-    #image-preview-thumb {
-      width: 48px; height: 48px; border-radius: 8px;
-      object-fit: cover;
-    }
-    #image-preview-name { font-size: 12px; color: var(--text2); flex: 1; }
-    #image-preview-remove {
-      background: none; border: none; color: var(--text3);
-      cursor: pointer; font-size: 16px; padding: 4px;
-    }
-    #image-preview-remove:hover { color: var(--rose); }
-
     .input-box {
       background: var(--bg2);
       border: 1px solid var(--border2);
       border-radius: 16px;
       display: flex; align-items: flex-end; gap: 8px;
       padding: 10px 10px 10px 16px;
-      transition: border-color 0.2s;
     }
-    .input-box:focus-within { border-color: rgba(74,222,128,0.4); }
 
     #chat-textarea {
       flex: 1; background: none; border: none; outline: none;
@@ -355,1453 +295,234 @@
       font-size: 14px; resize: none; max-height: 120px;
       min-height: 24px; line-height: 1.5;
     }
-    #chat-textarea::placeholder { color: var(--text3); }
-
-    .input-actions { display: flex; align-items: center; gap: 6px; }
-
-    .tools-btn {
-      background: var(--bg3); border: 1px solid var(--border2);
-      color: var(--text2); padding: 8px 12px; border-radius: 10px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      display: flex; align-items: center; gap: 6px;
-      transition: all 0.2s; white-space: nowrap;
-      position: relative;
-    }
-    .tools-btn:hover { border-color: var(--border2); color: var(--text); }
-    .tools-btn.open { border-color: var(--accent); color: var(--accent); }
-
-    .tools-dropdown {
-      position: absolute; bottom: calc(100% + 8px); left: 0;
-      background: var(--bg2); border: 1px solid var(--border2);
-      border-radius: 14px; padding: 8px;
-      min-width: 240px; z-index: 500;
-      display: none; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-    .tools-dropdown.open { display: block; }
-
-    .tool-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 12px; border-radius: 10px; cursor: pointer;
-      transition: background 0.15s;
-    }
-    .tool-item:hover { background: var(--bg3); }
-    .tool-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      background: var(--bg3); display: flex; align-items: center;
-      justify-content: center; font-size: 16px; flex-shrink: 0;
-    }
-    .tool-text .tool-name { font-size: 13px; font-weight: 700; color: var(--text); }
-    .tool-text .tool-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
 
     .send-btn {
       width: 40px; height: 40px; border-radius: 10px;
       background: var(--accent); border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      color: #000; font-size: 16px; transition: all 0.2s; flex-shrink: 0;
-    }
-    .send-btn:hover { background: var(--accent2); transform: scale(1.05); }
-    .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-    .input-footer {
-      text-align: center; font-size: 10px; color: var(--text3);
-      margin-top: 8px; line-height: 1.5;
+      color: #000; font-size: 16px; transition: all 0.2s;
     }
 
     /* ===== HESAPLA SAYFASI ===== */
     .calc-page { max-width: 800px; margin: 0 auto; padding: 3rem 1.5rem; }
-    .calc-page-title {
-      font-family: 'Sora', sans-serif; font-size: 2rem;
-      font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.03em;
-    }
-    .calc-page-sub { font-size: 14px; color: var(--text3); margin-bottom: 2rem; }
-
     .calc-card {
       background: var(--bg2); border: 1px solid var(--border);
       border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem;
     }
-    .calc-card h3 {
-      font-family: 'Sora', sans-serif; font-size: 1.1rem;
-      font-weight: 700; margin-bottom: 1.5rem; color: var(--text);
-      display: flex; align-items: center; gap: 10px;
-    }
-
     .calc-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
       margin-bottom: 1.5rem;
     }
-    @media (max-width: 540px) { .calc-grid { grid-template-columns: 1fr; } }
-
-    .calc-group { display: flex; flex-direction: column; gap: 6px; }
-    .calc-group label {
-      font-size: 12px; font-weight: 700; color: var(--text2);
-      text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .calc-group input,
-    .calc-group select {
+    .calc-group input, .calc-group select {
       background: var(--bg3); border: 1px solid var(--border2);
       color: var(--text); padding: 10px 14px; border-radius: 10px;
-      font-size: 14px; font-family: 'DM Sans', sans-serif;
-      outline: none; transition: border-color 0.2s;
-      width: 100%;
+      font-size: 14px; width: 100%; outline: none;
     }
-    .calc-group input:focus,
-    .calc-group select:focus { border-color: rgba(74,222,128,0.4); }
-    .calc-group select option { background: var(--bg3); }
-    .calc-group.full { grid-column: span 2; }
-    @media (max-width: 540px) { .calc-group.full { grid-column: span 1; } }
-
     .calc-btn {
       width: 100%; padding: 14px; border-radius: 12px;
       background: var(--accent); color: #000;
-      border: none; font-size: 15px; font-weight: 800;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
-    }
-    .calc-btn:hover { background: var(--accent2); transform: translateY(-1px); }
-
-    .calc-results {
-      display: none; margin-top: 1.5rem;
-    }
-    .calc-results.show { display: block; }
-
-    .calc-results-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 12px; margin-bottom: 1rem;
-    }
-    @media (min-width: 600px) {
-      .calc-results-grid { grid-template-columns: repeat(4, 1fr); }
+      border: none; font-size: 15px; font-weight: 800; cursor: pointer;
     }
 
-    .calc-result-item {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 12px; text-align: center;
-    }
-    .calc-result-item .r-val {
-      font-size: 22px; font-weight: 800; margin-bottom: 4px;
-    }
-    .calc-result-item .r-lbl {
-      font-size: 11px; color: var(--text3); line-height: 1.3;
-    }
-    .calc-result-item.c-bmr .r-val { color: var(--accent); }
-    .calc-result-item.c-tdee .r-val { color: var(--blue); }
-    .calc-result-item.c-vki .r-val { color: var(--orange); }
-    .calc-result-item.c-ideal .r-val { color: var(--purple); }
-
-    .bmi-bar-wrap { margin: 1rem 0; }
-    .bmi-bar-label { font-size: 12px; color: var(--text3); margin-bottom: 6px; display: flex; justify-content: space-between; }
-    .bmi-bar {
-      height: 8px; border-radius: 4px; width: 100%;
-      background: linear-gradient(to right, #60a5fa 0%, #4ade80 25%, #fb923c 60%, #f43f5e 100%);
-      position: relative;
-    }
-    .bmi-marker {
-      position: absolute; top: -4px; width: 16px; height: 16px;
-      border-radius: 50%; background: #fff; border: 3px solid var(--bg);
-      transform: translateX(-50%);
-      transition: left 0.5s ease;
-    }
-    .bmi-category {
-      text-align: center; margin-top: 8px;
-      font-weight: 700; font-size: 14px;
-    }
-
-    .macro-suggestion {
-      background: var(--bg3); border-radius: 14px;
-      padding: 1.2rem; margin-top: 1rem;
-    }
-    .macro-suggestion h4 {
-      font-size: 13px; font-weight: 700; color: var(--text2);
-      margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .macro-bars { display: flex; flex-direction: column; gap: 10px; }
-    .macro-bar-item { display: flex; align-items: center; gap: 10px; }
-    .macro-bar-item .m-lbl { font-size: 12px; color: var(--text2); width: 80px; flex-shrink: 0; }
-    .macro-bar-item .m-bar {
-      flex: 1; height: 6px; border-radius: 3px; background: var(--bg4);
-      overflow: hidden;
-    }
-    .macro-bar-item .m-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
-    .macro-bar-item .m-val { font-size: 12px; font-weight: 700; width: 50px; text-align: right; }
-
-    .calc-disclaimer {
-      font-size: 11px; color: var(--text3); margin-top: 1rem;
-      line-height: 1.6; font-style: italic;
-    }
-
-    /* ===== OTHER PAGES ===== */
-    .page-inner { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem; }
-    .page-title {
-      font-family: 'Sora', sans-serif; font-size: 2rem;
-      font-weight: 800; margin-bottom: 2rem; letter-spacing: -0.03em;
-    }
-
+    /* ===== BLOG & SOCIAL CARDS ===== */
     .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .blog-card {
       background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 1.5rem; cursor: pointer;
-      transition: all 0.25s; display: flex; flex-direction: column; gap: 10px;
+      border-radius: 16px; padding: 1.5rem; transition: 0.3s;
     }
-    .blog-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-    .blog-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
-    .blog-card h3 { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; }
-    .blog-card p { font-size: 12px; color: var(--text3); line-height: 1.6; flex: 1; }
-    .blog-read { font-size: 12px; color: var(--accent); font-weight: 600; }
+    .blog-card:hover { transform: translateY(-5px); border-color: var(--accent); }
 
-    .article-wrap { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem; }
-    .article-wrap h1 { font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
-    .article-content { color: var(--text2); line-height: 1.8; font-size: 14px; }
-    .article-content h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 2rem 0 0.75rem; }
-    .article-content p { margin-bottom: 1rem; }
-    .article-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
-    .article-content li { margin-bottom: 0.5rem; }
-    .article-disclaimer { background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.3); border-radius: 12px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 12px; color: var(--orange); line-height: 1.6; }
-    .back-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-size: 13px; font-weight: 600; cursor: pointer; margin-bottom: 2rem; }
-    .back-btn:hover { text-decoration: underline; }
+    /* ===== CSS DISCLOSURE ===== */
+    .msg-disclaimer { font-size: 10px; color: var(--text3); margin-top: 10px; font-style: italic; border-top: 1px solid var(--border); padding-top: 10px; }
 
-    .prose-page { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem; }
-    .prose-page h1 { font-family: 'Sora', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 2rem; }
-    .prose-section { margin-bottom: 2rem; }
-    .prose-section h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
-    .prose-section p, .prose-section li { font-size: 14px; color: var(--text2); line-height: 1.8; }
-    .prose-section ul { margin-left: 1.5rem; }
-    .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; margin-bottom: 12px; }
-    .faq-q { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
-    .faq-a { font-size: 13px; color: var(--text2); line-height: 1.6; }
-
-    footer {
-      background: var(--bg2); border-top: 1px solid var(--border);
-      padding: 3rem 1.5rem; text-align: center;
-    }
-    .footer-logo { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.2rem; margin-bottom: 1rem; }
-    .footer-logo span { color: var(--accent); }
+    footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 3rem 1.5rem; text-align: center; }
     .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 1rem; }
-    .footer-link { font-size: 12px; color: var(--text3); cursor: pointer; transition: color 0.2s; }
-    .footer-link:hover { color: var(--accent); }
-    .footer-disclaimer { font-size: 11px; color: var(--text3); max-width: 600px; margin: 0 auto 1rem; line-height: 1.6; }
-    .footer-copy { font-size: 11px; color: var(--text3); opacity: 0.5; }
-
-    .ad-slot { background: var(--bg2); border: 1px dashed var(--border2); border-radius: 12px; padding: 1rem; text-align: center; margin: 1rem 0; }
-    .ad-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 8px; }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+    .footer-link { font-size: 12px; color: var(--text3); cursor: pointer; }
 
     .hidden { display: none !important; }
-
-    @media (max-width: 640px) {
-      .nav-btn:not(.primary) { display: none; }
-      .mobile-menu-btn { display: block; }
-      .quick-cards { grid-template-columns: repeat(2, 1fr); }
-      .result-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      z-index: 9998; display: none; align-items: center; justify-content: center;
-    }
+    @media (max-width: 640px) { .nav-btn:not(.primary) { display: none; } .mobile-menu-btn { display: block; } }
+    
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9998; display: none; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: var(--bg2); border: 1px solid var(--border2);
-      border-radius: 20px; padding: 2.5rem; max-width: 400px; width: 90%;
-      text-align: center;
-    }
-    .modal-box h2 { font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; }
-    .modal-box p { font-size: 13px; color: var(--text2); margin-bottom: 1.5rem; line-height: 1.6; }
-    .google-btn {
-      background: #fff; color: #000; border: none;
-      padding: 12px 24px; border-radius: 12px; font-size: 14px;
-      font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 10px; font-family: 'DM Sans', sans-serif;
-      transition: opacity 0.2s; width: 100%; justify-content: center;
-    }
-    .google-btn:hover { opacity: 0.9; }
-    .modal-close { margin-top: 12px; font-size: 12px; color: var(--text3); cursor: pointer; }
-    .modal-close:hover { color: var(--text); }
+    .modal-box { background: var(--bg2); border-radius: 20px; padding: 2.5rem; max-width: 400px; width: 90%; text-align: center; }
   </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "KaloriRose",
-    "description": "AI destekli kalori hesaplayıcı ve sağlıklı yaşam platformu",
-    "url": "https://jarvisheyrose.com",
-    "applicationCategory": "HealthApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Organization", "name": "KaloriRose", "email": "jarvisheyrose@gmail.com" }
-  }
-  </script>
 </head>
 
 <body>
 
-  <!-- DISCLAIMER TOP BAR -->
-  <div id="disclaimer-top" data-tr="disclaimer_top">
-    ⚠️ Bu platform yalnızca bilgi ve veri amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.
+  <div id="disclaimer-top">
+    ⚠️ Bu platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.
   </div>
 
-  <!-- COOKIE BANNER -->
-  <div id="cookie-banner">
-    <p data-tr="cookie_text">Bu site çerezler kullanmaktadır. Daha fazla bilgi için <a href="#" onclick="showPage('cookie')">Çerez Politikası</a>'nı inceleyin.</p>
-    <button class="cookie-btn decline" onclick="closeCookie()" data-tr="cookie_decline">Reddet</button>
-    <button class="cookie-btn" onclick="acceptCookie()" data-tr="cookie_accept">Kabul Et</button>
-  </div>
-
-  <!-- LOGIN MODAL -->
-  <div id="login-modal" class="modal-overlay">
-    <div class="modal-box">
-      <div style="font-size:40px;margin-bottom:1rem">🔐</div>
-      <h2 data-tr="login_title">Giriş Yapın</h2>
-      <p data-tr="login_desc">Kalori analizi için günlük 3 sorgu hakkınız vardır. Google hesabınızla ücretsiz giriş yapın.</p>
-      <button class="google-btn" onclick="loginWithGoogle()">
-        <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-        Google ile Devam Et
-      </button>
-      <div class="modal-close" onclick="closeLoginModal()" data-tr="login_skip">Şimdi değil</div>
-    </div>
-  </div>
-
-  <!-- NAV -->
   <nav>
     <div class="nav-logo" onclick="showPage('chat')">KALORİ<span>ROSE</span></div>
     <div class="nav-right">
-      <select class="lang-select" onchange="setLang(this.value)" id="lang-selector">
-        <option value="tr">🇹🇷 TR</option>
-        <option value="en">🇬🇧 EN</option>
-        <option value="es">🇪🇸 ES</option>
-        <option value="fr">🇫🇷 FR</option>
-        <option value="de">🇩🇪 DE</option>
-        <option value="pt">🇵🇹 PT</option>
-      </select>
-      <button class="nav-btn" onclick="showPage('hesapla')" data-tr="nav_calc">Hesapla</button>
-      <button class="nav-btn hidden" onclick="showPage('blog')" data-tr="nav_blog">Blog</button>
-      <button class="nav-btn" id="login-btn" onclick="showLoginModal()" data-tr="login">Giriş</button>
-      <button class="nav-btn primary hidden" id="logout-btn" onclick="logoutGoogle()" data-tr="logout">Çıkış</button>
+      <button class="nav-btn" onclick="showPage('hesapla')">Hesapla</button>
+      <button class="nav-btn" onclick="showPage('success')">Başarı Hikayeleri</button>
+      <button class="nav-btn" onclick="showPage('board')">Mesaj Panosu</button>
+      <button class="nav-btn" id="login-btn" onclick="showLoginModal()">Giriş</button>
       <button class="mobile-menu-btn" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
     </div>
   </nav>
 
-  <!-- MOBILE NAV -->
   <div id="mobile-nav">
-    <div class="mobile-nav-item" onclick="showPage('chat');toggleMobileNav()" data-tr="nav_home">Ana Sayfa</div>
-    <div class="mobile-nav-item" onclick="showPage('hesapla');toggleMobileNav()" data-tr="nav_calc">Hesapla</div>
-    <div class="mobile-nav-item" onclick="showPage('blog');toggleMobileNav()" data-tr="nav_blog">Blog</div>
-    <div class="mobile-nav-item" onclick="showPage('about');toggleMobileNav()" data-tr="nav_about">Hakkımızda</div>
-    <div class="mobile-nav-item" onclick="showPage('faq');toggleMobileNav()" data-tr="nav_faq">SSS</div>
-    <div class="mobile-nav-item" onclick="showPage('contact');toggleMobileNav()" data-tr="nav_contact">İletişim</div>
+    <div class="mobile-nav-item" onclick="showPage('chat');toggleMobileNav()">Ana Sayfa</div>
+    <div class="mobile-nav-item" onclick="showPage('hesapla');toggleMobileNav()">Hesapla</div>
+    <div class="mobile-nav-item" onclick="showPage('success');toggleMobileNav()">Başarı Hikayeleri</div>
+    <div class="mobile-nav-item" onclick="showPage('board');toggleMobileNav()">Mesaj Panosu</div>
+    <div class="mobile-nav-item" onclick="showPage('friends');toggleMobileNav()">Arkadaşlarım</div>
+    <div class="mobile-nav-item" onclick="showPage('blog');toggleMobileNav()">Blog</div>
   </div>
 
-  <!-- ===== CHAT PAGE ===== -->
   <div id="page-chat" class="page active">
     <div class="chat-main" id="chat-main">
-
+      <div class="hero-banner" id="hero-banner"></div>
+      
       <div class="welcome-screen" id="welcome-screen">
-        <h1 class="welcome-title" data-tr="welcome_title">Sağlıklı bir yaşama<br><span>hoş geldiniz</span></h1>
-        <p class="welcome-sub" data-tr="welcome_sub">Yemek fotoğrafı yükleyin veya bir şey sorun</p>
-
-        <div class="ad-slot" style="margin-bottom:1.5rem">
-          <div class="ad-label">Reklam</div>
-          <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
-          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
-
-        <div class="quick-cards" id="quick-cards">
-          <div class="quick-card" onclick="triggerTool('photo')">
-            <span class="qc-icon">📸</span>
-            <div class="qc-title" data-tr="qc_photo_title">Fotoğraf Yükle</div>
-            <div class="qc-desc" data-tr="qc_photo_desc">Yemeğin fotoğrafını çek, kalori hesaplansın</div>
-            <span class="qc-arrow">→</span>
-          </div>
+        <h1 class="welcome-title">Sağlıklı yaşama<br><span>hoş geldin dostum</span></h1>
+        <p class="welcome-sub">Yemek fotoğrafı yükle veya kalori sorgula</p>
+        
+        <div class="quick-cards">
           <div class="quick-card" onclick="showPage('hesapla')">
             <span class="qc-icon">⚖️</span>
-            <div class="qc-title" data-tr="qc_bmr_title">BMR Hesapla</div>
-            <div class="qc-desc" data-tr="qc_bmr_desc">Günlük kalori ihtiyacını öğren</div>
-            <span class="qc-arrow">→</span>
+            <div class="qc-title">BMR Hesapla</div>
+            <div class="qc-desc">Günlük ihtiyacını öğren</div>
           </div>
-          <div class="quick-card" onclick="triggerTool('sport')">
-            <span class="qc-icon">🔥</span>
-            <div class="qc-title" data-tr="qc_sport_title">Spor Tavsiyesi</div>
-            <div class="qc-desc" data-tr="qc_sport_desc">Kalorini hangi sporla yakabilirsin?</div>
-            <span class="qc-arrow">→</span>
+          <div class="quick-card" onclick="showPage('success')">
+            <span class="qc-icon">🏆</span>
+            <div class="qc-title">Başarılar</div>
+            <div class="qc-desc">İlham al, sen de yap</div>
           </div>
-          <div class="quick-card" onclick="triggerTool('calorie')">
-            <span class="qc-icon">🥗</span>
-            <div class="qc-title" data-tr="qc_calorie_title">Kalori Sorgula</div>
-            <div class="qc-desc" data-tr="qc_calorie_desc">Herhangi bir yiyeceğin kalorisini öğren</div>
-            <span class="qc-arrow">→</span>
+          <div class="quick-card" onclick="showPage('board')">
+            <span class="qc-icon">💬</span>
+            <div class="qc-title">Pano</div>
+            <div class="qc-desc">Topluluğa katıl</div>
+          </div>
+          <div class="quick-card" onclick="showPage('friends')">
+            <span class="qc-icon">👥</span>
+            <div class="qc-title">Arkadaşlar</div>
+            <div class="qc-desc">Birlikte zayıflayın</div>
           </div>
         </div>
       </div>
-
       <div class="chat-messages hidden" id="chat-messages"></div>
-
     </div>
 
     <div class="chat-input-area">
       <div class="chat-input-inner">
-
-        <div id="image-preview-box">
-          <img id="image-preview-thumb" src="" alt="">
-          <span id="image-preview-name"></span>
-          <button id="image-preview-remove" onclick="removeImage()"><i class="fas fa-times"></i></button>
-        </div>
-
         <div class="input-box">
-          <textarea id="chat-textarea" rows="1" data-tr-placeholder="input_placeholder" placeholder="Ne yediniz? Fotoğraf yükleyin veya yazın..."></textarea>
-          <div class="input-actions">
-            <div style="position:relative">
-              <button class="tools-btn" id="tools-btn" onclick="toggleToolsDropdown()">
-                <i class="fas fa-sliders"></i>
-                <span data-tr="tools_label">Araçlar</span>
-                <i class="fas fa-chevron-up" style="font-size:9px"></i>
-              </button>
-              <div class="tools-dropdown" id="tools-dropdown">
-                <div class="tool-item" onclick="triggerTool('photo')">
-                  <div class="tool-icon">📸</div>
-                  <div class="tool-text">
-                    <div class="tool-name" data-tr="tool_photo">Fotoğraf Yükle</div>
-                    <div class="tool-sub" data-tr="tool_photo_sub">Yemek fotoğrafından kalori</div>
-                  </div>
-                </div>
-                <div class="tool-item" onclick="showPage('hesapla');closeToolsDropdown()">
-                  <div class="tool-icon">⚖️</div>
-                  <div class="tool-text">
-                    <div class="tool-name" data-tr="tool_bmr">BMR Hesapla</div>
-                    <div class="tool-sub" data-tr="tool_bmr_sub">Günlük kalori ihtiyacın</div>
-                  </div>
-                </div>
-                <div class="tool-item" onclick="triggerTool('sport')">
-                  <div class="tool-icon">🔥</div>
-                  <div class="tool-text">
-                    <div class="tool-name" data-tr="tool_sport">Spor Tavsiyesi</div>
-                    <div class="tool-sub" data-tr="tool_sport_sub">Kalori yakma programı</div>
-                  </div>
-                </div>
-                <div class="tool-item" onclick="triggerTool('calorie')">
-                  <div class="tool-icon">🥗</div>
-                  <div class="tool-text">
-                    <div class="tool-name" data-tr="tool_calorie">Kalori Sorgula</div>
-                    <div class="tool-sub" data-tr="tool_calorie_sub">Yiyecek besin değerleri</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button class="send-btn" id="send-btn" onclick="sendMessage()">
-              <i class="fas fa-arrow-up"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="input-footer" data-tr="input_footer">
-          Bu platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.
+          <textarea id="chat-textarea" rows="1" placeholder="Ne yedin? Yaz veya fotoğraf yükle..."></textarea>
+          <button class="send-btn" onclick="sendMessage()"><i class="fas fa-arrow-up"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-  <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
-
-  <!-- ===== HESAPLA SAYFASI ===== -->
   <div id="page-hesapla" class="page">
     <div class="calc-page">
-      <h1 class="calc-page-title" data-tr="calc_title">Vücut Analizi & Hesapla</h1>
-      <p class="calc-page-sub" data-tr="calc_sub">BMR, TDEE, VKİ ve İdeal Kilo hesaplamalarınızı anında öğrenin.</p>
-
-      <div class="ad-slot">
-        <div class="ad-label">Reklam</div>
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-
+      <h1 style="text-align:center; margin-bottom: 2rem;">Vücut Analizi</h1>
       <div class="calc-card">
-        <h3>🧮 <span data-tr="calc_card_title">Bilgilerinizi Girin</span></h3>
-
         <div class="calc-grid">
-          <div class="calc-group">
-            <label data-tr="calc_gender">Cinsiyet</label>
-            <select id="calc-gender">
-              <option value="erkek" data-tr="calc_male">Erkek</option>
-              <option value="kadin" data-tr="calc_female">Kadın</option>
-            </select>
-          </div>
-          <div class="calc-group">
-            <label data-tr="calc_age">Yaş</label>
-            <input type="number" id="calc-age" placeholder="25" min="10" max="100">
-          </div>
-          <div class="calc-group">
-            <label data-tr="calc_height">Boy (cm)</label>
-            <input type="number" id="calc-height" placeholder="175" min="100" max="250">
-          </div>
-          <div class="calc-group">
-            <label data-tr="calc_weight">Kilo (kg)</label>
-            <input type="number" id="calc-weight" placeholder="70" min="30" max="300">
-          </div>
-          <div class="calc-group full">
-            <label data-tr="calc_activity">Yaşam Tarzı</label>
-            <select id="calc-activity">
-              <option value="1.2" data-tr="act_sedentary">Hareketsiz (Egzersiz yok)</option>
-              <option value="1.375" data-tr="act_light">Az Hareketli (Haftada 1-3 gün spor)</option>
-              <option value="1.55" data-tr="act_moderate">Orta Hareketli (Haftada 3-5 gün spor)</option>
-              <option value="1.725" data-tr="act_active">Çok Hareketli (Haftada 6-7 gün ağır spor)</option>
-              <option value="1.9" data-tr="act_very_active">Sporcu / Fiziksel İş</option>
-            </select>
-          </div>
-          <div class="calc-group full">
-            <label data-tr="calc_goal">Hedefiniz</label>
-            <select id="calc-goal">
-              <option value="lose" data-tr="goal_lose">Kilo Vermek</option>
-              <option value="maintain" data-tr="goal_maintain">Kiloyu Korumak</option>
-              <option value="gain" data-tr="goal_gain">Kilo Almak / Kas Kazanmak</option>
-            </select>
-          </div>
+          <div class="calc-group"><label>Cinsiyet</label><select id="calc-gender"><option value="erkek">Erkek</option><option value="kadin">Kadın</option></select></div>
+          <div class="calc-group"><label>Yaş</label><input type="number" id="calc-age" placeholder="25"></div>
+          <div class="calc-group"><label>Boy (cm)</label><input type="number" id="calc-height" placeholder="175"></div>
+          <div class="calc-group"><label>Kilo (kg)</label><input type="number" id="calc-weight" placeholder="70"></div>
         </div>
-
-        <button class="calc-btn" onclick="calculateAll()" data-tr="calc_btn">ANALİZ ET VE HESAPLA</button>
-
-        <div id="calc-results" class="calc-results">
-          <div class="calc-results-grid">
-            <div class="calc-result-item c-bmr">
-              <div class="r-val" id="res-bmr">—</div>
-              <div class="r-lbl">BMR<br><span style="font-size:10px;opacity:0.7">kcal/gün</span></div>
-            </div>
-            <div class="calc-result-item c-tdee">
-              <div class="r-val" id="res-tdee">—</div>
-              <div class="r-lbl">TDEE<br><span style="font-size:10px;opacity:0.7">kcal/gün</span></div>
-            </div>
-            <div class="calc-result-item c-vki">
-              <div class="r-val" id="res-vki">—</div>
-              <div class="r-lbl">VKİ<br><span style="font-size:10px;opacity:0.7">kg/m²</span></div>
-            </div>
-            <div class="calc-result-item c-ideal">
-              <div class="r-val" id="res-ideal">—</div>
-              <div class="r-lbl">İdeal Kilo<br><span style="font-size:10px;opacity:0.7">kg</span></div>
-            </div>
-          </div>
-
-          <!-- BMI Bar -->
-          <div class="bmi-bar-wrap">
-            <div class="bmi-bar-label">
-              <span>Zayıf</span><span>Normal</span><span>Fazla</span><span>Obez</span>
-            </div>
-            <div class="bmi-bar">
-              <div class="bmi-marker" id="bmi-marker" style="left:0%"></div>
-            </div>
-            <div class="bmi-category" id="bmi-category"></div>
-          </div>
-
-          <!-- Hedef kalori -->
-          <div style="background:var(--bg3);border-radius:14px;padding:1.2rem;margin-top:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-            <div>
-              <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px" data-tr="target_cal_label">Hedefiniz İçin Günlük Kalori</div>
-              <div style="font-size:28px;font-weight:800;color:var(--accent)" id="res-goal-cal">—</div>
-            </div>
-            <div style="font-size:13px;color:var(--text2);max-width:260px;line-height:1.5" id="res-goal-desc"></div>
-          </div>
-
-          <!-- Makro önerisi -->
-          <div class="macro-suggestion">
-            <h4 data-tr="macro_title">Günlük Makro Önerisi</h4>
-            <div class="macro-bars">
-              <div class="macro-bar-item">
-                <span class="m-lbl">Protein</span>
-                <div class="m-bar"><div class="m-fill" id="macro-protein-bar" style="width:30%;background:var(--accent)"></div></div>
-                <span class="m-val" id="macro-protein-val" style="color:var(--accent)">—</span>
-              </div>
-              <div class="macro-bar-item">
-                <span class="m-lbl">Karbonhidrat</span>
-                <div class="m-bar"><div class="m-fill" id="macro-carb-bar" style="width:40%;background:var(--blue)"></div></div>
-                <span class="m-val" id="macro-carb-val" style="color:var(--blue)">—</span>
-              </div>
-              <div class="macro-bar-item">
-                <span class="m-lbl">Yağ</span>
-                <div class="m-bar"><div class="m-fill" id="macro-fat-bar" style="width:30%;background:var(--orange)"></div></div>
-                <span class="m-val" id="macro-fat-val" style="color:var(--orange)">—</span>
-              </div>
-            </div>
-          </div>
-
-          <p class="calc-disclaimer" data-tr="calc_disclaimer">⚠️ Bu hesaplamalar Harris-Benedict ve Devine formülleri kullanılarak yapılmıştır. Sonuçlar tahminidir ve tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</p>
-        </div>
+        <button class="calc-btn" onclick="calculateAll()">HESAPLA</button>
+      </div>
+      <div id="calc-results" class="hidden">
+          <div class="result-grid" id="res-grid-calc"></div>
       </div>
     </div>
   </div>
 
-  <!-- ===== BLOG PAGE ===== -->
-  <div id="page-blog" class="page">
-    <div class="page-inner">
-      <div class="ad-slot"><div class="ad-label">Reklam</div>
-        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </div>
-      <h1 class="page-title" data-tr="blog_title">Blog & Beslenme Rehberleri</h1>
+  <div id="page-success" class="page">
+    <div class="page-inner" style="max-width:900px; margin: 0 auto; padding: 2rem;">
+      <h1 class="page-title">Başarı Hikayeleri</h1>
       <div class="blog-grid">
-        <div class="blog-card" onclick="showPage('article-calorie')">
-          <span class="blog-tag" style="background:rgba(244,63,94,0.15);color:#f43f5e" data-tr="tag_calorie">Kalori</span>
-          <h3 data-tr="blog1_title">Kalori Nedir? Neden Bu Kadar Önemlidir?</h3>
-          <p data-tr="blog1_desc">Kalori hesaplamayı anlamak, sağlıklı beslenmenin temeli. Vücudunuzun enerji ihtiyacını keşfedin.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-bmr')">
-          <span class="blog-tag" style="background:rgba(74,222,128,0.15);color:#4ade80" data-tr="tag_bmr">BMR & TDEE</span>
-          <h3 data-tr="blog2_title">BMR ve TDEE: Fark Ne?</h3>
-          <p data-tr="blog2_desc">Bazal metabolizma hızı ve toplam günlük enerji tüketiminizi doğru hesaplayın.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-macro')">
-          <span class="blog-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa" data-tr="tag_nutrition">Beslenme</span>
-          <h3 data-tr="blog3_title">Makro Besinler: Protein, Karb, Yağ</h3>
-          <p data-tr="blog3_desc">Her makro besinin rolü, doğru oranlar ve kişisel beslenme planı nasıl oluşturulur.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-diet')">
-          <span class="blog-tag" style="background:rgba(251,146,60,0.15);color:#fb923c" data-tr="tag_diet">Diyet</span>
-          <h3 data-tr="blog4_title">Sağlıklı Kilo Vermenin Bilimsel Yolu</h3>
-          <p data-tr="blog4_desc">Hızlı diyet değil, kalıcı kilo kaybı. Bilimin söyledikleri ve sürdürülebilir yöntemler.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-sport')">
-          <span class="blog-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa" data-tr="tag_sport">Spor</span>
-          <h3 data-tr="blog5_title">Egzersiz ve Kalori Yakımı</h3>
-          <p data-tr="blog5_desc">Hangi spor ne kadar kalori yakar? Egzersiz planı ve diyet nasıl birleştirilir.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
-        </div>
-        <div class="blog-card" onclick="showPage('article-water')">
-          <span class="blog-tag" style="background:rgba(34,211,238,0.15);color:#22d3ee" data-tr="tag_health">Sağlık</span>
-          <h3 data-tr="blog6_title">Su İçmenin Metabolizmaya Etkisi</h3>
-          <p data-tr="blog6_desc">Günlük ne kadar su içmeli? Su ve kilo kaybı arasındaki bilimsel ilişki.</p>
-          <span class="blog-read" data-tr="read_more">Devamını Oku →</span>
+        <div class="blog-card">
+            <div style="display: flex; gap: 5px; margin-bottom: 10px;">
+                <div style="background:#333; height:80px; flex:1; border-radius:8px;"></div>
+                <div style="background:var(--accent); height:80px; flex:1; border-radius:8px;"></div>
+            </div>
+            <h3>Ahmet'in Hikayesi</h3>
+            <p>-15 kg verdi! "KaloriRose ile her şeyi takip ettim."</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ARTICLES (tüm makaleler aynı kalıyor) -->
-  <div id="page-article-calorie" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(244,63,94,0.15);color:#f43f5e;display:inline-block;margin-bottom:1rem">Kalori</span>
-      <h1>Kalori Nedir? Neden Bu Kadar Önemlidir?</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 5 dakikalık okuma</p>
-      <div class="article-content">
-        <p>Kalori, besinlerin içerdiği enerji miktarını ifade eden bir ölçü birimidir. Teknik olarak bir kalori, bir gram suyu 1 derece Celsius artırmak için gereken enerji miktarıdır. Günlük beslenme konuşmalarında kullandığımız "kalori" aslında kilokaloridir (kcal), yani bin kaloridir.</p>
-        <h2>Kalori Dengesi Nedir?</h2>
-        <p>Kilo yönetiminin temelinde kalori dengesi yatmaktadır. Aldığınız kalori miktarı harcadığınızdan fazlaysa vücudunuz bu fazla enerjiyi yağ olarak depolar ve kilo alırsınız. Harcadığınız kalori aldığınızdan fazlaysa vücudunuz depoladığı yağları yakmaya başlar ve kilo verirsiniz.</p>
-        <h2>Günlük Ne Kadar Kaloriye İhtiyacınız Var?</h2>
-        <p>Bu sorunun cevabı tamamen kişiye özgüdür. Kesin değeri öğrenmek için KaloriRose'un <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">BMR hesaplayıcısını</span> kullanabilirsiniz.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+  <div id="page-board" class="page">
+    <div class="page-inner" style="max-width:800px; margin: 0 auto; padding: 2rem;">
+      <h1>Mesaj Panosu</h1>
+      <div class="card" style="background:var(--bg2); padding:20px; border-radius:15px; margin-top:1rem;">
+          <textarea style="width:100%; background:var(--bg3); border:none; color:white; padding:15px; border-radius:10px;" placeholder="Bir şeyler yaz..."></textarea>
+          <button class="calc-btn" style="margin-top:10px;">Paylaş</button>
       </div>
     </div>
   </div>
 
-  <div id="page-article-bmr" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(74,222,128,0.15);color:#4ade80;display:inline-block;margin-bottom:1rem">BMR & TDEE</span>
-      <h1>BMR ve TDEE: Aralarındaki Fark Ne ve Neden Önemli?</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
-      <div class="article-content">
-        <p>BMR (Bazal Metabolizma Hızı), vücudunuzun tamamen dinlenme halindeyken hayati fonksiyonlarını sürdürmek için harcadığı kalori miktarıdır. TDEE ise gün boyunca yaptığınız her türlü aktiviteyi hesaba katarak gerçek kalori ihtiyacınızı gösterir.</p>
-        <h2>BMR Nasıl Hesaplanır?</h2>
-        <p>Harris-Benedict denklemi kullanılarak hesaplanır. Erkekler için: BMR = 88.362 + (13.397 × kilo) + (4.799 × boy) − (5.677 × yaş). Kadınlar için: BMR = 447.593 + (9.247 × kilo) + (3.098 × boy) − (4.330 × yaş).</p>
-        <p>Kendi değerlerinizi öğrenmek için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">Hesapla sayfamızı</span> kullanabilirsiniz.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
-      </div>
+  <div id="page-friends" class="page">
+    <div class="page-inner" style="max-width:900px; margin: 0 auto; padding: 2rem;">
+        <h1>Diyet Arkadaşlarım</h1>
+        <div class="blog-grid" style="margin-top:2rem;">
+            <div class="blog-card" style="text-align:center;">
+                <div style="font-size:40px;">👤</div>
+                <h3>Selin Dağ</h3>
+                <p>Hedef: 55kg</p>
+                <button class="nav-btn">Ekle</button>
+            </div>
+        </div>
     </div>
   </div>
 
-  <div id="page-article-macro" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa;display:inline-block;margin-bottom:1rem">Beslenme</span>
-      <h1>Makro Besinler: Protein, Karbonhidrat ve Yağ Hakkında Her Şey</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dakikalık okuma</p>
-      <div class="article-content">
-        <p>Makro besinler vücudun büyük miktarlarda ihtiyaç duyduğu ve enerji sağlayan üç temel besin grubudur: protein, karbonhidrat ve yağ.</p>
-        <h2>Protein: Vücudun Yapı Taşı</h2>
-        <p>Protein her gram için 4 kalori sağlar. Günlük protein ihtiyacı vücut ağırlığının kilogramı başına 0.8 ile 2.2 gram arasında değişir.</p>
-        <h2>Karbonhidrat: Beynin ve Kasların Yakıtı</h2>
-        <p>Karbonhidratlar da gram başına 4 kalori sağlar ve vücudun tercih ettiği enerji kaynağıdır.</p>
-        <h2>Yağ: Hormonların ve Beynin Vazgeçilmezi</h2>
-        <p>Yağ gram başına 9 kalori sağlar. Beyin ağırlığının yüzde altmışı yağdan oluşur.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-article-diet" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(251,146,60,0.15);color:#fb923c;display:inline-block;margin-bottom:1rem">Diyet</span>
-      <h1>Sağlıklı Kilo Vermenin Bilimsel Yolu</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dakikalık okuma</p>
-      <div class="article-content">
-        <p>Kalıcı kilo kaybı için günlük 500 ila 1000 kalorilik bir açık oluşturmanız gerekir. Bu haftada 0.5-1 kg kilo kaybı anlamına gelir.</p>
-        <h2>Hızlı Diyetler Neden İşe Yaramaz?</h2>
-        <p>Vücut aşırı kalori kısıtlamasına metabolizma hızını düşürerek yanıt verir. Diyet bittikten sonra kilo daha hızlı geri gelir.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-article-sport" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa;display:inline-block;margin-bottom:1rem">Spor</span>
-      <h1>Egzersiz ve Kalori Yakımı</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
-      <div class="article-content">
-        <p>Yürüyüş saatte yaklaşık 280, koşu 590, bisiklet 450 kalori yakar (70 kg için).</p>
-        <h2>Beslenme mi, Egzersiz mi Daha Önemli?</h2>
-        <p>Kilo yönetiminde yüzde seksenini beslenme, yüzde yirmisini egzersiz belirler.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="page-article-water" class="page">
-    <div class="article-wrap">
-      <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
-      <span class="blog-tag" style="background:rgba(34,211,238,0.15);color:#22d3ee;display:inline-block;margin-bottom:1rem">Sağlık</span>
-      <h1>Su İçmenin Metabolizmaya Etkisi</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
-      <div class="article-content">
-        <p>Su ihtiyacı vücut ağırlığının kilogramı başına 30-35 ml'dir. 500 ml su içmek metabolizmayı %24-30 hızlandırır.</p>
-        <h2>Su ve İştah Kontrolü</h2>
-        <p>Yemekten yarım saat önce 500 ml su içen bireyler yaklaşık %13 daha az kalori tüketir.</p>
-        <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <div id="page-about" class="page">
-    <div class="prose-page">
-      <h1>Hakkımızda</h1>
-      <div class="prose-section">
-        <h2>KaloriRose Nedir?</h2>
-        <p>KaloriRose, sağlıklı bir yaşam sürdürmek isteyen herkese ücretsiz, kolay ve güvenilir beslenme bilgisi sunmak amacıyla kurulmuş bir dijital sağlık platformudur.</p>
-      </div>
-      <div class="prose-section">
-        <h2>Misyonumuz</h2>
-        <p>Karmaşık beslenme bilimini herkesin anlayabileceği araçlara dönüştürmek.</p>
-      </div>
-      <div class="prose-section">
-        <h2>Önemli Uyarı</h2>
-        <p>KaloriRose tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p>
-      </div>
-      <div class="prose-section">
-        <p><strong>Editör:</strong> KaloriRose Ekibi · <a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div id="page-faq" class="page">
-    <div class="prose-page">
-      <h1>Sıkça Sorulan Sorular</h1>
-      <div class="faq-item"><div class="faq-q">Kalori verileri ne kadar güvenilir?</div><div class="faq-a">Genel ortalama değerlerdir. Kesin sonuç garanti edilmez. Tüm sorumluluk kullanıcıya aittir.</div></div>
-      <div class="faq-item"><div class="faq-q">Günlük kaç sorgu hakkım var?</div><div class="faq-a">Giriş yapmış kullanıcılara günlük 3 sorgu hakkı tanınır.</div></div>
-      <div class="faq-item"><div class="faq-q">Platform tamamen ücretsiz mi?</div><div class="faq-a">Evet, Google AdSense reklam sistemiyle sürdürülmektedir.</div></div>
-      <div class="faq-item"><div class="faq-q">Bu platform tıbbi tavsiye veriyor mu?</div><div class="faq-a">Kesinlikle hayır. Tüm sorumluluk kullanıcıya aittir.</div></div>
-      <div class="faq-item"><div class="faq-q">BMR hesaplaması nasıl yapılıyor?</div><div class="faq-a">Harris-Benedict denklemi kullanılmaktadır. Sonuçlar tahminidir.</div></div>
-    </div>
-  </div>
-
-  <!-- PRIVACY -->
-  <div id="page-privacy" class="page">
-    <div class="prose-page">
-      <h1>Gizlilik Politikası</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p>
-      <div class="prose-section"><h2>Toplanan Veriler</h2><p>Google Authentication ile giriş bilgileriniz işlenir. Görseller analiz sonrası silinir. Çerez verileri tarayıcınızda saklanır.</p></div>
-      <div class="prose-section"><h2>Google AdSense</h2><p>Platformumuz Google AdSense reklam ağını kullanmaktadır.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
-    </div>
-  </div>
-
-  <!-- COOKIE POLICY -->
-  <div id="page-cookie" class="page">
-    <div class="prose-page">
-      <h1>Çerez Politikası</h1>
-      <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p>
-      <div class="prose-section"><h2>Çerezler Hakkında</h2><p>Sitemizi ziyaret ettiğinizde daha iyi bir kullanıcı deneyimi sunabilmek için çerez teknolojisinden yararlanıyoruz.</p></div>
-      <div class="prose-section"><h2>Kullandığımız Çerezler</h2><p>Zorunlu, analitik ve reklam çerezleri kullanılmaktadır. Tarayıcı ayarlarınızdan yönetebilirsiniz.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
-    </div>
-  </div>
-
-  <!-- DISCLAIMER -->
-  <div id="page-disclaimer" class="page">
-    <div class="prose-page">
-      <h1>Sorumluluk Reddi</h1>
-      <div class="prose-section"><h2>Genel Bilgilendirme</h2><p>Platformda sunulan tüm içerikler yalnızca genel bilgi ve eğitim amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div>
-      <div class="prose-section"><h2>Tıbbi Sorumluluk Reddi</h2><p>KaloriRose tıbbi tavsiye, teşhis veya tedavi sunmamaktadır.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
-    </div>
-  </div>
-
-  <!-- TERMS -->
-  <div id="page-terms" class="page">
-    <div class="prose-page">
-      <h1>Kullanım Şartları</h1>
-      <div class="prose-section"><h2>Şartların Kabulü</h2><p>Platformu kullanarak bu şartları kabul etmiş sayılırsınız.</p></div>
-      <div class="prose-section"><h2>Sorumluluk Reddi</h2><p>Platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
-    </div>
-  </div>
-
-  <!-- CONTACT -->
-  <div id="page-contact" class="page">
-    <div class="prose-page">
-      <h1>İletişim</h1>
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem">
-        <div style="font-size:32px;margin-bottom:1rem">✉️</div>
-        <p style="font-size:13px;color:var(--text3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">E-posta</p>
-        <a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent);font-size:1.1rem;font-weight:700">jarvisheyrose@gmail.com</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">KALORİ<span>ROSE</span></div>
     <div class="footer-links">
-      <span class="footer-link" onclick="showPage('about')" data-tr="nav_about">Hakkımızda</span>
-      <span class="footer-link" onclick="showPage('blog')" data-tr="nav_blog">Blog</span>
-      <span class="footer-link" onclick="showPage('hesapla')" data-tr="nav_calc">Hesapla</span>
-      <span class="footer-link" onclick="showPage('faq')" data-tr="nav_faq">SSS</span>
-      <span class="footer-link" onclick="showPage('privacy')" data-tr="nav_privacy">Gizlilik</span>
-      <span class="footer-link" onclick="showPage('cookie')" data-tr="nav_cookie">Çerez Politikası</span>
-      <span class="footer-link" onclick="showPage('disclaimer')" data-tr="nav_disclaimer">Sorumluluk Reddi</span>
-      <span class="footer-link" onclick="showPage('terms')" data-tr="nav_terms">Şartlar</span>
-      <span class="footer-link" onclick="showPage('contact')" data-tr="nav_contact">İletişim</span>
+      <span class="footer-link" onclick="showPage('about')">Hakkımızda</span>
+      <span class="footer-link" onclick="showPage('privacy')">Gizlilik</span>
+      <span class="footer-link" onclick="showPage('contact')">İletişim</span>
     </div>
-    <p class="footer-disclaimer" data-tr="footer_disclaimer">
-      Bu platform yalnızca bilgi ve veri amaçlıdır. Sunulan içerikler tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.
-    </p>
-    <p class="footer-copy">© 2026 KaloriRose · jarvisheyrose.com</p>
+    <p class="footer-disclaimer">Bu platform bilgilendirme amaçlıdır. © 2026 KaloriRose</p>
   </footer>
 
   <script>
-  // ============================================================
-  // DİL SİSTEMİ
-  // ============================================================
-  const T = {
-    tr: {
-      disclaimer_top: "⚠️ Bu platform yalnızca bilgi ve veri amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.",
-      cookie_text: 'Bu site çerezler kullanmaktadır. <a href="#" onclick="showPage(\'cookie\')">Çerez Politikası</a>',
-      cookie_accept: "Kabul Et", cookie_decline: "Reddet",
-      nav_home: "Ana Sayfa", nav_blog: "Blog", nav_about: "Hakkımızda", nav_faq: "SSS", nav_calc: "Hesapla",
-      nav_privacy: "Gizlilik", nav_cookie: "Çerez Politikası", nav_disclaimer: "Sorumluluk Reddi",
-      nav_terms: "Şartlar", nav_contact: "İletişim",
-      login: "Giriş", logout: "Çıkış",
-      login_title: "Giriş Yapın",
-      login_desc: "Kalori analizi için günlük 3 sorgu hakkınız vardır. Google hesabınızla ücretsiz giriş yapın.",
-      login_skip: "Şimdi değil",
-      welcome_title: "Sağlıklı bir yaşama<br><span>hoş geldiniz</span>",
-      welcome_sub: "Yemek fotoğrafı yükleyin veya bir şey sorun",
-      qc_photo_title: "Fotoğraf Yükle", qc_photo_desc: "Yemeğin fotoğrafını çek, kalori hesaplansın",
-      qc_bmr_title: "BMR Hesapla", qc_bmr_desc: "Günlük kalori ihtiyacını öğren",
-      qc_sport_title: "Spor Tavsiyesi", qc_sport_desc: "Kalorini hangi sporla yakabilirsin?",
-      qc_calorie_title: "Kalori Sorgula", qc_calorie_desc: "Herhangi bir yiyeceğin kalorisini öğren",
-      tools_label: "Araçlar",
-      tool_photo: "Fotoğraf Yükle", tool_photo_sub: "Yemek fotoğrafından kalori",
-      tool_bmr: "BMR Hesapla", tool_bmr_sub: "Günlük kalori ihtiyacın",
-      tool_sport: "Spor Tavsiyesi", tool_sport_sub: "Kalori yakma programı",
-      tool_calorie: "Kalori Sorgula", tool_calorie_sub: "Yiyecek besin değerleri",
-      input_placeholder: "Ne yediniz? Fotoğraf yükleyin veya yazın...",
-      input_footer: "Bu platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.",
-      blog_title: "Blog & Beslenme Rehberleri",
-      tag_calorie: "Kalori", tag_bmr: "BMR & TDEE", tag_nutrition: "Beslenme",
-      tag_diet: "Diyet", tag_sport: "Spor", tag_health: "Sağlık",
-      blog1_title: "Kalori Nedir?", blog1_desc: "Kalori hesaplamayı anlamak, sağlıklı beslenmenin temeli.",
-      blog2_title: "BMR ve TDEE: Fark Ne?", blog2_desc: "Bazal metabolizma hızı ve toplam günlük enerji tüketiminizi doğru hesaplayın.",
-      blog3_title: "Makro Besinler: Protein, Karb, Yağ", blog3_desc: "Her makro besinin rolü ve doğru oranlar.",
-      blog4_title: "Sağlıklı Kilo Vermenin Bilimsel Yolu", blog4_desc: "Kalıcı kilo kaybı için kanıtlanmış yöntemler.",
-      blog5_title: "Egzersiz ve Kalori Yakımı", blog5_desc: "Hangi spor ne kadar kalori yakar?",
-      blog6_title: "Su İçmenin Metabolizmaya Etkisi", blog6_desc: "Günlük ne kadar su içmeli?",
-      read_more: "Devamını Oku →",
-      calc_title: "Vücut Analizi & Hesapla",
-      calc_sub: "BMR, TDEE, VKİ ve İdeal Kilo hesaplamalarınızı anında öğrenin.",
-      calc_card_title: "Bilgilerinizi Girin",
-      calc_gender: "Cinsiyet", calc_male: "Erkek", calc_female: "Kadın",
-      calc_age: "Yaş", calc_height: "Boy (cm)", calc_weight: "Kilo (kg)",
-      calc_activity: "Yaşam Tarzı", calc_goal: "Hedefiniz",
-      act_sedentary: "Hareketsiz (Egzersiz yok)",
-      act_light: "Az Hareketli (Haftada 1-3 gün spor)",
-      act_moderate: "Orta Hareketli (Haftada 3-5 gün spor)",
-      act_active: "Çok Hareketli (Haftada 6-7 gün ağır spor)",
-      act_very_active: "Sporcu / Fiziksel İş",
-      goal_lose: "Kilo Vermek", goal_maintain: "Kiloyu Korumak", goal_gain: "Kilo Almak / Kas Kazanmak",
-      calc_btn: "ANALİZ ET VE HESAPLA",
-      target_cal_label: "Hedefiniz İçin Günlük Kalori",
-      macro_title: "Günlük Makro Önerisi",
-      calc_disclaimer: "⚠️ Bu hesaplamalar Harris-Benedict ve Devine formülleri kullanılarak yapılmıştır. Sonuçlar tahminidir ve tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.",
-      footer_disclaimer: "Bu platform yalnızca bilgi ve veri amaçlıdır. Sunulan içerikler tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.",
-      query_limit: "Günlük 3 sorgu hakkınız doldu. Yarın tekrar gelin.",
-      analyzing: "Analiz ediliyor...",
-      disclaimer_msg: "⚠️ Bu veriler yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.",
-      sport_header: "Bu kaloriyi yakmak için:",
-      bmr_prompt: "Lütfen bilgilerinizi girin: Cinsiyet (E/K), Yaş, Kilo (kg), Boy (cm), Aktivite seviyesi (1-5)",
-      calorie_prompt: "Hangi yiyeceğin kalorisini öğrenmek istiyorsunuz?"
-    },
-    en: {
-      disclaimer_top: "⚠️ This platform is for informational purposes only. All responsibility lies with the user. Not medical advice.",
-      cookie_accept: "Accept", cookie_decline: "Decline",
-      nav_home: "Home", nav_blog: "Blog", nav_about: "About", nav_faq: "FAQ", nav_calc: "Calculate",
-      nav_privacy: "Privacy", nav_cookie: "Cookie Policy", nav_disclaimer: "Disclaimer",
-      nav_terms: "Terms", nav_contact: "Contact",
-      login: "Login", logout: "Logout",
-      login_title: "Sign In", login_desc: "3 daily queries. Sign in free with Google.", login_skip: "Not now",
-      welcome_title: "Welcome to a<br><span>healthy lifestyle</span>", welcome_sub: "Upload a food photo or ask anything",
-      qc_photo_title: "Upload Photo", qc_photo_desc: "Take a photo of your meal, get calories",
-      qc_bmr_title: "Calculate BMR", qc_bmr_desc: "Find your daily calorie needs",
-      qc_sport_title: "Sport Advice", qc_sport_desc: "Which sport burns your calories?",
-      qc_calorie_title: "Calorie Lookup", qc_calorie_desc: "Find calories of any food",
-      tools_label: "Tools", tool_photo: "Upload Photo", tool_photo_sub: "Calories from food photo",
-      tool_bmr: "Calculate BMR", tool_bmr_sub: "Daily calorie needs",
-      tool_sport: "Sport Advice", tool_sport_sub: "Calorie burning plan",
-      tool_calorie: "Calorie Lookup", tool_calorie_sub: "Food nutrition values",
-      input_placeholder: "What did you eat? Upload a photo or type...",
-      input_footer: "Informational only. All responsibility lies with the user.",
-      blog_title: "Blog & Nutrition Guides", read_more: "Read More →",
-      blog1_title: "What is a Calorie?", blog1_desc: "Understanding calorie counting.",
-      blog2_title: "BMR vs TDEE", blog2_desc: "Calculate your energy needs accurately.",
-      blog3_title: "Macros: Protein, Carbs, Fat", blog3_desc: "Role of macronutrients.",
-      blog4_title: "Science of Weight Loss", blog4_desc: "Proven methods for lasting weight loss.",
-      blog5_title: "Exercise and Calorie Burn", blog5_desc: "How many calories does each sport burn?",
-      blog6_title: "Water and Metabolism", blog6_desc: "How much water to drink daily?",
-      calc_title: "Body Analysis & Calculate",
-      calc_sub: "Instantly learn your BMR, TDEE, BMI and Ideal Weight.",
-      calc_card_title: "Enter Your Information",
-      calc_gender: "Gender", calc_male: "Male", calc_female: "Female",
-      calc_age: "Age", calc_height: "Height (cm)", calc_weight: "Weight (kg)",
-      calc_activity: "Activity Level", calc_goal: "Your Goal",
-      act_sedentary: "Sedentary (no exercise)",
-      act_light: "Light (1-3 days/week)",
-      act_moderate: "Moderate (3-5 days/week)",
-      act_active: "Active (6-7 days/week)",
-      act_very_active: "Athlete / Physical Work",
-      goal_lose: "Lose Weight", goal_maintain: "Maintain Weight", goal_gain: "Gain Muscle",
-      calc_btn: "ANALYZE AND CALCULATE",
-      target_cal_label: "Daily Calories For Your Goal",
-      macro_title: "Daily Macro Suggestion",
-      calc_disclaimer: "⚠️ Calculations use Harris-Benedict and Devine formulas. Results are estimates. Not medical advice.",
-      footer_disclaimer: "Informational only. Not medical advice. All responsibility lies with the user.",
-      query_limit: "You have used your 3 daily queries. Come back tomorrow.",
-      analyzing: "Analyzing...", disclaimer_msg: "⚠️ Informational only. All responsibility lies with the user.",
-      sport_header: "To burn these calories:", bmr_prompt: "Enter: Gender (M/F), Age, Weight (kg), Height (cm), Activity (1-5)",
-      calorie_prompt: "Which food's calories would you like to know?"
-    }
-  };
-
-  // ============================================================
-  // STATE
-  // ============================================================
-  const state = {
-    lang: 'tr',
-    userId: null,
-    userName: '',
-    queries: 0,
-    maxQueries: 3,
-    pendingImage: null,
-    pendingImageBase64: null,
-    queryCache: {}
-  };
-
-  // ============================================================
-  // FIREBASE
-  // ============================================================
-  const firebaseConfig = {
-    apiKey: "AIzaSyDuRsR3gmen12f_I2EBbf0xND0dVWQGH_I",
-    authDomain: "neosocial-rose.firebaseapp.com",
-    projectId: "neosocial-rose",
-    storageBucket: "neosocial-rose.firebasestorage.app",
-    messagingSenderId: "909069196756",
-    appId: "1:909069196756:web:db488838badee276f0ca41"
-  };
-  firebase.initializeApp(firebaseConfig);
-
-  firebase.auth().onAuthStateChanged(u => {
-    if(u) {
-      state.userId = u.uid;
-      state.userName = u.displayName ? u.displayName.split(' ')[0] : 'U';
-      document.getElementById('login-btn').classList.add('hidden');
-      document.getElementById('logout-btn').classList.remove('hidden');
-      loadQueryCount();
-    } else {
-      state.userId = null;
-      state.userName = '';
-      document.getElementById('login-btn').classList.remove('hidden');
-      document.getElementById('logout-btn').classList.add('hidden');
-    }
-  });
-
-  function loginWithGoogle() {
-    const p = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(p).then(() => closeLoginModal()).catch(() => {});
-  }
-  function logoutGoogle() { firebase.auth().signOut(); }
-
-  function loadQueryCount() {
-    if(!state.userId) return;
-    const today = new Date().toDateString();
-    const key = `kr_queries_${state.userId}_${today}`;
-    state.queries = parseInt(localStorage.getItem(key) || '0');
-  }
-  function saveQueryCount() {
-    if(!state.userId) return;
-    const today = new Date().toDateString();
-    const key = `kr_queries_${state.userId}_${today}`;
-    localStorage.setItem(key, state.queries);
-  }
-  function canQuery() { return state.userId && state.queries < state.maxQueries; }
-
-  // ============================================================
-  // DİL
-  // ============================================================
-  function t(key) { return (T[state.lang] && T[state.lang][key]) || T['tr'][key] || key; }
-
-  function setLang(lang) {
-    state.lang = lang;
-    document.getElementById('lang-selector').value = lang;
-    translatePage();
-    document.documentElement.lang = lang;
-  }
-
-  function translatePage() {
-    document.querySelectorAll('[data-tr]').forEach(el => {
-      const k = el.getAttribute('data-tr');
-      if(k) el.innerHTML = t(k);
-    });
-    document.querySelectorAll('[data-tr-placeholder]').forEach(el => {
-      const k = el.getAttribute('data-tr-placeholder');
-      if(k) el.placeholder = t(k);
-    });
-  }
-
-  function detectLang() {
-    const bl = navigator.language || navigator.userLanguage || 'tr';
-    const code = bl.split('-')[0].toLowerCase();
-    const supported = ['tr','en','es','fr','de','pt'];
-    return supported.includes(code) ? code : 'en';
-  }
-
-  // ============================================================
-  // SAYFA YÖNETİMİ — DÜZELTİLMİŞ (logoya tıklayınca welcome screen sıfırlanır)
-  // ============================================================
-  function showPage(p) {
-    document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
-    const target = document.getElementById(`page-${p}`);
-    if(target) target.classList.add('active');
-    window.scrollTo({top:0, behavior:'smooth'});
-    closeToolsDropdown();
-    if(p === 'chat') {
-      showWelcome(true);
-      document.getElementById('chat-messages').innerHTML = '';
-    }
-  }
-
-  function toggleMobileNav() {
-    document.getElementById('mobile-nav').classList.toggle('open');
-  }
-
-  // ============================================================
-  // COOKIE
-  // ============================================================
-  function acceptCookie() {
-    localStorage.setItem('kr_cookie', 'accepted');
-    document.getElementById('cookie-banner').style.display = 'none';
-  }
-  function closeCookie() {
-    localStorage.setItem('kr_cookie', 'declined');
-    document.getElementById('cookie-banner').style.display = 'none';
-  }
-  function checkCookie() {
-    if(localStorage.getItem('kr_cookie')) {
-      document.getElementById('cookie-banner').style.display = 'none';
-    }
-  }
-
-  // ============================================================
-  // LOGIN MODAL
-  // ============================================================
-  function showLoginModal() { document.getElementById('login-modal').classList.add('open'); }
-  function closeLoginModal() { document.getElementById('login-modal').classList.remove('open'); }
-
-  // ============================================================
-  // TOOLS DROPDOWN
-  // ============================================================
-  function toggleToolsDropdown() {
-    const dd = document.getElementById('tools-dropdown');
-    const btn = document.getElementById('tools-btn');
-    dd.classList.toggle('open');
-    btn.classList.toggle('open');
-  }
-  function closeToolsDropdown() {
-    const dd = document.getElementById('tools-dropdown');
-    const btn = document.getElementById('tools-btn');
-    if(dd) dd.classList.remove('open');
-    if(btn) btn.classList.remove('open');
-  }
-
-  document.addEventListener('click', e => {
-    const btn = document.getElementById('tools-btn');
-    const dd = document.getElementById('tools-dropdown');
-    if(btn && !btn.contains(e.target) && dd && !dd.contains(e.target)) closeToolsDropdown();
-  });
-
-  // ============================================================
-  // TOOL TETİKLEME
-  // ============================================================
-  function triggerTool(tool) {
-    closeToolsDropdown();
-    if(!state.userId) { showLoginModal(); return; }
-    const textarea = document.getElementById('chat-textarea');
-    if(tool === 'photo') {
-      document.getElementById('file-input').click();
-    } else if(tool === 'sport') {
-      textarea.value = 'Kaç kalori yedim, bunun için spor tavsiyesi ver:';
-      textarea.focus();
-    } else if(tool === 'calorie') {
-      textarea.value = '';
-      textarea.placeholder = t('calorie_prompt');
-      textarea.focus();
-    }
-  }
-
-  // ============================================================
-  // GÖRSEL YÜKLEME
-  // ============================================================
-  function handleImageUpload(e) {
-    const file = e.target.files[0];
-    if(!file) return;
-    if(!state.userId) { showLoginModal(); return; }
-    state.pendingImage = file;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      state.pendingImageBase64 = ev.target.result.split(',')[1];
-      const preview = document.getElementById('image-preview-box');
-      document.getElementById('image-preview-thumb').src = ev.target.result;
-      document.getElementById('image-preview-name').textContent = file.name;
-      preview.classList.add('show');
-    };
-    reader.readAsDataURL(file);
-    e.target.value = '';
-  }
-
-  function removeImage() {
-    state.pendingImage = null;
-    state.pendingImageBase64 = null;
-    document.getElementById('image-preview-box').classList.remove('show');
-  }
-
-  // ============================================================
-  // CHAT GÖNDERİM
-  // ============================================================
-  function sendMessage() {
-    if(!state.userId) { showLoginModal(); return; }
-    const text = document.getElementById('chat-textarea').value.trim();
-    const hasImage = !!state.pendingImageBase64;
-    if(!text && !hasImage) return;
-    if(!canQuery()) { addBotMessage(t('query_limit')); return; }
-
-    const cacheKey = (text + (hasImage ? '_img' : '')).toLowerCase().trim();
-    if(state.queryCache[cacheKey]) {
-      showWelcome(false);
-      addUserMessage(text, hasImage ? document.getElementById('image-preview-thumb').src : null);
-      addBotMessageHTML(state.queryCache[cacheKey]);
-      clearInput();
-      return;
-    }
-
-    showWelcome(false);
-    addUserMessage(text, hasImage ? document.getElementById('image-preview-thumb').src : null);
-    clearInput();
-
-    const typingId = addTypingIndicator();
-
-    processQuery(text, hasImage).then(result => {
-      removeTypingIndicator(typingId);
-      state.queryCache[cacheKey] = result;
-      addBotMessageHTML(result);
-      state.queries++;
-      saveQueryCount();
-    }).catch(() => {
-      removeTypingIndicator(typingId);
-      addBotMessage('Bir hata oluştu, lütfen tekrar deneyin.');
-    });
-  }
-
-  function clearInput() {
-    document.getElementById('chat-textarea').value = '';
-    removeImage();
-  }
-
-  async function processQuery(text, hasImage) {
-    const isImageQuery = hasImage;
-    const isBMR = text.toLowerCase().includes('bmr') || text.toLowerCase().includes('metabolizma') || text.toLowerCase().includes('tdee');
-    const isSport = text.toLowerCase().includes('spor') || text.toLowerCase().includes('sport') || text.toLowerCase().includes('burn') || text.toLowerCase().includes('yak');
-
-    let prompt = '';
-    let messages = [];
-
-    if(isImageQuery) {
-      prompt = `Sen bir beslenme uzmanısın. Bu yemek fotoğrafını analiz et ve şunu ver:
-1. Yemeğin adı ve tahmini porsiyonu
-2. Tahmini kalori (kcal)
-3. Protein (g), Karbonhidrat (g), Yağ (g)
-4. Bu kaloriyi yakmak için spor önerileri
-
-Yanıtı şu JSON formatında ver, başka hiçbir şey yazma:
-{"name":"yemek adı","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı,"sports":[{"name":"Yürüyüş","emoji":"🚶","minutes":sayı},{"name":"Koşu","emoji":"🏃","minutes":sayı},{"name":"Bisiklet","emoji":"🚴","minutes":sayı},{"name":"Şınav/Mekik","emoji":"💪","minutes":sayı}],"disclaimer":"Bu veriler tahminidir."}
-Dil: ${state.lang === 'tr' ? 'Türkçe' : 'English'}`;
-
-      messages = [{
-        role: 'user',
-        content: [
-          { type: 'image', source: { type: 'base64', media_type: state.pendingImage?.type || 'image/jpeg', data: state.pendingImageBase64 }},
-          { type: 'text', text: prompt }
-        ]
-      }];
-    } else {
-      prompt = `Sen bir beslenme uzmanısın. Kullanıcı: "${text}"
-${isSport ? 'Kalori yakımı için spor önerisi de ver.' : 'Yiyeceğin besin değerlerini ver.'}
-JSON formatında yanıt ver:
-{"name":"ad","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı${isSport ? ',"sports":[{"name":"spor","emoji":"🏃","minutes":sayı}]' : ''},"info":"kısa bilgi","disclaimer":"Bu veriler tahminidir."}
-Sadece JSON döndür. Dil: ${state.lang}`;
-      messages = [{ role: 'user', content: prompt }];
-    }
-
-    const response = await fetch('/api/analyze', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages, lang: state.lang })
-    });
-
-    if(!response.ok) throw new Error('API error');
-    const data = await response.json();
-    const rawText = (data.content || []).map(i => i.text || '').join('').replace(/```json|```/g,'').trim();
-
-    try {
-      const json = JSON.parse(rawText);
-      return buildResultHTML(json, isImageQuery, isBMR);
-    } catch(e) {
-      return `<p>${rawText}</p><p class="msg-disclaimer">${t('disclaimer_msg')}</p>`;
-    }
-  }
-
-  function buildResultHTML(json, isImage, isBMR) {
-    let html = '';
-    if(isBMR) {
-      html = `
-        <div style="margin-bottom:8px;font-weight:700">Hesaplama Sonuçları</div>
-        <div class="result-grid">
-          <div class="result-item kcal"><div class="val">${json.bmr||0}</div><div class="lbl">BMR kcal</div></div>
-          <div class="result-item protein"><div class="val">${json.tdee||0}</div><div class="lbl">TDEE kcal</div></div>
-          <div class="result-item carb"><div class="val">${json.protein||0}g</div><div class="lbl">Protein</div></div>
-          <div class="result-item fat"><div class="val">${json.bmi||0}</div><div class="lbl">BMI</div></div>
-        </div>`;
-    } else {
-      html = `
-        <div style="font-weight:800;font-size:15px;margin-bottom:6px">${json.name||''}</div>
-        <div style="font-size:12px;color:var(--text3);margin-bottom:12px">${json.portion||''}</div>
-        <div class="result-grid">
-          <div class="result-item kcal"><div class="val">${json.kcal||0}</div><div class="lbl">kcal</div></div>
-          <div class="result-item protein"><div class="val">${json.protein||0}g</div><div class="lbl">Protein</div></div>
-          <div class="result-item carb"><div class="val">${json.carb||0}g</div><div class="lbl">Karb.</div></div>
-          <div class="result-item fat"><div class="val">${json.fat||0}g</div><div class="lbl">Yağ</div></div>
-        </div>`;
-      if(json.info) html += `<p style="font-size:13px;color:var(--text2);margin-top:10px">${json.info}</p>`;
-      if(json.sports && json.sports.length > 0) {
-        html += `<div style="margin-top:14px;font-weight:700;font-size:13px">${t('sport_header')}</div><div class="sport-list">`;
-        json.sports.forEach(s => { html += `<div class="sport-item"><span class="sport-name">${s.emoji} ${s.name}</span><span class="sport-time">${s.minutes} dk</span></div>`; });
-        html += `</div>`;
+    function showPage(p) {
+      document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+      const target = document.getElementById(`page-${p}`);
+      if(target) target.classList.add('active');
+      window.scrollTo(0,0);
+      if(p === 'chat') {
+          document.getElementById('welcome-screen').style.display = 'block';
+          document.getElementById('chat-messages').classList.add('hidden');
       }
     }
-    html += `<div class="msg-disclaimer">${t('disclaimer_msg')}</div>`;
-    return html;
-  }
 
-  // ============================================================
-  // HESAPLAMA MOTORU (Diyet Arkadaşım'dan alındı, KaloriRose tasarımına uyarlandı)
-  // ============================================================
-  function calculateAll() {
-    const gender = document.getElementById('calc-gender').value;
-    const age = parseFloat(document.getElementById('calc-age').value);
-    const height = parseFloat(document.getElementById('calc-height').value);
-    const weight = parseFloat(document.getElementById('calc-weight').value);
-    const activity = parseFloat(document.getElementById('calc-activity').value);
-    const goal = document.getElementById('calc-goal').value;
+    function toggleMobileNav() { document.getElementById('mobile-nav').classList.toggle('open'); }
+    function showLoginModal() { alert("Giriş Sistemi Yakında Aktif Olacak Dostum!"); }
 
-    if(!age || !height || !weight) {
-      alert(state.lang === 'tr' ? 'Lütfen tüm alanları doldurun.' : 'Please fill in all fields.');
-      return;
+    function calculateAll() {
+      const weight = parseFloat(document.getElementById('calc-weight').value);
+      const height = parseFloat(document.getElementById('calc-height').value);
+      if(!weight || !height) return;
+      const vki = weight / ((height/100)*(height/100));
+      const res = document.getElementById('res-grid-calc');
+      res.innerHTML = `<div class="result-item"><div class="val">${vki.toFixed(1)}</div><div class="lbl">VKİ (BMI)</div></div>`;
+      document.getElementById('calc-results').classList.remove('hidden');
     }
 
-    // Harris-Benedict BMR
-    let bmr;
-    if(gender === 'erkek') {
-      bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-    } else {
-      bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    function sendMessage() {
+        const text = document.getElementById('chat-textarea').value;
+        if(!text) return;
+        document.getElementById('welcome-screen').style.display = 'none';
+        const msgs = document.getElementById('chat-messages');
+        msgs.classList.remove('hidden');
+        msgs.innerHTML += `<div class="msg-row user"><div class="msg-bubble">${text}</div></div>`;
+        document.getElementById('chat-textarea').value = '';
+        
+        setTimeout(() => {
+            msgs.innerHTML += `<div class="msg-row"><div class="msg-bubble">Analiz ediliyor dostum... (Gemini API aktif edildiğinde buraya gerçek veri gelecek)</div></div>`;
+        }, 1000);
     }
-
-    const tdee = bmr * activity;
-
-    // VKİ
-    const vki = weight / ((height / 100) * (height / 100));
-
-    // İdeal Kilo — Devine
-    let ideal;
-    if(gender === 'erkek') {
-      ideal = 50 + 2.3 * ((height / 2.54) - 60);
-    } else {
-      ideal = 45.5 + 2.3 * ((height / 2.54) - 60);
-    }
-    ideal = Math.max(ideal, 40);
-
-    // Hedef kalori
-    let goalCal, goalDesc;
-    if(goal === 'lose') {
-      goalCal = Math.round(tdee - 500);
-      goalDesc = state.lang === 'tr' ? 'Haftada ~0.5 kg kilo kaybı için günlük 500 kcal açık oluşturuldu.' : 'Daily 500 kcal deficit for ~0.5 kg/week loss.';
-    } else if(goal === 'gain') {
-      goalCal = Math.round(tdee + 300);
-      goalDesc = state.lang === 'tr' ? 'Kas kazanımı için günlük 300 kcal fazlası önerilir.' : 'Daily 300 kcal surplus recommended for muscle gain.';
-    } else {
-      goalCal = Math.round(tdee);
-      goalDesc = state.lang === 'tr' ? 'Mevcut kilonuzu korumak için TDEE değerinize eşit kalori alın.' : 'Consume calories equal to your TDEE to maintain weight.';
-    }
-
-    // Makro dağılımı
-    let proteinPct, carbPct, fatPct;
-    if(goal === 'lose') { proteinPct = 0.35; carbPct = 0.40; fatPct = 0.25; }
-    else if(goal === 'gain') { proteinPct = 0.30; carbPct = 0.45; fatPct = 0.25; }
-    else { proteinPct = 0.25; carbPct = 0.50; fatPct = 0.25; }
-
-    const proteinG = Math.round((goalCal * proteinPct) / 4);
-    const carbG = Math.round((goalCal * carbPct) / 4);
-    const fatG = Math.round((goalCal * fatPct) / 9);
-
-    // BMI kategorisi
-    let bmiCat, bmiColor, bmiPct;
-    if(vki < 18.5) { bmiCat = state.lang === 'tr' ? '🔵 Zayıf' : '🔵 Underweight'; bmiColor = '#60a5fa'; bmiPct = Math.min(vki / 18.5 * 15, 15); }
-    else if(vki < 25) { bmiCat = state.lang === 'tr' ? '🟢 Normal Kilo' : '🟢 Normal Weight'; bmiColor = '#4ade80'; bmiPct = 15 + ((vki - 18.5) / 6.5) * 30; }
-    else if(vki < 30) { bmiCat = state.lang === 'tr' ? '🟠 Fazla Kilolu' : '🟠 Overweight'; bmiColor = '#fb923c'; bmiPct = 45 + ((vki - 25) / 5) * 25; }
-    else { bmiCat = state.lang === 'tr' ? '🔴 Obez' : '🔴 Obese'; bmiColor = '#f43f5e'; bmiPct = Math.min(70 + ((vki - 30) / 10) * 30, 95); }
-
-    // Sonuçları göster
-    document.getElementById('res-bmr').textContent = Math.round(bmr);
-    document.getElementById('res-tdee').textContent = Math.round(tdee);
-    document.getElementById('res-vki').textContent = vki.toFixed(1);
-    document.getElementById('res-ideal').textContent = Math.round(ideal);
-    document.getElementById('res-goal-cal').textContent = goalCal;
-    document.getElementById('res-goal-desc').textContent = goalDesc;
-    document.getElementById('bmi-category').textContent = bmiCat;
-    document.getElementById('bmi-category').style.color = bmiColor;
-    document.getElementById('bmi-marker').style.left = bmiPct + '%';
-
-    document.getElementById('macro-protein-val').textContent = proteinG + 'g';
-    document.getElementById('macro-carb-val').textContent = carbG + 'g';
-    document.getElementById('macro-fat-val').textContent = fatG + 'g';
-    document.getElementById('macro-protein-bar').style.width = (proteinPct * 100) + '%';
-    document.getElementById('macro-carb-bar').style.width = (carbPct * 100) + '%';
-    document.getElementById('macro-fat-bar').style.width = (fatPct * 100) + '%';
-
-    const results = document.getElementById('calc-results');
-    results.classList.add('show');
-    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // ============================================================
-  // CHAT UI
-  // ============================================================
-  function showWelcome(show) {
-    const ws = document.getElementById('welcome-screen');
-    const msgs = document.getElementById('chat-messages');
-    const main = document.getElementById('chat-main');
-    if(show) {
-      ws.style.display = 'block';
-      msgs.classList.add('hidden');
-      main.classList.remove('has-messages');
-    } else {
-      ws.style.display = 'none';
-      msgs.classList.remove('hidden');
-      main.classList.add('has-messages');
-    }
-  }
-
-  function addUserMessage(text, imgSrc) {
-    const msgs = document.getElementById('chat-messages');
-    const initial = state.userName ? state.userName[0].toUpperCase() : 'U';
-    const imgHtml = imgSrc ? `<img src="${imgSrc}" alt="yemek">` : '';
-    const textHtml = text ? `<p>${text}</p>` : '';
-    msgs.innerHTML += `<div class="msg-row user"><div class="msg-avatar">${initial}</div><div class="msg-bubble">${imgHtml}${textHtml}</div></div>`;
-    scrollChat();
-  }
-
-  function addBotMessage(text) {
-    const msgs = document.getElementById('chat-messages');
-    msgs.innerHTML += `<div class="msg-row"><div class="msg-avatar">🌿</div><div class="msg-bubble"><p>${text}</p></div></div>`;
-    scrollChat();
-  }
-
-  function addBotMessageHTML(html) {
-    const msgs = document.getElementById('chat-messages');
-    msgs.innerHTML += `<div class="msg-row"><div class="msg-avatar">🌿</div><div class="msg-bubble">${html}</div></div>`;
-    scrollChat();
-  }
-
-  function addTypingIndicator() {
-    const id = 'typing-' + Date.now();
-    const msgs = document.getElementById('chat-messages');
-    msgs.innerHTML += `<div class="msg-row" id="${id}"><div class="msg-avatar">🌿</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div></div>`;
-    scrollChat();
-    return id;
-  }
-
-  function removeTypingIndicator(id) {
-    const el = document.getElementById(id);
-    if(el) el.remove();
-  }
-
-  function scrollChat() {
-    const main = document.getElementById('chat-main');
-    main.scrollTop = main.scrollHeight;
-  }
-
-  // Textarea auto resize + Enter gönder
-  const textarea = document.getElementById('chat-textarea');
-  textarea.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-  });
-  textarea.addEventListener('keydown', function(e) {
-    if(e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-
-  // ============================================================
-  // BAŞLANGIÇ
-  // ============================================================
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('kr_lang');
-    const lang = savedLang || detectLang();
-    state.lang = lang;
-    document.getElementById('lang-selector').value = lang;
-    translatePage();
-
-    document.getElementById('lang-selector').addEventListener('change', function() {
-      localStorage.setItem('kr_lang', this.value);
-    });
-
-    checkCookie();
-  });
   </script>
 </body>
 </html>
