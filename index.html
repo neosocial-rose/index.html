@@ -79,6 +79,23 @@
     .df-btn.login-d:hover{color:var(--text);border-color:var(--accent);}
     .df-btn.logout-d{background:var(--bg3);color:var(--rose);border:1px solid rgba(244,63,94,0.2);}
 
+    /* ========== SLIDER ==========*/
+    .hero-slider{position:relative;width:100%;height:380px;overflow:hidden;background:var(--bg2);}
+    @media(max-width:600px){.hero-slider{height:220px;}}
+    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 0.8s ease;}
+    .hero-slide.active{opacity:1;}
+    .hero-slide img{width:100%;height:100%;object-fit:cover;display:block;}
+    .hero-slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,15,18,0.2),rgba(13,15,18,0.85));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem;text-align:center;}
+    .hero-slide-title{font-family:'Sora',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:0.5rem;}
+    .hero-slide-sub{font-size:14px;color:rgba(255,255,255,0.8);max-width:500px;margin-bottom:1.2rem;}
+    .hero-cta{background:var(--accent);color:#000;border:none;padding:10px 24px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+    .slider-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2;}
+    .slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.3s;}
+    .slider-dot.active{background:var(--accent);width:24px;border-radius:4px;}
+    .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:2;}
+    .slider-arrow.prev{left:12px;}
+    .slider-arrow.next{right:12px;}
+
     /* ========== COOKIE ========== */
     #cookie-banner{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);
       border-top:1px solid var(--border2);padding:1rem 2rem;display:flex;
@@ -343,6 +360,16 @@
   </div>
 </div>
 
+<!-- HERO SLIDER -->
+<div id="hero-slider" class="hero-slider">
+  <div class="hero-slide active" id="slide-0"><img src="hero.jpeg" alt="Sağlıklı Beslenme"><div class="hero-slide-overlay"><div class="hero-slide-title">Sağlıklı Yaşam Yolculuğunuz Başlıyor</div><div class="hero-slide-sub">Yemek fotoğrafı yükle, kalori hesapla, sağlıklı yaşa</div><button class="hero-cta" onclick="document.getElementById('chat-textarea').focus()">Hemen Dene</button></div></div>
+  <div class="hero-slide" id="slide-1"><img src="hero3.jpeg" alt="Kalori Hesapla"><div class="hero-slide-overlay"><div class="hero-slide-title">AI ile Anında Kalori Analizi</div><div class="hero-slide-sub">Fotoğraf yükle, yapay zeka beslenme değerlerini hesaplasın</div><button class="hero-cta" onclick="showPage('hesapla')">BMR Hesapla</button></div></div>
+  <div class="hero-slide" id="slide-2"><img src="hero4.jpeg" alt="Spor Tavsiyesi"><div class="hero-slide-overlay"><div class="hero-slide-title">Kişisel Spor ve Diyet Tavsiyesi</div><div class="hero-slide-sub">Hedefinize göre özelleştirilmiş kalori ve egzersiz planı</div><button class="hero-cta" onclick="showPage('blog')">Rehberleri Gör</button></div></div>
+  <button class="slider-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+  <button class="slider-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+  <div class="slider-dots"><div class="slider-dot active" onclick="goToSlide(0)"></div><div class="slider-dot" onclick="goToSlide(1)"></div><div class="slider-dot" onclick="goToSlide(2)"></div></div>
+</div>
+
 <!-- CHAT PAGE -->
 <div id="page-chat" class="page active">
   <div class="chat-main" id="chat-main">
@@ -469,12 +496,131 @@
 </div>
 
 <!-- ARTICLES -->
-<div id="page-article-calorie" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>Kalori Nedir?</h1><div class="article-content"><p>Kalori, besinlerin içerdiği enerji miktarını ifade eden bir ölçü birimidir.</p><h2>Kalori Dengesi</h2><p>Aldığınız kalori fazlaysa kilo alırsınız. Harcadığınız fazlaysa kilo verirsiniz. Kesin değer için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">BMR hesaplayıcımızı</span> kullanın.</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
-<div id="page-article-bmr" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>BMR ve TDEE</h1><div class="article-content"><p>BMR dinlenme kalorisi, TDEE toplam günlük ihtiyaçtır. <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">Hesapla sayfamızdan</span> değerlerinizi öğrenin.</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
-<div id="page-article-macro" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>Makro Besinler</h1><div class="article-content"><p>Protein 4 kcal/g, Karbonhidrat 4 kcal/g, Yağ 9 kcal/g enerji sağlar.</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
-<div id="page-article-diet" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>Sağlıklı Kilo Verme</h1><div class="article-content"><p>Günlük 500 kcal açık haftada ~0.5 kg kilo kaybı sağlar.</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
-<div id="page-article-sport" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>Egzersiz ve Kalori</h1><div class="article-content"><p>Yürüyüş ~280 kcal, Koşu ~590 kcal, Bisiklet ~450 kcal/saat (70 kg için).</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
-<div id="page-article-water" class="page"><div class="article-wrap"><div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div><h1>Su ve Metabolizma</h1><div class="article-content"><p>Her kg için 30-35 ml su. 500 ml su metabolizmayı %24-30 hızlandırır.</p><div class="article-disclaimer">⚠️ Yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</div></div></div></div>
+<div id="page-article-calorie" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(244,63,94,0.15);color:#f43f5e;display:inline-block;margin-bottom:1rem">Kalori</span>
+    <h1>Kalori Nedir? Neden Bu Kadar Önemlidir?</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 5 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Kalori, besinlerin içerdiği enerji miktarını ifade eden bir ölçü birimidir. Teknik olarak bir kalori, bir gram suyu 1 derece Celsius artırmak için gereken enerji miktarıdır. Günlük beslenme konuşmalarında kullandığımız "kalori" aslında kilokaloridir (kcal), yani bin kaloridir. Bir elma yediğinizde "80 kalori" dediğimizde aslında 80 kilokalori demekteyiz.</p>
+      <p>Vücudumuz bir makine gibi çalışır ve bu makinenin yakıtı kalorilerdir. Nefes almak, kalbin çarpması, sindirim sistemi, beyin faaliyetleri ve hareket etmek için sürekli enerjiye ihtiyaç duyarız. Bu enerji yediğimiz besinlerden, yani kalorilerden karşılanır.</p>
+      <h2>Kalori Dengesi Nedir?</h2>
+      <p>Kilo yönetiminin temelinde kalori dengesi yatmaktadır. Bu denge son derece basit bir prensibe dayanır: Aldığınız kalori miktarı harcadığınızdan fazlaysa vücudunuz bu fazla enerjiyi yağ olarak depolar ve kilo alırsınız. Harcadığınız kalori aldığınızdan fazlaysa vücudunuz depoladığı yağları yakmaya başlar ve kilo verirsiniz. Alıp harcadığınız kalori eşitlendiğinde ise kilonuz sabit kalır.</p>
+      <p>Bu denklem "kalori girişi, kalori çıkışı" prensibi olarak bilinir ve kilo yönetiminin en temel kuralıdır. Ancak bu denklem göründüğü kadar basit değildir. İki kişi aynı kalorili yiyeceği yese bile metabolizma hızları, hormon seviyeleri ve genetik yapıları nedeniyle farklı sonuçlar alabilirler.</p>
+      <h2>Besinlerin Kalori İçerikleri Nasıl Belirlenir?</h2>
+      <p>Her besinin içerdiği kalori miktarı, içindeki makro besinlere göre hesaplanır. Protein ve karbonhidratların her gramı 4 kalori, yağın her gramı 9 kalori içerir. Bu yüzden aynı miktarda yağ, proteinden veya karbonhidrattan çok daha fazla kalori taşır. Pişirme yöntemi de kalori miktarını doğrudan etkiler; kızartılmış patates, haşlanmış patatese göre çok daha fazla kalori içerir.</p>
+      <h2>Günlük Ne Kadar Kaloriye İhtiyacınız Var?</h2>
+      <p>Bu sorunun cevabı tamamen kişiye özgüdür. Yaşınız, boyunuz, kilonuz, cinsiyetiniz ve fiziksel aktivite düzeyiniz bu ihtiyacı belirler. Ortalama sedanter bir kadın günde 1600-2000 kalori, ortalama sedanter bir erkek ise 2000-2500 kalori ihtiyacı duyar. Ancak bu rakamlar yalnızca başlangıç noktasıdır. Kesin değeri öğrenmek için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">KaloriRose BMR hesaplayıcımızı</span> kullanabilirsiniz.</p>
+      <h2>Boş Kalori Nedir?</h2>
+      <p>Tüm kaloriler eşit değildir. "Boş kalori" terimi, enerji sağlayan ancak vitamin, mineral, lif veya protein gibi değerli besin öğelerinden yoksun besinleri tanımlamak için kullanılır. Şekerli içecekler, cips ve şeker bu kategorinin en bilinen örnekleridir. Bu nedenle kilo yönetiminde sadece kalori sayısına değil, o kalorinin kalitesine de dikkat etmek gerekir.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir. Herhangi bir diyet veya sağlık kararı için mutlaka bir uzman doktor veya diyetisyene danışın.</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-article-bmr" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(74,222,128,0.15);color:#4ade80;display:inline-block;margin-bottom:1rem">BMR & TDEE</span>
+    <h1>BMR ve TDEE: Aralarındaki Fark Ne ve Neden Önemli?</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Kilo yönetimi söz konusu olduğunda sık sık karşılaşılan iki terim vardır: BMR ve TDEE. Bu iki kavramı anlamak, kilo verme veya kilo alma hedeflerinize ulaşmak için doğru kalori hedefini belirlemenin temelini oluşturur.</p>
+      <h2>BMR Nedir?</h2>
+      <p>BMR (Bazal Metabolizma Hızı), vücudunuzun tamamen dinlenme halindeyken hayati fonksiyonlarını sürdürmek için harcadığı kalori miktarıdır. Kalp atışı, solunum, vücut ısısının korunması ve organ fonksiyonları bu temel fonksiyonlar arasında sayılabilir. Bir insanın BMR değeri, harcadığı toplam kalorinin yüzde altmış ile yetmişini oluşturur.</p>
+      <h2>BMR Nasıl Hesaplanır?</h2>
+      <p>BMR hesaplamasında en yaygın kullanılan yöntem Harris-Benedict denklemidir. Erkekler için: BMR = 88.362 + (13.397 × kilo kg) + (4.799 × boy cm) − (5.677 × yaş). Kadınlar için: BMR = 447.593 + (9.247 × kilo kg) + (3.098 × boy cm) − (4.330 × yaş). Örneğin 30 yaşında, 75 kg ve 175 cm boyunda bir erkeğin BMR değeri yaklaşık 1800 kcal olacaktır.</p>
+      <h2>TDEE Nedir?</h2>
+      <p>TDEE (Toplam Günlük Enerji Harcaması), gün boyunca yaptığınız her türlü aktiviteyi hesaba katarak gerçek kalori ihtiyacınızı gösterir. BMR değerinizi fiziksel aktivite düzeyinize göre belirlenen bir katsayıyla çarptığınızda TDEE değerinize ulaşırsınız. Hareketsiz yaşam için 1.2, orta aktivite için 1.55, çok aktif için 1.725 katsayısı kullanılır.</p>
+      <h2>Kilo Vermek İçin TDEE'yi Nasıl Kullanırsınız?</h2>
+      <p>TDEE değerinizi öğrendikten sonra hedefinize göre kalori alımınızı ayarlayabilirsiniz. Günlük 500 kalorilik açık oluşturmak haftada yaklaşık 0.5 kg kilo kaybına yol açar. Bu güvenli ve sürdürülebilir bir hızdır. Kendi değerlerinizi öğrenmek için <span style="color:var(--accent);cursor:pointer;font-weight:700" onclick="showPage('hesapla')">Hesapla sayfamızı</span> ziyaret edin.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-article-macro" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(96,165,250,0.15);color:#60a5fa;display:inline-block;margin-bottom:1rem">Beslenme</span>
+    <h1>Makro Besinler: Protein, Karbonhidrat ve Yağ Hakkında Her Şey</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Sağlıklı bir beslenme düzeni oluşturmanın en temel adımı makro besinleri anlamaktır. Makro besinler vücudun büyük miktarlarda ihtiyaç duyduğu ve enerji sağlayan üç temel besin grubudur: protein, karbonhidrat ve yağ.</p>
+      <h2>Protein: Vücudun Yapı Taşı</h2>
+      <p>Protein her gram için 4 kalori sağlar ve vücudun en kritik yapı taşıdır. Kaslar, organlar, enzimler ve hormonlar proteinlerden oluşur. Günlük protein ihtiyacı vücut ağırlığının kilogramı başına 0.8 ile 2.2 gram arasında değişir. En iyi protein kaynakları arasında tavuk göğsü, yumurta, balık, kırmızı et, süt ürünleri ve bakliyat sayılabilir.</p>
+      <h2>Karbonhidrat: Beynin ve Kasların Yakıtı</h2>
+      <p>Karbonhidratlar da gram başına 4 kalori sağlar ve vücudun tercih ettiği enerji kaynağıdır. Tam tahıllar, sebzeler, meyveler ve bakliyat gibi kompleks karbonhidratlar lif, vitamin ve mineral açısından zengindir. Şeker ve beyaz un gibi basit karbonhidratlar ise kan şekerini hızla yükseltir ve düşürür.</p>
+      <h2>Yağ: Hormonların ve Beynin Vazgeçilmezi</h2>
+      <p>Yağ gram başına 9 kalori sağlar. Zeytinyağı, avokado ve balıkta bulunan sağlıklı yağlar kalp sağlığını korur. Beyin ağırlığının yüzde altmışı yağdan oluşur, hormonların büyük çoğunluğu yağdan üretilir.</p>
+      <h2>Doğru Makro Oranı Nedir?</h2>
+      <p>Genel sağlık için önerilen başlangıç noktası: günlük kalorilerin yüzde yirmi beş ila otuzunu proteinden, yüzde kırk beş ila elli beşini karbonhidrattan, yüzde yirmi ila otuzunu yağdan almaktır. Kilo vermek isteyenler için protein oranını yüzde otuz beşe çıkarmak hem tokluk sağlar hem de kas kaybını önler.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-article-diet" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(251,146,60,0.15);color:#fb923c;display:inline-block;margin-bottom:1rem">Diyet</span>
+    <h1>Sağlıklı Kilo Vermenin Bilimsel Yolu: Kalıcı Sonuçlar İçin Kanıtlanmış Yöntemler</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 7 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Her yıl milyonlarca insan kilo verme hedefi koyar ancak büyük çoğunluğu birkaç ay içinde eski kilolarına geri döner. Bunun temel nedeni, hızlı sonuç vaat eden ama sürdürülemez olan diyetlere başvurmaktır.</p>
+      <h2>Hızlı Diyetler Neden İşe Yaramaz?</h2>
+      <p>Çok düşük kalorili diyetler başlangıçta dramatik kilo kaybına yol açabilir ancak bu kaybın önemli bir kısmı su ve kas kütlesinden gelir, yağdan değil. Vücut bu aşırı kalori kısıtlamasına metabolizma hızını düşürerek yanıt verir. Diyet bittikten sonra kilo, yavaşlamış metabolizma nedeniyle daha hızlı geri gelir. Bu döngü "yo-yo diyeti" olarak bilinir.</p>
+      <h2>Güvenli Kilo Kaybı Hızı Nedir?</h2>
+      <p>Beslenme uzmanlarının büyük çoğunluğu haftada 0.5 ile 1 kilogram arasında kilo kaybını ideal hız olarak kabul eder. Bu hızda kilo vermek için günlük 500 ila 1000 kalorilik bir açık oluşturmanız gerekmektedir. Bu tempoda kas kütlesi korunur, metabolizma hızı düşmez ve sonuçlar kalıcı olur.</p>
+      <h2>Protein Alımını Artırın</h2>
+      <p>Kilo verirken yapabileceğiniz en etkili değişikliklerden biri protein alımını artırmaktır. Protein çok daha uzun süre tokluk hissi verir ve kas yıkımını en aza indirir. Yüksek protein diyeti uygulayan bireyler aynı kalori alımındaki düşük proteinli diyet uygulayanlardan daha fazla yağ kaybeder.</p>
+      <h2>Sürdürülebilir Alışkanlıklar</h2>
+      <p>Yemekleri önceden planlamak, yavaş yemek, yeterli uyku almak ve stres yönetimi kalıcı kilo kaybının sırlarıdır. Egzersizi bir ceza olarak değil, vücudunuza yaptığınız bir yatırım olarak görün.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-article-sport" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(167,139,250,0.15);color:#a78bfa;display:inline-block;margin-bottom:1rem">Spor</span>
+    <h1>Egzersiz ve Kalori Yakımı: Hangi Spor Ne Kadar Yakar?</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Egzersiz sağlıklı bir yaşam tarzının vazgeçilmez parçasıdır. Ancak pek çok kişi egzersizin kalori yakımı üzerindeki etkisini ya aşırı abartır ya da göz ardı eder.</p>
+      <h2>Farklı Sporların Saatlik Kalori Yakımı</h2>
+      <p>70 kilogram ağırlığındaki bir birey için yaklaşık saatlik kalori yakımı: Yürüyüş orta tempoda saatte yaklaşık 280 kalori yakar. Orta tempolu koşu 590, hızlı koşu 700-800 kalori yakabilir. Bisiklet sürme 450, yüzme 500-600, aerobik dans 400-500 kalori yakar. Ağırlık antrenmanı 300-400, atlamak ip ise 600-700 kalori civarında enerji harcar.</p>
+      <h2>Kardio mu, Ağırlık mı?</h2>
+      <p>Koşu ve bisiklet gibi kardiyovasküler egzersizler antrenman sırasında daha fazla kalori yakar. Ancak ağırlık antrenmanı kas kütlesini artırır ve dinlenme halindeki metabolizma hızını yükseltir. Uzun vadeli kilo yönetimi için en iyi yaklaşım ikisini birleştirmektir.</p>
+      <h2>Beslenme mi, Egzersiz mi Daha Önemli?</h2>
+      <p>Kilo yönetiminde yüzde seksenini beslenme, yüzde yirmisini egzersiz belirler. Bir saatlik yoğun koşu ile harcayabileceğiniz kaloriyi, yirmi dakikada tüketebilirsiniz. Öte yandan egzersiz kalp sağlığını iyileştirir, kemik yoğunluğunu artırır ve ruh halini düzenler.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+    </div>
+  </div>
+</div>
+
+<div id="page-article-water" class="page">
+  <div class="article-wrap">
+    <div class="back-btn" onclick="showPage('blog')">← Blog'a Dön</div>
+    <span class="blog-tag" style="background:rgba(34,211,238,0.15);color:#22d3ee;display:inline-block;margin-bottom:1rem">Sağlık</span>
+    <h1>Su İçmenin Metabolizmaya Etkisi: Bilimin Söyledikleri</h1>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">KaloriRose Ekibi · Mart 2026 · 6 dakikalık okuma</p>
+    <div class="article-content">
+      <p>Su, vücudumuzun en temel ihtiyaçlarından biridir. Yeterli su içmek yalnızca susuzluğu gidermekle kalmaz; metabolizma hızını artırabilir, iştah kontrolüne yardımcı olabilir ve kilo yönetimini destekleyebilir.</p>
+      <h2>Günlük Ne Kadar Su İçmelisiniz?</h2>
+      <p>Su ihtiyacı kişiden kişiye önemli ölçüde farklılık gösterir. Genel bir rehber olarak vücut ağırlığının kilogramı başına 30 ila 35 mililitre su içilmesi önerilir. 60 kilogram ağırlığındaki biri günde 1.8-2.1 litre, 80 kilogram ağırlığındaki biri ise 2.4-2.8 litre su içmelidir. İdrar rengi su alımı için iyi bir göstergedir; açık sarı renk yeterli hidrasyonu gösterir.</p>
+      <h2>Su ve Metabolizma İlişkisi</h2>
+      <p>Yapılan araştırmalar, su içmenin metabolizma hızını geçici olarak artırabileceğini ortaya koymaktadır. Bir çalışmada 500 mililitre su içildikten sonra metabolizma hızının otuz ila kırk dakika boyunca yüzde yirmi dört ila otuz oranında arttığı gözlemlenmiştir.</p>
+      <h2>Su ve İştah Kontrolü</h2>
+      <p>Hafif bir dehidrasyon durumunda beyin bazen su ihtiyacını açlık olarak algılayabilir. Yemekten yarım saat önce 500 mililitre su içen bireyler öğünde yaklaşık yüzde on üç daha az kalori tüketmiştir. Yemek öncesi su içmek hem gerçek açlığı değerlendirmenize yardımcı olur hem de mideyi kısmen doldurarak daha az yemenizi sağlayabilir.</p>
+      <h2>Pratik Su İçme Önerileri</h2>
+      <p>Her sabah aç karnına büyük bir bardak su için. Yanınızda her zaman bir su şişesi taşıyın. Kahve veya çay içtikten sonra ek su tüketin. Salatalık, domates ve karpuz gibi yüksek su içerikli besinleri düzenli tüketin.</p>
+      <div class="article-disclaimer">⚠️ Bu içerik yalnızca bilgi ve eğitim amaçlıdır, tıbbi tavsiye niteliği taşımaz. Tüm sorumluluk kullanıcıya aittir.</div>
+    </div>
+  </div>
+</div>
 
 <!-- YAKINDA -->
 <div id="page-besinler" class="page"><div class="prose-page"><h1>🥗 Besinler ve Egzersizler</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Bu bölüm üzerinde çalışıyoruz.</p></div></div></div>
@@ -483,13 +629,13 @@
 <div id="page-mesaj" class="page"><div class="prose-page"><h1>💬 Mesaj Panosu</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p></div></div></div>
 
 <!-- DİĞER SAYFALAR -->
-<div id="page-about" class="page"><div class="prose-page"><h1>Hakkımızda</h1><div class="prose-section"><h2>KaloriRose Nedir?</h2><p>AI destekli ücretsiz kalori hesaplama platformudur.</p></div><div class="prose-section"><h2>Önemli Uyarı</h2><p>Tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><p>İletişim: <a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div></div></div>
+<div id="page-about" class="page"><div class="prose-page"><h1>Hakkımızda</h1><div class="prose-section"><h2>KaloriRose Nedir?</h2><p>AI destekli ücretsiz kalori hesaplama platformudur.</p></div><div class="prose-section"><h2>Önemli Uyarı</h2><p>Tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><p>İletişim: <a href="/cdn-cgi/l/email-protection#107a7162667963787569627f637550777d71797c3e737f7d" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="e48e8596928d978c819d968b9781a48389858d88ca878b89">[email&#160;protected]</span></a></p></div></div></div>
 <div id="page-faq" class="page"><div class="prose-page"><h1>SSS</h1><div class="faq-item"><div class="faq-q">Kalori verileri güvenilir mi?</div><div class="faq-a">Genel ortalama değerlerdir. Kesin sonuç garanti edilmez.</div></div><div class="faq-item"><div class="faq-q">Günlük kaç sorgu hakkım var?</div><div class="faq-a">Giriş yapmış kullanıcılara günlük 3 sorgu hakkı tanınır.</div></div><div class="faq-item"><div class="faq-q">Platform ücretsiz mi?</div><div class="faq-a">Evet, tamamen ücretsiz.</div></div><div class="faq-item"><div class="faq-q">Tıbbi tavsiye veriyor mu?</div><div class="faq-a">Hayır. Yalnızca bilgi amaçlıdır.</div></div></div></div>
-<div id="page-privacy" class="page"><div class="prose-page"><h1>Gizlilik Politikası</h1><div class="prose-section"><h2>Toplanan Veriler</h2><p>Google Authentication ile giriş bilgileriniz işlenir. Görseller analiz sonrası silinir.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div></div></div>
-<div id="page-cookie" class="page"><div class="prose-page"><h1>Çerez Politikası</h1><div class="prose-section"><h2>Çerezler Hakkında</h2><p>Daha iyi kullanıcı deneyimi için çerezler kullanılmaktadır.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div></div></div>
+<div id="page-privacy" class="page"><div class="prose-page"><h1>Gizlilik Politikası</h1><div class="prose-section"><h2>Toplanan Veriler</h2><p>Google Authentication ile giriş bilgileriniz işlenir. Görseller analiz sonrası silinir.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#d9b3b8abafb0aab1bca0abb6aabc99beb4b8b0b5f7bab6b4" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="bcd6ddcecad5cfd4d9c5ced3cfd9fcdbd1ddd5d092dfd3d1">[email&#160;protected]</span></a></p></div></div></div>
+<div id="page-cookie" class="page"><div class="prose-page"><h1>Çerez Politikası</h1><div class="prose-section"><h2>Çerezler Hakkında</h2><p>Daha iyi kullanıcı deneyimi için çerezler kullanılmaktadır.</p></div><div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#7a101b080c1309121f030815091f3a1d171b131654191517" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="43292231352a302b263a312c302603242e222a2f6d202c2e">[email&#160;protected]</span></a></p></div></div></div>
 <div id="page-disclaimer" class="page"><div class="prose-page"><h1>Sorumluluk Reddi</h1><div class="prose-section"><p>Tüm içerikler yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div></div></div>
 <div id="page-terms" class="page"><div class="prose-page"><h1>Kullanım Şartları</h1><div class="prose-section"><p>Platformu kullanarak şartları kabul etmiş sayılırsınız. Tüm sorumluluk kullanıcıya aittir.</p></div></div></div>
-<div id="page-contact" class="page"><div class="prose-page"><h1>İletişim</h1><div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem"><div style="font-size:32px;margin-bottom:1rem">✉️</div><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent);font-size:1.1rem;font-weight:700">jarvisheyrose@gmail.com</a></div></div></div>
+<div id="page-contact" class="page"><div class="prose-page"><h1>İletişim</h1><div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem"><div style="font-size:32px;margin-bottom:1rem">✉️</div><a href="/cdn-cgi/l/email-protection#caa0abb8bca3b9a2afb3b8a5b9af8aada7aba3a6e4a9a5a7" style="color:var(--accent);font-size:1.1rem;font-weight:700"><span class="__cf_email__" data-cfemail="610b0013170812090418130e120421060c00080d4f020e0c">[email&#160;protected]</span></a></div></div></div>
 
 <!-- FOOTER -->
 <footer>
@@ -509,7 +655,7 @@
   <p class="footer-copy">© 2026 KaloriRose · jarvisheyrose.com</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const state={lang:'tr',userId:null,userName:'',queries:0,maxQueries:3,pendingImage:null,pendingImageBase64:null,queryCache:{}};
 
 // FIREBASE
@@ -729,6 +875,18 @@ textarea.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey)
 function setLang(lang){state.lang=lang;localStorage.setItem('kr_lang',lang);document.getElementById('lang-selector').value=lang;document.documentElement.lang=lang;}
 function detectLang(){const c=(navigator.language||'tr').split('-')[0].toLowerCase();return['tr','en','es','fr','de','pt'].includes(c)?c:'en';}
 
+// SLIDER
+let currentSlide=0;
+const totalSlides=3;
+let sliderTimer=null;
+function goToSlide(n){
+  document.querySelectorAll('.hero-slide').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.slider-dot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  currentSlide=n;
+}
+function changeSlide(dir){goToSlide((currentSlide+dir+totalSlides)%totalSlides);resetSliderTimer();}
+function resetSliderTimer(){if(sliderTimer)clearInterval(sliderTimer);sliderTimer=setInterval(()=>changeSlide(1),4000);}
+
 // BAŞLANGIÇ
 window.addEventListener('DOMContentLoaded',()=>{
   const lang=localStorage.getItem('kr_lang')||detectLang();
@@ -736,6 +894,8 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('lang-selector').value=lang;
   document.documentElement.lang=lang;
   checkCookie();
+  const slider=document.getElementById('hero-slider');
+  if(slider)resetSliderTimer();
 });
 </script>
 </body>
