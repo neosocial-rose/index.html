@@ -188,17 +188,20 @@
       transition: margin-left 0.3s ease;
     }
 
-    /* Mobil: sidebar gizlenir, nav'daki hamburger açar */
+    /* Masaüstü: sidebar her zaman görünür, transform yok */
+    @media (min-width: 769px) {
+      .sidebar { transform: none !important; box-shadow: none; }
+      .mobile-menu-btn { display: none !important; }
+      #nav-logo-mobile { display: none !important; }
+      .sidebar-overlay { display: none !important; }
+    }
+
+    /* Mobil: sidebar kapalı başlar, hamburger ile açılır */
     @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-      }
-      .sidebar.open {
-        transform: translateX(0);
-      }
-      .main-with-sidebar {
-        margin-left: 0;
-      }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); box-shadow: 4px 0 20px rgba(0,0,0,0.5); }
+      .main-with-sidebar { margin-left: 0; }
+      .mobile-menu-btn { display: block !important; }
     }
 
     /* COOKIE BANNER */
@@ -1304,7 +1307,7 @@
         <p>KaloriRose tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p>
       </div>
       <div class="prose-section">
-        <p><strong>Editör:</strong> KaloriRose Ekibi · <a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p>
+        <p><strong>Editör:</strong> KaloriRose Ekibi · <a href="/cdn-cgi/l/email-protection#abc1cad9ddc2d8c3ced2d9c4d8ceebccc6cac2c785c8c4c6" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="b6dcd7c4c0dfc5ded3cfc4d9c5d3f6d1dbd7dfda98d5d9db">[email&#160;protected]</span></a></p>
       </div>
     </div>
   </div>
@@ -1328,7 +1331,7 @@
       <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p>
       <div class="prose-section"><h2>Toplanan Veriler</h2><p>Google Authentication ile giriş bilgileriniz işlenir. Görseller analiz sonrası silinir. Çerez verileri tarayıcınızda saklanır.</p></div>
       <div class="prose-section"><h2>Google AdSense</h2><p>Platformumuz Google AdSense reklam ağını kullanmaktadır.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
+      <div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#3b515a494d5248535e424954485e7b5c565a525715585456" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="9af0fbe8ecf3e9f2ffe3e8f5e9ffdafdf7fbf3f6b4f9f5f7">[email&#160;protected]</span></a></p></div>
     </div>
   </div>
 
@@ -1339,7 +1342,7 @@
       <p style="font-size:12px;color:var(--text3);margin-bottom:2rem">Son güncelleme: Mart 2026</p>
       <div class="prose-section"><h2>Çerezler Hakkında</h2><p>Sitemizi ziyaret ettiğinizde daha iyi bir kullanıcı deneyimi sunabilmek için çerez teknolojisinden yararlanıyoruz.</p></div>
       <div class="prose-section"><h2>Kullandığımız Çerezler</h2><p>Zorunlu, analitik ve reklam çerezleri kullanılmaktadır. Tarayıcı ayarlarınızdan yönetebilirsiniz.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
+      <div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#8be1eaf9fde2f8e3eef2f9e4f8eecbece6eae2e7a5e8e4e6" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="462c2734302f352e233f3429352306212b272f2a6825292b">[email&#160;protected]</span></a></p></div>
     </div>
   </div>
 
@@ -1349,7 +1352,7 @@
       <h1>Sorumluluk Reddi</h1>
       <div class="prose-section"><h2>Genel Bilgilendirme</h2><p>Platformda sunulan tüm içerikler yalnızca genel bilgi ve eğitim amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div>
       <div class="prose-section"><h2>Tıbbi Sorumluluk Reddi</h2><p>KaloriRose tıbbi tavsiye, teşhis veya tedavi sunmamaktadır.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
+      <div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#3b515a494d5248535e424954485e7b5c565a525715585456" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="0a606b787c6379626f737865796f4a6d676b636624696567">[email&#160;protected]</span></a></p></div>
     </div>
   </div>
 
@@ -1359,7 +1362,7 @@
       <h1>Kullanım Şartları</h1>
       <div class="prose-section"><h2>Şartların Kabulü</h2><p>Platformu kullanarak bu şartları kabul etmiş sayılırsınız.</p></div>
       <div class="prose-section"><h2>Sorumluluk Reddi</h2><p>Platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.</p></div>
-      <div class="prose-section"><h2>İletişim</h2><p><a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent)">jarvisheyrose@gmail.com</a></p></div>
+      <div class="prose-section"><h2>İletişim</h2><p><a href="/cdn-cgi/l/email-protection#fc969d8e8a958f9499858e938f99bc9b919d9590d29f9391" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="147e7566627d677c716d667b6771547379757d783a777b79">[email&#160;protected]</span></a></p></div>
     </div>
   </div>
 
@@ -1370,7 +1373,7 @@
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem">
         <div style="font-size:32px;margin-bottom:1rem">✉️</div>
         <p style="font-size:13px;color:var(--text3);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">E-posta</p>
-        <a href="mailto:jarvisheyrose@gmail.com" style="color:var(--accent);font-size:1.1rem;font-weight:700">jarvisheyrose@gmail.com</a>
+        <a href="/cdn-cgi/l/email-protection#fb919a898d9288939e828994889ebb9c969a9297d5989496" style="color:var(--accent);font-size:1.1rem;font-weight:700"><span class="__cf_email__" data-cfemail="a1cbc0d3d7c8d2c9c4d8d3ced2c4e1c6ccc0c8cd8fc2cecc">[email&#160;protected]</span></a>
       </div>
     </div>
   </div>
@@ -1438,7 +1441,7 @@
   </footer>
   </div><!-- /main-with-sidebar -->
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ============================================================
   // DİL SİSTEMİ
   // ============================================================
@@ -2071,13 +2074,30 @@ Sadece JSON döndür. Dil: ${state.lang}`;
     const lang = savedLang || detectLang();
     state.lang = lang;
     document.getElementById('lang-selector').value = lang;
+    const sbLang = document.getElementById('lang-selector-sidebar');
+    if(sbLang) sbLang.value = lang;
     translatePage();
 
     document.getElementById('lang-selector').addEventListener('change', function() {
       localStorage.setItem('kr_lang', this.value);
+      const sbLang = document.getElementById('lang-selector-sidebar');
+      if(sbLang) sbLang.value = this.value;
     });
 
+    const sbLangEl = document.getElementById('lang-selector-sidebar');
+    if(sbLangEl) {
+      sbLangEl.addEventListener('change', function() {
+        localStorage.setItem('kr_lang', this.value);
+        document.getElementById('lang-selector').value = this.value;
+      });
+    }
+
     checkCookie();
+
+    // Masaüstünde logo gizli kalsın
+    const isMobile = window.innerWidth <= 768;
+    const navLogo = document.getElementById('nav-logo-mobile');
+    if(navLogo) navLogo.style.display = isMobile ? 'block' : 'none';
   });
   </script>
 </body>
