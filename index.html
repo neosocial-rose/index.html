@@ -2,88 +2,160 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Diyet Arkadaşım Akıllı Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diyet Arkadaşım Pro - Akıllı Sağlık Paneli</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --primary: #27ae60; --secondary: #e67e22; --dark: #2c3e50; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; }
-        
-        /* Yan Menü (Diyetarkadasim stili) */
-        .sidebar { width: 250px; background: var(--dark); color: white; height: 100vh; padding: 20px; position: fixed; }
-        .sidebar h2 { color: var(--primary); font-size: 20px; border-bottom: 1px solid #444; padding-bottom: 10px; }
-        .menu-item { padding: 12px 0; border-bottom: 1px solid #34495e; cursor: pointer; transition: 0.3s; }
-        .menu-item:hover { color: var(--primary); }
+        :root { --main: #2ecc71; --accent: #3498db; --bg: #f8f9fa; --dark: #2c3e50; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; color: var(--dark); }
 
-        /* Ana İçerik */
-        .main-content { margin-left: 290px; padding: 40px; width: 100%; max-width: 900px; }
-        .card { background: white; padding: 25px; border-radius: 12px; shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        
-        /* Hesaplama Formu */
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; width: 100%; box-sizing: border-box; }
-        
-        .btn-calculate { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 15px; }
-        
-        /* Sonuç Alanı */
-        #resultDisplay { margin-top: 20px; padding: 15px; background: #e8f5e9; border-left: 5px solid var(--primary); display: none; }
+        /* Sidebar Geliştirildi */
+        .sidebar { width: 280px; background: white; height: 100vh; border-right: 1px solid #eee; position: fixed; padding: 30px 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.02); }
+        .logo { font-size: 22px; font-weight: 800; color: var(--main); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+        .nav-link { padding: 15px; border-radius: 12px; margin-bottom: 5px; cursor: pointer; transition: 0.3s; font-weight: 500; display: flex; align-items: center; gap: 10px; }
+        .nav-link:hover, .nav-link.active { background: #eafaf1; color: var(--main); }
+
+        /* Ana Alan */
+        .content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+
+        /* Kart Yapıları */
+        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .stat-card { display: flex; justify-content: space-between; align-items: center; }
+
+        /* AI Arama Barı */
+        .search-box { display: flex; gap: 10px; background: #f1f3f5; padding: 8px; border-radius: 15px; }
+        .search-box input { border: none; background: transparent; padding: 12px; flex: 1; outline: none; font-size: 16px; }
+        .btn-ai { background: var(--main); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 600; }
+
+        /* Makro Tablosu */
+        .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+        .macro-item { text-align: center; padding: 15px; border-radius: 12px; background: #f8f9fa; }
+        .macro-val { display: block; font-size: 18px; font-weight: 800; color: var(--main); }
+
+        /* Su Sayacı */
+        .water-container { text-align: center; }
+        .water-btn { font-size: 24px; cursor: pointer; background: #e3f2fd; border: none; width: 50px; height: 50px; border-radius: 50%; transition: 0.2s; }
+        .water-btn:active { transform: scale(0.9); }
+
+        .loading-shimmer { height: 100px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 15px; display: none; }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>Diyet Paneli</h2>
-        <div class="menu-item">🏠 Anasayfa</div>
-        <div class="menu-item">🥗 Besinler & Egzersizler</div>
-        <div class="menu-item">📈 Başarı Hikayeleri</div>
-        <div class="menu-item">⚙️ Ayarlar</div>
-    </div>
+    <aside class="sidebar">
+        <div class="logo">🥗 DiyetPro AI</div>
+        <div class="nav-link active">📊 Dashboard</div>
+        <div class="nav-link">🍎 Besin Analizi</div>
+        <div class="nav-link">💧 Su Takibi</div>
+        <div class="nav-link">🏆 Başarı Hikayeleri</div>
+        <div class="nav-link">👤 Profilim</div>
+    </aside>
 
-    <div class="main-content">
-        <div class="card">
-            <h3>Hızlı Kalori & Egzersiz Sorgu</h3>
-            <p style="font-size: 13px; color: #666;">Ne yediğini yaz, sana nasıl yakacağını bilimsel verilerle söyleyelim.</p>
-            <input type="text" id="foodSearch" placeholder="Örn: 2 dilim tam buğday ekmeği">
-            <button class="btn-calculate" onclick="sendToAI()">Veriyi Getir</button>
-            <div id="resultDisplay"></div>
-        </div>
+    <main class="content">
+        <header style="margin-bottom: 30px;">
+            <h1>Hoş Geldin dostum,</h1>
+            <p>Bugün hedeflerine ulaşmak için harika bir gün!</p>
+        </header>
 
-        <div class="card">
-            <h3>Vücut Analizi (Profil)</h3>
-            <div class="calc-grid">
-                <input type="number" placeholder="Boy (cm)">
-                <input type="number" placeholder="Kilo (kg)">
-                <select>
-                    <option>Hareketsiz Lifestyle</option>
-                    <option>Az Hareketli</option>
-                    <option>Çok Hareketli</option>
-                </select>
-                <input type="number" placeholder="Yaş">
+        <div class="grid">
+            <div class="left-col">
+                <div class="card">
+                    <h3>🔍 Akıllı Besin Analizi</h3>
+                    <div class="search-box">
+                        <input type="text" id="foodInput" placeholder="Ne yedin? Örn: 100gr ızgara tavuk ve salata">
+                        <button class="btn-ai" onclick="analyzeFood()">Analiz Et</button>
+                    </div>
+                    
+                    <div id="loader" class="loading-shimmer"></div>
+                    
+                    <div id="resultArea" style="display: none; margin-top: 20px;">
+                        <div class="stat-card">
+                            <div>
+                                <span style="font-size: 32px; font-weight: 800;" id="totalCal">0</span>
+                                <span style="color: #666;"> kcal</span>
+                            </div>
+                            <div id="exerciseTip" style="font-size: 14px; color: var(--accent); text-align: right;"></div>
+                        </div>
+                        
+                        <div class="macro-grid">
+                            <div class="macro-item"><small>Protein</small><span class="macro-val" id="pVal">0g</span></div>
+                            <div class="macro-item"><small>Karbonh.</small><span class="macro-val" id="cVal">0g</span></div>
+                            <div class="macro-item"><small>Yağ</small><span class="macro-val" id="fVal">0g</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Haftalık Kalori Dengesi</h3>
+                    <canvas id="myChart" height="100"></canvas>
+                </div>
             </div>
-            <button class="btn-calculate" style="background: var(--secondary);">Endeksleri Hesapla</button>
-        </div>
 
-        <p style="font-size: 11px; color: #999; text-align: center;">
-            <strong>Yasal Uyarı:</strong> Bu sitedeki veriler bilgilendirme amaçlıdır. Kullanım sorumluluğu kullanıcıya aittir. Sağlığınız için bir uzmana danışın.
-        </p>
-    </div>
+            <div class="right-col">
+                <div class="card water-container">
+                    <h3>💧 Su Takibi</h3>
+                    <div style="font-size: 40px; margin: 15px 0;" id="waterCount">0.0 L</div>
+                    <button class="water-btn" onclick="addWater()">➕</button>
+                    <p><small>Günlük hedef: 2.5 Litre</small></p>
+                </div>
+
+                <div class="card" style="background: #fff5f5; border: 1px dashed #feb2b2;">
+                    <h4 style="color: #c53030; margin-top: 0;">⚠️ Önemli Beyan</h4>
+                    <p style="font-size: 11px; line-height: 1.4;">Bu veriler Gemini AI ve USDA referanslıdır. Bilgilendirme amaçlıdır; tıbbi teşhis veya diyet programı yerine geçmez. Sorumluluk kullanıcıya aittir.</p>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
-        async function sendToAI() {
-            const food = document.getElementById('foodSearch').value;
-            const display = document.getElementById('resultDisplay');
-            display.style.display = 'block';
-            display.innerHTML = "Veriler doğrulanıyor...";
+        // Su Takip Mantığı
+        let water = 0;
+        function addWater() {
+            water += 0.25;
+            document.getElementById('waterCount').innerText = water.toFixed(1) + " L";
+        }
 
-            try {
-                const response = await fetch('/api/hesapla', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ food })
-                });
-                const data = await response.json();
-                display.innerHTML = data.result.replace(/\n/g, '<br>');
-            } catch (e) {
-                display.innerHTML = "Bağlantı hatası.";
-            }
+        // Mock Grafik (Chart.js)
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+                datasets: [{
+                    label: 'Alınan Kalori',
+                    data: [1800, 2100, 1900, 2200, 1750, 2500, 2000],
+                    borderColor: '#2ecc71',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(46, 204, 113, 0.1)'
+                }]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+        });
+
+        // AI Analiz Fonksiyonu (Backend'e istek atar gibi kurgulandı)
+        async function analyzeFood() {
+            const input = document.getElementById('foodInput').value;
+            if(!input) return;
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('resultArea').style.display = 'none';
+
+            // BURADA BACKEND SERVİSİNE İSTEK GİDECEK
+            // Gelen cevapta JSON formatında şu verilerin olduğunu varsayıyoruz:
+            // { cal: 250, p: 20, c: 30, f: 5, tip: "30 dk tempolu yürüyüş" }
+
+            setTimeout(() => { // Simülasyon
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('resultArea').style.display = 'block';
+                document.getElementById('totalCal').innerText = "345";
+                document.getElementById('pVal').innerText = "24g";
+                document.getElementById('cVal').innerText = "12g";
+                document.getElementById('fVal').innerText = "18g";
+                document.getElementById('exerciseTip').innerText = "🔥 Yakmak için: 45 dk Yürüyüş veya 35 Şınav";
+            }, 1500);
         }
     </script>
 </body>
