@@ -3,7 +3,6 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -14,14 +13,9 @@ export default async function handler(req, res) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const messages = body.messages || [];
     const lang = String(body.lang || "tr");
-
     if (!messages.length) return res.status(400).json({ error: "messages boş" });
 
-    // ============================================================
-    // MESAJLARI GEMINI FORMATINA ÇEVİR
-    // ============================================================
     const geminiParts = [];
-
     for (const msg of messages) {
       if (typeof msg.content === "string") {
         geminiParts.push({ text: msg.content });
@@ -30,7 +24,6 @@ export default async function handler(req, res) {
           if (part.type === "text") {
             geminiParts.push({ text: part.text });
           } else if (part.type === "image") {
-            // Base64 görsel
             geminiParts.push({
               inlineData: {
                 mimeType: part.source?.media_type || "image/jpeg",
@@ -42,10 +35,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // ============================================================
-    // GEMINI İSTEĞİ
-    // ============================================================
-    const model = "gemini-1.5-flash";
+    const model = "gemini-2.0-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
     const geminiBody = {
@@ -75,7 +65,6 @@ export default async function handler(req, res) {
 
     const outputText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-    // Anthropic formatında döndür (frontend bunu bekliyor)
     return res.status(200).json({
       content: [{ type: "text", text: outputText }]
     });
