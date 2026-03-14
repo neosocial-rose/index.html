@@ -79,22 +79,23 @@
     .df-btn.login-d:hover{color:var(--text);border-color:var(--accent);}
     .df-btn.logout-d{background:var(--bg3);color:var(--rose);border:1px solid rgba(244,63,94,0.2);}
 
-    /* ========== SLIDER ==========*/
-    .hero-slider{position:relative;width:100%;height:380px;overflow:hidden;background:var(--bg2);}
-    @media(max-width:600px){.hero-slider{height:220px;}}
-    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 0.8s ease;}
-    .hero-slide.active{opacity:1;}
-    .hero-slide img{width:100%;height:100%;object-fit:cover;display:block;}
-    .hero-slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,15,18,0.2),rgba(13,15,18,0.85));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem;text-align:center;}
-    .hero-slide-title{font-family:'Sora',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:800;color:#fff;margin-bottom:0.5rem;}
-    .hero-slide-sub{font-size:14px;color:rgba(255,255,255,0.8);max-width:500px;margin-bottom:1.2rem;}
-    .hero-cta{background:var(--accent);color:#000;border:none;padding:10px 24px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
-    .slider-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2;}
-    .slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.3s;}
-    .slider-dot.active{background:var(--accent);width:24px;border-radius:4px;}
-    .slider-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:2;}
-    .slider-arrow.prev{left:12px;}
-    .slider-arrow.next{right:12px;}
+    /* ========== HERO LAYOUT ========== */
+    .hero-section{width:100%;background:var(--bg);}
+    .hero-top{width:100%;height:420px;overflow:hidden;position:relative;}
+    @media(max-width:600px){.hero-top{height:220px;}}
+    .hero-top img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+    .hero-top-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,15,18,0.1),rgba(13,15,18,0.7));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:2rem;text-align:center;}
+    .hero-top-title{font-family:'Sora',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:#fff;margin-bottom:0.5rem;text-shadow:0 2px 8px rgba(0,0,0,0.5);}
+    .hero-top-sub{font-size:14px;color:rgba(255,255,255,0.85);max-width:500px;margin-bottom:1.2rem;}
+    .hero-top-btn{background:var(--accent);color:#000;border:none;padding:10px 28px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+    .hero-bottom{display:grid;grid-template-columns:1fr 200px 1fr;gap:0;width:100%;}
+    @media(max-width:768px){.hero-bottom{grid-template-columns:1fr 1fr;}}
+    .hero-bottom-img{width:100%;height:280px;overflow:hidden;position:relative;}
+    @media(max-width:600px){.hero-bottom-img{height:160px;}}
+    .hero-bottom-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+    .hero-bottom-ad{display:flex;align-items:center;justify-content:center;background:var(--bg2);border-left:1px solid var(--border);border-right:1px solid var(--border);}
+    @media(max-width:768px){.hero-bottom-ad{display:none;}}
 
     /* ========== COOKIE ========== */
     #cookie-banner{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);
@@ -361,13 +362,32 @@
 </div>
 
 <!-- HERO SLIDER -->
-<div id="hero-slider" class="hero-slider">
-  <div class="hero-slide active" id="slide-0"><img src="hero.jpeg" alt="Sağlıklı Beslenme"><div class="hero-slide-overlay"><div class="hero-slide-title">Sağlıklı Yaşam Yolculuğunuz Başlıyor</div><div class="hero-slide-sub">Yemek fotoğrafı yükle, kalori hesapla, sağlıklı yaşa</div><button class="hero-cta" onclick="document.getElementById('chat-textarea').focus()">Hemen Dene</button></div></div>
-  <div class="hero-slide" id="slide-1"><img src="hero3.jpeg" alt="Kalori Hesapla"><div class="hero-slide-overlay"><div class="hero-slide-title">AI ile Anında Kalori Analizi</div><div class="hero-slide-sub">Fotoğraf yükle, yapay zeka beslenme değerlerini hesaplasın</div><button class="hero-cta" onclick="showPage('hesapla')">BMR Hesapla</button></div></div>
-  <div class="hero-slide" id="slide-2"><img src="hero4.jpeg" alt="Spor Tavsiyesi"><div class="hero-slide-overlay"><div class="hero-slide-title">Kişisel Spor ve Diyet Tavsiyesi</div><div class="hero-slide-sub">Hedefinize göre özelleştirilmiş kalori ve egzersiz planı</div><button class="hero-cta" onclick="showPage('blog')">Rehberleri Gör</button></div></div>
-  <button class="slider-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-  <button class="slider-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
-  <div class="slider-dots"><div class="slider-dot active" onclick="goToSlide(0)"></div><div class="slider-dot" onclick="goToSlide(1)"></div><div class="slider-dot" onclick="goToSlide(2)"></div></div>
+<div class="hero-section">
+  <!-- Üstte hero.jpeg tam genişlik -->
+  <div class="hero-top">
+    <img src="hero.jpeg" alt="KaloriRose - Sağlıklı Yaşam">
+    <div class="hero-top-overlay">
+      <div class="hero-top-title">Sağlıklı Yaşam Yolculuğunuz Başlıyor</div>
+      <div class="hero-top-sub">Yemek fotoğrafı yükle, kalori hesapla, sağlıklı yaşa</div>
+      <button class="hero-top-btn" onclick="document.getElementById('chat-textarea').focus()">Hemen Dene →</button>
+    </div>
+  </div>
+  <!-- Altta: sol hero3, orta reklam, sağ hero4 -->
+  <div class="hero-bottom">
+    <div class="hero-bottom-img">
+      <img src="hero3.jpeg" alt="Kalori Takibi ve Beslenme">
+    </div>
+    <div class="hero-bottom-ad">
+      <div style="padding:1rem;text-align:center;width:100%">
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text3);margin-bottom:8px">Reklam</div>
+        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1842835786064419" data-ad-slot="8094813402" data-ad-format="auto" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </div>
+    </div>
+    <div class="hero-bottom-img">
+      <img src="hero4.jpeg" alt="Spor ve Egzersiz Tavsiyesi">
+    </div>
+  </div>
 </div>
 
 <!-- CHAT PAGE -->
@@ -772,12 +792,14 @@ async function processQuery(text,hasImage){
   const isSport=/spor|sport|burn|yak/i.test(text);
   let messages;
   if(hasImage){
-    const prompt=`Sen bir beslenme uzmanısın. Bu yemek fotoğrafını analiz et. Sadece JSON döndür:
-{"name":"yemek adı","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı,"sports":[{"name":"Yürüyüş","emoji":"🚶","minutes":sayı},{"name":"Koşu","emoji":"🏃","minutes":sayı},{"name":"Bisiklet","emoji":"🚴","minutes":sayı}],"disclaimer":"Bu veriler tahminidir."}`;
+    const prompt=`Sen bir beslenme uzmanısın. Bu yemek fotoğrafını analiz et ve USDA veritabanı değerlerine göre tahmin yap. Tutarlı ve gerçekçi değerler ver. Sadece JSON döndür, başka hiçbir şey yazma:
+{"name":"yemek adı","portion":"porsiyon ve gram miktarı","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı,"sports":[{"name":"Yürüyüş","emoji":"🚶","minutes":sayı},{"name":"Koşu","emoji":"🏃","minutes":sayı},{"name":"Bisiklet","emoji":"🚴","minutes":sayı}],"disclaimer":"Bu veriler tahminidir."}`;
     messages=[{role:'user',content:[{type:'image',source:{type:'base64',media_type:state.pendingImage?.type||'image/jpeg',data:state.pendingImageBase64}},{type:'text',text:prompt}]}];
   }else{
-    const prompt=`Sen bir beslenme uzmanısın. Kullanıcı: "${text}"
-Sadece JSON döndür: {"name":"ad","portion":"porsiyon","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı${isSport?',"sports":[{"name":"spor","emoji":"🏃","minutes":sayı}]':''},"info":"kısa bilgi","disclaimer":"Bu veriler tahminidir."}`;
+    const prompt=`Sen bir beslenme uzmanısın. Kullanıcı şunu sordu: "${text}"
+USDA veritabanı ve bilimsel kaynaklara göre tutarlı ve gerçekçi değerler ver. ${isSport?'Kalori yakımı için spor önerisi de ekle.':''}
+Sadece JSON döndür, başka hiçbir şey yazma:
+{"name":"yemek/besin adı","portion":"standart porsiyon ve gram","kcal":sayı,"protein":sayı,"carb":sayı,"fat":sayı${isSport?',"sports":[{"name":"spor","emoji":"🏃","minutes":sayı}]':''},"info":"kısa bilgi","disclaimer":"Bu veriler tahminidir."}`;
     messages=[{role:'user',content:prompt}];
   }
   const response=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages,lang:state.lang})});
@@ -875,17 +897,7 @@ textarea.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey)
 function setLang(lang){state.lang=lang;localStorage.setItem('kr_lang',lang);document.getElementById('lang-selector').value=lang;document.documentElement.lang=lang;}
 function detectLang(){const c=(navigator.language||'tr').split('-')[0].toLowerCase();return['tr','en','es','fr','de','pt'].includes(c)?c:'en';}
 
-// SLIDER
-let currentSlide=0;
-const totalSlides=3;
-let sliderTimer=null;
-function goToSlide(n){
-  document.querySelectorAll('.hero-slide').forEach((s,i)=>s.classList.toggle('active',i===n));
-  document.querySelectorAll('.slider-dot').forEach((d,i)=>d.classList.toggle('active',i===n));
-  currentSlide=n;
-}
-function changeSlide(dir){goToSlide((currentSlide+dir+totalSlides)%totalSlides);resetSliderTimer();}
-function resetSliderTimer(){if(sliderTimer)clearInterval(sliderTimer);sliderTimer=setInterval(()=>changeSlide(1),4000);}
+// Slider kaldırıldı - sabit hero layout kullanılıyor
 
 // BAŞLANGIÇ
 window.addEventListener('DOMContentLoaded',()=>{
@@ -894,8 +906,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('lang-selector').value=lang;
   document.documentElement.lang=lang;
   checkCookie();
-  const slider=document.getElementById('hero-slider');
-  if(slider)resetSliderTimer();
+
 });
 </script>
 </body>
