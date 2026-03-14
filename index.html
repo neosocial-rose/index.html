@@ -3,159 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diyet Arkadaşım Pro - Akıllı Sağlık Paneli</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Diyet Arkadaşım Pro - Tam Panel</title>
     <style>
-        :root { --main: #2ecc71; --accent: #3498db; --bg: #f8f9fa; --dark: #2c3e50; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; color: var(--dark); }
+        :root { --main: #27ae60; --dark: #2c3e50; --light: #f4f7f6; --orange: #e67e22; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--light); margin: 0; display: flex; }
 
         /* Sidebar Geliştirildi */
-        .sidebar { width: 280px; background: white; height: 100vh; border-right: 1px solid #eee; position: fixed; padding: 30px 20px; box-shadow: 2px 0 10px rgba(0,0,0,0.02); }
-        .logo { font-size: 22px; font-weight: 800; color: var(--main); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
-        .nav-link { padding: 15px; border-radius: 12px; margin-bottom: 5px; cursor: pointer; transition: 0.3s; font-weight: 500; display: flex; align-items: center; gap: 10px; }
-        .nav-link:hover, .nav-link.active { background: #eafaf1; color: var(--main); }
+        .sidebar { width: 260px; background: var(--dark); color: white; height: 100vh; position: fixed; padding: 20px; overflow-y: auto; }
+        .logo { font-size: 20px; font-weight: bold; color: var(--main); margin-bottom: 30px; text-align: center; border-bottom: 1px solid #444; padding-bottom: 15px; }
+        .nav-group { margin-bottom: 20px; }
+        .nav-item { padding: 12px; cursor: pointer; border-radius: 8px; transition: 0.3s; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+        .nav-item:hover { background: #34495e; color: var(--main); }
+        .nav-item.active { background: var(--main); color: white; }
+        .auth-btns { margin-top: 20px; border-top: 1px solid #444; padding-top: 20px; }
 
-        /* Ana Alan */
-        .content { margin-left: 280px; padding: 40px; width: calc(100% - 280px); }
-        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        /* Ana İçerik Alanı */
+        .content { margin-left: 300px; padding: 40px; width: 100%; max-width: 1000px; }
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        
+        /* Hesaplama Motoru (HESAPLA Kısmı) */
+        .calc-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .btn-calc { background: var(--orange); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        .btn-calc:hover { opacity: 0.9; }
 
-        /* Kart Yapıları */
-        .card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .stat-card { display: flex; justify-content: space-between; align-items: center; }
+        /* Sonuç Paneli */
+        .result-panel { background: #fffaf0; border: 1px solid #ffe8cc; border-radius: 10px; padding: 20px; margin-top: 20px; display: none; }
+        .res-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ddd; }
+        .res-val { font-weight: bold; color: var(--dark); }
 
-        /* AI Arama Barı */
-        .search-box { display: flex; gap: 10px; background: #f1f3f5; padding: 8px; border-radius: 15px; }
-        .search-box input { border: none; background: transparent; padding: 12px; flex: 1; outline: none; font-size: 16px; }
-        .btn-ai { background: var(--main); color: white; border: none; padding: 12px 25px; border-radius: 10px; cursor: pointer; font-weight: 600; }
-
-        /* Makro Tablosu */
-        .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
-        .macro-item { text-align: center; padding: 15px; border-radius: 12px; background: #f8f9fa; }
-        .macro-val { display: block; font-size: 18px; font-weight: 800; color: var(--main); }
-
-        /* Su Sayacı */
-        .water-container { text-align: center; }
-        .water-btn { font-size: 24px; cursor: pointer; background: #e3f2fd; border: none; width: 50px; height: 50px; border-radius: 50%; transition: 0.2s; }
-        .water-btn:active { transform: scale(0.9); }
-
-        .loading-shimmer { height: 100px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 15px; display: none; }
-        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+        .disclaimer { font-size: 11px; color: #7f8c8d; text-align: justify; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 15px; }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo">🥗 DiyetPro AI</div>
-        <div class="nav-link active">📊 Dashboard</div>
-        <div class="nav-link">🍎 Besin Analizi</div>
-        <div class="nav-link">💧 Su Takibi</div>
-        <div class="nav-link">🏆 Başarı Hikayeleri</div>
-        <div class="nav-link">👤 Profilim</div>
-    </aside>
+    <nav class="sidebar">
+        <div class="logo">🍎 Diyet Arkadaşım Pro</div>
+        
+        <div class="nav-group">
+            <div class="nav-item active">🏠 Anasayfa</div>
+            <div class="nav-item">🥗 Besinler ve Egzersizler</div>
+            <div class="nav-item">🤝 Diyet Arkadaşlarım</div>
+            <div class="nav-item">🌟 Başarı Hikayeleri</div>
+            <div class="nav-item">💬 Mesaj Panosu</div>
+            <div class="nav-item" style="color: var(--orange);">🧮 Hesapla</div>
+        </div>
+
+        <div class="auth-btns">
+            <div class="nav-item">📝 Kayıt Ol</div>
+            <div class="nav-item">🔑 Giriş Yap</div>
+        </div>
+    </nav>
 
     <main class="content">
-        <header style="margin-bottom: 30px;">
-            <h1>Hoş Geldin dostum,</h1>
-            <p>Bugün hedeflerine ulaşmak için harika bir gün!</p>
-        </header>
-
-        <div class="grid">
-            <div class="left-col">
-                <div class="card">
-                    <h3>🔍 Akıllı Besin Analizi</h3>
-                    <div class="search-box">
-                        <input type="text" id="foodInput" placeholder="Ne yedin? Örn: 100gr ızgara tavuk ve salata">
-                        <button class="btn-ai" onclick="analyzeFood()">Analiz Et</button>
-                    </div>
-                    
-                    <div id="loader" class="loading-shimmer"></div>
-                    
-                    <div id="resultArea" style="display: none; margin-top: 20px;">
-                        <div class="stat-card">
-                            <div>
-                                <span style="font-size: 32px; font-weight: 800;" id="totalCal">0</span>
-                                <span style="color: #666;"> kcal</span>
-                            </div>
-                            <div id="exerciseTip" style="font-size: 14px; color: var(--accent); text-align: right;"></div>
-                        </div>
-                        
-                        <div class="macro-grid">
-                            <div class="macro-item"><small>Protein</small><span class="macro-val" id="pVal">0g</span></div>
-                            <div class="macro-item"><small>Karbonh.</small><span class="macro-val" id="cVal">0g</span></div>
-                            <div class="macro-item"><small>Yağ</small><span class="macro-val" id="fVal">0g</span></div>
-                        </div>
-                    </div>
+        
+        <div class="card">
+            <h2 style="margin-top: 0; color: var(--dark);">Vücut Analizi & Hesapla</h2>
+            <p style="font-size: 13px; color: #666; margin-bottom: 25px;">Bilgilerini girerek VKİ, İdeal Kilo ve Bazal Metabolizma verilerini anında öğren.</p>
+            
+            <div class="calc-container">
+                <div class="form-group">
+                    <label>Cinsiyet</label>
+                    <select id="gender"><option value="kadın">Kadın</option><option value="erkek">Erkek</option></select>
                 </div>
-
-                <div class="card">
-                    <h3>📈 Haftalık Kalori Dengesi</h3>
-                    <canvas id="myChart" height="100"></canvas>
+                <div class="form-group">
+                    <label>Yaş</label>
+                    <input type="number" id="age" placeholder="Örn: 25">
+                </div>
+                <div class="form-group">
+                    <label>Boy (cm)</label>
+                    <input type="number" id="height" placeholder="Örn: 175">
+                </div>
+                <div class="form-group">
+                    <label>Kilo (kg)</label>
+                    <input type="number" id="weight" placeholder="Örn: 70">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                    <label>Yaşam Tarzı</label>
+                    <select id="activity">
+                        <option value="1.2">Hareketsiz (Egzersiz yok)</option>
+                        <option value="1.375">Az Hareketli (Haftada 1-3 gün spor)</option>
+                        <option value="1.55">Hareketli (Haftada 3-5 gün spor)</option>
+                        <option value="1.725">Çok Hareketli (Haftada 6-7 gün ağır spor)</option>
+                    </select>
                 </div>
             </div>
+            <button class="btn-calc" onclick="calculateAll()">ANALİZ ET VE HESAPLA</button>
 
-            <div class="right-col">
-                <div class="card water-container">
-                    <h3>💧 Su Takibi</h3>
-                    <div style="font-size: 40px; margin: 15px 0;" id="waterCount">0.0 L</div>
-                    <button class="water-btn" onclick="addWater()">➕</button>
-                    <p><small>Günlük hedef: 2.5 Litre</small></p>
-                </div>
-
-                <div class="card" style="background: #fff5f5; border: 1px dashed #feb2b2;">
-                    <h4 style="color: #c53030; margin-top: 0;">⚠️ Önemli Beyan</h4>
-                    <p style="font-size: 11px; line-height: 1.4;">Bu veriler Gemini AI ve USDA referanslıdır. Bilgilendirme amaçlıdır; tıbbi teşhis veya diyet programı yerine geçmez. Sorumluluk kullanıcıya aittir.</p>
-                </div>
+            <div id="results" class="result-panel">
+                <div class="res-item"><span>Vücut Kitle İndeksi (VKİ):</span> <span class="res-val" id="vki">0</span></div>
+                <div class="res-item"><span>İdeal Kilonuz:</span> <span class="res-val" id="ideal">0 kg</span></div>
+                <div class="res-item"><span>Bazal Metabolizma Hızı:</span> <span class="res-val" id="bmr">0 kcal</span></div>
+                <div class="res-item"><span>Günlük Enerji İhtiyacı:</span> <span class="res-val" id="tdee">0 kcal</span></div>
             </div>
+        </div>
+
+        <div class="card">
+            <h3>🥗 Akıllı Besin & Kalori Sorgu</h3>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="foodInp" placeholder="Örn: 1 kase mercimek çorbası">
+                <button onclick="fakeAISearch()" style="background: var(--main); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">Sorgula</button>
+            </div>
+            <div id="aiRes" style="margin-top: 15px; font-size: 14px; color: #444; line-height: 1.6;"></div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Yasal Uyarı:</strong> Bu platformdaki hesaplamalar referans amaçlıdır. Veriler Gemini AI ve bilimsel formüller (Mifflin-St Jeor) kullanılarak üretilir. Kesinlikle tıbbi tavsiye yerine geçmez. Kullanım sorumluluğu tamamen kullanıcıya aittir.
         </div>
     </main>
 
     <script>
-        // Su Takip Mantığı
-        let water = 0;
-        function addWater() {
-            water += 0.25;
-            document.getElementById('waterCount').innerText = water.toFixed(1) + " L";
+        function calculateAll() {
+            const gender = document.getElementById('gender').value;
+            const age = parseFloat(document.getElementById('age').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+
+            if(!age || !height || !weight) { alert("Lütfen tüm alanları doldur dostum."); return; }
+
+            // 1. VKİ Hesaplama
+            const vki = weight / ((height/100) * (height/100));
+            
+            // 2. Bazal Metabolizma (Mifflin-St Jeor)
+            let bmr;
+            if(gender === "erkek") {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+            } else {
+                bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+            }
+
+            // 3. İdeal Kilo (Devine Formülü Yaklaşımı)
+            let ideal;
+            if(gender === "erkek") {
+                ideal = 50 + 2.3 * ((height / 2.54) - 60);
+            } else {
+                ideal = 45.5 + 2.3 * ((height / 2.54) - 60);
+            }
+
+            // Sonuçları Yazdır
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('vki').innerText = vki.toFixed(1);
+            document.getElementById('bmr').innerText = Math.round(bmr) + " kcal";
+            document.getElementById('tdee').innerText = Math.round(bmr * activity) + " kcal";
+            document.getElementById('ideal').innerText = Math.round(ideal) + " kg";
         }
 
-        // Mock Grafik (Chart.js)
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-                datasets: [{
-                    label: 'Alınan Kalori',
-                    data: [1800, 2100, 1900, 2200, 1750, 2500, 2000],
-                    borderColor: '#2ecc71',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(46, 204, 113, 0.1)'
-                }]
-            },
-            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
-        });
-
-        // AI Analiz Fonksiyonu (Backend'e istek atar gibi kurgulandı)
-        async function analyzeFood() {
-            const input = document.getElementById('foodInput').value;
-            if(!input) return;
-
-            document.getElementById('loader').style.display = 'block';
-            document.getElementById('resultArea').style.display = 'none';
-
-            // BURADA BACKEND SERVİSİNE İSTEK GİDECEK
-            // Gelen cevapta JSON formatında şu verilerin olduğunu varsayıyoruz:
-            // { cal: 250, p: 20, c: 30, f: 5, tip: "30 dk tempolu yürüyüş" }
-
-            setTimeout(() => { // Simülasyon
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('resultArea').style.display = 'block';
-                document.getElementById('totalCal').innerText = "345";
-                document.getElementById('pVal').innerText = "24g";
-                document.getElementById('cVal').innerText = "12g";
-                document.getElementById('fVal').innerText = "18g";
-                document.getElementById('exerciseTip').innerText = "🔥 Yakmak için: 45 dk Yürüyüş veya 35 Şınav";
-            }, 1500);
+        function fakeAISearch() {
+            const val = document.getElementById('foodInp').value;
+            document.getElementById('aiRes').innerHTML = "<b>" + val + "</b> analizi yapılıyor... (Burada Gemini API çalışacak)";
         }
     </script>
 </body>
