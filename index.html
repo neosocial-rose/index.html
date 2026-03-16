@@ -883,9 +883,16 @@ Sadece JSON döndür, başka hiçbir şey yazma:
   const data=await response.json();
   if(response.status===429){throw new Error(data.message||'Limit doldu');}
   if(!response.ok)throw new Error('API error');
-  const raw=(data.content||[]).map(i=>i.text||'').join('').replace(/```json|```/g,'').trim();
-  try{return buildResultHTML(JSON.parse(raw),hasImage);}
-  catch(e){return `<p>${raw}</p><p class="msg-disclaimer">⚠️ Bu veriler yalnızca bilgi amaçlıdır.</p>`;}
+  const rawText=(data.content||[]).map(i=>i.text||'').join('');
+  // JSON'u bul - { ile başlayan ilk bloğu al
+  const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+  const raw = jsonMatch ? jsonMatch[0] : rawText.replace(/```json|```/g,'').trim();
+  try{
+    const parsed = JSON.parse(raw);
+    if(!parsed.kcal && !parsed.name) throw new Error('empty');
+    return buildResultHTML(parsed,hasImage);
+  }
+  catch(e){return `<p>${rawText}</p><p class="msg-disclaimer">⚠️ Bu veriler yalnızca bilgi amaçlıdır.</p>`;}
 }
 
 function buildResultHTML(json){
