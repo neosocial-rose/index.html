@@ -50,7 +50,13 @@
       font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;}
     .nav-btn:hover{border-color:var(--accent);color:var(--accent);}
     .nav-btn.primary{background:var(--accent);color:#000;border-color:var(--accent);}
-    .hamburger-btn{background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:4px 8px;}
+    .nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center;}
+    .nav-link{font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;padding:6px 10px;
+      border-radius:8px;transition:all 0.2s;white-space:nowrap;}
+    .nav-link:hover{background:var(--bg3);color:var(--accent);}
+    @media(max-width:900px){.nav-links{display:none;}}
+    .hamburger-btn{display:none;background:none;border:none;color:var(--text2);font-size:20px;cursor:pointer;padding:4px 8px;}
+    @media(max-width:900px){.hamburger-btn{display:block;}}
 
     /* ========== DROPDOWN MENU ========== */
     .nav-dropdown{
@@ -312,9 +318,18 @@
 <div id="disclaimer-top">⚠️ Bu platform yalnızca bilgi ve veri amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.</div>
 
 <div id="cookie-banner">
-  <p>Bu site çerezler kullanmaktadır. <a href="#" onclick="showPage('cookie')">Çerez Politikası</a></p>
-  <button class="cookie-btn decline" onclick="closeCookie()">Reddet</button>
-  <button class="cookie-btn" onclick="acceptCookie()">Kabul Et</button>
+  <div style="flex:1;min-width:200px">
+    <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">🍪 Çerez Bildirimi</p>
+    <p style="font-size:12px;color:var(--text2)">
+      Sitemiz; oturum yönetimi, dil tercihi ve reklam hizmetleri (Google AdSense) için çerezler kullanmaktadır.
+      Kabul ederek bu hizmetlere onay vermiş olursunuz.
+      <a href="#" onclick="showPage('cookie')" style="color:var(--accent);text-decoration:underline">Çerez Politikası</a>
+    </p>
+  </div>
+  <div style="display:flex;gap:8px;flex-shrink:0">
+    <button class="cookie-btn decline" onclick="closeCookie()">Reddet</button>
+    <button class="cookie-btn" onclick="acceptCookie()">Kabul Et</button>
+  </div>
 </div>
 
 <div id="login-modal" class="modal-overlay">
@@ -333,6 +348,14 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage('chat');closeDropdown()">KALORİ<span>ROSE</span></div>
+  <div class="nav-links">
+    <span class="nav-link" onclick="showPage('chat')">🏠 Ana Sayfa</span>
+    <span class="nav-link" onclick="showPage('hesapla')">🧮 Hesapla</span>
+    <span class="nav-link" onclick="showPage('blog')">📝 Blog</span>
+    <span class="nav-link" onclick="showPage('about')">ℹ️ Hakkımızda</span>
+    <span class="nav-link" onclick="showPage('faq')">❓ SSS</span>
+    <span class="nav-link" onclick="showPage('contact')">✉️ İletişim</span>
+  </div>
   <div class="nav-right">
     <select class="lang-select" onchange="setLang(this.value)" id="lang-selector">
       <option value="tr">🇹🇷 TR</option>
@@ -354,10 +377,6 @@
 <div class="nav-dropdown" id="nav-dropdown">
   <div class="dropdown-grid">
     <div class="dd-item" onclick="showPage('chat');closeDropdown()"><span class="dd-icon">🏠</span> Ana Sayfa</div>
-    <div class="dd-item" onclick="showPage('besinler');closeDropdown()"><span class="dd-icon">🥗</span> Besinler ve Egzersizler <span class="dd-badge">Yakında</span></div>
-    <div class="dd-item" onclick="showPage('arkadaslar');closeDropdown()"><span class="dd-icon">🤝</span> Diyet Arkadaşlarım <span class="dd-badge">Yakında</span></div>
-    <div class="dd-item" onclick="showPage('basari');closeDropdown()"><span class="dd-icon">🌟</span> Başarı Hikayeleri <span class="dd-badge">Yakında</span></div>
-    <div class="dd-item" onclick="showPage('mesaj');closeDropdown()"><span class="dd-icon">💬</span> Mesaj Panosu <span class="dd-badge">Yakında</span></div>
     <div class="dd-item" onclick="showPage('hesapla');closeDropdown()"><span class="dd-icon">🧮</span> Hesapla</div>
     <div class="dd-item" onclick="showPage('blog');closeDropdown()"><span class="dd-icon">📝</span> Blog</div>
     <div class="dd-item" onclick="showPage('about');closeDropdown()"><span class="dd-icon">ℹ️</span> Hakkımızda</div>
