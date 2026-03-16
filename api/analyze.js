@@ -3,6 +3,7 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "POST only" });
 
@@ -12,7 +13,6 @@ export default async function handler(req, res) {
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const messages = body.messages || [];
-    const lang = String(body.lang || "tr");
     if (!messages.length) return res.status(400).json({ error: "messages boş" });
 
     const geminiParts = [];
@@ -38,20 +38,13 @@ export default async function handler(req, res) {
     const model = "gemini-2.0-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_KEY}`;
 
-    const geminiBody = {
-      contents: [{ parts: geminiParts }],
-      generationConfig: {
-        temperature: 0.3,
-        topP: 0.90,
-        topK: 40,
-        maxOutputTokens: 1000
-      }
-    };
-
     const r = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(geminiBody)
+      body: JSON.stringify({
+        contents: [{ parts: geminiParts }],
+        generationConfig: { temperature: 0.2, topP: 0.90, topK: 40, maxOutputTokens: 1000 }
+      })
     });
 
     const txt = await r.text();
@@ -64,10 +57,7 @@ export default async function handler(req, res) {
     }
 
     const outputText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
-
-    return res.status(200).json({
-      content: [{ type: "text", text: outputText }]
-    });
+    return res.status(200).json({ content: [{ type: "text", text: outputText }] });
 
   } catch (e) {
     console.error("Server error:", e);
