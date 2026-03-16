@@ -108,7 +108,7 @@
     @media(max-width:768px){.hero-bottom-ad{display:none;}}
 
     /* ========== COOKIE ========== */
-    #cookie-banner{position:fixed;bottom:0;left:0;right:0;background:var(--bg3);
+    #cookie-banner{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--bg3);
       border-top:1px solid var(--border2);padding:1rem 2rem;display:flex;
       align-items:center;justify-content:space-between;gap:1rem;z-index:9999;flex-wrap:wrap;}
     #cookie-banner p{font-size:12px;color:var(--text2);flex:1;min-width:200px;}
@@ -652,11 +652,6 @@
   </div>
 </div>
 
-<!-- YAKINDA -->
-<div id="page-besinler" class="page"><div class="prose-page"><h1>🥗 Besinler ve Egzersizler</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Bu bölüm üzerinde çalışıyoruz.</p></div></div></div>
-<div id="page-arkadaslar" class="page"><div class="prose-page"><h1>🤝 Diyet Arkadaşlarım</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p><p style="color:var(--text3);font-size:13px">Diyet arkadaşı bul özelliği geliyor.</p></div></div></div>
-<div id="page-basari" class="page"><div class="prose-page"><h1>🌟 Başarı Hikayeleri</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p></div></div></div>
-<div id="page-mesaj" class="page"><div class="prose-page"><h1>💬 Mesaj Panosu</h1><div class="coming-soon"><div style="font-size:48px;margin-bottom:1rem">🚧</div><p style="color:var(--text2);font-weight:700;margin-bottom:8px">Yakında Geliyor</p></div></div></div>
 
 <!-- DİĞER SAYFALAR -->
 <div id="page-about" class="page"><div class="prose-page"><h1>Hakkımızda</h1><div class="prose-section"><h2>KaloriRose Nedir?</h2><p>AI destekli ücretsiz kalori hesaplama platformudur.</p></div><div class="prose-section"><h2>Önemli Uyarı</h2><p>Tıbbi tavsiye vermemektedir. Tüm sorumluluk kullanıcıya aittir.</p></div><div class="prose-section"><p>İletişim: <a href="/cdn-cgi/l/email-protection#107a7162667963787569627f637550777d71797c3e737f7d" style="color:var(--accent)"><span class="__cf_email__" data-cfemail="e48e8596928d978c819d968b9781a48389858d88ca878b89">[email&#160;protected]</span></a></p></div></div></div>
@@ -840,8 +835,8 @@ function sendMessage(){
   const hasImage=!!state.pendingImageBase64;
   if(!text&&!hasImage)return;
   // Limit kontrolü
-  if(hasImage&&!canPhoto()){addBotMessage("Günlük 2 fotograf analizi hakkiniz doldu. Gece sifirlanir.");return;}
-  if(!hasImage&&!canCalc()){addBotMessage("Günlük 2 sorgu hakkiniz doldu. Gece sifirlanir.");return;}
+  if(hasImage&&!canPhoto()){addBotMessage(t("limit_photo"));return;}
+  if(!hasImage&&!canCalc()){addBotMessage(t("limit_calc"));return;}
   const cacheKey=(text+(hasImage?'_img':'')).toLowerCase().trim();
   if(state.queryCache[cacheKey]){showWelcome(false);addUserMessage(text,hasImage?document.getElementById('image-preview-thumb').src:null);addBotMessageHTML(state.queryCache[cacheKey]);clearInput();return;}
   showWelcome(false);addUserMessage(text,hasImage?document.getElementById('image-preview-thumb').src:null);clearInput();
@@ -852,7 +847,7 @@ function sendMessage(){
     addBotMessageHTML(r);
     if(hasImage){state.photoQueries++;savePhotoCount();}
     else{state.calcQueries++;saveCalcCount();}
-  }).catch((err)=>{removeTypingIndicator(tid);addBotMessage(err.message||'Bir hata oluştu, lütfen tekrar deneyin.');});
+  }).catch((err)=>{removeTypingIndicator(tid);addBotMessage(err.message||t("error_msg"));});
 }
 function clearInput(){document.getElementById('chat-textarea').value='';removeImage();}
 
@@ -983,8 +978,258 @@ const textarea=document.getElementById('chat-textarea');
 textarea.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';});
 textarea.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}});
 
+
+// DİL ÇEVİRİ SİSTEMİ
+const TRANSLATIONS = {
+  tr: {
+    nav_home: "Ana Sayfa", nav_blog: "Blog", nav_about: "Hakkımızda",
+    nav_faq: "SSS", nav_calc: "Hesapla", nav_contact: "İletişim",
+    nav_privacy: "Gizlilik", nav_cookie: "Çerez Politikası",
+    nav_disclaimer: "Sorumluluk Reddi", nav_terms: "Şartlar",
+    login: "Giriş", logout: "Çıkış",
+    register: "Kayıt Ol", login_full: "Giriş Yap", logout_full: "Çıkış Yap",
+    welcome_title: "Sağlıklı bir yaşama<br><span>hoş geldiniz</span>",
+    welcome_sub: "Yemek fotoğrafı yükleyin veya bir şey sorun",
+    qc_photo_title: "Fotoğraf Yükle", qc_photo_desc: "Yemeğin fotoğrafını çek, kalori hesaplansın",
+    qc_bmr_title: "BMR Hesapla", qc_bmr_desc: "Günlük kalori ihtiyacını öğren",
+    qc_sport_title: "Spor Tavsiyesi", qc_sport_desc: "Kalorini hangi sporla yakabilirsin?",
+    qc_calorie_title: "Kalori Sorgula", qc_calorie_desc: "Herhangi bir yiyeceğin kalorisini öğren",
+    tools_label: "Araçlar",
+    input_placeholder: "Ne yediniz? Fotoğraf yükleyin veya yazın...",
+    input_footer: "Bu platform yalnızca bilgi amaçlıdır. Tüm sorumluluk kullanıcıya aittir.",
+    disclaimer_top: "⚠️ Bu platform yalnızca bilgi ve veri amaçlıdır. Tüm sorumluluk kullanıcıya aittir. Tıbbi tavsiye değildir.",
+    calc_title: "🧮 Vücut Analizi & Hesapla",
+    calc_sub: "BMR, TDEE, VKİ ve İdeal Kilo hesaplamalarınızı anında öğrenin.",
+    calc_btn: "ANALİZ ET VE HESAPLA",
+    blog_title: "Blog & Beslenme Rehberleri",
+    hero_title: "Sağlıklı Yaşam Yolculuğunuz Başlıyor",
+    hero_sub: "Yemek fotoğrafı yükle, kalori hesapla, sağlıklı yaşa",
+    hero_btn: "Hemen Dene →",
+    sport_header: "Bu kaloriyi yakmak için:",
+    limit_photo: "Günlük 2 fotograf analizi hakkiniz doldu. Gece sifirlanir.",
+    limit_calc: "Günlük 2 sorgu hakkiniz doldu. Gece sifirlanir.",
+    error_msg: "Bir hata oluştu, lütfen tekrar deneyin."
+  },
+  en: {
+    nav_home: "Home", nav_blog: "Blog", nav_about: "About",
+    nav_faq: "FAQ", nav_calc: "Calculate", nav_contact: "Contact",
+    nav_privacy: "Privacy", nav_cookie: "Cookie Policy",
+    nav_disclaimer: "Disclaimer", nav_terms: "Terms",
+    login: "Login", logout: "Logout",
+    register: "Register", login_full: "Sign In", logout_full: "Sign Out",
+    welcome_title: "Welcome to a<br><span>healthy lifestyle</span>",
+    welcome_sub: "Upload a food photo or ask anything",
+    qc_photo_title: "Upload Photo", qc_photo_desc: "Take a food photo, get calories",
+    qc_bmr_title: "Calculate BMR", qc_bmr_desc: "Find your daily calorie needs",
+    qc_sport_title: "Sport Advice", qc_sport_desc: "Which sport burns your calories?",
+    qc_calorie_title: "Calorie Lookup", qc_calorie_desc: "Find calories of any food",
+    tools_label: "Tools",
+    input_placeholder: "What did you eat? Upload a photo or type...",
+    input_footer: "This platform is for informational purposes only. All responsibility lies with the user.",
+    disclaimer_top: "⚠️ This platform is for informational purposes only. All responsibility lies with the user.",
+    calc_title: "🧮 Body Analysis & Calculate",
+    calc_sub: "Instantly learn your BMR, TDEE, BMI and Ideal Weight.",
+    calc_btn: "ANALYZE AND CALCULATE",
+    blog_title: "Blog & Nutrition Guides",
+    hero_title: "Your Healthy Life Journey Begins",
+    hero_sub: "Upload food photo, calculate calories, live healthy",
+    hero_btn: "Try Now →",
+    sport_header: "To burn these calories:",
+    limit_photo: "Daily 2 photo analysis limit reached. Resets at midnight.",
+    limit_calc: "Daily 2 query limit reached. Resets at midnight.",
+    error_msg: "An error occurred, please try again."
+  },
+  es: {
+    nav_home: "Inicio", nav_blog: "Blog", nav_about: "Acerca de",
+    nav_faq: "FAQ", nav_calc: "Calcular", nav_contact: "Contacto",
+    nav_privacy: "Privacidad", nav_cookie: "Política de Cookies",
+    nav_disclaimer: "Aviso Legal", nav_terms: "Términos",
+    login: "Iniciar", logout: "Salir",
+    register: "Registrarse", login_full: "Iniciar Sesión", logout_full: "Cerrar Sesión",
+    welcome_title: "Bienvenido a un<br><span>estilo de vida saludable</span>",
+    welcome_sub: "Sube una foto de comida o pregunta algo",
+    qc_photo_title: "Subir Foto", qc_photo_desc: "Foto de comida, calcular calorías",
+    qc_bmr_title: "Calcular BMR", qc_bmr_desc: "Conoce tus necesidades calóricas",
+    qc_sport_title: "Consejo Deportivo", qc_sport_desc: "¿Qué deporte quema tus calorías?",
+    qc_calorie_title: "Buscar Calorías", qc_calorie_desc: "Encuentra calorías de cualquier alimento",
+    tools_label: "Herramientas",
+    input_placeholder: "¿Qué comiste? Sube una foto o escribe...",
+    input_footer: "Solo informativo. Toda responsabilidad es del usuario.",
+    disclaimer_top: "⚠️ Esta plataforma es solo informativa. Toda la responsabilidad recae en el usuario.",
+    calc_title: "🧮 Análisis Corporal y Calcular",
+    calc_sub: "Aprende tu BMR, TDEE, IMC y Peso Ideal al instante.",
+    calc_btn: "ANALIZAR Y CALCULAR",
+    blog_title: "Blog y Guías de Nutrición",
+    hero_title: "Tu Viaje de Vida Saludable Comienza",
+    hero_sub: "Sube foto de comida, calcula calorías, vive sano",
+    hero_btn: "Probar Ahora →",
+    sport_header: "Para quemar estas calorías:",
+    limit_photo: "Límite diario de 2 análisis alcanzado. Se restablece a medianoche.",
+    limit_calc: "Límite diario de 2 consultas alcanzado. Se restablece a medianoche.",
+    error_msg: "Ocurrió un error, inténtalo de nuevo."
+  },
+  fr: {
+    nav_home: "Accueil", nav_blog: "Blog", nav_about: "À propos",
+    nav_faq: "FAQ", nav_calc: "Calculer", nav_contact: "Contact",
+    nav_privacy: "Confidentialité", nav_cookie: "Politique Cookies",
+    nav_disclaimer: "Avertissement", nav_terms: "CGU",
+    login: "Connexion", logout: "Déconnexion",
+    register: "S'inscrire", login_full: "Se Connecter", logout_full: "Se Déconnecter",
+    welcome_title: "Bienvenue pour un<br><span>mode de vie sain</span>",
+    welcome_sub: "Téléchargez une photo ou posez une question",
+    qc_photo_title: "Télécharger Photo", qc_photo_desc: "Photo de repas, calculer les calories",
+    qc_bmr_title: "Calculer BMR", qc_bmr_desc: "Vos besoins caloriques journaliers",
+    qc_sport_title: "Conseil Sport", qc_sport_desc: "Quel sport brûle vos calories?",
+    qc_calorie_title: "Chercher Calories", qc_calorie_desc: "Trouvez les calories de n'importe quel aliment",
+    tools_label: "Outils",
+    input_placeholder: "Qu'avez-vous mangé? Photo ou texte...",
+    input_footer: "À titre informatif uniquement. Toute responsabilité incombe à l'utilisateur.",
+    disclaimer_top: "⚠️ Cette plateforme est à titre informatif uniquement.",
+    calc_title: "🧮 Analyse Corporelle et Calcul",
+    calc_sub: "Apprenez votre BMR, TDEE, IMC et Poids Idéal instantanément.",
+    calc_btn: "ANALYSER ET CALCULER",
+    blog_title: "Blog et Guides Nutrition",
+    hero_title: "Votre Voyage de Vie Saine Commence",
+    hero_sub: "Téléchargez une photo, calculez les calories",
+    hero_btn: "Essayer →",
+    sport_header: "Pour brûler ces calories:",
+    limit_photo: "Limite de 2 analyses atteinte. Réinitialisé à minuit.",
+    limit_calc: "Limite de 2 requêtes atteinte. Réinitialisé à minuit.",
+    error_msg: "Une erreur s'est produite, veuillez réessayer."
+  },
+  de: {
+    nav_home: "Startseite", nav_blog: "Blog", nav_about: "Über uns",
+    nav_faq: "FAQ", nav_calc: "Berechnen", nav_contact: "Kontakt",
+    nav_privacy: "Datenschutz", nav_cookie: "Cookie-Richtlinie",
+    nav_disclaimer: "Haftungsausschluss", nav_terms: "AGB",
+    login: "Anmelden", logout: "Abmelden",
+    register: "Registrieren", login_full: "Anmelden", logout_full: "Abmelden",
+    welcome_title: "Willkommen zu einem<br><span>gesunden Lebensstil</span>",
+    welcome_sub: "Laden Sie ein Essensfoto hoch oder stellen Sie eine Frage",
+    qc_photo_title: "Foto Hochladen", qc_photo_desc: "Essensfoto → Kalorien berechnen",
+    qc_bmr_title: "BMR Berechnen", qc_bmr_desc: "Täglichen Kalorienbedarf ermitteln",
+    qc_sport_title: "Sportberatung", qc_sport_desc: "Welcher Sport verbrennt Ihre Kalorien?",
+    qc_calorie_title: "Kalorien Suchen", qc_calorie_desc: "Kalorien jedes Lebensmittels finden",
+    tools_label: "Werkzeuge",
+    input_placeholder: "Was haben Sie gegessen? Foto oder Text...",
+    input_footer: "Nur zur Information. Die Verantwortung liegt beim Nutzer.",
+    disclaimer_top: "⚠️ Diese Plattform dient nur zur Information.",
+    calc_title: "🧮 Körperanalyse & Berechnen",
+    calc_sub: "Lernen Sie sofort Ihren BMR, TDEE, BMI und Idealgewicht.",
+    calc_btn: "ANALYSIEREN UND BERECHNEN",
+    blog_title: "Blog & Ernährungsratgeber",
+    hero_title: "Ihre Gesunde Lebensreise Beginnt",
+    hero_sub: "Essensfoto hochladen, Kalorien berechnen",
+    hero_btn: "Jetzt Ausprobieren →",
+    sport_header: "Um diese Kalorien zu verbrennen:",
+    limit_photo: "Tageslimit von 2 Analysen erreicht. Wird um Mitternacht zurückgesetzt.",
+    limit_calc: "Tageslimit von 2 Abfragen erreicht. Wird um Mitternacht zurückgesetzt.",
+    error_msg: "Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut."
+  },
+  pt: {
+    nav_home: "Início", nav_blog: "Blog", nav_about: "Sobre",
+    nav_faq: "FAQ", nav_calc: "Calcular", nav_contact: "Contato",
+    nav_privacy: "Privacidade", nav_cookie: "Política de Cookies",
+    nav_disclaimer: "Aviso Legal", nav_terms: "Termos",
+    login: "Entrar", logout: "Sair",
+    register: "Cadastrar", login_full: "Entrar", logout_full: "Sair",
+    welcome_title: "Bem-vindo a um<br><span>estilo de vida saudável</span>",
+    welcome_sub: "Envie uma foto de comida ou pergunte algo",
+    qc_photo_title: "Enviar Foto", qc_photo_desc: "Foto da refeição, calcular calorias",
+    qc_bmr_title: "Calcular BMR", qc_bmr_desc: "Suas necessidades calóricas diárias",
+    qc_sport_title: "Conselho Esportivo", qc_sport_desc: "Qual esporte queima suas calorias?",
+    qc_calorie_title: "Buscar Calorias", qc_calorie_desc: "Encontre calorias de qualquer alimento",
+    tools_label: "Ferramentas",
+    input_placeholder: "O que você comeu? Foto ou texto...",
+    input_footer: "Apenas informativo. Toda responsabilidade é do usuário.",
+    disclaimer_top: "⚠️ Esta plataforma é apenas informativa.",
+    calc_title: "🧮 Análise Corporal e Calcular",
+    calc_sub: "Aprenda seu BMR, TDEE, IMC e Peso Ideal instantaneamente.",
+    calc_btn: "ANALISAR E CALCULAR",
+    blog_title: "Blog e Guias de Nutrição",
+    hero_title: "Sua Jornada de Vida Saudável Começa",
+    hero_sub: "Envie foto de comida, calcule calorias",
+    hero_btn: "Experimentar →",
+    sport_header: "Para queimar essas calorias:",
+    limit_photo: "Limite diário de 2 análises atingido. Reinicia à meia-noite.",
+    limit_calc: "Limite diário de 2 consultas atingido. Reinicia à meia-noite.",
+    error_msg: "Ocorreu um erro, tente novamente."
+  }
+};
+
+function t(key) {
+  const lang = state.lang || 'tr';
+  return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) || TRANSLATIONS['tr'][key] || key;
+}
+
+function translatePage() {
+  const lang = state.lang;
+  // Disclaimer
+  const disc = document.getElementById('disclaimer-top');
+  if(disc) disc.textContent = t('disclaimer_top');
+  // Welcome
+  const wt = document.querySelector('.welcome-title');
+  if(wt) wt.innerHTML = t('welcome_title');
+  const ws = document.querySelector('.welcome-sub');
+  if(ws) ws.textContent = t('welcome_sub');
+  // Quick cards
+  const qTitles = document.querySelectorAll('.qc-title');
+  const qDescs = document.querySelectorAll('.qc-desc');
+  const qKeys = ['qc_photo','qc_bmr','qc_sport','qc_calorie'];
+  qTitles.forEach((el,i) => { if(qKeys[i]) el.textContent = t(qKeys[i]+'_title'); });
+  qDescs.forEach((el,i) => { if(qKeys[i]) el.textContent = t(qKeys[i]+'_desc'); });
+  // Input
+  const ta = document.getElementById('chat-textarea');
+  if(ta) ta.placeholder = t('input_placeholder');
+  const inf = document.querySelector('.input-footer');
+  if(inf) inf.textContent = t('input_footer');
+  // Tools btn
+  const tb = document.querySelector('.tools-btn span');
+  if(tb) tb.textContent = t('tools_label');
+  // Calc
+  const ct = document.querySelector('.calc-page-title');
+  if(ct) ct.textContent = t('calc_title');
+  const cs = document.querySelector('.calc-page-sub');
+  if(cs) cs.textContent = t('calc_sub');
+  const cb = document.querySelector('.calc-btn');
+  if(cb) cb.textContent = t('calc_btn');
+  // Blog
+  const bt = document.querySelector('.page-title');
+  if(bt) bt.textContent = t('blog_title');
+  // Hero
+  const ht = document.querySelector('.hero-top-title');
+  if(ht) ht.textContent = t('hero_title');
+  const hs = document.querySelector('.hero-top-sub');
+  if(hs) hs.textContent = t('hero_sub');
+  const hb = document.querySelector('.hero-top-btn');
+  if(hb) hb.textContent = t('hero_btn');
+  // Nav sidebar items
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(key) el.textContent = t(key);
+  });
+  // Auth buttons
+  const sbReg = document.getElementById('sb-register-btn');
+  if(sbReg) sbReg.innerHTML = '<i class="fas fa-user-plus"></i> ' + t('register');
+  const sbLog = document.getElementById('sb-login-btn');
+  if(sbLog) sbLog.innerHTML = '<i class="fas fa-sign-in-alt"></i> ' + t('login_full');
+  const sbOut = document.getElementById('sb-logout-btn');
+  if(sbOut) sbOut.innerHTML = '<i class="fas fa-sign-out-alt"></i> ' + t('logout_full');
+  const loginBtn = document.getElementById('login-btn');
+  if(loginBtn) loginBtn.textContent = t('login');
+  const logoutBtn = document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.textContent = t('logout');
+  // Sidebar nav items
+  const sbHome = document.getElementById('sb-chat');
+  if(sbHome) sbHome.innerHTML = '<span class="s-icon">🏠</span> ' + t('nav_home');
+  const sbCalc = document.getElementById('sb-hesapla');
+  if(sbCalc) sbCalc.innerHTML = '<span class="s-icon">🧮</span> ' + t('nav_calc');
+  const sbBlog = document.getElementById('sb-blog');
+  if(sbBlog) sbBlog.innerHTML = '<span class="s-icon">📝</span> ' + t('nav_blog');
+}
+
 // DİL
-function setLang(lang){state.lang=lang;localStorage.setItem('kr_lang',lang);document.getElementById('lang-selector').value=lang;document.documentElement.lang=lang;}
+function setLang(lang){state.lang=lang;localStorage.setItem('kr_lang',lang);document.getElementById('lang-selector').value=lang;document.documentElement.lang=lang;translatePage();}
 function detectLang(){const c=(navigator.language||'tr').split('-')[0].toLowerCase();return['tr','en','es','fr','de','pt'].includes(c)?c:'en';}
 
 // BAŞLANGIÇ
@@ -993,6 +1238,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   state.lang=lang;
   document.getElementById('lang-selector').value=lang;
   document.documentElement.lang=lang;
+  translatePage();
   checkCookie();
 });
 </script>
